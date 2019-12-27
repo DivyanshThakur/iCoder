@@ -3,16 +3,18 @@
 #include <limits>
 #include "header/UIhandler.h"
 #include "header/Filehandler.h"
+#include "header/AccountHandler.h"
 
 /** FUNCTION PROTOTYPES **/
 
 void createFile();
-void title(const std::string &title);
+void title();
 int menu(std::ifstream &file,std::string this_menu, int flag);
 void menu_controller(char ch);
+void login();
 
 /** CONSTANTS **/
-const extern std::string fmenu;
+const std::string fmenu = "./data/menu.txt";
 
 int main() {
 
@@ -29,16 +31,17 @@ int main() {
     do {
     system("cls");              // clear the screen each timemenu_controller
 
-    title("iCoder");            // print the title = iCoder
+    title();            // print the title = iCoder
 
     flag = menu(file, std::string {"MENU1"}, flag);    // display the startup menu
 
     std::cin >> ch;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << std::endl;
 
     menu_controller(ch);        // start as per user choice
     
-    } while(ch != '5');
+    } while(ch != '6');
 
     file.close();               // closing the current file
 
@@ -49,17 +52,17 @@ int main() {
 void menu_controller(char ch) {
     switch(ch) {
         case '1':               // go to log in screen
-                std::cout << "log in" << std::endl;
+                login();
                 break;
 
-        case '5':
+        case '6':
                 break;
         
         default:
                 std::cout << "Invalid choice" << std::endl;
                 break;
     }
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    
     std::cout << "Press Enter to continue";
     std::cin.get();
 }

@@ -1,3 +1,6 @@
+#ifndef UIHANDLER_H
+#define UIHANDLER_H
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -6,15 +9,18 @@
 
 /** FUNCTION PROTOTYPES **/
 
-void title(const std::string &title);
+void title();
 int menu(std::ifstream &file, std::string this_menu, int flag);
 
 /** CONSTANTS **/
+const int sleep_time = 50;
 const int width_menu = 20;
 const int width_title = 30;
 
 
-void title(const std::string &title) {
+void title() {
+
+        const std::string title {"iCoder"};
 
         std::cout << std::setw(width_menu) << ""
                   << std::setw(width_title) << std::setfill('=') << ""
@@ -45,7 +51,7 @@ int menu(std::ifstream &file, std::string this_menu, int flag) {
             while(file.get(c) && c!='~') {
                 std::cout << c;
                 if(flag)
-                Sleep(50);
+                Sleep(sleep_time);
             }
         }
     }
@@ -61,3 +67,5 @@ int menu(std::ifstream &file, std::string this_menu, int flag) {
               
     return flag;
 }
+
+#endif
