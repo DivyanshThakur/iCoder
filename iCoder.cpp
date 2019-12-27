@@ -36,7 +36,7 @@ int main() {
     flag = menu(file, std::string {"MENU1"}, flag);    // display the startup menu
 
     std::cin >> ch;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');     // clearing the buffer in cin
     std::cout << std::endl;
 
     menu_controller(ch);        // start as per user choice
@@ -55,7 +55,7 @@ void menu_controller(char ch) {
                 login();
                 break;
 
-        case '6':
+        case '6':               // exit the program
                 break;
         
         default:

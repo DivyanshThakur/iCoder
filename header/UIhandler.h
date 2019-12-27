@@ -18,7 +18,7 @@ const int width_menu = 20;
 const int width_title = 30;
 
 
-void title() {
+void title() {          // this display the title at top of screen
 
         const std::string title {"iCoder"};
 
@@ -34,7 +34,7 @@ void title() {
 }
 
 
-int menu(std::ifstream &file, std::string this_menu, int flag) {
+int menu(std::ifstream &file, std::string this_menu, int flag) {        // show the specific menu
 
     char c;
     std::string fmenu;
@@ -51,7 +51,7 @@ int menu(std::ifstream &file, std::string this_menu, int flag) {
             while(file.get(c) && c!='~') {
                 std::cout << c;
                 if(flag)
-                Sleep(sleep_time);
+                Sleep(sleep_time);          // delay
             }
         }
     }

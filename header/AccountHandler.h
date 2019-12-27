@@ -6,10 +6,13 @@
 #include <string>
 #include <conio.h>
 #include "UIhandler.h"
+#include "ScreenLoader.h"
 
 /** FUNCTION PROTOTYPES **/
 
 void login();
+void load();
+void mainMenu(const std::string &username);
 
 /** CONSTANTS **/
 const extern int sleep_time;
@@ -20,14 +23,14 @@ const std::string password {"Password: "};
 void login() {
     system("cls");
     
-    title();
+    title();          // display the "iCoder" title
 
     std::string userID, pass;
 
-    std::cout << std::setfill('-')
+    std::cout << std::setfill('-') 
               << std::setw(2) << ""
-              << " LOGIN "
-              << std::setw(width_menu - 9) << "" << std::setfill(' ')
+              << " LOGIN "                             // display menu title
+              << std::setw(width_menu - 9) << ""
               << std::endl;
 
     for(auto c: username) {
@@ -35,7 +38,7 @@ void login() {
         Sleep(sleep_time);
     }
 
-    std::cin >> userID;
+    std::cin >> userID;             // taking username from user
 
     for(auto c: password) {
         std::cout << c;
@@ -43,11 +46,18 @@ void login() {
     }
 
     char c;
-    while(c = getch())  {
+    while(c = getch())  {           // taking password from user
         if(c=='\r') break;
         pass += c;
         std::cout << "*";
     }
+    std::cout << std::endl
+              << std::setw(width_menu) << ""
+              << std::setfill(' ') << std::endl;
+
+    load();                         // animate loading screen
+
+    mainMenu(username);             // calling the main menu screen to show all program list
 
 }
 

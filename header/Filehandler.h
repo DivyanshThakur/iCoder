@@ -29,12 +29,13 @@ void createFile() {
     }
 
     for(auto c: menu_data)
-        file << c;
+        file << c;              // sending all the menu data to the menu.txt file and saving it
 
     file.close();
 }
 
 void makeDirectory() {
+    // these code will create a folder in that specific destination
     std::string dirpath {"data"};
     mkdir(dirpath.c_str());
 }
