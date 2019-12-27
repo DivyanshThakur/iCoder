@@ -12,7 +12,7 @@
 
 void login();
 void load();
-void mainMenu(const std::string &username);
+//void mainMenu(const std::string &username);
 
 /** CONSTANTS **/
 const extern int sleep_time;
@@ -57,7 +57,7 @@ void login() {
 
     load();                         // animate loading screen
 
-    mainMenu(username);             // calling the main menu screen to show all program list
+    //mainMenu(username);             // calling the main menu screen to show all program list
 
 }
 
