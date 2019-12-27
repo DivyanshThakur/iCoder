@@ -4,6 +4,11 @@
 #include <windows.h>
 #include <string>
 
+/** FUNCTION PROTOTYPES **/
+
+void title(const std::string &title);
+int menu(std::ifstream &file, std::string this_menu, int flag);
+
 /** CONSTANTS **/
 const int width_menu = 20;
 const int width_title = 30;

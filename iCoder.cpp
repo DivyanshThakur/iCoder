@@ -2,22 +2,25 @@
 #include <fstream>
 #include <limits>
 #include "header/UIhandler.h"
+#include "header/Filehandler.h"
 
 /** FUNCTION PROTOTYPES **/
 
+void createFile();
 void title(const std::string &title);
 int menu(std::ifstream &file,std::string this_menu, int flag);
 void menu_controller(char ch);
 
+/** CONSTANTS **/
+const extern std::string fmenu;
 
 int main() {
 
-    std::ifstream file;
-    file.open("./data/menu.txt");
+    std::ifstream file (fmenu);
+
     if(!file) {                // validating opening of file
-        std::cerr << "Error Opening file." << std::endl;
-        std::cin.get();
-        return 1;
+        createFile();          // if error occur it creates a fresh file in specific folder
+        file.open(fmenu);
     }
 
     char ch {};
