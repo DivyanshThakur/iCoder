@@ -1,52 +1,51 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
-#include "menu/UIhandler.h"
+#include "header/UIhandler.h"
 
 /** FUNCTION PROTOTYPES **/
 
 void title(const std::string &title);
-int menu(std::ifstream &file, int flag);
+int menu(std::ifstream &file,std::string this_menu, int flag);
 void menu_controller(char ch);
 
 
 int main() {
 
     std::ifstream file;
-    file.open("./Menu/menu.txt");
-    if(!file) {             // validating opening of file
+    file.open("./data/menu.txt");
+    if(!file) {                // validating opening of file
         std::cerr << "Error Opening file." << std::endl;
         std::cin.get();
         return 1;
     }
 
     char ch {};
-    static int flag = 1;
+    int flag {1};
 
     do {
-    system("cls");          // clear the screen each timemenu_controller
+    system("cls");              // clear the screen each timemenu_controller
 
-    title("iCoder");        // print the title = iCoder
+    title("iCoder");            // print the title = iCoder
 
-    flag = menu(file, flag);             // display the startup menu
+    flag = menu(file, std::string {"MENU1"}, flag);    // display the startup menu
 
     std::cin >> ch;
-    menu_controller(ch);    // start as per user choice
+    std::cout << std::endl;
+
+    menu_controller(ch);        // start as per user choice
     
     } while(ch != '5');
 
-    file.close();           // closing the current file
+    file.close();               // closing the current file
 
     return 0;
 }
 
 
-
-
-
 void menu_controller(char ch) {
     switch(ch) {
-        case '1':             // go to log in screen
+        case '1':               // go to log in screen
                 std::cout << "log in" << std::endl;
                 break;
 
@@ -54,7 +53,7 @@ void menu_controller(char ch) {
                 break;
         
         default:
-                std::cout << "\nInvalid choice" << std::endl;
+                std::cout << "Invalid choice" << std::endl;
                 break;
     }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

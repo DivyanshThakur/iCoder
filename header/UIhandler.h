@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <windows.h>
+#include <string>
 
 /** CONSTANTS **/
 const int width_menu = 20;
@@ -22,21 +23,28 @@ void title(const std::string &title) {
 }
 
 
-int menu(std::ifstream &file, int flag) {
+int menu(std::ifstream &file, std::string this_menu, int flag) {
 
     char c;
+    std::string fmenu;
     
     std::cout << std::setfill('-')
               << std::setw(2) << ""
               << " MENU "
               << std::setw(width_menu - 8) << ""
               << std::endl;
+    while(file >> fmenu) {
 
-    while(file.get(c)) {
-        std::cout << c;
-        if(flag)
-        Sleep(50);
+        if(fmenu == this_menu) {
+            
+            while(file.get(c) && c!='~') {
+                std::cout << c;
+                if(flag)
+                Sleep(50);
+            }
+        }
     }
+    
     flag = 0;
     file.clear();
     file.seekg(0, std::ios::beg);
