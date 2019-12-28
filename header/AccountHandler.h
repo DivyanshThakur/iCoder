@@ -11,61 +11,58 @@
 /** FUNCTION PROTOTYPES **/
 
 void login();
+std::string iscan();
+std::string passwordscan();
 void load();
 //void mainMenu(const std::string &username);
 
 /** CONSTANTS **/
 const extern int sleep_time;
-const std::string username {"Username: "};
-const std::string password {"Password: "};
+const std::string username{"Username: "};
+const std::string password{"Password: "};
 
-
-void login() {
+void login()
+{
     system("cls");
-    
-    title();          // display the "iCoder" title
+
+    title(); // display the "iCoder" title
 
     std::string userID, pass;
 
-    std::cout << std::setfill('-') 
+    std::cout << std::setfill('-')
               << std::setw(2) << ""
-              << " LOGIN "                             // display menu title
+              << " LOGIN " // display menu title
               << std::setw(width_menu - 9) << ""
-              << std::endl << std::endl;
+              << std::endl
+              << std::endl;
 
-    for(auto c: username) {
+    for (auto c : username)
+    {
         std::cout << c;
         Sleep(sleep_time);
     }
 
-    std::cin >> userID;             // taking username from user
+    userID = iscan(); // taking username from user
+    if (userID == "")
+        return;
 
-    for(auto c: password) {
+    for (auto c : password)
+    {
         std::cout << c;
         Sleep(sleep_time);
     }
 
-    char c;
-    while(c = getch())  {               // taking password from user
-        if(c=='\r') break;              // if user press enter end while loop and save password
+    pass = passwordscan(); // scanning password
+    if (pass == "")
+        return;
 
-        if(c=='\b'&& pass.size()) {     // cheking backspace and limit it to size of password
-            std::cout << "\b \b";       // remove last element from console
-            pass.pop_back();            // remove last element from pass string
-        }
-        else if(c>='!' && c<= '~' && c != '<' && c != '>') {    // checking valid password
-        pass.push_back(c);              // add element at last of pass string
-        std::cout << "*";               // display '*' to console by replacing password
-        }
-    }
     std::cout << std::endl
               << std::setw(width_menu) << ""
               << std::setfill(' ') << std::endl;
 
-    load();                           // animate loading screen
+    load(); // animate loading screen
 
     //mainMenu(username);             // calling the main menu screen to show all program list
-
 }
 
 #endif

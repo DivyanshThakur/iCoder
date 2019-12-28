@@ -9,60 +9,69 @@
 
 void createFile();
 void title();
-int menu(std::ifstream &file,std::string this_menu, int flag);
+int menu(std::ifstream &file, std::string this_menu, int flag);
 void menu_controller(char ch);
 void login();
 
 /** CONSTANTS **/
 const std::string fmenu = "./data/menu.txt";
+const extern int width_menu;
 
-int main() {
+int main()
+{
 
-    std::ifstream file (fmenu);
+    std::ifstream file(fmenu);
 
-    if(!file) {                // validating opening of file
-        createFile();          // if error occur it creates a fresh file in specific folder
+    if (!file)
+    {                 // validating opening of file
+        createFile(); // if error occur it creates a fresh file in specific folder
         file.open(fmenu);
     }
 
-    char ch {};
-    int flag {1};
+    char ch{};
+    int flag{1};
 
-    do {
-    system("cls");              // clear the screen each timemenu_controller
+    do
+    {
+        system("cls"); // clear the screen each timemenu_controller
 
-    title();            // print the title = iCoder
+        title(); // print the title = iCoder
 
-    flag = menu(file, std::string {"MENU1"}, flag);    // display the startup menu
+        flag = menu(file, std::string{"MENU1"}, flag); // display the startup menu
 
-    std::cin >> ch;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');     // clearing the buffer in cin
-    std::cout << std::endl;
+        ch = charscan();
 
-    menu_controller(ch);        // start as per user choice
-    
-    } while(ch != '6');
+        std::cout << std::endl
+                  << std::endl;
 
-    file.close();               // closing the current file
+        menu_controller(ch); // start as per user choice
+
+    } while (ch != '6');
+
+    file.close(); // closing the current file
 
     return 0;
 }
 
+void menu_controller(char ch)
+{
+    switch (ch)
+    {
+    case '1': // go to log in screen
+        login();
+        break;
 
-void menu_controller(char ch) {
-    switch(ch) {
-        case '1':               // go to log in screen
-                login();
-                break;
+    case '6': // exit the program
+        break;
 
-        case '6':               // exit the program
-                break;
-        
-        default:
-                std::cout << "Invalid choice" << std::endl;
-                break;
+    default:
+        std::cout << "Invalid choice";
+        break;
     }
-    
+    std::cout << std::endl
+              << std::setfill('-')
+              << std::setw(width_menu) << ""
+              << std::setfill(' ') << std::endl;
     std::cout << "Press Enter to continue";
     std::cin.get();
 }
