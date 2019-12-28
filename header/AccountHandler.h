@@ -11,9 +11,10 @@
 /** FUNCTION PROTOTYPES **/
 
 void login();
-std::string iscan();
-std::string passwordscan();
 void load();
+
+std::string iscan(const std::string &stype);
+
 //void mainMenu(const std::string &username);
 
 /** CONSTANTS **/
@@ -42,9 +43,10 @@ void login()
         Sleep(sleep_time);
     }
 
-    userID = iscan(); // taking username from user
+    userID = iscan(txtString); // taking username from user
     if (userID == "")
         return;
+    std::cout << std::endl;
 
     for (auto c : password)
     {
@@ -52,7 +54,7 @@ void login()
         Sleep(sleep_time);
     }
 
-    pass = passwordscan(); // scanning password
+    pass = iscan(txtPassword); // scanning password
     if (pass == "")
         return;
 

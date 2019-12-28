@@ -13,9 +13,15 @@ int menu(std::ifstream &file, std::string this_menu, int flag);
 void menu_controller(char ch);
 void login();
 
+std::string iscan(const std::string &stype);
+
 /** CONSTANTS **/
 const std::string fmenu = "./data/menu.txt";
+const extern char ESC;
 const extern int width_menu;
+const extern std::string txtPassword;
+const extern std::string txtString;
+const extern std::string txtChar;
 
 int main()
 {
@@ -38,11 +44,10 @@ int main()
         title(); // print the title = iCoder
 
         flag = menu(file, std::string{"MENU1"}, flag); // display the startup menu
-
-        ch = charscan();
-
-        std::cout << std::endl
-                  << std::endl;
+        {                                              // taking character from string
+            std::string str = iscan(txtChar);
+            (str != "") ? ch = str.at(0) : ch = ESC;
+        }
 
         menu_controller(ch); // start as per user choice
 
@@ -63,9 +68,13 @@ void menu_controller(char ch)
 
     case '6': // exit the program
         break;
+    case ESC: //ESC
+        break;
 
     default:
-        std::cout << "Invalid choice";
+        std::cout << std::endl
+                  << std::endl
+                  << "Invalid choice";
         break;
     }
     std::cout << std::endl

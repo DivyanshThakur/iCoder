@@ -12,12 +12,17 @@
 
 void title();
 int menu(std::ifstream &file, std::string this_menu, int flag);
-std::string iscan();
+
+std::string iscan(const std::string &stype);
 
 /** CONSTANTS **/
 const int sleep_time = 50;
 const int width_menu = 25;
 const int width_title = 30;
+const char ESC = 27;
+const std::string txtPassword{"Password"};
+const std::string txtChar{"Char"};
+const std::string txtString{"String"};
 
 void title()
 { // this display the title at top of screen
@@ -74,7 +79,7 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
     return flag;
 }
 
-std::string iscan()
+std::string iscan(const std::string &stype)
 {
     std::string value;
 
@@ -85,7 +90,7 @@ std::string iscan()
         if (c == '\r' && value.size())
             break; // if user presses enter end while loop and save the value
 
-        if (c == 27) // if user presses esc, it returnss to startup menu
+        if (c == ESC) // if user presses esc, it returnss to startup menu
             return std::string{""};
 
         if (c == '\b' && value.size())
@@ -96,66 +101,12 @@ std::string iscan()
         else if (c >= '!' && c <= '~')
         {
             value.push_back(c); // add element at last of pass string
-            std::cout << c;     // display 'c' to console by replacing password
+
+            // checking valid password and display that spcific output
+            (stype == std::string{txtPassword}) ? std::cout << "*" : std::cout << c;
         }
     }
-    return value;
-}
-
-std::string passwordscan()
-{
-
-    std::string value;
-
-    char c;
-    while (c = getch())
-    { // taking password from user
-        if (c == '\r' && value.size())
-            break; // if user press enter end while loop and save password
-
-        if (c == 27) // if user presses esc, it returnss to startup menu
-            return std::string{""};
-
-        if (c == '\b' && value.size())
-        {                         // cheking backspace and limit it to size of password
-            std::cout << "\b \b"; // remove last element from console
-            value.pop_back();     // remove last element from pass string
-        }
-        else if (c >= '!' && c <= '~' && c != '<' && c != '>')
-        {                       // checking valid password
-            value.push_back(c); // add element at last of pass string
-            std::cout << "*";   // display '*' to console by replacing password
-        }
-    }
-    return value;
-}
-
-char charscan()
-{
-    std::string value;
-
-    char c;
-
-    while (c = getch())
-    { // taking password from user
-        if (c == '\r' && value.size())
-            break; // if user press enter end while loop and save password
-
-        if (c == 27) // if user presses esc, it returnss to startup menu
-            return '\0';
-
-        if (c == '\b' && value.size())
-        {                         // cheking backspace and limit it to size of password
-            std::cout << "\b \b"; // remove last element from console
-            value.pop_back();     // remove last element from pass string
-        }
-        else if (c >= '!' && c <= '~')
-        {                       // checking valid password
-            value.push_back(c); // add element at last of pass string
-            std::cout << c;     // display '*' to console by replacing password
-        }
-    }
-    return value.at(0);
+    return value; // return char or string based on stype
 }
 
 #endif

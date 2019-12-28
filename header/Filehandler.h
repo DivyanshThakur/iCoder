@@ -14,29 +14,32 @@ void makeDirectory();
 /** CONSTANTS **/
 const extern std::string fmenu;
 
-void createFile() {
+void createFile()
+{
 
-    makeDirectory();               // make a "data" folder if not created
+    makeDirectory(); // make a "data" folder if not created
 
-    std::ofstream file (fmenu);
+    std::ofstream file(fmenu);
 
-    std::string menu_data {"MENU1\n1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Exit~\n\n\n"};
+    std::string menu_data{"MENU1\n1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Exit~\n\n\n"};
 
-    if(!file) {
+    if (!file)
+    {
         std::cerr << "Error Opening file." << std::endl;
         std::cin.get();
         exit(1);
     }
 
-    for(auto c: menu_data)
-        file << c;              // sending all the menu data to the menu.txt file and saving it
+    for (auto c : menu_data)
+        file << c; // sending all the menu data to the menu.txt file and saving it
 
     file.close();
 }
 
-void makeDirectory() {
+void makeDirectory()
+{
     // these code will create a folder in that specific destination
-    std::string dirpath {"data"};
+    std::string dirpath{"data"};
     mkdir(dirpath.c_str());
 }
 
