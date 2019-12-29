@@ -10,7 +10,7 @@
 void menu_controller(char ch);
 
 /** CONSTANTS **/
-const std::string fmenu = "./data/menu.txt";
+const std::string fmenu = "./data/menu.dat";
 const extern char ESC;
 const extern int width_menu;
 const extern std::string txtChar;
