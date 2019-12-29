@@ -7,20 +7,12 @@
 
 /** FUNCTION PROTOTYPES **/
 
-void createFile();
-void title();
-int menu(std::ifstream &file, std::string this_menu, int flag);
 void menu_controller(char ch);
-void login();
-
-std::string iscan(const std::string &stype);
 
 /** CONSTANTS **/
 const std::string fmenu = "./data/menu.txt";
 const extern char ESC;
 const extern int width_menu;
-const extern std::string txtPassword;
-const extern std::string txtString;
 const extern std::string txtChar;
 
 int main()
@@ -44,7 +36,8 @@ int main()
         title(); // print the title = iCoder
 
         flag = menu(file, std::string{"MENU1"}, flag); // display the startup menu
-        {                                              // taking character from string
+
+        { // taking character from string
             std::string str = iscan(txtChar);
             (str != "") ? ch = str.at(0) : ch = ESC;
         }
@@ -65,6 +58,9 @@ void menu_controller(char ch)
     case '1': // go to log in screen
         login();
         break;
+    case '2': // go to create account screen
+        create_account();
+        break;
 
     case '6': // exit the program
         break;
@@ -77,10 +73,9 @@ void menu_controller(char ch)
                   << "Invalid choice";
         break;
     }
-    std::cout << std::endl
-              << std::setfill('-')
-              << std::setw(width_menu) << ""
-              << std::setfill(' ') << std::endl;
+
+    footer(); // display the footer
+
     std::cout << "Press Enter to continue";
     std::cin.get();
 }

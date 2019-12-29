@@ -12,8 +12,9 @@
 
 void title();
 int menu(std::ifstream &file, std::string this_menu, int flag);
-
 std::string iscan(const std::string &stype);
+void header(const std::string &menu_name);
+void footer();
 
 /** CONSTANTS **/
 const int sleep_time = 50;
@@ -47,11 +48,8 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
     char c;
     std::string fmenu;
 
-    std::cout << std::setfill('-')
-              << std::setw(2) << ""
-              << " MENU "
-              << std::setw(width_menu - 8) << ""
-              << std::endl;
+    header(std::string{" MENU "});
+
     while (file >> fmenu)
     {
 
@@ -71,10 +69,8 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
     file.clear();
     file.seekg(0, std::ios::beg);
 
-    std::cout << std::endl
-              << std::setw(width_menu) << ""
-              << std::setfill(' ') << std::endl
-              << "Your Choice : ";
+    footer(); // display the footer '----'
+    std::cout << "Your Choice : ";
 
     return flag;
 }
@@ -107,6 +103,24 @@ std::string iscan(const std::string &stype)
         }
     }
     return value; // return char or string based on stype
+}
+
+void header(const std::string &menu_name)
+{
+
+    std::cout << std::setfill('-')
+              << std::setw(2) << ""
+              << menu_name
+              << std::setw(width_menu - (menu_name.size() + 2)) << ""
+              << std::setfill(' ')
+              << std::endl;
+}
+void footer()
+{
+    std::cout << std::endl
+              << std::setfill('-')
+              << std::setw(width_menu) << ""
+              << std::setfill(' ') << std::endl;
 }
 
 #endif

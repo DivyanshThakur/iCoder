@@ -11,14 +11,14 @@
 /** FUNCTION PROTOTYPES **/
 
 void login();
-void load();
-
-std::string iscan(const std::string &stype);
-
-//void mainMenu(const std::string &username);
+void create_account();
+bool input_user_pass(std::string &userID, std::string &pass);
 
 /** CONSTANTS **/
 const extern int sleep_time;
+const extern std::string txtString;
+const extern std::string txtPassword;
+const extern std::string txtChar;
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 
@@ -30,13 +30,38 @@ void login()
 
     std::string userID, pass;
 
-    std::cout << std::setfill('-')
-              << std::setw(2) << ""
-              << " LOGIN " // display menu title
-              << std::setw(width_menu - 9) << ""
-              << std::endl
-              << std::endl;
+    header(std::string{" LOGIN "});
 
+    if (!(input_user_pass(userID, pass))) // taking username and password
+        return;
+
+    footer(); // display the footer '----'
+
+    load(); // animate loading screen
+
+    //mainMenu(username);             // calling the main menu screen to show all program list
+}
+
+void create_account()
+{
+    system("cls");
+
+    title(); // display the "iCoder" title
+
+    header(std::string{" CREATE ACCOUNT "});
+
+    std::string userID, pass;
+
+    if (!(input_user_pass(userID, pass))) // taking username and password
+        return;
+
+    footer(); // display footer
+
+    load();
+}
+
+bool input_user_pass(std::string &userID, std::string &pass)
+{
     for (auto c : username)
     {
         std::cout << c;
@@ -45,7 +70,7 @@ void login()
 
     userID = iscan(txtString); // taking username from user
     if (userID == "")
-        return;
+        return false;
     std::cout << std::endl;
 
     for (auto c : password)
@@ -56,15 +81,9 @@ void login()
 
     pass = iscan(txtPassword); // scanning password
     if (pass == "")
-        return;
+        return false;
 
-    std::cout << std::endl
-              << std::setw(width_menu) << ""
-              << std::setfill(' ') << std::endl;
-
-    load(); // animate loading screen
-
-    //mainMenu(username);             // calling the main menu screen to show all program list
+    return true;
 }
 
 #endif
