@@ -12,9 +12,10 @@
 
 void title();
 int menu(std::ifstream &file, std::string this_menu, int flag);
-std::string iscan(const std::string &stype);
+std::string iscan(const std::string &stype, bool isMultiple = false);
 void header(const std::string &menu_name);
 void border(int size);
+void warning_nospace();
 
 /** CONSTANTS **/
 const int sleep_time = 50;
@@ -22,6 +23,7 @@ const int width_menu = 25;
 const int width_title = 30;
 const char ESC = 27;
 const std::string txtPassword{"Password"};
+const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};
 const std::string txtString{"String"};
 
@@ -75,7 +77,7 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
     return flag;
 }
 
-std::string iscan(const std::string &stype)
+std::string iscan(const std::string &stype, bool isMultiple)
 {
     std::string value;
 
@@ -85,6 +87,15 @@ std::string iscan(const std::string &stype)
     { // taking input from user
         if (c == '\r' && value.size())
             break; // if user presses enter end while loop and save the value
+
+        if (c == ' ' && (stype == txtUsername || stype == txtPassword))
+            warning_nospace();
+
+        if (isMultiple && c == ' ' && value.size())
+        {
+            std::cout << " ";
+            break;
+        }
 
         if (c == ESC) // if user presses esc, it returnss to startup menu
             return std::string{""};
@@ -123,6 +134,24 @@ void border(int size)
               << std::setw(size) << ""
               << std::setfill(' ')
               << std::endl;
+}
+
+void warning_nospace()
+{
+    std::string emessage{"     Space Not Allowed!"};
+    for (auto c : emessage)
+    {
+        std::cout << c;
+        Sleep(sleep_time / 2);
+    }
+
+    getch();
+
+    for (auto i{0}; i < emessage.size(); i++)
+    {
+        std::cout << "\b \b";
+        Sleep(sleep_time / 2);
+    }
 }
 
 #endif

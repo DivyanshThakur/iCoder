@@ -19,6 +19,7 @@ bool upload_account(const std::string &userID, const std::string &pass);
 bool valid_user(const std::string &userID);
 bool display_users();
 std::string pass_to_asteric(const std::string &pass);
+void exceed_error(const std::string &input_type, int default_size);
 
 /** CONSTANTS **/
 const extern int sleep_time;
@@ -27,6 +28,7 @@ const int width_username = 20;
 const int width_password = 10;
 const extern std::string txtString;
 const extern std::string txtPassword;
+const extern std::string txtUsername;
 const extern std::string txtChar;
 const std::string users{"./data/users.dat"};
 const std::string username{"Username: "};
@@ -66,27 +68,32 @@ void create_account()
     if (!(input_user_pass(userID, pass, pass2))) // taking username and password
         return;
 
-    if (pass != pass2)
+    border(width_menu); // display the border
+    bool state = upload_account(userID, pass);
+
+    if (!state || pass != pass2 || userID.size() > width_username || pass.size() > width_password)
     {
-        border(width_menu); // display the border
-        std::cout << "Password not matched" << std::endl
-                  << "Press a key to continue";
+        if (!state)
+            std::cout << "Username already exists!" << std::endl;
+
+        else if (pass != pass2)
+            std::cout << "Password not matched" << std::endl;
+
+        else if (userID.size() > width_username)
+            exceed_error(username, width_username);
+
+        else if (pass.size() > width_password)
+            exceed_error(password, width_password);
+
+        // after these if else ,these code will be executed
+        std::cout << "Press a key to continue";
         getch();
         create_account();
     }
     else
-    {
-        border(width_menu); // display border
-
-        if (!upload_account(userID, pass))
-        {
-            std::cout << "Username already exists!" << std::endl;
-        }
-        else
-        { // go to home
-            load();
-            std::cout << "Welcome " << userID << std::endl;
-        }
+    { // go to home
+        load();
+        std::cout << "Welcome " << userID << std::endl;
     }
 }
 
@@ -98,7 +105,7 @@ bool input_user_pass(std::string &userID, std::string &pass)
         Sleep(sleep_time);
     }
 
-    userID = iscan(txtString); // taking username from user
+    userID = iscan(txtUsername); // taking username from user
     if (userID == "")
         return false;
     std::cout << std::endl;
@@ -130,7 +137,7 @@ bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2)
     }
 
     pass2 = iscan(txtPassword); // scanning password
-    if (pass == "")
+    if (pass2 == "")
         return false;
 
     return true;
@@ -241,6 +248,12 @@ std::string pass_to_asteric(const std::string &pass)
     for (auto p : pass)
         ast += "*";
     return ast;
+}
+
+void exceed_error(const std::string &input_type, int default_size)
+{
+    std::cout << input_type << " exceeds " << default_size << " characters" << std::endl;
+    create_account();
 }
 
 #endif
