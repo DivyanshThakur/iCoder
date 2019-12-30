@@ -64,6 +64,8 @@ void menu_controller(char ch)
     case '3': // login Anonymously
         break;
     case '4': // show saved user details
+        if (!display_users())
+            std::cout << "No user in database" << std::endl;
         break;
     case '5': // details about the software and the shortcut/hint that can be used in it
         break;
@@ -80,7 +82,7 @@ void menu_controller(char ch)
         break;
     }
 
-    footer(); // display the footer
+    border(width_menu); // display the footer
 
     std::cout << "Press a key to continue";
     getch();

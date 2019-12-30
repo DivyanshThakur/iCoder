@@ -14,7 +14,7 @@ void title();
 int menu(std::ifstream &file, std::string this_menu, int flag);
 std::string iscan(const std::string &stype);
 void header(const std::string &menu_name);
-void footer();
+void border(int size);
 
 /** CONSTANTS **/
 const int sleep_time = 50;
@@ -69,7 +69,7 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
     file.clear();
     file.seekg(0, std::ios::beg);
 
-    footer(); // display the footer '----'
+    border(width_menu); // display the footer '----'
     std::cout << "Your Choice : ";
 
     return flag;
@@ -115,12 +115,14 @@ void header(const std::string &menu_name)
               << std::setfill(' ')
               << std::endl;
 }
-void footer()
+
+void border(int size)
 {
     std::cout << std::endl
               << std::setfill('-')
-              << std::setw(width_menu) << ""
-              << std::setfill(' ') << std::endl;
+              << std::setw(size) << ""
+              << std::setfill(' ')
+              << std::endl;
 }
 
 #endif

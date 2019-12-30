@@ -17,9 +17,14 @@ bool input_user_pass(std::string &userID, std::string &pass);
 bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2);
 bool upload_account(const std::string &userID, const std::string &pass);
 bool valid_user(const std::string &userID);
+bool display_users();
+std::string pass_to_asteric(const std::string &pass);
 
 /** CONSTANTS **/
 const extern int sleep_time;
+const int width_index = 5;
+const int width_username = 20;
+const int width_password = 10;
 const extern std::string txtString;
 const extern std::string txtPassword;
 const extern std::string txtChar;
@@ -41,7 +46,7 @@ void login()
     if (!(input_user_pass(userID, pass))) // taking username and password
         return;
 
-    footer(); // display the footer '----'
+    border(width_menu); // display the border '----'
 
     load(); // animate loading screen
 
@@ -63,7 +68,7 @@ void create_account()
 
     if (pass != pass2)
     {
-        footer(); // display the footer
+        border(width_menu); // display the border
         std::cout << "Password not matched" << std::endl
                   << "Press a key to continue";
         getch();
@@ -71,7 +76,7 @@ void create_account()
     }
     else
     {
-        footer(); // display footer
+        border(width_menu); // display border
 
         if (!upload_account(userID, pass))
         {
@@ -150,7 +155,7 @@ bool upload_account(const std::string &userID, const std::string &pass)
         return false;
     }
 
-    file << std::setw(width_title) << std::left << userID << std::setw(width_title) << std::left << pass << std::endl;
+    file << std::setw(width_username) << std::left << userID << std::setw(width_password) << std::left << pass << std::endl;
 
     file.close();
     return true;
@@ -181,6 +186,61 @@ bool valid_user(const std::string &userID)
 
     file.close(); /// close the file
     return true;
+}
+
+bool display_users()
+{
+
+    system("cls");
+
+    title(); // display "iCoder"
+
+    header(" USERS ");
+
+    std::ifstream file(users);
+
+    if (!file)
+        return false;
+
+    std::string userID, pass;
+    int index{1};
+
+    border(width_index * 3 + width_username + width_password - 1);
+
+    std::cout << " " << std::setw(width_index) << std::left << "INDEX"
+              << " | " << std::setw(width_username) << std::left << "USERNAME"
+              << " | " << std::setw(width_password) << std::left << "PASSWORD"
+              << " |";
+
+    border(width_index * 3 + width_username + width_password - 1);
+
+    std::cout << std::setw(width_index + 1) << ""
+              << " | " << std::setw(width_username) << ""
+              << " | " << std::setw(width_password) << ""
+              << " |";
+
+    while (file >> userID && file >> pass)
+    {
+        std::cout << std::endl
+                  << " " << std::setw(width_index) << std::left << index++
+                  << " | " << std::setw(width_username) << std::left << userID
+                  << " | " << std::setw(width_password) << std::left << pass_to_asteric(pass)
+                  << " |";
+    }
+
+    border(width_index * 3 + width_username + width_password - 1);
+
+    file.close();
+
+    return true;
+}
+
+std::string pass_to_asteric(const std::string &pass)
+{
+    std::string ast;
+    for (auto p : pass)
+        ast += "*";
+    return ast;
 }
 
 #endif
