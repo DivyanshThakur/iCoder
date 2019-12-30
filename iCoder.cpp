@@ -61,6 +61,12 @@ void menu_controller(char ch)
     case '2': // go to create account screen
         create_account();
         break;
+    case '3': // login Anonymously
+        break;
+    case '4': // show saved user details
+        break;
+    case '5': // details about the software and the shortcut/hint that can be used in it
+        break;
 
     case '6': // exit the program
         break;
