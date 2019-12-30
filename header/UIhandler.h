@@ -16,6 +16,7 @@ std::string iscan(const std::string &stype, bool isMultiple = false);
 void header(const std::string &menu_name);
 void border(int size);
 void emessage(const std::string &emessage);
+void igetch();
 
 /** CONSTANTS **/
 const int sleep_time = 50;
@@ -96,16 +97,6 @@ std::string iscan(const std::string &stype, bool isMultiple)
         if (c == '\r' && value.size())
             break; // if user presses enter end while loop and save the value
 
-        if (stype == txtUsername || stype == txtPassword)
-        {
-            if (c == ' ')
-                emessage(std::string{"     Space Not Allowed!"});
-            else if (isUserExceeded)
-                emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
-            else if (isPassExceeded)
-                emessage("     " + txtPassword + " exceeds " + std::to_string(width_password) + " characters!");
-        }
-
         if (isMultiple && c == ' ' && value.size())
         {
             std::cout << " ";
@@ -120,15 +111,22 @@ std::string iscan(const std::string &stype, bool isMultiple)
             std::cout << "\b \b"; // remove last element from console
             value.pop_back();     // remove last element from pass string
         }
-        else if (c >= '!' && c <= '~')
+        else if (stype == txtUsername || stype == txtPassword)
         {
-            if (!(isUserExceeded || isPassExceeded))
-            {
-                value.push_back(c); // add element at last of pass string
+            if (c == ' ')
+                emessage(std::string{"     Space Not Allowed!"});
+            else if (isUserExceeded)
+                emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
+            else if (isPassExceeded)
+                emessage("     " + txtPassword + " exceeds " + std::to_string(width_password) + " characters!");
+        }
 
-                // checking valid password and display that spcific output
-                (stype == std::string{txtPassword}) ? std::cout << "*" : std::cout << c;
-            }
+        if (c >= '!' && c <= '~' && !(isUserExceeded || isPassExceeded))
+        {
+            value.push_back(c); // add element at last of pass string
+
+            // checking valid password and display that spcific output
+            (stype == std::string{txtPassword}) ? std::cout << "*" : std::cout << c;
         }
     }
     return value; // return char or string based on stype
@@ -162,13 +160,21 @@ void emessage(const std::string &emessage)
         Sleep(sleep_time / 2);
     }
 
-    getch();
+    igetch();
 
     for (auto i{0}; i < emessage.size(); ++i)
     {
         std::cout << "\b \b";
         Sleep(sleep_time / 2);
     }
+}
+
+void igetch()
+{
+    char c;
+    while (c = getch())
+        if (c == '\r' || c == ' ' || c == '\b' || c == 27)
+            return;
 }
 
 #endif
