@@ -82,6 +82,6 @@ void menu_controller(char ch)
 
     footer(); // display the footer
 
-    std::cout << "Press Enter to continue";
-    std::cin.get();
+    std::cout << "Press a key to continue";
+    getch();
 }

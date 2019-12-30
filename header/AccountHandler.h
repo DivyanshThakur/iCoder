@@ -45,7 +45,7 @@ void login()
 
     load(); // animate loading screen
 
-    //mainMenu(username);             // calling the main menu screen to show all program list
+    //home(username);             // calling the main menu (HOME) screen to show all program list
 }
 
 void create_account()
@@ -54,7 +54,7 @@ void create_account()
 
     title(); // display the "iCoder" title
 
-    header(std::string{" CREATE ACCOUNT "});
+    header(std::string{" CREATE ACCOUNT "}); // display the header
 
     std::string userID, pass, pass2;
 
@@ -65,8 +65,8 @@ void create_account()
     {
         footer(); // display the footer
         std::cout << "Password not matched" << std::endl
-                  << "Press Enter to continue";
-        std::cin.get();
+                  << "Press a key to continue";
+        getch();
         create_account();
     }
     else
