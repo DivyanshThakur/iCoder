@@ -15,12 +15,15 @@ int menu(std::ifstream &file, std::string this_menu, int flag);
 std::string iscan(const std::string &stype, bool isMultiple = false);
 void header(const std::string &menu_name);
 void border(int size);
-void warning_nospace();
+void emessage(const std::string &emessage);
 
 /** CONSTANTS **/
 const int sleep_time = 50;
 const int width_menu = 25;
 const int width_title = 30;
+const int width_index = 5;
+const extern int width_username = 20;
+const extern int width_password = 10;
 const char ESC = 27;
 const std::string txtPassword{"Password"};
 const std::string txtUsername{"Username"};
@@ -80,16 +83,28 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
 std::string iscan(const std::string &stype, bool isMultiple)
 {
     std::string value;
+    bool isUserExceeded, isPassExceeded;
 
     char c;
 
     while (c = getch())
     { // taking input from user
+
+        isUserExceeded = (stype == txtUsername && value.size() >= width_username);
+        isPassExceeded = (stype == txtPassword && value.size() >= width_password);
+
         if (c == '\r' && value.size())
             break; // if user presses enter end while loop and save the value
 
-        if (c == ' ' && (stype == txtUsername || stype == txtPassword))
-            warning_nospace();
+        if (stype == txtUsername || stype == txtPassword)
+        {
+            if (c == ' ')
+                emessage(std::string{"     Space Not Allowed!"});
+            else if (isUserExceeded)
+                emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
+            else if (isPassExceeded)
+                emessage("     " + txtPassword + " exceeds " + std::to_string(width_password) + " characters!");
+        }
 
         if (isMultiple && c == ' ' && value.size())
         {
@@ -107,10 +122,13 @@ std::string iscan(const std::string &stype, bool isMultiple)
         }
         else if (c >= '!' && c <= '~')
         {
-            value.push_back(c); // add element at last of pass string
+            if (!(isUserExceeded || isPassExceeded))
+            {
+                value.push_back(c); // add element at last of pass string
 
-            // checking valid password and display that spcific output
-            (stype == std::string{txtPassword}) ? std::cout << "*" : std::cout << c;
+                // checking valid password and display that spcific output
+                (stype == std::string{txtPassword}) ? std::cout << "*" : std::cout << c;
+            }
         }
     }
     return value; // return char or string based on stype
@@ -136,9 +154,8 @@ void border(int size)
               << std::endl;
 }
 
-void warning_nospace()
+void emessage(const std::string &emessage)
 {
-    std::string emessage{"     Space Not Allowed!"};
     for (auto c : emessage)
     {
         std::cout << c;
@@ -147,7 +164,7 @@ void warning_nospace()
 
     getch();
 
-    for (auto i{0}; i < emessage.size(); i++)
+    for (auto i{0}; i < emessage.size(); ++i)
     {
         std::cout << "\b \b";
         Sleep(sleep_time / 2);
