@@ -5,6 +5,9 @@
 #include "header/Filehandler.h"
 #include "header/AccountHandler.h"
 
+/*** USER SIGNED IN STATUS ***/
+static std::string isUserSignedIn;
+
 /** FUNCTION PROTOTYPES **/
 
 void main_menu_controller(char ch);
