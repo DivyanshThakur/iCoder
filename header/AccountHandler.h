@@ -53,7 +53,7 @@ void login()
 
     if (!check_account(userID, pass))
     {
-        std::cout << "Username doesn't exists" << std::endl;
+        std::cout << "UserID/Pass is incorrect" << std::endl;
     }
     else
     {
@@ -94,30 +94,22 @@ void create_account()
         create_account();
     }
     else
-    { // go to home
-        load();
-        home(userID);
+    {                 // go to home
+        load();       // animate loading screen
+        home(userID); // calling the main menu (HOME) screen to show all program list
     }
 }
 
 bool input_user_pass(std::string &userID, std::string &pass)
 {
-    for (auto c : username)
-    {
-        std::cout << c;
-        Sleep(sleep_time);
-    }
+    animater(username);
 
     userID = iscan(txtUsername); // taking username from user
     if (userID == "")
         return false;
     std::cout << std::endl;
 
-    for (auto c : password)
-    {
-        std::cout << c;
-        Sleep(sleep_time);
-    }
+    animater(password);
 
     pass = iscan(txtPassword); // scanning password
     if (pass == "")
@@ -133,11 +125,7 @@ bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2)
 
     std::cout << std::endl;
 
-    for (auto c : RePassword)
-    {
-        std::cout << c;
-        Sleep(sleep_time);
-    }
+    animater(RePassword);
 
     pass2 = iscan(txtPassword); // scanning password
     if (pass2 == "")

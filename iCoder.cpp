@@ -62,6 +62,7 @@ void menu_controller(char ch)
         create_account();
         break;
     case '3': // login Anonymously
+        home(std::string{"User"});
         break;
     case '4': // show saved user details
         if (!display_users())
@@ -87,3 +88,16 @@ void menu_controller(char ch)
     std::cout << "Press a key to continue";
     getch();
 }
+
+/** HINTS **/
+/*
+
+Press ESC to go to home and main menu
+
+press esc , enter, backspace, space to continue in animate warning
+
+themes
+
+settings to change speed animation
+
+*/

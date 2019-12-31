@@ -18,5 +18,4 @@ void load()
         std::cout << loader.at(i % loader.size()); // display char one by one
         Sleep(sleep_time * 2);                     // delay
     }
-    std::cout << std::endl;
 }

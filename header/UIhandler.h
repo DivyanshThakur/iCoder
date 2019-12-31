@@ -8,18 +8,8 @@
 #include <string>
 #include <conio.h>
 
-/** FUNCTION PROTOTYPES **/
-
-void title();
-int menu(std::ifstream &file, std::string this_menu, int flag);
-std::string iscan(const std::string &stype, bool isMultiple = false);
-void header(const std::string &menu_name);
-void border(int size);
-void emessage(const std::string &emessage);
-void igetch();
-
 /** CONSTANTS **/
-const int sleep_time = 50;
+const int sleep_time = 40;
 const int width_menu = 25;
 const int width_title = 30;
 const int width_index = 5;
@@ -30,6 +20,17 @@ const std::string txtPassword{"Password"};
 const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};
 const std::string txtString{"String"};
+
+/** FUNCTION PROTOTYPES **/
+
+void title();
+int menu(std::ifstream &file, std::string this_menu, int flag);
+std::string iscan(const std::string &stype, bool isMultiple = false);
+void header(const std::string &menu_name);
+void border(int size);
+void emessage(const std::string &emessage);
+void animater(const std::string &anime, int speed = sleep_time);
+void igetch();
 
 void title()
 { // this display the title at top of screen
@@ -65,8 +66,8 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
             while (file.get(c) && c != '~')
             {
                 std::cout << c;
-                //if(flag)
-                // Sleep(sleep_time);          // delay
+                if (flag)
+                    Sleep(sleep_time); // delay
             }
         }
     }
@@ -76,7 +77,8 @@ int menu(std::ifstream &file, std::string this_menu, int flag)
     file.seekg(0, std::ios::beg);
 
     border(width_menu); // display the footer '----'
-    std::cout << "Your Choice : ";
+
+    animater(std::string{"Your Choice : "});
 
     return flag;
 }
@@ -154,11 +156,7 @@ void border(int size)
 
 void emessage(const std::string &emessage)
 {
-    for (auto c : emessage)
-    {
-        std::cout << c;
-        Sleep(sleep_time / 2);
-    }
+    animater(emessage, sleep_time / 2);
 
     igetch();
 
@@ -175,6 +173,15 @@ void igetch()
     while (c = getch())
         if (c == '\r' || c == ' ' || c == '\b' || c == 27)
             return;
+}
+
+void animater(const std::string &anime, int speed)
+{
+    for (auto c : anime)
+    {
+        std::cout << c;
+        Sleep(speed);
+    }
 }
 
 #endif
