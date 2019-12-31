@@ -8,11 +8,13 @@
 #include <conio.h>
 #include "UIhandler.h"
 #include "ScreenLoader.h"
+#include "home.h"
 
 /** FUNCTION PROTOTYPES **/
 
 void login();
 void create_account();
+bool check_account(const std::string &userID, const std::string &pass);
 bool input_user_pass(std::string &userID, std::string &pass);
 bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2);
 bool upload_account(const std::string &userID, const std::string &pass);
@@ -49,9 +51,15 @@ void login()
 
     border(width_menu); // display the border '----'
 
-    load(); // animate loading screen
-
-    //home(username);             // calling the main menu (HOME) screen to show all program list
+    if (!check_account(userID, pass))
+    {
+        std::cout << "Username doesn't exists" << std::endl;
+    }
+    else
+    {
+        load();       // animate loading screen
+        home(userID); // calling the main menu (HOME) screen to show all program list
+    }
 }
 
 void create_account()
@@ -68,14 +76,17 @@ void create_account()
         return;
 
     border(width_menu); // display the border
-    bool state = upload_account(userID, pass);
 
-    if (!state || pass != pass2)
+    if (pass != pass2)
     {
-        if (!state)
-            std::cout << "Username already exists!" << std::endl;
-        else
-            std::cout << "Password not matched" << std::endl;
+        std::cout << "Password not matched" << std::endl
+                  << "Press a key to continue";
+        getch();
+        create_account();
+    }
+    else if (!upload_account(userID, pass))
+    {
+        std::cout << "Username already exists!" << std::endl;
 
         // after these if else ,these code will be executed
         std::cout << "Press a key to continue";
@@ -85,7 +96,7 @@ void create_account()
     else
     { // go to home
         load();
-        std::cout << "Welcome " << userID << std::endl;
+        home(userID);
     }
 }
 
@@ -133,6 +144,31 @@ bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2)
         return false;
 
     return true;
+}
+
+bool check_account(const std::string &userID, const std::string &pass)
+{
+    std::ifstream file(users);
+    std::string fusername, fpassword;
+
+    if (!file)
+    {
+        std::cerr << "No users in database" << std::endl;
+        getch();
+        exit(1);
+    }
+
+    while (file >> fusername && file >> fpassword)
+    {
+        if (userID == fusername && pass == fpassword)
+        {
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
+    return false;
 }
 
 bool upload_account(const std::string &userID, const std::string &pass)
