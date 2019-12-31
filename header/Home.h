@@ -30,7 +30,7 @@ void home(const std::string &userID)
         title(); // print the title = iCoder
 
         if (flag)
-            emessage("-- Welcome " + userID + "!"); // display the welcome message
+            emessage("--> Welcome " + userID + "!"); // display the welcome message
 
         flag = menu(file, std::string{"MENU2"}, flag); // display the startup menu
 
@@ -66,7 +66,7 @@ void home_controller(char ch)
     case '6': // exit the program
         break;
     case ESC: //ESC
-        break;
+        return;
 
     default:
         std::cout << std::endl

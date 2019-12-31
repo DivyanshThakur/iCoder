@@ -7,7 +7,7 @@
 
 /** FUNCTION PROTOTYPES **/
 
-void menu_controller(char ch);
+void main_menu_controller(char ch);
 
 /** CONSTANTS **/
 const std::string fmenu = "./data/menu.dat";
@@ -31,7 +31,7 @@ int main()
 
     do
     {
-        system("cls"); // clear the screen each timemenu_controller
+        system("cls"); // clear the screen each time
 
         title(); // print the title = iCoder
 
@@ -42,16 +42,16 @@ int main()
             (str != "") ? ch = str.at(0) : ch = ESC;
         }
 
-        menu_controller(ch); // start as per user choice
+        main_menu_controller(ch); // start as per user choice
 
-    } while (ch != '6');
+    } while (ch != '7');
 
     file.close(); // closing the current file
 
     return 0;
 }
 
-void menu_controller(char ch)
+void main_menu_controller(char ch)
 {
     switch (ch)
     {
@@ -71,10 +71,12 @@ void menu_controller(char ch)
     case '5': // details about the software and the shortcut/hint that can be used in it
         break;
 
-    case '6': // exit the program
+    case '6': // Customize the software using settings
+        break;
+    case '7': // exit the program
         break;
     case ESC: //ESC
-        break;
+        return;
 
     default:
         std::cout << std::endl

@@ -22,7 +22,7 @@ void createFile()
 
     std::ofstream file(fmenu);
 
-    std::string menu_data{"MENU1\n1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Exit~\n\n\n"};
+    std::string menu_data{"MENU1\n1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Settings\n7. Exit~\n\n\nMENU2\n1. Array\n2. Recursion\n3. Linked List\n4. Sign Out\n5. Exit~"};
 
     if (!file)
     {
