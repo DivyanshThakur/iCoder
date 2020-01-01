@@ -6,7 +6,7 @@
 #include "header/AccountHandler.h"
 
 /*** USER SIGNED IN STATUS ***/
-static std::string isUserSignedIn;
+std::string signedUserID;
 
 /** FUNCTION PROTOTYPES **/
 
@@ -20,6 +20,8 @@ const extern std::string txtChar;
 
 int main()
 {
+    if (check_signed_user())
+        home(signedUserID); // if the user is saved in file it will automatically sign in the active user
 
     std::ifstream file(fmenu);
 
@@ -60,11 +62,12 @@ void main_menu_controller(char ch)
     {
     case '1': // go to log in screen
         login();
-        break;
+        return;
     case '2': // go to create account screen
         create_account();
-        break;
+        return;
     case '3': // login Anonymously
+        save_active_user(std::string{"User"});
         home(std::string{"User"});
         break;
     case '4': // show saved user details
@@ -88,10 +91,7 @@ void main_menu_controller(char ch)
         break;
     }
 
-    border(width_menu); // display the footer
-
-    std::cout << "Press a key to continue";
-    getch();
+    press_key(); // getch()
 }
 
 /** HINTS **/

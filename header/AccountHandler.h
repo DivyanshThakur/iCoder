@@ -8,10 +8,15 @@
 #include <conio.h>
 #include "UIhandler.h"
 #include "ScreenLoader.h"
-#include "home.h"
+#include "Home.h"
+
+/*** USER SIGNED IN STATUS ***/
+extern std::string signedUserID;
 
 /** FUNCTION PROTOTYPES **/
 
+bool check_signed_user();
+void save_active_user(const std::string &userID);
 void login();
 void create_account();
 bool check_account(const std::string &userID, const std::string &pass);
@@ -32,9 +37,42 @@ const extern std::string txtPassword;
 const extern std::string txtUsername;
 const extern std::string txtChar;
 const std::string users{"./data/users.dat"};
+const std::string active_user{"./data/activeUser.dat"};
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};
+
+bool check_signed_user()
+{
+    std::ifstream file(active_user, std::ios::in);
+    if (!file)
+        return false;
+    file >> signedUserID;
+    if (signedUserID == "")
+    {
+        file.close();
+        return false;
+    }
+    file.close();
+    return true;
+}
+
+void save_active_user(const std::string &userID)
+{
+    std::ofstream file(active_user);
+
+    if (!file)
+    {
+        std::cerr << "Error Saving current user" << std::endl;
+        getch();
+        exit(1);
+    }
+
+    file << userID;
+    signedUserID = userID;
+    file.close();
+    return;
+}
 
 void login()
 {
@@ -53,12 +91,26 @@ void login()
 
     if (!check_account(userID, pass))
     {
-        std::cout << "UserID/Pass is incorrect" << std::endl;
+        std::cout << "UserID/Pass is incorrect";
+        press_key();
+        login();
     }
     else
     {
-        load();       // animate loading screen
-        home(userID); // calling the main menu (HOME) screen to show all program list
+        animater(std::string{"Remember me? (Y/N): "});
+
+        // taking character from string
+        std::string str = iscan(txtChar);
+        if (str == "")
+            return;
+
+        char c = std::tolower(str.at(0));
+        if (c == 'y')
+            save_active_user(userID); // save the current user
+
+        border(width_menu); // display the border
+        load();             // animate loading screen
+        home(userID);       // calling the main menu (HOME) screen to show all program list
     }
 }
 
@@ -79,24 +131,32 @@ void create_account()
 
     if (pass != pass2)
     {
-        std::cout << "Password not matched" << std::endl
-                  << "Press a key to continue";
-        getch();
+        std::cout << "Password not matched";
+        press_key();
         create_account();
     }
     else if (!upload_account(userID, pass))
     {
-        std::cout << "Username already exists!" << std::endl;
-
-        // after these if else ,these code will be executed
-        std::cout << "Press a key to continue";
-        getch();
+        std::cout << "Username already exists!";
+        press_key();
         create_account();
     }
     else
-    {                 // go to home
-        load();       // animate loading screen
-        home(userID); // calling the main menu (HOME) screen to show all program list
+    { // go to home
+        animater(std::string{"Remember me? (Y/N): "});
+
+        // taking character from string
+        std::string str = iscan(txtChar);
+        if (str == "")
+            return;
+
+        char c = std::tolower(str.at(0));
+        if (c == 'y')
+            save_active_user(userID); // save the current user
+
+        border(width_menu); // display the border
+        load();             // animate loading screen
+        home(userID);       // calling the main menu (HOME) screen to show all program list
     }
 }
 
@@ -141,9 +201,7 @@ bool check_account(const std::string &userID, const std::string &pass)
 
     if (!file)
     {
-        std::cerr << "No users in database" << std::endl;
-        getch();
-        exit(1);
+        return false;
     }
 
     while (file >> fusername && file >> fpassword)

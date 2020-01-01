@@ -10,6 +10,7 @@
 
 /** CONSTANTS **/
 const int sleep_time = 40;
+const int emessage_timer = 25;
 const int width_menu = 25;
 const int width_title = 30;
 const int width_index = 5;
@@ -31,6 +32,7 @@ void border(int size);
 void emessage(const std::string &emessage);
 void animater(const std::string &anime, int speed = sleep_time);
 void igetch();
+void press_key();
 
 void title()
 { // this display the title at top of screen
@@ -156,14 +158,14 @@ void border(int size)
 
 void emessage(const std::string &emessage)
 {
-    animater(emessage, sleep_time / 2);
+    animater(emessage, emessage_timer);
 
     igetch();
 
     for (auto i{0}; i < emessage.size(); ++i)
     {
         std::cout << "\b \b";
-        Sleep(sleep_time / 2);
+        Sleep(emessage_timer);
     }
 }
 
@@ -182,6 +184,13 @@ void animater(const std::string &anime, int speed)
         std::cout << c;
         Sleep(speed);
     }
+}
+
+void press_key()
+{
+    border(width_menu); // display the footer
+    std::cout << "Press a key to continue";
+    getch();
 }
 
 #endif

@@ -1,17 +1,25 @@
+#ifndef HOME_H
+#define HOME_H
+
 #include <iostream>
 #include <string>
 #include "UIhandler.h"
+#include "AccountHandler.h"
+
+/*** USER SIGNED IN STATUS ***/
+extern std::string signedUserID;
 
 /** FUNCTION PROTOTYPES **/
 void home(const std::string &userID);
 void home_controller(char ch);
+void extern save_active_user(const std::string &userID); // defined in AccountHandler.h
 
 /** CONSTANTS **/
 const extern std::string fmenu;
+const extern std::string active_user;
 
 void home(const std::string &userID)
 {
-
     std::ifstream file{fmenu};
 
     if (!file)
@@ -41,6 +49,9 @@ void home(const std::string &userID)
 
         home_controller(ch); // start as per user choice
 
+        if (ch == '4')
+            return;
+
     } while (ch != '6');
 
     file.close(); // closing the current file
@@ -58,8 +69,9 @@ void home_controller(char ch)
         break;
     case '3':
         break;
-    case '4':
-        break;
+    case '4': // sign out
+        save_active_user(std::string{""});
+        return;
     case '5':
         break;
 
@@ -77,6 +89,7 @@ void home_controller(char ch)
 
     border(width_menu); // display the footer
 
-    std::cout << "Press a key to continue";
-    getch();
+    press_key(); // program paused - getch()
 }
+
+#endif
