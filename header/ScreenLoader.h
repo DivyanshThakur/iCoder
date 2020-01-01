@@ -1,8 +1,9 @@
 #include <iostream>
 #include <ctime>
 #include <windows.h>
+#include "UIhandler.h"
 
-const extern int sleep_time;
+const extern int emessage_timer;
 
 void load()
 {
@@ -16,6 +17,6 @@ void load()
         if (i % 10 == 0)
             std::cout << "\r          \r";         // erasing current line
         std::cout << loader.at(i % loader.size()); // display char one by one
-        Sleep(sleep_time * 2);                     // delay
+        Sleep(emessage_timer * 2);                 // delay
     }
 }

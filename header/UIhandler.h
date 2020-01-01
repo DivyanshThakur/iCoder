@@ -8,8 +8,11 @@
 #include <string>
 #include <conio.h>
 
+/*** GLOBAL VARIABLES ***/
+extern int sleep_time;
+
 /** CONSTANTS **/
-const int sleep_time = 40;
+
 const int emessage_timer = 25;
 const int width_menu = 25;
 const int width_title = 30;

@@ -10,8 +10,9 @@
 #include "ScreenLoader.h"
 #include "Home.h"
 
-/*** USER SIGNED IN STATUS ***/
+/*** GLOBAL VARIABLES ***/
 extern std::string signedUserID;
+extern int sleep_time;
 
 /** FUNCTION PROTOTYPES **/
 
@@ -28,7 +29,7 @@ bool display_users();
 std::string pass_to_asteric(const std::string &pass);
 
 /** CONSTANTS **/
-const extern int sleep_time;
+
 const extern int width_index;
 const extern int width_username;
 const extern int width_password;

@@ -4,9 +4,11 @@
 #include "header/UIhandler.h"
 #include "header/Filehandler.h"
 #include "header/AccountHandler.h"
+#include "header/Settings.h"
 
-/*** USER SIGNED IN STATUS ***/
+/*** GLOBAL VARIABLES ***/
 std::string signedUserID;
+int sleep_time = 50;
 
 /** FUNCTION PROTOTYPES **/
 
@@ -78,6 +80,7 @@ void main_menu_controller(char ch)
         break;
 
     case '6': // Customize the software using settings
+        settings();
         break;
     case '7': // exit the program
         break;
