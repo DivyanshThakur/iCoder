@@ -16,18 +16,19 @@ extern int sleep_time;
 
 /** FUNCTION PROTOTYPES **/
 
-bool check_signed_user();
-bool check_new_user();
-void save_active_user(const std::string &userID);
 void login();
-void create_account();
-bool check_account(const std::string &userID, const std::string &pass);
-bool input_user_pass(std::string &userID, std::string &pass);
-bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2);
-bool upload_account(const std::string &userID, const std::string &pass);
-bool valid_user(const std::string &userID);
 bool display_users();
+bool check_new_user();
+void create_account();
+bool check_signed_user();
+bool valid_user(const std::string &userID);
+void save_active_user(const std::string &userID);
+bool display_remember_me(const std::string &userID);
 std::string pass_to_asteric(const std::string &pass);
+bool input_user_pass(std::string &userID, std::string &pass);
+bool check_account(const std::string &userID, const std::string &pass);
+bool upload_account(const std::string &userID, const std::string &pass);
+bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2);
 
 /** CONSTANTS **/
 
@@ -109,16 +110,8 @@ void login()
     }
     else
     {
-        animater(std::string{"Remember me? (Y/N): "});
-
-        // taking character from string
-        std::string str = iscan(txtChar);
-        if (str == "")
+        if (!display_remember_me(userID)) // it will display remember me message
             return;
-
-        char c = std::tolower(str.at(0));
-        if (c == 'y')
-            save_active_user(userID); // save the current user
 
         border(width_menu); // display the border
         load();             // animate loading screen
@@ -155,16 +148,9 @@ void create_account()
     }
     else
     { // go to home
-        animater(std::string{"Remember me? (Y/N): "});
 
-        // taking character from string
-        std::string str = iscan(txtChar);
-        if (str == "")
+        if (!display_remember_me(userID)) // it will display remember me message
             return;
-
-        char c = std::tolower(str.at(0));
-        if (c == 'y')
-            save_active_user(userID); // save the current user
 
         border(width_menu); // display the border
         load();             // animate loading screen
@@ -334,6 +320,22 @@ std::string pass_to_asteric(const std::string &pass)
     for (auto p : pass)
         ast += "*";
     return ast;
+}
+
+bool display_remember_me(const std::string &userID)
+{
+
+    animater(std::string{"Remember me? (Y/N): "});
+
+    // taking character from string
+    std::string str = iscan(txtChar);
+    if (str == "")
+        return false;
+
+    char c = std::tolower(str.at(0));
+    if (c == 'y')
+        save_active_user(userID); // save the current user
+    return true;
 }
 
 #endif

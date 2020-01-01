@@ -26,7 +26,7 @@ int main()
     if (check_new_user())
     {
         title(); // display title
-        emessage(std::string{"--> Please see HELP section for hints and shortcuts..."});
+        emessage(std::string{"--> See HELP for hints and shortcuts..."});
     }
 
     if (check_signed_user())
@@ -76,7 +76,6 @@ void main_menu_controller(char ch)
         create_account();
         return;
     case '3': // login Anonymously
-        save_active_user(std::string{"User"});
         home(std::string{"User"});
         return;
     case '4': // show saved user details
