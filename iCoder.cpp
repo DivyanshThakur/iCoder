@@ -9,6 +9,7 @@
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID;
 int sleep_time = 50;
+int emessage_timer = 25;
 
 /** FUNCTION PROTOTYPES **/
 

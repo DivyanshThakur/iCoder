@@ -10,10 +10,10 @@
 
 /*** GLOBAL VARIABLES ***/
 extern int sleep_time;
+extern int emessage_timer;
 
 /** CONSTANTS **/
 
-const int emessage_timer = 25;
 const int width_menu = 25;
 const int width_title = 30;
 const int width_index = 5;

@@ -3,7 +3,7 @@
 #include <windows.h>
 #include "UIhandler.h"
 
-const extern int emessage_timer;
+extern int emessage_timer;
 
 void load()
 {
