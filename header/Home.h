@@ -88,8 +88,6 @@ void home_controller(char ch)
         break;
     }
 
-    border(width_menu); // display the footer
-
     press_key(); // program paused - getch()
 }
 

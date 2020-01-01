@@ -17,6 +17,7 @@ extern int sleep_time;
 /** FUNCTION PROTOTYPES **/
 
 bool check_signed_user();
+bool check_new_user();
 void save_active_user(const std::string &userID);
 void login();
 void create_account();
@@ -42,6 +43,16 @@ const std::string active_user{"./data/activeUser.dat"};
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};
+
+bool check_new_user()
+{
+    std::ifstream file(users);
+    if (!file)
+        return true;
+
+    file.close();
+    return false;
+}
 
 bool check_signed_user()
 {
