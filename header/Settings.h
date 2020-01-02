@@ -5,7 +5,10 @@
 #include <sstream>
 #include <windows.h>
 #include "UIhandler.h"
-#include "AccountHandler.h"
+
+/*** GLOBAL VARIABLES ***/
+int sleep_time = 50;
+int emessage_timer = 25;
 
 /** CONSTANTS **/
 const extern std::string txtChar;

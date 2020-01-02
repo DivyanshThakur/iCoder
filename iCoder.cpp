@@ -1,15 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
+#include "header/AccountHandler.h"
 #include "header/UIhandler.h"
 #include "header/Menuhandler.h"
-#include "header/AccountHandler.h"
 #include "header/Settings.h"
 
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID;
-int sleep_time = 50;
-int emessage_timer = 25;
+extern int sleep_time;
+extern int emessage_timer;
 
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(char ch);
@@ -18,7 +18,6 @@ bool isDirectoryExists();
 
 /** CONSTANTS **/
 const extern char ESC;
-const extern int width_menu;
 const extern std::string txtChar;
 const extern std::string menu1_data;
 
