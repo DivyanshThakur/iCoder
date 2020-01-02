@@ -16,19 +16,11 @@ void home_controller(char ch);
 void extern save_active_user(const std::string &userID); // defined in AccountHandler.h
 
 /** CONSTANTS **/
-const extern std::string fmenu;
+const extern std::string menu2_data;
 const extern std::string active_user;
 
 void home(const std::string &userID)
 {
-    std::ifstream file{fmenu};
-
-    if (!file)
-    {                 // validating opening of file
-        createFile(); // if error occur it creates a fresh file in specific folder
-        file.open(fmenu);
-    }
-
     char ch{};
     int flag{1};
 
@@ -41,7 +33,7 @@ void home(const std::string &userID)
         if (flag)
             emessage("--> Welcome " + userID + "!"); // display the welcome message
 
-        flag = menu(file, std::string{"MENU2"}, flag); // display the startup menu
+        flag = menu(menu2_data, flag); // display the startup menu
 
         { // taking character from string
             std::string str = iscan(txtChar);
@@ -54,8 +46,6 @@ void home(const std::string &userID)
             return;
 
     } while (ch != '6');
-
-    file.close(); // closing the current file
 
     exit(0);
 }

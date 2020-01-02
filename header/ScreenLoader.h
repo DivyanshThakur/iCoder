@@ -3,8 +3,6 @@
 #include <windows.h>
 #include "UIhandler.h"
 
-extern int emessage_timer;
-
 void load()
 {
 
@@ -17,6 +15,6 @@ void load()
         if (i % 10 == 0)
             std::cout << "\r          \r";         // erasing current line
         std::cout << loader.at(i % loader.size()); // display char one by one
-        Sleep(emessage_timer * 2);                 // delay
+        Sleep(150);                                // delay
     }
 }

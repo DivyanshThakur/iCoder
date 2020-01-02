@@ -28,7 +28,7 @@ const std::string txtString{"String"};
 /** FUNCTION PROTOTYPES **/
 
 void title();
-int menu(std::ifstream &file, std::string this_menu, int flag);
+int menu(std::string menu_str, int flag);
 std::string iscan(const std::string &stype, bool isMultiple = false);
 void header(const std::string &menu_name);
 void border(int size);
@@ -54,32 +54,22 @@ void title()
               << std::endl;
 }
 
-int menu(std::ifstream &file, std::string this_menu, int flag)
+int menu(std::string menu_str, int flag)
 { // show the specific menu
 
     char c;
-    std::string fmenu;
 
     header(std::string{" MENU "});
 
-    while (file >> fmenu)
+    for (auto c : menu_str)
     {
+        std::cout << c;
 
-        if (fmenu == this_menu)
-        {
-
-            while (file.get(c) && c != '~')
-            {
-                std::cout << c;
-                if (flag)
-                    Sleep(sleep_time); // delay
-            }
-        }
+        if (flag)
+            Sleep(sleep_time); // delay
     }
 
     flag = 0;
-    file.clear();
-    file.seekg(0, std::ios::beg);
 
     border(width_menu); // display the footer '----'
 

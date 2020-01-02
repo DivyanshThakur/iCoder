@@ -2,7 +2,7 @@
 #include <fstream>
 #include <limits>
 #include "header/UIhandler.h"
-#include "header/Filehandler.h"
+#include "header/Menuhandler.h"
 #include "header/AccountHandler.h"
 #include "header/Settings.h"
 
@@ -12,17 +12,21 @@ int sleep_time = 50;
 int emessage_timer = 25;
 
 /** FUNCTION PROTOTYPES **/
-
 void main_menu_controller(char ch);
+void makeDirectory();
+bool isDirectoryExists();
 
 /** CONSTANTS **/
-const std::string fmenu = "./data/menu.dat";
 const extern char ESC;
 const extern int width_menu;
 const extern std::string txtChar;
+const extern std::string menu1_data;
 
 int main()
 {
+    if (!isDirectoryExists())
+        makeDirectory();
+
     if (check_new_user())
     {
         title(); // display title
@@ -31,14 +35,6 @@ int main()
 
     if (check_signed_user())
         home(signedUserID); // if the user is saved in file it will automatically sign in the active user
-
-    std::ifstream file(fmenu);
-
-    if (!file)
-    {                 // validating opening of file
-        createFile(); // if error occur it creates a fresh file in specific folder
-        file.open(fmenu);
-    }
 
     char ch{};
     int flag{1};
@@ -49,7 +45,7 @@ int main()
 
         title(); // print the title = iCoder
 
-        flag = menu(file, std::string{"MENU1"}, flag); // display the startup menu
+        flag = menu(menu1_data, flag); // display the startup menu
 
         { // taking character from string
             std::string str = iscan(txtChar);
@@ -59,8 +55,6 @@ int main()
         main_menu_controller(ch); // start as per user choice
 
     } while (ch != '7');
-
-    file.close(); // closing the current file
 
     return 0;
 }
@@ -101,6 +95,23 @@ void main_menu_controller(char ch)
     }
 
     press_key(); // getch()
+}
+
+void makeDirectory()
+{
+    // these code will create a folder in that specific destination
+    std::string dirpath{"data"};
+    mkdir(dirpath.c_str());
+}
+
+bool isDirectoryExists()
+{
+    DWORD attribs = ::GetFileAttributesA("data");
+
+    if (attribs == INVALID_FILE_ATTRIBUTES)
+        return false;
+
+    return (attribs & FILE_ATTRIBUTE_DIRECTORY);
 }
 
 /** HINTS **/
