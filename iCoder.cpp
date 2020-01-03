@@ -7,7 +7,7 @@
 #include "header/Settings.h"
 
 /*** GLOBAL VARIABLES ***/
-std::string signedUserID;
+std::string signedUserID; // this will be initialized at runtime
 extern int sleep_time;
 extern int emessage_timer;
 
@@ -23,8 +23,8 @@ const extern std::string menu1_data;
 
 int main()
 {
-    if (!isDirectoryExists())
-        makeDirectory();
+    if (!isDirectoryExists()) // checking if the directory "data" exists or not
+        makeDirectory();      // if it doesn't exists then it will create the directory
 
     if (check_new_user())
     {
@@ -34,9 +34,11 @@ int main()
 
     if (check_signed_user())
         home(signedUserID); // if the user is saved in file it will automatically sign in the active user
+    // else
+    //     save_active_user(std::string{"NULL"});
 
     char ch{};
-    int flag{1};
+    bool flag{true}; // it will keep track if the menu animation occurred or not
 
     do
     {

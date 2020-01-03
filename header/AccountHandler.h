@@ -39,15 +39,15 @@ const extern std::string txtString;
 const extern std::string txtPassword;
 const extern std::string txtUsername;
 const extern std::string txtChar;
-const std::string users{"./data/users.dat"};
-const std::string active_user{"./data/activeUser.dat"};
+const std::string fuser{"./data/users.dat"};
+const std::string fsetting{"./data/settings.dat"};
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};
 
 bool check_new_user()
 {
-    std::ifstream file(users);
+    std::ifstream file(fuser);
     if (!file)
         return true;
 
@@ -57,11 +57,12 @@ bool check_new_user()
 
 bool check_signed_user()
 {
-    std::ifstream file(active_user, std::ios::in);
+    std::ifstream file(fsetting);
     if (!file)
         return false;
+
     file >> signedUserID;
-    if (signedUserID == "")
+    if (signedUserID == std::string{"NULL"})
     {
         file.close();
         return false;
@@ -72,7 +73,7 @@ bool check_signed_user()
 
 void save_active_user(const std::string &userID)
 {
-    std::ofstream file(active_user);
+    std::ofstream file(fsetting, std::ios::ate);
 
     if (!file)
     {
@@ -81,8 +82,12 @@ void save_active_user(const std::string &userID)
         exit(1);
     }
 
-    file << userID;
     signedUserID = userID;
+
+    file.seekp(0, std::ios::beg);
+    file << std::setw(width_username + width_password) << std::left << signedUserID << std::endl
+         << std::endl;
+
     file.close();
     return;
 }
@@ -194,7 +199,7 @@ bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2)
 
 bool check_account(const std::string &userID, const std::string &pass)
 {
-    std::ifstream file(users);
+    std::ifstream file(fuser);
     std::string fusername, fpassword;
 
     if (!file)
@@ -218,7 +223,7 @@ bool check_account(const std::string &userID, const std::string &pass)
 bool upload_account(const std::string &userID, const std::string &pass)
 {
 
-    std::ofstream file{users, std::ios::app};
+    std::ofstream file{fuser, std::ios::app};
 
     if (!file)
     {
@@ -243,7 +248,7 @@ bool upload_account(const std::string &userID, const std::string &pass)
 bool valid_user(const std::string &userID)
 {
 
-    std::ifstream file(users);
+    std::ifstream file(fuser);
 
     if (!file)
     {
@@ -276,7 +281,7 @@ bool display_users()
 
     header(" USERS ");
 
-    std::ifstream file(users);
+    std::ifstream file(fuser);
 
     if (!file)
         return false;

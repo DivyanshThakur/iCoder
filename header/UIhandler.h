@@ -28,7 +28,7 @@ const std::string txtString{"String"};
 /** FUNCTION PROTOTYPES **/
 
 void title();
-int menu(std::string menu_str, int flag);
+bool menu(std::string menu_str, bool flag);
 std::string iscan(const std::string &stype, bool isMultiple = false);
 void header(const std::string &menu_name);
 void border(int size);
@@ -54,7 +54,7 @@ void title()
               << std::endl;
 }
 
-int menu(std::string menu_str, int flag)
+bool menu(std::string menu_str, bool flag)
 { // show the specific menu
 
     char c;
@@ -69,7 +69,7 @@ int menu(std::string menu_str, int flag)
             Sleep(sleep_time); // delay
     }
 
-    flag = 0;
+    flag = false;
 
     border(width_menu); // display the footer '----'
 

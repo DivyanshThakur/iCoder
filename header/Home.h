@@ -17,7 +17,7 @@ void extern save_active_user(const std::string &userID); // defined in AccountHa
 
 /** CONSTANTS **/
 const extern std::string menu2_data;
-const extern std::string active_user;
+const extern std::string fsetting;
 
 void home(const std::string &userID)
 {
@@ -61,7 +61,8 @@ void home_controller(char ch)
     case '3':
         break;
     case '4': // sign out
-        save_active_user(std::string{""});
+        if (signedUserID != std::string{"NULL"})
+            save_active_user(std::string{"NULL"});
         return;
     case '5':
         break;
