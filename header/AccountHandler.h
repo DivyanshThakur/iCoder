@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <string>
 #include <conio.h>
+#include "iCoder.h"
 #include "UIhandler.h"
 #include "ScreenLoader.h"
 #include "Home.h"

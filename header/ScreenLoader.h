@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <windows.h>
+#include "iCoder.h"
 #include "UIhandler.h"
 
 void load()

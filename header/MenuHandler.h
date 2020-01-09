@@ -7,7 +7,6 @@
 #include <windows.h>
 #include <direct.h>
 #include <sys/stat.h>
-#include "iCoder.h"
 
 /** FUNCTION PROTOTYPES **/
 
