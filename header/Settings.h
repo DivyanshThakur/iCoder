@@ -7,10 +7,6 @@
 #include "AccountHandler.h"
 #include "UIhandler.h"
 
-/*** GLOBAL VARIABLES ***/
-int sleep_time = 50;
-int emessage_timer = 25;
-
 /** FUNCTION PROTOTYPES **/
 void settings();
 void settings_controller(char ch);

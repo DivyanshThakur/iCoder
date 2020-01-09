@@ -6,10 +6,6 @@
 #include "UIhandler.h"
 #include "AccountHandler.h"
 
-/*** GLOBAL VARIABLES ***/
-extern std::string signedUserID;
-extern int sleep_time;
-
 /** FUNCTION PROTOTYPES **/
 void home(const std::string &userID);
 void home_controller(char ch);

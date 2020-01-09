@@ -8,15 +8,6 @@
 #include <string>
 #include <conio.h>
 
-
-/*** GLOBAL VARIABLES ***/
-extern int sleep_time;
-extern int emessage_timer;
-
-/** CONSTANTS **/
-
-
-
 /** FUNCTION PROTOTYPES **/
 
 void title();

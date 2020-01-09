@@ -9,9 +9,6 @@
 #include <sys/stat.h>
 #include "iCoder.h"
 
-/*** GLOBAL VARIABLES ***/
-extern int sleep_time;
-
 /** FUNCTION PROTOTYPES **/
 
 void show_menu();

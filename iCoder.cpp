@@ -3,11 +3,6 @@
 #include <limits>
 #include "header/iCoder.h"
 
-/*** GLOBAL VARIABLES ***/
-std::string signedUserID; // this will be initialized at runtime
-extern int sleep_time;
-extern int emessage_timer;
-
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(char ch);
 void makeDirectory();
