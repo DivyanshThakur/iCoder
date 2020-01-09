@@ -8,22 +8,14 @@
 #include <string>
 #include <conio.h>
 
+
 /*** GLOBAL VARIABLES ***/
 extern int sleep_time;
 extern int emessage_timer;
 
 /** CONSTANTS **/
 
-const int width_menu = 25;
-const int width_title = 30;
-const int width_index = 5;
-const extern int width_username = 20;
-const extern int width_password = 10;
-const char ESC = 27;
-const std::string txtPassword{"Password"};
-const std::string txtUsername{"Username"};
-const std::string txtChar{"Char"};
-const std::string txtString{"String"};
+
 
 /** FUNCTION PROTOTYPES **/
 

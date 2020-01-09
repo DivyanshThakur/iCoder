@@ -11,10 +11,6 @@
 int sleep_time = 50;
 int emessage_timer = 25;
 
-/** CONSTANTS **/
-const extern std::string txtChar;
-const extern std::string fsetting;
-
 /** FUNCTION PROTOTYPES **/
 void settings();
 void settings_controller(char ch);

@@ -1,10 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
-#include "header/AccountHandler.h"
-#include "header/UIhandler.h"
-#include "header/Menuhandler.h"
-#include "header/Settings.h"
+#include "header/iCoder.h"
 
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID; // this will be initialized at runtime
@@ -15,11 +12,6 @@ extern int emessage_timer;
 void main_menu_controller(char ch);
 void makeDirectory();
 bool isDirectoryExists();
-
-/** CONSTANTS **/
-const extern char ESC;
-const extern std::string txtChar;
-const extern std::string menu1_data;
 
 int main()
 {

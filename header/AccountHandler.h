@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <string>
 #include <conio.h>
+//#include "iCoder.h"
 #include "UIhandler.h"
 #include "ScreenLoader.h"
 #include "Home.h"
@@ -29,20 +30,5 @@ bool input_user_pass(std::string &userID, std::string &pass);
 bool check_account(const std::string &userID, const std::string &pass);
 bool upload_account(const std::string &userID, const std::string &pass);
 bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2);
-
-/** CONSTANTS **/
-
-const extern int width_index;
-const extern int width_username;
-const extern int width_password;
-const extern std::string txtString;
-const extern std::string txtPassword;
-const extern std::string txtUsername;
-const extern std::string txtChar;
-const std::string fuser{"./data/users.dat"};
-const std::string fsetting{"./data/settings.dat"};
-const std::string username{"Username: "};
-const std::string password{"Password: "};
-const std::string RePassword{"Re-enter Password: "};
 
 #endif
