@@ -1,15 +1,5 @@
-#ifndef HOME_H
-#define HOME_H
-
-#include <iostream>
-#include <string>
-#include "UIhandler.h"
-#include "AccountHandler.h"
-
-/** FUNCTION PROTOTYPES **/
-void home(const std::string &userID);
-void home_controller(char ch);
-void extern save_active_user(const std::string &userID); // defined in AccountHandler.h
+#include "../header/Home.hpp"
+#include "../header/Constants.hpp"
 
 void home(const std::string &userID)
 {
@@ -73,5 +63,3 @@ void home_controller(char ch)
 
     press_key(); // program paused - getch()
 }
-
-#endif

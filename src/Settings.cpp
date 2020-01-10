@@ -1,15 +1,5 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
-
-#include <iostream>
-#include <sstream>
-#include <windows.h>
-#include "AccountHandler.h"
-#include "UIhandler.h"
-
-/** FUNCTION PROTOTYPES **/
-void settings();
-void settings_controller(char ch);
+#include "../header/Settings.hpp"
+#include "../header/Constants.hpp"
 
 void settings()
 {
@@ -81,5 +71,3 @@ void settings_controller(char ch)
 
     press_key(); // getch()
 }
-
-#endif

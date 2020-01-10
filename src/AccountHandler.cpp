@@ -1,4 +1,5 @@
-#include "../header/AccountHandler.h"
+#include "../header/AccountHandler.hpp"
+#include "../header/Constants.hpp"
 
 bool check_new_user()
 {

@@ -1,36 +1,5 @@
-#ifndef UIHANDLER_H
-#define UIHANDLER_H
-
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <windows.h>
-#include <string>
-#include <conio.h>
-
-/** FUNCTION PROTOTYPES **/
-
-void show_menu(const std::string &menu_data);
-void load();
-void title();
-bool menu(std::string menu_str, bool flag);
-std::string iscan(const std::string &stype, bool isMultiple = false);
-void header(const std::string &menu_name);
-void border(int size);
-void emessage(const std::string &emessage);
-void animater(const std::string &anime, int speed = sleep_time);
-void igetch();
-void press_key();
-
-void show_menu(const std::string &menu_data)
-{
-
-    for (auto c : menu_data)
-    {
-        std::cout << c; // printing all characters one by one in console
-        Sleep(sleep_time);
-    }
-}
+#include "../header/UIhandler.hpp"
+#include "../header/Constants.hpp"
 
 void load()
 {
@@ -196,5 +165,3 @@ void press_key()
     std::cout << "Press a key to continue";
     getch();
 }
-
-#endif
