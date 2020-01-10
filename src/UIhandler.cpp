@@ -36,8 +36,6 @@ void title()
 bool menu(std::string menu_str, bool flag)
 { // show the specific menu
 
-    char c;
-
     header(std::string{" MENU "});
 
     for (auto c : menu_str)
@@ -64,11 +62,11 @@ std::string iscan(const std::string &stype, bool isMultiple)
 
     char c;
 
-    while (c = getch())
+    while ((c = getch()))
     { // taking input from user
 
-        isUserExceeded = (stype == txtUsername && value.size() >= width_username);
-        isPassExceeded = (stype == txtPassword && value.size() >= width_password);
+        isUserExceeded = (stype == txtUsername && value.size() >= static_cast<unsigned int>(width_username));
+        isPassExceeded = (stype == txtPassword && value.size() >= static_cast<unsigned int>(width_password));
 
         if (c == '\r' && value.size())
             break; // if user presses enter end while loop and save the value
@@ -134,7 +132,7 @@ void emessage(const std::string &emessage)
 
     igetch();
 
-    for (auto i{0}; i < emessage.size(); ++i)
+    for (unsigned int i{0}; i < emessage.size(); ++i)
     {
         std::cout << "\b \b";
         Sleep(emessage_timer);
@@ -144,7 +142,7 @@ void emessage(const std::string &emessage)
 void igetch()
 {
     char c;
-    while (c = getch())
+    while ((c = getch()))
         if (c == '\r' || c == ' ' || c == '\b' || c == 27)
             return;
 }

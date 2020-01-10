@@ -277,7 +277,7 @@ bool display_users()
 std::string pass_to_asteric(const std::string &pass)
 {
     std::string ast;
-    for (auto p : pass)
+    for (size_t i{0}; i < pass.length(); ++i)
         ast += "*";
     return ast;
 }

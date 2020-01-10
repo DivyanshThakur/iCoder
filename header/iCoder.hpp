@@ -7,9 +7,9 @@
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 
 /*** GLOBAL VARIABLES ***/
-std::string signedUserID; // this will be initialized at runtime
-int sleep_time;
-int emessage_timer;
+extern std::string signedUserID; // this will be initialized at runtime
+extern int sleep_time;
+extern int emessage_timer;
 
 /** CONSTANTS **/
 
