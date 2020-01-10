@@ -14,12 +14,12 @@ int emessage_timer;
 /** CONSTANTS **/
 
 // uihandler.h
-extern constexpr int width_menu;
-extern constexpr int width_title;
-extern constexpr int width_index;
-extern constexpr int width_username;
-extern constexpr int width_password;
-extern constexpr char ESC;
+extern const int width_menu;
+extern const int width_title;
+extern const int width_index;
+extern const int width_username;
+extern const int width_password;
+extern const char ESC;
 extern const std::string txtPassword;
 extern const std::string txtUsername;
 extern const std::string txtChar;

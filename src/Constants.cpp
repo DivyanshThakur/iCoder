@@ -8,12 +8,12 @@ int emessage_timer = 25;
 /** CONSTANTS **/
 
 // uihandler.h
-constexpr int width_menu = 25;
-constexpr int width_title = 30;
-constexpr int width_index = 5;
-constexpr int width_username = 20;
-constexpr int width_password = 10;
-constexpr char ESC = 27;
+const int width_menu = 25;
+const int width_title = 30;
+const int width_index = 5;
+const int width_username = 20;
+const int width_password = 10;
+const char ESC = 27;
 const std::string txtPassword{"Password"};
 const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};
