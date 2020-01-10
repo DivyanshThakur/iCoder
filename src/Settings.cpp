@@ -1,5 +1,5 @@
 #include "../header/Settings.hpp"
-#include "../header/Constants.hpp"
+#include "../header/iCoder.hpp"
 
 void settings()
 {

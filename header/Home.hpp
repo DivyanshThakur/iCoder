@@ -1,5 +1,5 @@
-#ifndef HOME_H
-#define HOME_H
+#ifndef HOME_HPP
+#define HOME_HPP
 
 #include <iostream>
 #include <string>

@@ -1,5 +1,5 @@
-#ifndef ACCOUNTHANDLER_H
-#define ACCOUNTHANDLER_H
+#ifndef ACCOUNTHANDLER_HPP
+#define ACCOUNTHANDLER_HPP
 
 #include <iostream>
 #include <fstream>

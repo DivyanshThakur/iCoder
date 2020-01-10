@@ -1,5 +1,5 @@
-#ifndef UIHANDLER_H
-#define UIHANDLER_H
+#ifndef UIHANDLER_HPP
+#define UIHANDLER_HPP
 
 #include <iostream>
 #include <fstream>
