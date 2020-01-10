@@ -38,9 +38,7 @@ const std::string RePassword{"Re-enter Password: "};
 
 #include "AccountHandler.h"
 #include "UIhandler.h"
-#include "ScreenLoader.h"
 #include "Home.h"
-#include "Menuhandler.h"
 #include "Settings.h"
 
 #endif

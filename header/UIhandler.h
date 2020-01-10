@@ -10,6 +10,8 @@
 
 /** FUNCTION PROTOTYPES **/
 
+void show_menu(const std::string &menu_data);
+void load();
 void title();
 bool menu(std::string menu_str, bool flag);
 std::string iscan(const std::string &stype, bool isMultiple = false);
@@ -19,6 +21,32 @@ void emessage(const std::string &emessage);
 void animater(const std::string &anime, int speed = sleep_time);
 void igetch();
 void press_key();
+
+void show_menu(const std::string &menu_data)
+{
+
+    for (auto c : menu_data)
+    {
+        std::cout << c; // printing all characters one by one in console
+        Sleep(sleep_time);
+    }
+}
+
+void load()
+{
+
+    srand(time(nullptr)); // it will generate unique random numbers each time
+
+    std::string loader{"LOADING..."};
+
+    for (int i{0}; i <= rand() % 20 + (rand() % 15) * 2 + 10; ++i)
+    {
+        if (i % 10 == 0)
+            std::cout << "\r          \r";         // erasing current line
+        std::cout << loader.at(i % loader.size()); // display char one by one
+        Sleep(150);                                // delay
+    }
+}
 
 void title()
 { // this display the title at top of screen

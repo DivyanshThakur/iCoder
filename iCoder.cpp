@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
+#include <dir.h>
 #include "header/iCoder.h"
 
 /** FUNCTION PROTOTYPES **/
