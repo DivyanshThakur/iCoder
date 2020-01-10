@@ -50,7 +50,7 @@ void home_controller(char ch)
 
     case '6': // exit the program
         break;
-    case ESC: //ESC
+    case 27: //ESC
         return;
 
     default:
