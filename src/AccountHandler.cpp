@@ -1,5 +1,4 @@
 #include "../header/AccountHandler.hpp"
-#include "../header/iCoder.hpp"
 
 bool check_new_user()
 {

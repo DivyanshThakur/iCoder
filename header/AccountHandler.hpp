@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <string>
 #include <conio.h>
+#include "iCoder.hpp"
 
 /** FUNCTION PROTOTYPES **/
 

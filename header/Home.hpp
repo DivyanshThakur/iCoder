@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "iCoder.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void home(const std::string &userID);

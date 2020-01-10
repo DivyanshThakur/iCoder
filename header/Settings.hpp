@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <windows.h>
+#include "iCoder.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void settings();
