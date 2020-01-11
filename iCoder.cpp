@@ -66,6 +66,7 @@ void main_menu_controller(char ch)
             std::cout << "No user in database" << std::endl;
         break;
     case '5': // details about the software and the shortcut/hint that can be used in it
+        std::cout << "This is iCoder Software!" << std::endl;
         break;
 
     case '6': // Customize the software using settings

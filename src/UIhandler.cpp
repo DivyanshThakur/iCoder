@@ -33,10 +33,10 @@ void title()
               << std::endl;
 }
 
-bool menu(std::string menu_str, bool flag)
+bool menu(std::string menu_str, bool flag, const std::string heading)
 { // show the specific menu
 
-    header(std::string{" MENU "});
+    header(heading);
 
     for (auto c : menu_str)
     {

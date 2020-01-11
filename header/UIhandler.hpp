@@ -13,7 +13,7 @@
 
 void load();
 void title();
-bool menu(std::string menu_str, bool flag);
+bool menu(std::string menu_str, bool flag, const std::string heading = " MENU ");
 std::string iscan(const std::string &stype, bool isMultiple = false);
 void header(const std::string &menu_name);
 void border(int size);

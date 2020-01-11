@@ -20,8 +20,9 @@ const std::string txtChar{"Char"};
 const std::string txtString{"String"};
 
 // menuhandler.h
-const std::string menu1_data{"1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Settings\n7. Exit"};
-const std::string menu2_data{"1. Array\n2. Recursion\n3. Linked List\n4. Main Menu (Sign Out)\n5. Exit"};
+const std::string main_menu_data{"1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Settings\n7. Exit"};
+const std::string home_data{"1. Array\n2. Recursion\n3. Linked List\n4. Main Menu (Sign Out)\n5. Exit"};
+const std::string settings_data{"1. Change Menu animation speed\n2. Change Warning animation speed\n3. Exit"};
 
 //accounthandler.h
 const std::string fuser{"./data/users.dat"};

@@ -1,5 +1,5 @@
 all: iCoder.o AccountHandler.o Constants.o Home.o Settings.o UIhandler.o
-	g++ obj\iCoder.o obj\AccountHandler.o obj\Constants.o obj\Home.o obj\Settings.o obj\UIhandler.o -o Test.exe
+	g++ obj\iCoder.o obj\AccountHandler.o obj\Constants.o obj\Home.o obj\Settings.o obj\UIhandler.o -o iCoder.exe
 
 iCoder.o: iCoder.cpp
 	g++ -c -Wall iCoder.cpp -o obj\iCoder.o
