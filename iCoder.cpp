@@ -22,8 +22,8 @@ int main()
 
     if (check_signed_user())
         home(signedUserID); // if the user is saved in file it will automatically sign in the active user
-    // else
-    //     save_active_user(std::string{"NULL"});
+    else
+        save_active_user(std::string{"NULL"});
 
     char ch{};
     bool flag{true}; // it will keep track if the menu animation occurred or not

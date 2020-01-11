@@ -19,7 +19,7 @@ void settings()
 
         settings_controller(ch); // start as per user choice
 
-        if (ch == ESC || ch == 3) //return when ESC is pressed
+        if (ch == ESC || ch == '3') //return when ESC is pressed
             return;
 
     } while (ch != '4');

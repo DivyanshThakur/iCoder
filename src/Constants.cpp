@@ -2,7 +2,7 @@
 
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID; // this will be initialized at runtime
-int sleep_time = 50;
+int sleep_time;
 int emessage_timer = 25;
 
 /** CONSTANTS **/
