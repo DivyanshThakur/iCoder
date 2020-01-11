@@ -1,49 +1,4 @@
-#ifndef ACCOUNTHANDLER_H
-#define ACCOUNTHANDLER_H
-
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <conio.h>
-#include "UIhandler.h"
-#include "ScreenLoader.h"
-#include "Home.h"
-
-/*** GLOBAL VARIABLES ***/
-extern std::string signedUserID;
-extern int sleep_time;
-
-/** FUNCTION PROTOTYPES **/
-
-void login();
-bool display_users();
-bool check_new_user();
-void create_account();
-bool check_signed_user();
-bool valid_user(const std::string &userID);
-void save_active_user(const std::string &userID);
-bool display_remember_me(const std::string &userID);
-std::string pass_to_asteric(const std::string &pass);
-bool input_user_pass(std::string &userID, std::string &pass);
-bool check_account(const std::string &userID, const std::string &pass);
-bool upload_account(const std::string &userID, const std::string &pass);
-bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2);
-
-/** CONSTANTS **/
-
-const extern int width_index;
-const extern int width_username;
-const extern int width_password;
-const extern std::string txtString;
-const extern std::string txtPassword;
-const extern std::string txtUsername;
-const extern std::string txtChar;
-const std::string fuser{"./data/users.dat"};
-const std::string fsetting{"./data/settings.dat"};
-const std::string username{"Username: "};
-const std::string password{"Password: "};
-const std::string RePassword{"Re-enter Password: "};
+#include "../header/AccountHandler.hpp"
 
 bool check_new_user()
 {
@@ -322,7 +277,7 @@ bool display_users()
 std::string pass_to_asteric(const std::string &pass)
 {
     std::string ast;
-    for (auto p : pass)
+    for (size_t i{0}; i < pass.length(); ++i)
         ast += "*";
     return ast;
 }
@@ -342,5 +297,3 @@ bool display_remember_me(const std::string &userID)
         save_active_user(userID); // save the current user
     return true;
 }
-
-#endif

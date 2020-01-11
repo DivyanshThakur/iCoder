@@ -1,41 +1,20 @@
-#ifndef UIHANDLER_H
-#define UIHANDLER_H
+#include "../header/UIhandler.hpp"
 
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <windows.h>
-#include <string>
-#include <conio.h>
+void load()
+{
 
-/*** GLOBAL VARIABLES ***/
-extern int sleep_time;
-extern int emessage_timer;
+    srand(time(nullptr)); // it will generate unique random numbers each time
 
-/** CONSTANTS **/
+    std::string loader{"LOADING..."};
 
-const int width_menu = 25;
-const int width_title = 30;
-const int width_index = 5;
-const extern int width_username = 20;
-const extern int width_password = 10;
-const char ESC = 27;
-const std::string txtPassword{"Password"};
-const std::string txtUsername{"Username"};
-const std::string txtChar{"Char"};
-const std::string txtString{"String"};
-
-/** FUNCTION PROTOTYPES **/
-
-void title();
-bool menu(std::string menu_str, bool flag);
-std::string iscan(const std::string &stype, bool isMultiple = false);
-void header(const std::string &menu_name);
-void border(int size);
-void emessage(const std::string &emessage);
-void animater(const std::string &anime, int speed = sleep_time);
-void igetch();
-void press_key();
+    for (int i{0}; i <= rand() % 20 + (rand() % 15) * 2 + 10; ++i)
+    {
+        if (i % 10 == 0)
+            std::cout << "\r          \r";         // erasing current line
+        std::cout << loader.at(i % loader.size()); // display char one by one
+        Sleep(150);                                // delay
+    }
+}
 
 void title()
 { // this display the title at top of screen
@@ -54,12 +33,10 @@ void title()
               << std::endl;
 }
 
-bool menu(std::string menu_str, bool flag)
+bool menu(std::string menu_str, bool flag, const std::string heading)
 { // show the specific menu
 
-    char c;
-
-    header(std::string{" MENU "});
+    header(heading);
 
     for (auto c : menu_str)
     {
@@ -85,11 +62,11 @@ std::string iscan(const std::string &stype, bool isMultiple)
 
     char c;
 
-    while (c = getch())
+    while ((c = getch()))
     { // taking input from user
 
-        isUserExceeded = (stype == txtUsername && value.size() >= width_username);
-        isPassExceeded = (stype == txtPassword && value.size() >= width_password);
+        isUserExceeded = (stype == txtUsername && value.size() >= static_cast<unsigned int>(width_username));
+        isPassExceeded = (stype == txtPassword && value.size() >= static_cast<unsigned int>(width_password));
 
         if (c == '\r' && value.size())
             break; // if user presses enter end while loop and save the value
@@ -155,7 +132,7 @@ void emessage(const std::string &emessage)
 
     igetch();
 
-    for (auto i{0}; i < emessage.size(); ++i)
+    for (unsigned int i{0}; i < emessage.size(); ++i)
     {
         std::cout << "\b \b";
         Sleep(emessage_timer);
@@ -165,7 +142,7 @@ void emessage(const std::string &emessage)
 void igetch()
 {
     char c;
-    while (c = getch())
+    while ((c = getch()))
         if (c == '\r' || c == ' ' || c == '\b' || c == 27)
             return;
 }
@@ -185,5 +162,3 @@ void press_key()
     std::cout << "Press a key to continue";
     getch();
 }
-
-#endif

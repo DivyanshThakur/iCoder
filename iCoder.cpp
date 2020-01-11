@@ -1,25 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
-#include "header/AccountHandler.h"
-#include "header/UIhandler.h"
-#include "header/Menuhandler.h"
-#include "header/Settings.h"
-
-/*** GLOBAL VARIABLES ***/
-std::string signedUserID; // this will be initialized at runtime
-extern int sleep_time;
-extern int emessage_timer;
+#include <dir.h>
+#include "header/iCoder.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(char ch);
 void makeDirectory();
 bool isDirectoryExists();
-
-/** CONSTANTS **/
-const extern char ESC;
-const extern std::string txtChar;
-const extern std::string menu1_data;
 
 int main()
 {
@@ -46,7 +34,7 @@ int main()
 
         title(); // print the title = iCoder
 
-        flag = menu(menu1_data, flag); // display the startup menu
+        flag = menu(main_menu_data, flag); // display the startup menu
 
         { // taking character from string
             std::string str = iscan(txtChar);
@@ -78,14 +66,15 @@ void main_menu_controller(char ch)
             std::cout << "No user in database" << std::endl;
         break;
     case '5': // details about the software and the shortcut/hint that can be used in it
+        std::cout << "This is iCoder Software!" << std::endl;
         break;
 
     case '6': // Customize the software using settings
         settings();
-        break;
+        return;
     case '7': // exit the program
         break;
-    case ESC: //ESC
+    case 27: //ESC
         return;
 
     default:

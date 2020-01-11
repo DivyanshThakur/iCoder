@@ -1,23 +1,4 @@
-#ifndef HOME_H
-#define HOME_H
-
-#include <iostream>
-#include <string>
-#include "UIhandler.h"
-#include "AccountHandler.h"
-
-/*** GLOBAL VARIABLES ***/
-extern std::string signedUserID;
-extern int sleep_time;
-
-/** FUNCTION PROTOTYPES **/
-void home(const std::string &userID);
-void home_controller(char ch);
-void extern save_active_user(const std::string &userID); // defined in AccountHandler.h
-
-/** CONSTANTS **/
-const extern std::string menu2_data;
-const extern std::string fsetting;
+#include "../header/Home.hpp"
 
 void home(const std::string &userID)
 {
@@ -33,7 +14,7 @@ void home(const std::string &userID)
         if (flag)
             emessage("--> Welcome " + userID + "!"); // display the welcome message
 
-        flag = menu(menu2_data, flag); // display the startup menu
+        flag = menu(home_data, flag); // display the startup menu
 
         { // taking character from string
             std::string str = iscan(txtChar);
@@ -69,7 +50,7 @@ void home_controller(char ch)
 
     case '6': // exit the program
         break;
-    case ESC: //ESC
+    case 27: //ESC
         return;
 
     default:
@@ -81,5 +62,3 @@ void home_controller(char ch)
 
     press_key(); // program paused - getch()
 }
-
-#endif
