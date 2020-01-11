@@ -14,7 +14,7 @@ void home(const std::string &userID)
         if (flag)
             emessage("--> Welcome " + userID + "!"); // display the welcome message
 
-        flag = menu(menu2_data, flag); // display the startup menu
+        flag = menu(home_data, flag); // display the startup menu
 
         { // taking character from string
             std::string str = iscan(txtChar);

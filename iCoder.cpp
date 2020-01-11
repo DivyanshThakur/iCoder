@@ -34,7 +34,7 @@ int main()
 
         title(); // print the title = iCoder
 
-        flag = menu(menu1_data, flag); // display the startup menu
+        flag = menu(main_menu_data, flag); // display the startup menu
 
         { // taking character from string
             std::string str = iscan(txtChar);
@@ -71,7 +71,7 @@ void main_menu_controller(char ch)
 
     case '6': // Customize the software using settings
         settings();
-        break;
+        return;
     case '7': // exit the program
         break;
     case 27: //ESC

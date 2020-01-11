@@ -26,8 +26,9 @@ extern const std::string txtChar;
 extern const std::string txtString;
 
 // menuhandler.h
-extern const std::string menu1_data;
-extern const std::string menu2_data;
+extern const std::string main_menu_data;
+extern const std::string home_data;
+extern const std::string settings_data;
 
 //accounthandler.h
 extern const std::string fuser;
