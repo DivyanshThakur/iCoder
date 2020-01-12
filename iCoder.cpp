@@ -74,7 +74,7 @@ void main_menu_controller(char ch)
         return;
     case '7': // exit the program
         break;
-    case 27: //ESC
+    case ESC: //ESC
         return;
 
     default:

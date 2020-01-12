@@ -13,7 +13,6 @@ const int width_title = 30;
 const int width_index = 5;
 const int width_username = 20;
 const int width_password = 10;
-const char ESC = 27;
 const std::string txtPassword{"Password"};
 const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};

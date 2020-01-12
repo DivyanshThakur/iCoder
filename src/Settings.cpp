@@ -43,7 +43,7 @@ void settings_controller(char ch)
     case '4': // exit the program
         break;
 
-    case 27: //ESC
+    case ESC: //ESC
         return;
 
     default:
