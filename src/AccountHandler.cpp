@@ -87,20 +87,21 @@ void create_account()
 
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
-    std::string userID, pass, pass2;
+    std::unique_ptr<Account> acc = std::make_unique<CreateAccount>();
+    std::string pass2;
 
-    if (!(input_user_pass(userID, pass, pass2))) // taking username and password
+    if (!(acc->input_data()))
         return;
 
     border(width_menu); // display the border
 
-    if (pass != pass2)
+    if (acc->get_pass != pass2)
     {
         std::cout << "Password not matched";
         press_key();
         create_account();
     }
-    else if (!upload_account(userID, pass))
+    else if (!upload_account(acc->get_userID, acc->get_pass))
     {
         std::cout << "Username already exists!";
         press_key();
@@ -109,47 +110,13 @@ void create_account()
     else
     { // go to home
 
-        if (!display_remember_me(userID)) // it will display remember me message
+        if (!display_remember_me(acc->get_userID)) // it will display remember me message
             return;
 
-        border(width_menu); // display the border
-        load();             // animate loading screen
-        home(userID);       // calling the main menu (HOME) screen to show all program list
+        border(width_menu);    // display the border
+        load();                // animate loading screen
+        home(acc->get_userID); // calling the main menu (HOME) screen to show all program list
     }
-}
-
-bool input_user_pass(std::string &userID, std::string &pass)
-{
-    animater(username);
-
-    userID = iscan(txtUsername); // taking username from user
-    if (userID == "")
-        return false;
-    std::cout << std::endl;
-
-    animater(password);
-
-    pass = iscan(txtPassword); // scanning password
-    if (pass == "")
-        return false;
-
-    return true;
-}
-
-bool input_user_pass(std::string &userID, std::string &pass, std::string &pass2)
-{
-    if (!(input_user_pass(userID, pass)))
-        return false;
-
-    std::cout << std::endl;
-
-    animater(RePassword);
-
-    pass2 = iscan(txtPassword); // scanning password
-    if (pass2 == "")
-        return false;
-
-    return true;
 }
 
 bool check_account(const std::string &userID, const std::string &pass)
