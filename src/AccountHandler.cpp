@@ -212,9 +212,9 @@ bool valid_user(const std::string &userID)
         exit(1);
     }
 
-    std::string fname;
+    std::string fname, fpass;
 
-    while (file >> fname) // if the name matches in file return false
+    while (file >> fname && file >> fpass) // if the name matches in file return false
     {
         if (fname == userID)
         {
