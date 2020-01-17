@@ -10,7 +10,7 @@ private:
     std::string pass2;
 
 public:
-    bool input_data() override;
+    virtual bool input_data() override;
     //void upload();
 
     virtual ~CreateAccount() = default;
