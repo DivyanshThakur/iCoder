@@ -20,13 +20,13 @@ Constants.o: src\Constants.cpp header\iCoder.hpp
 	$(CC) $(CFLAGS) src\Constants.cpp -o obj\Constants.o
 
 CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
-	$(CC) $(CFLAGS) src\CreateAccount.cpp -o header\CreateAccount.o
+	$(CC) $(CFLAGS) src\CreateAccount.cpp -o obj\CreateAccount.o
 
 Home.o: src\Home.cpp header\Home.hpp
 	$(CC) $(CFLAGS) src\Home.cpp -o obj\Home.o
 
 LoginAccount.o: src\LoginAccount.cpp header\LoginAccount.hpp
-	$(CC) $(CFLAGS) src\LoginAccount.cpp -o header\LoginAccount.o
+	$(CC) $(CFLAGS) src\LoginAccount.cpp -o obj\LoginAccount.o
 
 Settings.o: src\Settings.cpp header\Settings.hpp
 	$(CC) $(CFLAGS) src\Settings.cpp -o obj\Settings.o

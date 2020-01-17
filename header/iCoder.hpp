@@ -41,5 +41,8 @@ extern const std::string RePassword;
 #include "AccountHandler.hpp"
 #include "Home.hpp"
 #include "Settings.hpp"
+#include "Account.hpp"
+#include "CreateAccount.hpp"
+#include "LoginAccount.hpp"
 
 #endif

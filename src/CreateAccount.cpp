@@ -3,16 +3,16 @@
 bool CreateAccount::input_data()
 {
     std::cout << "CreateAccount called" << std::endl;
-    // if (!(Account::input_data()))
-    //     return false;
+    if (!(Account::input_data()))
+        return false;
 
-    // std::cout << std::endl;
+    std::cout << std::endl;
 
-    // animater(RePassword);
+    animater(RePassword);
 
-    // pass2 = iscan(txtPassword); // scanning password
-    // if (pass2 == "")
-    //     return false;
+    pass2 = iscan(txtPassword); // scanning password
+    if (pass2 == "")
+        return false;
 
     return true;
 }

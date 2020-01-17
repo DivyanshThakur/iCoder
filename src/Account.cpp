@@ -3,20 +3,20 @@
 bool Account::input_data()
 {
     std::cout << "Account class called" << std::endl;
-    // animater(username);
+    animater(username);
 
-    // userID = iscan(txtUsername); // taking username from user
+    userID = iscan(txtUsername); // taking username from user
 
-    // if (userID == "")
-    //     return false;
+    if (userID == "")
+        return false;
 
-    // std::cout << std::endl;
+    std::cout << std::endl;
 
-    // animater(password);
+    animater(password);
 
-    // pass = iscan(txtPassword); // scanning password
-    // if (pass == "")
-    //     return false;
+    pass = iscan(txtPassword); // scanning password
+    if (pass == "")
+        return false;
 
     return true;
 }

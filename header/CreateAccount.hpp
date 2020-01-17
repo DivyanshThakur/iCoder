@@ -1,5 +1,5 @@
-#ifndef CREATE_ACCOUNT_H
-#define CREATE_ACCOUNT_H
+#ifndef CREATE_ACCOUNT_HPP
+#define CREATE_ACCOUNT_HPP
 
 #include <iostream>
 #include "Account.hpp"
@@ -11,7 +11,7 @@ private:
 
 public:
     virtual bool input_data() override;
-    //void upload();
+    void upload();
 
     virtual ~CreateAccount() = default;
 };
