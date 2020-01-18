@@ -67,8 +67,8 @@ void login()
 
     header(std::string{" LOGIN "});
 
-    if (!(input_user_pass(userID, pass))) // taking username and password
-        return;
+    // if (!(input_user_pass(userID, pass))) // taking username and password
+    //     return;
 
     border(width_menu); // display the border '----'
 
@@ -97,7 +97,7 @@ void create_account()
 
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
-    std::unique_ptr<Account> acc = std::make_unique<Account>();
+    std::unique_ptr<Account> acc = std::make_unique<CreateAccount>();
     std::string pass2;
 
     if (!(acc->input_data()))
