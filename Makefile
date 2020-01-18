@@ -16,7 +16,7 @@ Account.o : src\Account.cpp header\Account.hpp
 AccountHandler.o: src\AccountHandler.cpp header\AccountHandler.hpp
 	$(CC) $(CFLAGS) src\AccountHandler.cpp -o obj\AccountHandler.o
 
-Constants.o: src\Constants.cpp header\iCoder.hpp
+Constants.o: src\Constants.cpp header\Constants.hpp
 	$(CC) $(CFLAGS) src\Constants.cpp -o obj\Constants.o
 
 CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
@@ -35,7 +35,7 @@ UIhandler.o: src\UIhandler.cpp header\UIhandler.hpp
 	$(CC) $(CFLAGS) src\UIhandler.cpp -o obj\UIhandler.o
 
 clean:
-	\rm obj/*.o iCoder
+	\rm -f obj/*.o iCoder
 
 tar:
 	tar cfv iCoder.tar Makefile src/*.cpp header/*.hpp
