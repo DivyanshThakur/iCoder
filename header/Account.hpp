@@ -1,8 +1,7 @@
 #ifndef ACCOUNT_HPP
 #define ACCOUNT_HPP
 
-#include <iostream>
-#include "iCoder.hpp"
+#include <string>
 
 class Account
 {

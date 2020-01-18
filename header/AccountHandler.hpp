@@ -1,15 +1,6 @@
 #ifndef ACCOUNTHANDLER_HPP
 #define ACCOUNTHANDLER_HPP
 
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <conio.h>
-#include <memory>
-#include "iCoder.hpp"
-#include "CreateAccount.hpp"
-
 /** FUNCTION PROTOTYPES **/
 
 void login();

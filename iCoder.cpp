@@ -2,7 +2,11 @@
 #include <fstream>
 #include <limits>
 #include <dir.h>
-#include "header/iCoder.hpp"
+#include "header/Constants.hpp"
+#include "header/UIhandler.hpp"
+#include "header/AccountHandler.hpp"
+#include "header/Home.hpp"
+#include "header/Settings.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(char ch);

@@ -1,9 +1,7 @@
 #ifndef HOME_HPP
 #define HOME_HPP
 
-#include <iostream>
 #include <string>
-#include "iCoder.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void home(const std::string &userID);

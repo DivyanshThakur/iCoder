@@ -1,4 +1,9 @@
-#include "../header/iCoder.hpp"
+#ifndef CONSTANTS_HPP
+#define CONSTANTS_HPP
+
+#include <string>
+
+/** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID; // this will be initialized at runtime
@@ -13,6 +18,7 @@ const int width_title = 30;
 const int width_index = 5;
 const int width_username = 20;
 const int width_password = 10;
+constexpr char ESC = 27;
 const std::string txtPassword{"Password"};
 const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};
@@ -29,3 +35,5 @@ const std::string fsetting{"./data/settings.dat"};
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};
+
+#endif

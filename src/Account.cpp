@@ -1,4 +1,7 @@
-#include "../header/Account.hpp"
+#include <iostream>
+#include "header/Account.hpp"
+#include "header/Constants.hpp"
+#include "header/UIhandler.hpp"
 
 bool Account::input_data()
 {

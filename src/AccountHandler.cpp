@@ -1,4 +1,14 @@
 #include "../header/AccountHandler.hpp"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <conio.h>
+#include <memory>
+#include "header/Constants.hpp"
+#include "header/UIhandler.hpp"
+#include "header/Home.hpp"
+#include "header/CreateAccount.hpp"
 
 bool check_new_user()
 {
@@ -87,7 +97,7 @@ void create_account()
 
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
-    std::unique_ptr<Account> acc = std::make_unique<CreateAccount>();
+    std::unique_ptr<Account> acc = std::make_unique<Account>();
     std::string pass2;
 
     if (!(acc->input_data()))
@@ -95,13 +105,13 @@ void create_account()
 
     border(width_menu); // display the border
 
-    if (acc->get_pass != pass2)
+    if (acc->get_pass() != pass2)
     {
         std::cout << "Password not matched";
         press_key();
         create_account();
     }
-    else if (!upload_account(acc->get_userID, acc->get_pass))
+    else if (!upload_account(acc->get_userID(), acc->get_pass()))
     {
         std::cout << "Username already exists!";
         press_key();
@@ -110,12 +120,12 @@ void create_account()
     else
     { // go to home
 
-        if (!display_remember_me(acc->get_userID)) // it will display remember me message
+        if (!display_remember_me(acc->get_userID())) // it will display remember me message
             return;
 
-        border(width_menu);    // display the border
-        load();                // animate loading screen
-        home(acc->get_userID); // calling the main menu (HOME) screen to show all program list
+        border(width_menu);      // display the border
+        load();                  // animate loading screen
+        home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
 }
 
