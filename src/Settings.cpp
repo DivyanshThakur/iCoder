@@ -1,7 +1,7 @@
 #include <iostream>
-#include "header/Settings.hpp"
-#include "header/Constants.hpp"
-#include "header/UIhandler.hpp"
+#include "../header/Settings.hpp"
+#include "../header/Constants.hpp"
+#include "../header/UIhandler.hpp"
 
 void settings()
 {

@@ -1,14 +1,14 @@
-#include "../header/AccountHandler.hpp"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <string>
 #include <conio.h>
 #include <memory>
-#include "header/Constants.hpp"
-#include "header/UIhandler.hpp"
-#include "header/Home.hpp"
-#include "header/CreateAccount.hpp"
+#include "../header/AccountHandler.hpp"
+#include "../header/Constants.hpp"
+#include "../header/UIhandler.hpp"
+#include "../header/Home.hpp"
+#include "../header/CreateAccount.hpp"
 
 bool check_new_user()
 {
