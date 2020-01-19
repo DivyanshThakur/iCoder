@@ -110,7 +110,7 @@ void create_account()
         press_key();
         create_account();
     }
-    else if (acc->upload_account())
+    else if (!acc->upload_account())
     {
         std::cout << "Username already exists!";
         press_key();
