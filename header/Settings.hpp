@@ -2,8 +2,6 @@
 #define SETTINGS_HPP
 
 #include <iostream>
-#include <sstream>
-#include <windows.h>
 
 /** FUNCTION PROTOTYPES **/
 void settings();

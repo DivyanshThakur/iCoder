@@ -5,7 +5,6 @@
 
 bool CreateAccount::input_data()
 {
-    std::cout << "CreateAccount called" << std::endl;
     if (!(Account::input_data()))
         return false;
 

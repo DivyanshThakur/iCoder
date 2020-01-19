@@ -1,11 +1,11 @@
 #include <iostream>
 #include "../header/Account.hpp"
+#include "../header/CreateAccount.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
 
 bool Account::input_data()
 {
-    std::cout << "Account class called" << std::endl;
     animater(username);
 
     userID = iscan(txtUsername); // taking username from user
@@ -31,4 +31,10 @@ std::string Account::get_userID() const
 std::string Account::get_pass() const
 {
     return pass;
+}
+
+std::string Account::get_pass2() const
+{
+    CreateAccount a;
+    return a.pass2;
 }

@@ -6,12 +6,13 @@
 
 class CreateAccount : public Account
 {
+    friend std::string Account::get_pass2() const;
+
 private:
     std::string pass2;
 
 public:
     virtual bool input_data() override;
-    void upload();
 
     virtual ~CreateAccount() = default;
 };

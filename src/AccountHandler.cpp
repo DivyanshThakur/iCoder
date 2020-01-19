@@ -98,14 +98,13 @@ void create_account()
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
     std::unique_ptr<Account> acc = std::make_unique<CreateAccount>();
-    std::string pass2;
 
     if (!(acc->input_data()))
         return;
 
     border(width_menu); // display the border
 
-    if (acc->get_pass() != pass2)
+    if (acc->get_pass() != acc->get_pass2())
     {
         std::cout << "Password not matched";
         press_key();

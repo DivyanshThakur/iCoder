@@ -1,6 +1,8 @@
 #ifndef ACCOUNTHANDLER_HPP
 #define ACCOUNTHANDLER_HPP
 
+#include <string>
+
 /** FUNCTION PROTOTYPES **/
 
 void login();
