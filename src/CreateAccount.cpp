@@ -18,3 +18,8 @@ bool CreateAccount::input_data()
 
     return true;
 }
+
+std::string CreateAccount::get_pass2() const
+{
+    return pass2;
+}

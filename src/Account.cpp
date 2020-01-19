@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../header/Account.hpp"
-#include "../header/CreateAccount.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
 
@@ -31,10 +30,4 @@ std::string Account::get_userID() const
 std::string Account::get_pass() const
 {
     return pass;
-}
-
-std::string Account::get_pass2() const
-{
-    CreateAccount a;
-    return a.pass2;
 }
