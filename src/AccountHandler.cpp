@@ -97,8 +97,7 @@ void create_account()
 
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
-    //std::unique_ptr<Account> acc = std::make_unique<CreateAccount>();
-    auto acc = std::make_unique<CreateAccount>();
+    auto acc = std::make_unique<CreateAccount>(); // pointer to CreateAccount class
 
     if (!(acc->input_data())) // taking userID, pass and confirmed password from the user
         return;
@@ -111,7 +110,7 @@ void create_account()
         press_key();
         create_account();
     }
-    else if (!upload_account(acc->get_userID(), acc->get_pass()))
+    else if (acc->upload_account())
     {
         std::cout << "Username already exists!";
         press_key();
@@ -150,58 +149,6 @@ bool check_account(const std::string &userID, const std::string &pass)
 
     file.close();
     return false;
-}
-
-bool upload_account(const std::string &userID, const std::string &pass)
-{
-
-    std::ofstream file{fuser, std::ios::app};
-
-    if (!file)
-    {
-        std::cerr << "Error saving user details" << std::endl;
-        getch();
-        exit(1);
-    }
-
-    if (!valid_user(userID))
-    {
-        // user account already exists
-        file.close();
-        return false;
-    }
-
-    file << std::setw(width_username) << std::left << userID << std::setw(width_password) << std::left << pass << std::endl;
-
-    file.close();
-    return true;
-}
-
-bool valid_user(const std::string &userID)
-{
-
-    std::ifstream file(fuser);
-
-    if (!file)
-    {
-        std::cerr << "Error validating user details" << std::endl;
-        getch();
-        exit(1);
-    }
-
-    std::string fname, fpass;
-
-    while (file >> fname && file >> fpass) // if the name matches in file return false
-    {
-        if (fname == userID)
-        {
-            file.close();
-            return false;
-        }
-    }
-
-    file.close(); /// close the file
-    return true;
 }
 
 bool display_users()

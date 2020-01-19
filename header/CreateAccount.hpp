@@ -10,10 +10,11 @@ private:
     std::string pass2;
 
 public:
-    virtual bool input_data() override;
-    std::string get_pass2() const;
+    bool input_data();
+    bool upload_account();
+    bool isValidUser();
 
-    virtual ~CreateAccount() = default;
+    std::string get_pass2() const;
 };
 
 #endif

@@ -5,15 +5,14 @@
 
 class Account
 {
-private:
+protected:
     std::string userID, pass;
 
 public:
-    virtual bool input_data();
+    bool input_data();
+
     std::string get_userID() const;
     std::string get_pass() const;
-
-    virtual ~Account() = default;
 };
 
 #endif
