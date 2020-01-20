@@ -1,5 +1,5 @@
-OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Recursion.o obj\Settings.o obj\UIhandler.o
-OBJCOD = obj\cod_recursion.o
+OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Array.o obj\Settings.o obj\UIhandler.o
+OBJCOD = obj\cod_array.o
 OBJF = obj/*.o
 CC = g++
 LFLAG = -Wall
@@ -30,8 +30,8 @@ obj\CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
 obj\Home.o: src\Home.cpp header\Home.hpp
 	$(CC) $(CFLAGS) src\Home.cpp -o obj\Home.o
 
-obj\Recursion.o: src\Recursion.cpp header\Recursion.hpp
-	$(CC) $(CFLAGS) src\Recursion.cpp -o obj\Recursion.o
+obj\Array.o: src\Array.cpp header\Array.hpp
+	$(CC) $(CFLAGS) src\Array.cpp -o obj\Array.o
 
 
 obj\Settings.o: src\Settings.cpp header\Settings.hpp
@@ -42,8 +42,8 @@ obj\UIhandler.o: src\UIhandler.cpp header\UIhandler.hpp
 
 ### Namespace files are compiled from below
 
-obj\cod_recursion.o: namespace\src\cod_recursion.cpp namespace\header\cod_recursion.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_recursion.cpp -o obj\cod_recursion.o
+obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_array.cpp -o obj\cod_array.o
 
 ### Extras
 clean:

@@ -4,7 +4,7 @@
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/AccountHandler.hpp"
-#include "../header/Recursion.hpp"
+#include "../header/Array.hpp"
 
 void home(const std::string &userID)
 {
@@ -42,7 +42,6 @@ void home_controller(char ch)
     switch (ch)
     {
     case '1':
-        recursion(); // display recursion screen
         break;
     case '2':
         break;
