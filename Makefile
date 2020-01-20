@@ -1,4 +1,4 @@
-OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o Settings.o UIhandler.o
+OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o Recursion.o Settings.o UIhandler.o
 OBJCOD = cod_recursion.o
 OBJF = obj/*.o
 CC = g++
@@ -29,6 +29,10 @@ CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
 
 Home.o: src\Home.cpp header\Home.hpp
 	$(CC) $(CFLAGS) src\Home.cpp -o obj\Home.o
+
+Recursion.o: src\Recursion.cpp header\Recursion.hpp
+	$(CC) $(CFLAGS) src\Recursion.cpp -o obj\Recursion.o
+
 
 Settings.o: src\Settings.cpp header\Settings.hpp
 	$(CC) $(CFLAGS) src\Settings.cpp -o obj\Settings.o

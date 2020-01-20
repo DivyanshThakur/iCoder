@@ -3,4 +3,6 @@
 
 #include <string>
 
+void recursion();
+
 #endif

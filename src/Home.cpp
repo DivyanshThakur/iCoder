@@ -42,6 +42,7 @@ void home_controller(char ch)
     switch (ch)
     {
     case '1':
+        recursion(); // display recursion screen
         break;
     case '2':
         break;
