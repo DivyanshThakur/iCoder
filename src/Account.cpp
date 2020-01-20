@@ -6,12 +6,10 @@
 #include "../header/UIhandler.hpp"
 #include "../header/AccountHandler.hpp"
 
-std::ostream &operator<<(std::ostream &os, const Account &acc)
+std::ostream &operator<<(std::ostream &os, Account &acc)
 {
-    static int index{0};
-
     os << std::endl
-       << " " << std::setw(width_index) << std::left << ++index
+       << " " << std::setw(width_index) << std::left << ++acc.index
        << " | " << std::setw(width_username) << std::left << acc.userID
        << " | " << std::setw(width_password) << std::left << pass_to_asteric(acc.pass)
        << " |";
@@ -81,6 +79,11 @@ bool Account::check_account() const
 
     file.close();
     return false;
+}
+
+void Account::reset_index()
+{
+    index = 0;
 }
 
 std::string Account::get_userID() const
