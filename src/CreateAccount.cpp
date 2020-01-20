@@ -20,11 +20,6 @@ bool CreateAccount::input_data()
     return true;
 }
 
-std::string CreateAccount::get_pass2() const
-{
-    return pass2;
-}
-
 bool CreateAccount::upload_account()
 {
     std::ofstream file{fuser, std::ios::app};
@@ -73,4 +68,9 @@ bool CreateAccount::isValidUser()
 
     file.close(); /// close the file
     return true;
+}
+
+std::string CreateAccount::get_pass2() const
+{
+    return pass2;
 }

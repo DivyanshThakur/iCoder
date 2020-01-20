@@ -20,7 +20,7 @@ bool check_new_user()
     return false;
 }
 
-bool check_signed_user()
+bool check_active_user()
 {
     std::ifstream file(fsetting);
     if (!file)
@@ -80,8 +80,8 @@ void login()
     }
     else
     {
-        if (!display_remember_me(userID)) // it will display remember me message
-            return;
+        // if (!display_remember_me(userID)) // it will display remember me message
+        //return;
 
         border(width_menu); // display the border
         load();             // animate loading screen
@@ -119,7 +119,7 @@ void create_account()
     else
     { // go to home
 
-        if (!display_remember_me(acc->get_userID())) // it will display remember me message
+        if (!acc->display_remember_me()) // it will display remember me message
             return;
 
         border(width_menu);      // display the border
@@ -165,8 +165,7 @@ bool display_users()
     if (!file)
         return false;
 
-    std::string userID, pass;
-    int index{1};
+    auto acc = std::make_unique<Account>();
 
     border(width_index * 3 + width_username + width_password - 1);
 
@@ -182,13 +181,9 @@ bool display_users()
               << " | " << std::setw(width_password) << ""
               << " |";
 
-    while (file >> userID && file >> pass)
+    while (file >> *acc) // taking userID and pass from file to account class
     {
-        std::cout << std::endl
-                  << " " << std::setw(width_index) << std::left << index++
-                  << " | " << std::setw(width_username) << std::left << userID
-                  << " | " << std::setw(width_password) << std::left << pass_to_asteric(pass)
-                  << " |";
+        std::cout << *acc; // display the id,pass to console using operator<< overloading
     }
 
     border(width_index * 3 + width_username + width_password - 1);
@@ -204,20 +199,4 @@ std::string pass_to_asteric(const std::string &pass)
     for (size_t i{0}; i < pass.length(); ++i)
         ast += "*";
     return ast;
-}
-
-bool display_remember_me(const std::string &userID)
-{
-
-    animater(std::string{"Remember me? (Y/N): "});
-
-    // taking character from string
-    std::string str = iscan(txtChar);
-    if (str == "")
-        return false;
-
-    char c = std::tolower(str.at(0));
-    if (c == 'y')
-        save_active_user(userID); // save the current user
-    return true;
 }

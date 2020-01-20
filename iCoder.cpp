@@ -24,7 +24,7 @@ int main()
         emessage(std::string{"--> See HELP for hints and shortcuts..."});
     }
 
-    if (check_signed_user())
+    if (check_active_user())
         home(signedUserID); // if the user is saved in file it will automatically sign in the active user
     else
         save_active_user(std::string{"NULL"});

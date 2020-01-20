@@ -6,7 +6,7 @@
 class LoginAccount : public Account
 {
 public:
-    virtual bool input_data() override;
+    bool input_data();
     virtual ~LoginAccount() = default;
 };
 
