@@ -9,6 +9,7 @@
 #include "../header/UIhandler.hpp"
 #include "../header/Home.hpp"
 #include "../header/CreateAccount.hpp"
+#include "../header/LoginAccount.hpp"
 
 bool check_new_user()
 {
@@ -63,16 +64,16 @@ void login()
 
     title(); // display the "iCoder" title
 
-    std::string userID, pass;
+    auto acc = std::make_unique<Account>();
 
     header(std::string{" LOGIN "});
 
-    // if (!(input_user_pass(userID, pass))) // taking username and password
-    //     return;
+    if (!acc->input_data()) // taking username and password
+        return;
 
     border(width_menu); // display the border '----'
 
-    if (!check_account(userID, pass))
+    if (!acc->check_account())
     {
         std::cout << "UserID/Pass is incorrect";
         press_key();
@@ -80,12 +81,12 @@ void login()
     }
     else
     {
-        // if (!display_remember_me(userID)) // it will display remember me message
-        //return;
+        if (!acc->display_remember_me()) // it will display remember me message
+            return;
 
-        border(width_menu); // display the border
-        load();             // animate loading screen
-        home(userID);       // calling the main menu (HOME) screen to show all program list
+        border(width_menu);      // display the border
+        load();                  // animate loading screen
+        home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
 }
 
@@ -126,29 +127,6 @@ void create_account()
         load();                  // animate loading screen
         home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
-}
-
-bool check_account(const std::string &userID, const std::string &pass)
-{
-    std::ifstream file(fuser);
-    std::string fusername, fpassword;
-
-    if (!file)
-    {
-        return false;
-    }
-
-    while (file >> fusername && file >> fpassword)
-    {
-        if (userID == fusername && pass == fpassword)
-        {
-            file.close();
-            return true;
-        }
-    }
-
-    file.close();
-    return false;
 }
 
 bool display_users()

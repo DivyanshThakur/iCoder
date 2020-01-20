@@ -14,6 +14,7 @@ protected:
 public:
     bool input_data();
     bool display_remember_me() const;
+    bool check_account() const;
 
     std::string get_userID() const;
     std::string get_pass() const;

@@ -58,6 +58,29 @@ bool Account::display_remember_me() const
     return true;
 }
 
+bool Account::check_account() const
+{
+    std::ifstream file(fuser);
+    std::string fusername, fpassword;
+
+    if (!file)
+    {
+        return false;
+    }
+
+    while (file >> fusername && file >> fpassword)
+    {
+        if (userID == fusername && pass == fpassword)
+        {
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
+    return false;
+}
+
 std::string Account::get_userID() const
 {
     return userID;
