@@ -1,12 +1,7 @@
 #ifndef UIHANDLER_HPP
 #define UIHANDLER_HPP
 
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <windows.h>
 #include <string>
-#include <conio.h>
 #include "Constants.hpp"
 
 /** FUNCTION PROTOTYPES **/

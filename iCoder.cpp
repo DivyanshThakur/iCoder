@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
+#include <windows.h>
 #include <dir.h>
 #include "header/Constants.hpp"
 #include "header/UIhandler.hpp"
