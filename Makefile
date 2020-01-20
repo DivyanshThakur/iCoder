@@ -1,12 +1,13 @@
-OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o Settings.o UIhandler.o cod_recursion.o
-OBJF = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Settings.o obj\UIhandler.o obj\cod_recursion.o
+OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o Settings.o UIhandler.o
+OBJCOD = cod_recursion.o
+OBJF = obj/*.o
 CC = g++
 LFLAG = -Wall
 CFLAGS = -Wall -c
 
 ### Build the Project
 
-all: $(OBJS)
+all: $(OBJS) $(OBJCOD)
 	$(CC) $(LFLAG) $(OBJF) -o iCoder.exe
 
 ### Common program files
