@@ -1,5 +1,5 @@
-OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o LoginAccount.o Settings.o UIhandler.o
-OBJF = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\LoginAccount.o obj\Settings.o obj\UIhandler.o
+OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o Settings.o UIhandler.o
+OBJF = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Settings.o obj\UIhandler.o
 CC = g++
 LFLAG = -Wall
 CFLAGS = -Wall -c
@@ -24,9 +24,6 @@ CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
 
 Home.o: src\Home.cpp header\Home.hpp
 	$(CC) $(CFLAGS) src\Home.cpp -o obj\Home.o
-
-LoginAccount.o: src\LoginAccount.cpp header\LoginAccount.hpp
-	$(CC) $(CFLAGS) src\LoginAccount.cpp -o obj\LoginAccount.o
 
 Settings.o: src\Settings.cpp header\Settings.hpp
 	$(CC) $(CFLAGS) src\Settings.cpp -o obj\Settings.o
