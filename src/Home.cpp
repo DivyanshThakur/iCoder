@@ -1,7 +1,10 @@
 #include <iostream>
+#include <memory>
 #include "../header/Home.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
+#include "../header/AccountHandler.hpp"
+#include "../header/Recursion.hpp"
 
 void home(const std::string &userID)
 {

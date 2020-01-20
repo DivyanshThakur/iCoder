@@ -1,11 +1,15 @@
-OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o Settings.o UIhandler.o
-OBJF = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Settings.o obj\UIhandler.o
+OBJS = iCoder.o Account.o AccountHandler.o Constants.o CreateAccount.o Home.o Settings.o UIhandler.o cod_recursion.o
+OBJF = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Settings.o obj\UIhandler.o obj\cod_recursion.o
 CC = g++
 LFLAG = -Wall
 CFLAGS = -Wall -c
 
+### Build the Project
+
 all: $(OBJS)
 	$(CC) $(LFLAG) $(OBJF) -o iCoder.exe
+
+### Common program files
 
 iCoder.o: iCoder.cpp
 	$(CC) $(CFLAGS) iCoder.cpp -o obj\iCoder.o
@@ -31,6 +35,12 @@ Settings.o: src\Settings.cpp header\Settings.hpp
 UIhandler.o: src\UIhandler.cpp header\UIhandler.hpp
 	$(CC) $(CFLAGS) src\UIhandler.cpp -o obj\UIhandler.o
 
+### Namespace files are compiled from below
+
+cod_recursion.o: namespace\src\cod_recursion.cpp namespace\header\cod_recursion.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_recursion.cpp -o obj\cod_recursion.o
+
+### Extras
 clean:
 	\rm -f obj/*.o iCoder
 
