@@ -1,4 +1,7 @@
-#include "../header/iCoder.hpp"
+#include <string>
+#include "../header/Constants.hpp"
+
+/** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID; // this will be initialized at runtime

@@ -1,4 +1,9 @@
+#include <iostream>
+#include <sstream>
+#include <windows.h>
 #include "../header/Settings.hpp"
+#include "../header/Constants.hpp"
+#include "../header/UIhandler.hpp"
 
 void settings()
 {

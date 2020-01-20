@@ -1,8 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
+#include <windows.h>
 #include <dir.h>
-#include "header/iCoder.hpp"
+#include "header/Constants.hpp"
+#include "header/UIhandler.hpp"
+#include "header/AccountHandler.hpp"
+#include "header/Home.hpp"
+#include "header/Settings.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(char ch);
@@ -20,7 +25,7 @@ int main()
         emessage(std::string{"--> See HELP for hints and shortcuts..."});
     }
 
-    if (check_signed_user())
+    if (check_active_user())
         home(signedUserID); // if the user is saved in file it will automatically sign in the active user
     else
         save_active_user(std::string{"NULL"});
