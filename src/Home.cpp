@@ -1,4 +1,7 @@
+#include <iostream>
 #include "../header/Home.hpp"
+#include "../header/Constants.hpp"
+#include "../header/UIhandler.hpp"
 
 void home(const std::string &userID)
 {
@@ -50,7 +53,7 @@ void home_controller(char ch)
 
     case '6': // exit the program
         break;
-    case 27: //ESC
+    case ESC: //ESC
         return;
 
     default:

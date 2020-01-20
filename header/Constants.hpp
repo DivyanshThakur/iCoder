@@ -1,7 +1,6 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-#include <iostream>
 #include <string>
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
@@ -19,7 +18,7 @@ extern const int width_title;
 extern const int width_index;
 extern const int width_username;
 extern const int width_password;
-extern const char ESC;
+const char ESC = 27;
 extern const std::string txtPassword;
 extern const std::string txtUsername;
 extern const std::string txtChar;
@@ -36,10 +35,5 @@ extern const std::string fsetting;
 extern const std::string username;
 extern const std::string password;
 extern const std::string RePassword;
-
-#include "UIhandler.hpp"
-#include "AccountHandler.hpp"
-#include "Home.hpp"
-#include "Settings.hpp"
 
 #endif

@@ -1,8 +1,11 @@
-#include "../header/iCoder.hpp"
+#include <string>
+#include "../header/Constants.hpp"
+
+/** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID; // this will be initialized at runtime
-int sleep_time = 50;
+int sleep_time;
 int emessage_timer = 25;
 
 /** CONSTANTS **/
@@ -13,7 +16,6 @@ const int width_title = 30;
 const int width_index = 5;
 const int width_username = 20;
 const int width_password = 10;
-const char ESC = 27;
 const std::string txtPassword{"Password"};
 const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};

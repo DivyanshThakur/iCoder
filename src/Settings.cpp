@@ -1,4 +1,9 @@
+#include <iostream>
+#include <sstream>
+#include <windows.h>
 #include "../header/Settings.hpp"
+#include "../header/Constants.hpp"
+#include "../header/UIhandler.hpp"
 
 void settings()
 {
@@ -19,7 +24,7 @@ void settings()
 
         settings_controller(ch); // start as per user choice
 
-        if (ch == ESC || ch == 3) //return when ESC is pressed
+        if (ch == ESC || ch == '3') //return when ESC is pressed
             return;
 
     } while (ch != '4');
@@ -43,7 +48,7 @@ void settings_controller(char ch)
     case '4': // exit the program
         break;
 
-    case 27: //ESC
+    case ESC: //ESC
         return;
 
     default:
