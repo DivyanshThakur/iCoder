@@ -11,7 +11,7 @@ int emessage_timer = 25;
 /** CONSTANTS **/
 
 // uihandler.h
-const int width_menu = 25;
+const int width_menu = 30;
 const int width_title = 30;
 const int width_index = 5;
 const int width_username = 20;
@@ -23,7 +23,7 @@ const std::string txtString{"String"};
 
 // menuhandler.h
 const std::string main_menu_data{"1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Settings\n7. Exit"};
-const std::string home_data{"1. Recursion\n2. Array ~ TO BE IMPLEMENTED\n3. Linked List\n4. Main Menu (Sign Out)\n5. Exit"};
+const std::string home_data{"1. Array\n2. Strings ~ TO BE IMPLEMENTED\n3. Matrices\n4. Sparse Matrix\n5. Polynomial  Representation\n6. Linked List\n7. Main Menu (Sign Out)\n8. Exit"};
 const std::string settings_data{"1. Change menu speed\n2. Change warning speed\n3. Main Menu\n4. Exit"};
 
 //accounthandler.h

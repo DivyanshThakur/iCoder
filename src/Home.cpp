@@ -29,10 +29,10 @@ void home(const std::string &userID)
 
         home_controller(ch); // start as per user choice
 
-        if (ch == '4')
+        if (ch == '7')
             return;
 
-    } while (ch != '6');
+    } while (ch != '8'); // exit the program when ch == 8
 
     exit(0);
 }
@@ -41,21 +41,32 @@ void home_controller(char ch)
 {
     switch (ch)
     {
-    case '1':
+    case '1': // arrays
         break;
-    case '2':
+
+    case '2': // strings
         break;
-    case '3':
+
+    case '3': // matrices
         break;
-    case '4': // sign out
+
+    case '4': // sparse matrix
+        break;
+
+    case '5': // polynomial representation
+        break;
+
+    case '6': // linked list
+        break;
+
+    case '7': // sign out
         if (signedUserID != std::string{"NULL"})
             save_active_user(std::string{"NULL"});
         return;
-    case '5':
+
+    case '8': // exit the program
         break;
 
-    case '6': // exit the program
-        break;
     case ESC: //ESC
         return;
 
