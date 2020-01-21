@@ -41,22 +41,30 @@ void home_controller(char ch)
 {
     switch (ch)
     {
-    case '1': // arrays
+    case '1':            // arrays
+        print_message(); // default is ~ to be Implemented
         break;
 
     case '2': // strings
+        print_message();
         break;
 
     case '3': // matrices
+        print_message();
+
         break;
 
     case '4': // sparse matrix
+        print_message();
+
         break;
 
     case '5': // polynomial representation
+        print_message();
         break;
 
     case '6': // linked list
+        print_message();
         break;
 
     case '7': // sign out

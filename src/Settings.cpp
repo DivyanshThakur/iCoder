@@ -22,10 +22,10 @@ void settings()
             (str != "") ? ch = str.at(0) : ch = ESC;
         }
 
-        settings_controller(ch); // start as per user choice
-
         if (ch == ESC || ch == '3') //return when ESC is pressed
             return;
+
+        settings_controller(ch); // start as per user choice
 
     } while (ch != '4');
     exit(0);
@@ -39,22 +39,16 @@ void settings_controller(char ch)
     case '1': // change the animation speed of the menu
         change_menu_speed();
         return;
-    case '2': // go to create account screen
-        std::cout << "\nTo be implemented" << std::endl;
+
+    case '2':            // go to create account screen
+        print_message(); // print - to be implemented
         break;
-    case '3': // go to main menu
-        return;
 
     case '4': // exit the program
         break;
 
-    case ESC: //ESC
-        return;
-
     default:
-        std::cout << std::endl
-                  << std::endl
-                  << "Invalid choice";
+        print_message(std::string{"Invalid choice"});
         break;
     }
 

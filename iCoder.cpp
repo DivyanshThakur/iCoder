@@ -60,32 +60,36 @@ void main_menu_controller(char ch)
     case '1': // go to log in screen
         login();
         return;
+
     case '2': // go to create account screen
         create_account();
         return;
+
     case '3': // login Anonymously
         home(std::string{"User"});
         return;
+
     case '4': // show saved user details
         if (!display_users())
             std::cout << "No user in database" << std::endl;
         break;
+
     case '5': // details about the software and the shortcut/hint that can be used in it
-        std::cout << "This is iCoder Software!" << std::endl;
+        print_message();
         break;
 
     case '6': // Customize the software using settings
         settings();
         return;
+
     case '7': // exit the program
         break;
+
     case ESC: //ESC
         return;
 
     default:
-        std::cout << std::endl
-                  << std::endl
-                  << "Invalid choice";
+        print_message(std::string{"Invalid choice"});
         break;
     }
 

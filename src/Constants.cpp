@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include "../header/Constants.hpp"
 
@@ -23,7 +24,7 @@ const std::string txtString{"String"};
 
 // menuhandler.h
 const std::string main_menu_data{"1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Settings\n7. Exit"};
-const std::string home_data{"1. Array\n2. Strings ~ TO BE IMPLEMENTED\n3. Matrices\n4. Sparse Matrix\n5. Polynomial  Representation\n6. Linked List\n7. Main Menu (Sign Out)\n8. Exit"};
+const std::string home_data{"1. Array\n2. Strings\n3. Matrices\n4. Sparse Matrix\n5. Polynomial  Representation\n6. Linked List and more...\n7. Main Menu (Sign Out)\n8. Exit"};
 const std::string settings_data{"1. Change menu speed\n2. Change warning speed\n3. Main Menu\n4. Exit"};
 
 //accounthandler.h

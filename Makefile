@@ -47,7 +47,7 @@ obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
 
 ### Extras
 clean:
-	\rm -f obj/*.o iCoder
+	\rm -f obj/*.o iCoder iCoder.tar
 
 tar:
-	tar cfv iCoder.tar Makefile src/*.cpp header/*.hpp
+	tar cfv iCoder.tar Makefile src/*.cpp header/*.hpp namespace/src/*.cpp namespace/header/*.hpp

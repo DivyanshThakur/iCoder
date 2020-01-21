@@ -160,6 +160,13 @@ void animater(const std::string &anime, int speed)
     }
 }
 
+void print_message(const std::string &message)
+{
+    std::cout << std::endl
+              << std::endl
+              << message;
+}
+
 void press_key()
 {
     border(width_menu); // display the footer
