@@ -50,8 +50,7 @@ clean:
 	rm -f obj/*.o iCoder iCoder.tar
 
 cleandata:
-	rm -f data/*
-	rmdir data
+	rm -rf data
 
 tar:
 	tar cfv iCoder.tar Makefile src/*.cpp header/*.hpp namespace/src/*.cpp namespace/header/*.hpp
