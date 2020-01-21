@@ -79,9 +79,7 @@ void home_controller(char ch)
         return;
 
     default:
-        std::cout << std::endl
-                  << std::endl
-                  << "Invalid choice";
+        print_message(std::string{"Invalid choice"});
         break;
     }
 
