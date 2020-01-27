@@ -5,6 +5,7 @@
 #include "../header/CreateAccount.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
+#include "../header/Scanner.hpp"
 
 bool CreateAccount::input_data()
 {
@@ -15,7 +16,10 @@ bool CreateAccount::input_data()
 
     animater(RePassword);
 
-    pass2 = iscan(txtPassword); // scanning password
+    Scanner sc;
+
+    pass2 = sc.scanPassword(); // scanning password
+
     if (pass2 == "")
         return false;
 

@@ -29,8 +29,7 @@ bool Account::input_data()
 
     Scanner sc;
 
-    // userID = iscan(txtUsername); // taking username from user
-    userID = sc.scanUsername();
+    userID = sc.scanUsername(); // taking username from user
 
     if (userID == "")
         return false;
@@ -39,7 +38,8 @@ bool Account::input_data()
 
     animater(password);
 
-    pass = iscan(txtPassword); // scanning password
+    pass = sc.scanPassword(); // scanning password
+
     if (pass == "")
         return false;
 
