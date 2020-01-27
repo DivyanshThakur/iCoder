@@ -46,6 +46,7 @@ obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
 	$(CC) $(CFLAGS) namespace\src\cod_array.cpp -o obj\cod_array.o
 
 ### Extras
+
 clean:
 	rm -f obj/*.o iCoder iCoder.tar
 
