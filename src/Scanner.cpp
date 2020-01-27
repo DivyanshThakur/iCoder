@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <conio.h>
 
 #include "../header/Scanner.hpp"
@@ -36,10 +37,60 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-char Scanner::scanChar()
+// char Scanner::scanChar()
+// {
+//     reset();
+//     while ((c = getch()) && !(c == '\r' && value.size()))
+//     {
+
+//         switch (checkChar())
+//         {
+//         case -1:
+//             return ESC;
+
+//         case 0:
+//             break;
+
+//         case 1:
+//             emessage(std::string{"     Space Not Allowed!"});
+//             break;
+
+//         case 2:
+//             emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
+//             break;
+//         }
+//     }
+//     return value.at(0);
+// }
+
+int Scanner::scanChoice()
 {
-    return '\0';
+    reset();
+
+    int choice;
+
+    while ((c = getch()) && !(c == '\r' && value.size()))
+    {
+        switch (checkChar())
+        {
+        case -1:
+            return ESC;
+
+        case 0:
+            // case 1:
+            // case 2:
+            break;
+        }
+    }
+
+    std::stringstream ss{value};
+
+    if (!(ss >> choice))
+        choice = -1;
+
+    return choice;
 }
+
 std::string Scanner::scanUsername()
 {
     reset();

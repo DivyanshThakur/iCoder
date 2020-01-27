@@ -16,7 +16,7 @@ public:
     Scanner(); // type of string - usrname, pass, char
 
     char scanChar();
-    char scanMultiChar();
+    int scanChoice();
     std::string scanUsername();
     std::string scanPassword();
 
