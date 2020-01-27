@@ -5,6 +5,7 @@
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/AccountHandler.hpp"
+#include "../header/Scanner.hpp"
 
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
@@ -26,7 +27,10 @@ bool Account::input_data()
 {
     animater(username);
 
-    userID = iscan(txtUsername); // taking username from user
+    Scanner sc;
+
+    // userID = iscan(txtUsername); // taking username from user
+    userID = sc.scanUsername();
 
     if (userID == "")
         return false;

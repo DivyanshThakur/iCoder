@@ -10,7 +10,7 @@ private:
     std::string value;
     bool isLimitExceed;
 
-    int checkChar(const int &size_limit);
+    int checkChar(bool isPassword = false);
 
 public:
     Scanner(); // type of string - usrname, pass, char

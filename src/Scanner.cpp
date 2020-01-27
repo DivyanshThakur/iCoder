@@ -7,32 +7,30 @@
 
 Scanner::Scanner() : isLimitExceed{false} {}
 
-int Scanner::checkChar(const int &size_limit)
+int Scanner::checkChar(bool isPassword)
 {
     int flag{0};
 
-    if (c == '\r' && value.size())
-        flag = 1; // 0 means that user has pressed enter and the scanner should be succesfully stopped
-
-    else if (c == ESC)
+    if (c == ESC)
         flag = -1; // -1 means that user has pressed ESC, stop the scanner and return to startup menu
 
     else if (c == ' ')
+        flag = 1;
+
+    else if (c == '\b' && value.size())
+    {                         // cheking backspace and limit it to size of value
+        std::cout << "\b \b"; // remove last element from console
+        value.pop_back();     // remove last element from pass string
+    }
+
+    else if (isLimitExceed)
         flag = 2;
 
-    else
+    else if (c >= '!' && c <= '~')
     {
-        if (c == '\b' && value.size())
-        {                         // cheking backspace and limit it to size of value
-            std::cout << "\b \b"; // remove last element from console
-            value.pop_back();     // remove last element from pass string
-        }
-        else if (c >= '!' && c <= '~' && !isLimitExceed)
-        {
-            value.push_back(c); // add element at last of pass string
+        value.push_back(c); // add element at last of pass string
 
-            std::cout << ((size_limit == width_password) ? '*' : c);
-        }
+        std::cout << (isPassword ? '*' : c);
     }
 
     return flag;
@@ -40,60 +38,35 @@ int Scanner::checkChar(const int &size_limit)
 
 char Scanner::scanChar()
 {
+    return '\0';
 }
 std::string Scanner::scanUsername()
 {
     reset();
 
-    while ((c = getch()))
+    while ((c = getch()) && !(c == '\r' && value.size()))
     {
         isLimitExceed = (value.size() >= static_cast<unsigned int>(width_username));
 
-        if (isLimitExceed)
-            emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
-
-        switch (checkChar(width_username))
+        switch (checkChar())
         {
         case -1:
             return std::string{""};
 
+        case 0:
+            break;
+
         case 1:
-            return value;
-        case 2:
             emessage(std::string{"     Space Not Allowed!"});
             break;
-        case 0:
+
+        case 2:
+            emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
             break;
         }
     }
+    return value;
 }
-// if (c == '\r' && value.size())
-//     break; // if user presses enter, end while loop and save the value
-
-// if (c == ESC) // if user presses esc, it returnss to startup menu
-//     return std::string{""};
-
-// if (c == '\b' && value.size())
-// {                         // cheking backspace and limit it to size of value
-//     std::cout << "\b \b"; // remove last element from console
-//     value.pop_back();     // remove last element from pass string
-// }
-// else
-// {
-// if (c == ' ')
-//     emessage(std::string{"     Space Not Allowed!"});
-// else
-// }
-
-// if (c >= '!' && c <= '~' && !isLimitExceed)
-// {
-//     value.push_back(c); // add element at last of pass string
-
-//     std::cout << c;
-// }
-// }
-// return value; // return char or string based on stype
-// }
 
 std::string Scanner::scanPassword()
 {
@@ -137,7 +110,7 @@ std::string Scanner::scanPassword()
 
 void Scanner::reset()
 {
-    c = NULL;
+    c = '\0';
     value.clear();
     isLimitExceed = false;
 }
