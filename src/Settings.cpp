@@ -63,7 +63,7 @@ void change_menu_speed()
 
     speed = sc.scanChoice();
 
-    if (speed == ESC)
+    if (speed == -1 || speed == ESC)
         return;
 
     sleep_time = speed;
