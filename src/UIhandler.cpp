@@ -59,57 +59,6 @@ bool menu(std::string menu_str, bool flag, const std::string heading)
     return flag;
 }
 
-std::string iscan(const std::string &stype, bool isMultiple)
-{
-    std::string value;
-    bool isUserExceeded, isPassExceeded;
-
-    char c;
-
-    while ((c = getch()))
-    { // taking input from user
-
-        isUserExceeded = (stype == txtUsername && value.size() >= static_cast<unsigned int>(width_username));
-        isPassExceeded = (stype == txtPassword && value.size() >= static_cast<unsigned int>(width_password));
-
-        if (c == '\r' && value.size())
-            break; // if user presses enter end while loop and save the value
-
-        if (isMultiple && c == ' ' && value.size())
-        {
-            std::cout << " ";
-            break;
-        }
-
-        if (c == ESC) // if user presses esc, it returnss to startup menu
-            return std::string{""};
-
-        if (c == '\b' && value.size())
-        {                         // cheking backspace and limit it to size of value
-            std::cout << "\b \b"; // remove last element from console
-            value.pop_back();     // remove last element from pass string
-        }
-        else if (stype == txtUsername || stype == txtPassword)
-        {
-            if (c == ' ')
-                emessage(std::string{"     Space Not Allowed!"});
-            else if (isUserExceeded)
-                emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
-            else if (isPassExceeded)
-                emessage("     " + txtPassword + " exceeds " + std::to_string(width_password) + " characters!");
-        }
-
-        if (c >= '!' && c <= '~' && !(isUserExceeded || isPassExceeded))
-        {
-            value.push_back(c); // add element at last of pass string
-
-            // checking valid password and display that spcific output
-            (stype == std::string{txtPassword}) ? std::cout << "*" : std::cout << c;
-        }
-    }
-    return value; // return char or string based on stype
-}
-
 void header(const std::string &menu_name)
 {
 

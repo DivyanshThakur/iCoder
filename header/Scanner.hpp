@@ -13,10 +13,10 @@ private:
     int checkChar(bool isPassword = false);
 
 public:
-    Scanner(); // type of string - usrname, pass, char
+    Scanner(); // type of string - username, pass, char
 
-    char scanChar();
     int scanChoice();
+    char scanChar();
     std::string scanUsername();
     std::string scanPassword();
 

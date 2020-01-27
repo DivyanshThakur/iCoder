@@ -37,32 +37,6 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-// char Scanner::scanChar()
-// {
-//     reset();
-//     while ((c = getch()) && !(c == '\r' && value.size()))
-//     {
-
-//         switch (checkChar())
-//         {
-//         case -1:
-//             return ESC;
-
-//         case 0:
-//             break;
-
-//         case 1:
-//             emessage(std::string{"     Space Not Allowed!"});
-//             break;
-
-//         case 2:
-//             emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
-//             break;
-//         }
-//     }
-//     return value.at(0);
-// }
-
 int Scanner::scanChoice()
 {
     reset();
@@ -71,16 +45,8 @@ int Scanner::scanChoice()
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
-        switch (checkChar())
-        {
-        case -1:
+        if (checkChar() == -1)
             return ESC;
-
-        case 0:
-            // case 1:
-            // case 2:
-            break;
-        }
     }
 
     std::stringstream ss{value};
@@ -89,6 +55,19 @@ int Scanner::scanChoice()
         choice = -1;
 
     return choice;
+}
+
+char Scanner::scanChar()
+{
+    reset();
+
+    while ((c = getch()) && !(c == '\r' && value.size()))
+    {
+        if (checkChar() == -1)
+            return ESC;
+    }
+
+    return value.at(0);
 }
 
 std::string Scanner::scanUsername()
@@ -146,11 +125,6 @@ std::string Scanner::scanPassword()
     }
     return value;
 }
-
-// inline std::string Scanner::scan(const int &size_limit)
-// {
-//     isLimitExceed = (value.size() >= static_cast<unsigned int>(width_username));
-// }
 
 void Scanner::reset()
 {

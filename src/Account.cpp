@@ -48,17 +48,18 @@ bool Account::input_data()
 
 bool Account::display_remember_me() const
 {
-
+    Scanner sc;
     animater(std::string{"Remember me? (Y/N): "});
 
-    // taking character from string
-    std::string str = iscan(txtChar);
-    if (str == "")
+    // scanning character
+    char c = sc.scanChar();
+
+    if (c == ESC)
         return false;
 
-    char c = std::tolower(str.at(0));
-    if (c == 'y')
+    if (c == 'y' || c == 'Y')
         save_active_user(userID); // save the current user
+
     return true;
 }
 
