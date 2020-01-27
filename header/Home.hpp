@@ -5,6 +5,6 @@
 
 /** FUNCTION PROTOTYPES **/
 void home(const std::string &userID);
-void home_controller(char ch);
+void home_controller(int ch);
 
 #endif

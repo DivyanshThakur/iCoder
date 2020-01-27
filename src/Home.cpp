@@ -5,10 +5,11 @@
 #include "../header/UIhandler.hpp"
 #include "../header/AccountHandler.hpp"
 #include "../header/Array.hpp"
+#include "../header/Scanner.hpp"
 
 void home(const std::string &userID)
 {
-    char ch{};
+    int ch{0};
     int flag{1};
 
     do
@@ -22,58 +23,62 @@ void home(const std::string &userID)
 
         flag = menu(home_data, flag); // display the startup menu
 
-        { // taking character from string
-            std::string str = iscan(txtChar);
-            (str != "") ? ch = str.at(0) : ch = ESC;
-        }
+        Scanner sc;
+        ch = sc.scanChoice();
 
         home_controller(ch); // start as per user choice
 
-        if (ch == '7')
+        if (ch == 7)
             return;
 
-    } while (ch != '8'); // exit the program when ch == 8
+    } while (ch != 8); // exit the program when ch == 8
 
     exit(0);
 }
 
-void home_controller(char ch)
+void home_controller(int ch)
 {
     switch (ch)
     {
-    case '1': // arrays
+    case 1:              // arrays
+        print_message(); // default is ~ to be Implemented
         break;
 
-    case '2': // strings
+    case 2: // strings
+        print_message();
         break;
 
-    case '3': // matrices
+    case 3: // matrices
+        print_message();
+
         break;
 
-    case '4': // sparse matrix
+    case 4: // sparse matrix
+        print_message();
+
         break;
 
-    case '5': // polynomial representation
+    case 5: // polynomial representation
+        print_message();
         break;
 
-    case '6': // linked list
+    case 6: // linked list
+        print_message();
         break;
 
-    case '7': // sign out
+    case 7: // sign out
         if (signedUserID != std::string{"NULL"})
             save_active_user(std::string{"NULL"});
         return;
 
-    case '8': // exit the program
+    case 8: // exit the program
         break;
 
     case ESC: //ESC
         return;
 
     default:
-        std::cout << std::endl
-                  << std::endl
-                  << "Invalid choice";
+        print_message(std::string{"Invalid choice"});
         break;
     }
 

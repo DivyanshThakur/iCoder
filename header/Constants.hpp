@@ -18,7 +18,7 @@ extern const int width_title;
 extern const int width_index;
 extern const int width_username;
 extern const int width_password;
-const char ESC = 27;
+const int ESC = 27;
 extern const std::string txtPassword;
 extern const std::string txtUsername;
 extern const std::string txtChar;

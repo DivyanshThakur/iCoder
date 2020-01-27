@@ -8,9 +8,10 @@
 #include "header/AccountHandler.hpp"
 #include "header/Home.hpp"
 #include "header/Settings.hpp"
+#include "header/Scanner.hpp"
 
 /** FUNCTION PROTOTYPES **/
-void main_menu_controller(char ch);
+void main_menu_controller(int ch);
 void makeDirectory();
 bool isDirectoryExists();
 
@@ -30,7 +31,7 @@ int main()
     else
         save_active_user(std::string{"NULL"});
 
-    char ch{};
+    int ch{0};
     bool flag{true}; // it will keep track if the menu animation occurred or not
 
     do
@@ -41,51 +42,53 @@ int main()
 
         flag = menu(main_menu_data, flag); // display the startup menu
 
-        { // taking character from string
-            std::string str = iscan(txtChar);
-            (str != "") ? ch = str.at(0) : ch = ESC;
-        }
+        Scanner sc;
+        ch = sc.scanChoice();
 
         main_menu_controller(ch); // start as per user choice
 
-    } while (ch != '7');
+    } while (ch != 7);
 
     return 0;
 }
 
-void main_menu_controller(char ch)
+void main_menu_controller(int ch)
 {
     switch (ch)
     {
-    case '1': // go to log in screen
+    case 1: // go to log in screen
         login();
         return;
-    case '2': // go to create account screen
+
+    case 2: // go to create account screen
         create_account();
         return;
-    case '3': // login Anonymously
+
+    case 3: // login Anonymously
         home(std::string{"User"});
         return;
-    case '4': // show saved user details
+
+    case 4: // show saved user details
         if (!display_users())
             std::cout << "No user in database" << std::endl;
         break;
-    case '5': // details about the software and the shortcut/hint that can be used in it
-        std::cout << "This is iCoder Software!" << std::endl;
+
+    case 5: // details about the software and the shortcut/hint that can be used in it
+        print_message();
         break;
 
-    case '6': // Customize the software using settings
+    case 6: // Customize the software using settings
         settings();
         return;
-    case '7': // exit the program
+
+    case 7: // exit the program
         break;
+
     case ESC: //ESC
         return;
 
     default:
-        std::cout << std::endl
-                  << std::endl
-                  << "Invalid choice";
+        print_message(std::string{"Invalid choice"});
         break;
     }
 

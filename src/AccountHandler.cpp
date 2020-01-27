@@ -162,6 +162,7 @@ bool display_users()
     {
         std::cout << *acc; // display the id,pass to console using operator<< overloading
     }
+    acc->reset_index(); // to reset the index back to 0 in the Account class
 
     border(width_index * 3 + width_username + width_password - 1);
 
