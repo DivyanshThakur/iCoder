@@ -3,12 +3,20 @@
 
 namespace cod
 {
+template <typename T>
 class array
 {
 private:
-    int i;
+    T *arr;
+    int size;
+    int length;
+    T MIN_VALUE;
 
 public:
+    array();
+    array(int size);
+
+    void fill(const T &x);
 };
 } // namespace cod
 
