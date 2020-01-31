@@ -6,6 +6,7 @@
 #include "../header/AccountHandler.hpp"
 #include "../header/Array.hpp"
 #include "../header/Scanner.hpp"
+#include "../namespace/header/cod_array.hpp"
 
 void home(const std::string &userID)
 {
@@ -40,12 +41,12 @@ void home_controller(int ch)
 {
     switch (ch)
     {
-    case 1:              // arrays
-        print_message(); // default is ~ to be Implemented
+    case 1: // arrays
+        Arrays();
         break;
 
-    case 2: // strings
-        print_message();
+    case 2:              // strings
+        print_message(); // default is ~ to be Implemented
         break;
 
     case 3: // matrices

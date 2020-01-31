@@ -3,4 +3,6 @@
 
 #include <string>
 
+void Arrays();
+
 #endif
