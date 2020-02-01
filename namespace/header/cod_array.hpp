@@ -13,15 +13,20 @@ class array
 
 private:
     T *arr;
-    int size;
-    int length;
+    size_t size;
+    size_t length;
     T MIN_VALUE;
 
 public:
     array();
-    array(int size);
+    array(size_t size);
+
+    T operator[](size_t x) const;
+    T &operator[](size_t x);
 
     void fill(const T &x);
+    size_t get_size() const;
+    size_t get_length() const;
 
     ~array();
 };
