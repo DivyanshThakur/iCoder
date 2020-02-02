@@ -28,7 +28,7 @@ void home(const std::string &userID)
         menu(home_data); // display the startup menu
 
         Scanner sc;
-        ch = sc.scanChoice();
+        ch = sc.scanNum();
 
         home_controller(ch); // start as per user choice
 
