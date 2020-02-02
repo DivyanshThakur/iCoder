@@ -61,13 +61,25 @@ char Scanner::scanChar()
 {
     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size()))
+    while ((c = getch()) && !(c == '\r' && value.size()) && !(c == ' ' && value.size()))
     {
         if (checkChar() == -1)
             return ESC;
     }
 
     return value.at(0);
+}
+
+std::string Scanner::scanString()
+{
+    reset();
+
+    while ((c = getch()) && !(c == '\r' && value.size()) && !(c == ' ' && value.size()))
+    {
+        if (checkChar() == -1)
+            return std::string{""}; //NULL
+    }
+    return value;
 }
 
 std::string Scanner::scanUsername()

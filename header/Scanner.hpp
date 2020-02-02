@@ -17,6 +17,7 @@ public:
 
     int scanChoice();
     char scanChar();
+    std::string scanString();
     std::string scanUsername();
     std::string scanPassword();
 
