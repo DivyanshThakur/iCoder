@@ -20,9 +20,12 @@ void home(const std::string &userID)
         title(); // print the title = iCoder
 
         if (flag)
+        {
+            flag = 0;
             emessage("--> Welcome " + userID + "!"); // display the welcome message
+        }
 
-        flag = menu(home_data, flag); // display the startup menu
+        menu(home_data); // display the startup menu
 
         Scanner sc;
         ch = sc.scanChoice();

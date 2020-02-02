@@ -8,7 +8,7 @@
 
 void load();
 void title();
-bool menu(std::string menu_str, bool flag, const std::string heading = " MENU ");
+void menu(std::string menu_str, const std::string heading = " MENU ");
 void header(const std::string &menu_name);
 void border(int size);
 void emessage(const std::string &emessage);

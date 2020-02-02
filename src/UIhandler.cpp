@@ -37,7 +37,7 @@ void title()
               << std::endl;
 }
 
-bool menu(std::string menu_str, bool flag, const std::string heading)
+void menu(std::string menu_str, const std::string heading)
 { // show the specific menu
 
     header(heading);
@@ -45,18 +45,11 @@ bool menu(std::string menu_str, bool flag, const std::string heading)
     for (auto c : menu_str)
     {
         std::cout << c;
-
-        if (flag)
-            Sleep(sleep_time); // delay
     }
-
-    flag = false;
 
     border(width_menu); // display the footer '----'
 
-    animater(std::string{"Your Choice : "});
-
-    return flag;
+    std::cout << "Your Choice: ";
 }
 
 void header(const std::string &menu_name)

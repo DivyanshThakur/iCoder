@@ -32,7 +32,6 @@ int main()
         save_active_user(std::string{"NULL"});
 
     int ch{0};
-    bool flag{true}; // it will keep track if the menu animation occurred or not
 
     do
     {
@@ -40,7 +39,7 @@ int main()
 
         title(); // print the title = iCoder
 
-        flag = menu(main_menu_data, flag); // display the startup menu
+        menu(main_menu_data); // display the startup menu
 
         Scanner sc;
         ch = sc.scanChoice();

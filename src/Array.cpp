@@ -8,7 +8,6 @@
 void Arrays()
 {
     int ch{0};
-    int flag{1};
 
     do
     {
@@ -16,7 +15,7 @@ void Arrays()
 
         title(); // print the title = iCoder
 
-        flag = menu(home_data, flag); // display the startup menu
+        menu(home_data); // display the startup menu
 
         Scanner sc;
         ch = sc.scanChoice();
