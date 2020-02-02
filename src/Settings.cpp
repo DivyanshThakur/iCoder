@@ -18,7 +18,7 @@ void settings()
         menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
 
         Scanner sc;
-        ch = sc.scanChoice();
+        ch = sc.scanNum();
 
         if (ch == ESC || ch == 3) //return when ESC is pressed
             return;
@@ -60,7 +60,7 @@ void change_menu_speed()
 
     std::cout << "\n\nEnter the speed" << std::endl;
 
-    speed = sc.scanChoice();
+    speed = sc.scanNum();
 
     if (speed == -1 || speed == ESC)
         return;

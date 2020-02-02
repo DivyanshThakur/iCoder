@@ -18,7 +18,7 @@ void Arrays()
         menu(home_data); // display the startup menu
 
         Scanner sc;
-        ch = sc.scanChoice();
+        ch = sc.scanNum();
 
         arrays_controller(ch); // start as per user choice
 

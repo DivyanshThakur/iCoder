@@ -37,7 +37,7 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-int Scanner::scanChoice()
+int Scanner::scanNum()
 {
     reset();
 
