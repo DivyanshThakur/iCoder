@@ -1,8 +1,7 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
-#include <string>
-
 void Arrays();
+void arrays_controller(int ch);
 
 #endif
