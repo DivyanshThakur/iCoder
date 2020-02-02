@@ -16,5 +16,6 @@ void animater(const std::string &anime, int speed = sleep_time);
 void igetch();
 void print_message(const std::string &message = std::string{"TO BE IMPLEMENTED..."});
 void press_key();
+int get_dataType();
 
 #endif

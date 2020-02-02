@@ -9,6 +9,15 @@ void Arrays()
 {
     int ch{0};
 
+    switch (get_dataType())
+    {
+    case 1:
+        break;
+
+    default:
+        break;
+    }
+
     do
     {
         system("cls"); // clear the screen each timemenu_controller

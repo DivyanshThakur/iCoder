@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <conio.h>
 #include "../header/UIhandler.hpp"
+#include "../header/Scanner.hpp"
 
 void load()
 {
@@ -114,4 +115,14 @@ void press_key()
     border(width_menu); // display the footer
     std::cout << "Press a key to continue";
     getch();
+}
+
+int get_dataType()
+{
+    Scanner sc;
+    int type;
+    menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
+
+    type = sc.scanNum();
+    return type;
 }

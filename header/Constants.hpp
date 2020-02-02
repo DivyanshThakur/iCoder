@@ -28,6 +28,7 @@ extern const std::string txtString;
 extern const std::string main_menu_data;
 extern const std::string home_data;
 extern const std::string settings_data;
+extern const std::string get_dataType_data;
 
 //accounthandler.h
 extern const std::string fuser;
