@@ -9,6 +9,6 @@ void Arrays()
     std::cout << arr[0] << std::endl;
     arr[0] = 25;
     std::cout << arr[0] << std::endl;
-    // std::cin >> arr;
-    // std::cout << arr;
+    std::cin >> arr;
+    std::cout << arr;
 }
