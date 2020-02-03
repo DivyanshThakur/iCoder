@@ -121,9 +121,7 @@ void press_key()
 int get_dataType()
 {
     Scanner sc;
-    int type;
     menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
 
-    type = sc.scanNum();
-    return type;
+    return sc.scanNum();
 }

@@ -16,12 +16,36 @@ void Arrays()
 
     int ch{0};
 
+    system("cls"); // clear the screen each timemenu_controller
+
+    title(); // print the title = iCoder
     switch (get_dataType())
     {
     case 1:
+        int_call();
         break;
 
+    case 2:
+        long_call();
+        break;
+
+    case 3:
+        double_call();
+        break;
+
+    case 4:
+        char_call();
+        break;
+
+    case 5:
+        str_call();
+        break;
+
+    case ESC:
+        return;
+
     default:
+        print_message(std::string{"Invalid choice"});
         break;
     }
 
@@ -90,4 +114,21 @@ void arrays_controller(int ch)
     // }
 
     // press_key(); // program paused - getch()
+}
+
+void int_call()
+{
+}
+void long_call()
+{
+}
+
+void double_call()
+{
+}
+void char_call()
+{
+}
+void str_call()
+{
 }
