@@ -4,9 +4,16 @@
 #include "../namespace/header/cod_array.hpp"
 #include "../header/Scanner.hpp"
 #include "../header/UIhandler.hpp"
+#include "../header/Constants.hpp"
 
 void Arrays()
 {
+    cod::array<int> int_arr;
+    cod::array<long> long_arr;
+    cod::array<double> double_arr;
+    cod::array<char> char_arr;
+    cod::array<std::string> str_arr;
+
     int ch{0};
 
     switch (get_dataType())

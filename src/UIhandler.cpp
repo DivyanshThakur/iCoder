@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
+#include "../header/Constants.hpp"
 
 void load()
 {
@@ -75,14 +76,14 @@ void border(int size)
 
 void emessage(const std::string &emessage)
 {
-    animater(emessage, emessage_timer);
+    animater(emessage);
 
     igetch();
 
     for (unsigned int i{0}; i < emessage.size(); ++i)
     {
         std::cout << "\b \b";
-        Sleep(emessage_timer);
+        Sleep(sleep_time);
     }
 }
 
@@ -94,12 +95,12 @@ void igetch()
             return;
 }
 
-void animater(const std::string &anime, int speed)
+void animater(const std::string &anime)
 {
     for (auto c : anime)
     {
         std::cout << c;
-        Sleep(speed);
+        Sleep(sleep_time);
     }
 }
 
