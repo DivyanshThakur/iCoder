@@ -37,11 +37,11 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-int Scanner::scanNum()
+double Scanner::scanDouble()
 {
     reset();
 
-    int choice;
+    double choice;
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
@@ -55,6 +55,16 @@ int Scanner::scanNum()
         choice = -1;
 
     return choice;
+}
+
+int Scanner::scanInt()
+{
+    return static_cast<int>(scanDouble());
+}
+
+long Scanner::scanLong()
+{
+    return static_cast<long>(scanDouble());
 }
 
 char Scanner::scanChar()

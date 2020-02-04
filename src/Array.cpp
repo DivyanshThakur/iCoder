@@ -8,46 +8,8 @@
 
 void Arrays()
 {
-    cod::array<int> int_arr;
-    cod::array<long> long_arr;
-    cod::array<double> double_arr;
-    cod::array<char> char_arr;
-    cod::array<std::string> str_arr;
 
     int ch{0};
-
-    system("cls"); // clear the screen each timemenu_controller
-
-    title(); // print the title = iCoder
-    switch (get_dataType())
-    {
-    case 1:
-        int_call();
-        break;
-
-    case 2:
-        long_call();
-        break;
-
-    case 3:
-        double_call();
-        break;
-
-    case 4:
-        char_call();
-        break;
-
-    case 5:
-        str_call();
-        break;
-
-    case ESC:
-        return;
-
-    default:
-        print_message(std::string{"Invalid choice"});
-        break;
-    }
 
     do
     {
@@ -55,19 +17,56 @@ void Arrays()
 
         title(); // print the title = iCoder
 
-        menu(home_data); // display the startup menu
+        menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
 
         Scanner sc;
-        ch = sc.scanNum();
+        ch = sc.scanInt();
 
-        arrays_controller(ch); // start as per user choice
-
-        if (ch == 7)
+        if (ch == ESC)
             return;
 
-    } while (ch != 8); // exit the program when ch == 8
+        array_type_selector(ch); // call the array funtion with user defined data type
+                                 // arrays_controller(ch); // start as per user choice
 
-    exit(0);
+        if (ch == 6)
+            return;
+
+    } while (1); // always true
+}
+
+void array_type_selector(int ch)
+{
+
+    switch (ch)
+    {
+    case 1:
+        init_array<int>();
+        break;
+
+    case 2:
+        init_array<long>();
+        break;
+
+    case 3:
+        init_array<double>();
+        break;
+
+    case 4:
+        init_array<char>();
+        break;
+
+    case 5:
+        init_array<std::string>();
+        break;
+
+    case 6:
+        return;
+
+    default:
+        print_message(std::string{"Invalid choice"});
+        break;
+    }
+    press_key(); // program paused - getch()
 }
 
 void arrays_controller(int ch)
@@ -116,19 +115,10 @@ void arrays_controller(int ch)
     // press_key(); // program paused - getch()
 }
 
-void int_call()
-{
-}
-void long_call()
-{
-}
+/*** TEMPLATE FUNTION ARE CODED BELOW ***/
 
-void double_call()
+template <typename T>
+void init_array()
 {
-}
-void char_call()
-{
-}
-void str_call()
-{
+    cod::array<T> arr;
 }

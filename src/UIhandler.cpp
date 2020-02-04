@@ -117,11 +117,3 @@ void press_key()
     std::cout << "Press a key to continue";
     getch();
 }
-
-int get_dataType()
-{
-    Scanner sc;
-    menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
-
-    return sc.scanNum();
-}
