@@ -20,21 +20,18 @@ void Arrays()
         menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
 
         Scanner sc;
-        ch = sc.scanInt();
+        sc.scan(ch);
 
-        if (ch == ESC)
+        if (ch == ESC || ch == 6)
             return;
 
-        array_type_selector(ch); // call the array funtion with user defined data type
-                                 // arrays_controller(ch); // start as per user choice
-
-        if (ch == 6)
+        if (array_type_selector(ch)) // call the array funtion with user defined data type
             return;
 
     } while (1); // always true
 }
 
-void array_type_selector(int ch)
+bool array_type_selector(int ch)
 {
 
     switch (ch)
@@ -59,66 +56,63 @@ void array_type_selector(int ch)
         init_array<std::string>();
         break;
 
-    case 6:
-        return;
-
     default:
         print_message(std::string{"Invalid choice"});
-        break;
+        press_key(); // program paused - getch()
+        return false;
     }
-    press_key(); // program paused - getch()
+    return true;
 }
 
-void arrays_controller(int ch)
-{
-    // switch (ch)
-    // {
-    // case 1: // arrays
-    //     Arrays();
-    //     break;
+// void arrays_controller(int ch)
+// {
+//     // switch (ch)
+//     // {
+//     // case 1: // arrays
+//     //     Arrays();
+//     //     break;
 
-    // case 2:              // strings
-    //     print_message(); // default is ~ to be Implemented
-    //     break;
+//     // case 2:              // strings
+//     //     print_message(); // default is ~ to be Implemented
+//     //     break;
 
-    // case 3: // matrices
-    //     print_message();
+//     // case 3: // matrices
+//     //     print_message();
 
-    //     break;
+//     //     break;
 
-    // case 4: // sparse matrix
-    //     print_message();
+//     // case 4: // sparse matrix
+//     //     print_message();
 
-    //     break;
+//     //     break;
 
-    // case 5: // polynomial representation
-    //     print_message();
-    //     break;
+//     // case 5: // polynomial representation
+//     //     print_message();
+//     //     break;
 
-    // case 6: // linked list
-    //     print_message();
-    //     break;
+//     // case 6: // linked list
+//     //     print_message();
+//     //     break;
 
-    // case 7: break;
+//     // case 7: break;
 
-    // case 8: // exit the program
-    //     break;
+//     // case 8: // exit the program
+//     //     break;
 
-    // case ESC: //ESC
-    //     return;
+//     // case ESC: //ESC
+//     //     return;
 
-    // default:
-    //     print_message(std::string{"Invalid choice"});
-    //     break;
-    // }
+//     // default:
+//     //     print_message(std::string{"Invalid choice"});
+//     //     break;
+//     // }
 
-    // press_key(); // program paused - getch()
-}
+//     // press_key(); // program paused - getch()
+// }
 
 /*** TEMPLATE FUNTION ARE CODED BELOW ***/
 
 template <typename T>
 void init_array()
 {
-    cod::array<T> arr;
 }

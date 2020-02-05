@@ -52,7 +52,8 @@ bool Account::display_remember_me() const
     animater(std::string{"Remember me? (Y/N): "});
 
     // scanning character
-    char c = sc.scanChar();
+    char c;
+    sc.scan(c);
 
     if (c == ESC)
         return false;

@@ -2,7 +2,7 @@
 #include "../header/cod_array.hpp"
 
 template <typename T>
-cod::array<T>::array() : array(0) {}
+cod::array<T>::array() : arr(nullptr), size(0), length(0) {}
 
 template <typename T>
 cod::array<T>::array(size_t size) : arr(nullptr), size(size), length(0)

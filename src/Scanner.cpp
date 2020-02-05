@@ -37,59 +37,59 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-double Scanner::scanDouble()
+void Scanner::scan(double &choice)
 {
     reset();
-
-    double choice;
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
         if (checkChar() == -1)
-            return ESC;
+            choice = ESC;
     }
 
     std::stringstream ss{value};
 
     if (!(ss >> choice))
         choice = -1;
-
-    return choice;
 }
 
-int Scanner::scanInt()
+void Scanner::scan(int &choice)
 {
-    return static_cast<int>(scanDouble());
+    double value;
+    scan(value);
+    choice = static_cast<int>(value);
 }
 
-long Scanner::scanLong()
+void Scanner::scan(long &choice)
 {
-    return static_cast<long>(scanDouble());
+    double value;
+    scan(value);
+    choice = static_cast<long>(value);
 }
 
-char Scanner::scanChar()
-{
-    reset();
-
-    while ((c = getch()) && !(c == '\r' && value.size()) && !(c == ' ' && value.size()))
-    {
-        if (checkChar() == -1)
-            return ESC;
-    }
-
-    return value.at(0);
-}
-
-std::string Scanner::scanString()
+void Scanner::scan(char &choice)
 {
     reset();
 
     while ((c = getch()) && !(c == '\r' && value.size()) && !(c == ' ' && value.size()))
     {
         if (checkChar() == -1)
-            return std::string{""}; //NULL
+            choice = ESC;
     }
-    return value;
+
+    choice = value.at(0);
+}
+
+void Scanner::scan(std::string &choice)
+{
+    reset();
+
+    while ((c = getch()) && !(c == '\r' && value.size()) && !(c == ' ' && value.size()))
+    {
+        if (checkChar() == -1)
+            choice = ""; //NULL
+    }
+    choice = value;
 }
 
 std::string Scanner::scanUsername()
