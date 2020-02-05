@@ -115,4 +115,19 @@ bool array_type_selector(int ch)
 template <typename T>
 void init_array()
 {
+    cod::array<T> arr;
+    create_array<T>(arr);
+}
+
+template <typename T>
+void create_array(cod::array<T> &arr)
+{
+    Scanner sc;
+    int size;
+
+    std::cout << "Enter the size of array: ";
+
+    sc.scan(size);
+
+    arr = cod::array<T>(size);
 }
