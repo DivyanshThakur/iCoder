@@ -122,6 +122,25 @@ T cod::array<T>::back() const
 }
 
 template <typename T>
+size_t cod::array<T>::max_size() const
+{
+    return size;
+}
+
+template <typename T>
+size_t cod::array<T>::get_length() const
+{
+    return length;
+}
+
+template <typename T>
+void cod::array<T>::set_size(int x)
+{
+    if (x >= 0)
+        size = x;
+}
+
+template <typename T>
 void cod::array<T>::fill(const T &x)
 {
     for (size_t i{0}; i < size; ++i)

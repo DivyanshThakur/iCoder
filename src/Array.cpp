@@ -64,78 +64,84 @@ bool array_type_selector(int ch)
     return true;
 }
 
-// void arrays_controller(int ch)
-// {
-//     // switch (ch)
-//     // {
-//     // case 1: // arrays
-//     //     Arrays();
-//     //     break;
-
-//     // case 2:              // strings
-//     //     print_message(); // default is ~ to be Implemented
-//     //     break;
-
-//     // case 3: // matrices
-//     //     print_message();
-
-//     //     break;
-
-//     // case 4: // sparse matrix
-//     //     print_message();
-
-//     //     break;
-
-//     // case 5: // polynomial representation
-//     //     print_message();
-//     //     break;
-
-//     // case 6: // linked list
-//     //     print_message();
-//     //     break;
-
-//     // case 7: break;
-
-//     // case 8: // exit the program
-//     //     break;
-
-//     // case ESC: //ESC
-//     //     return;
-
-//     // default:
-//     //     print_message(std::string{"Invalid choice"});
-//     //     break;
-//     // }
-
-//     // press_key(); // program paused - getch()
-// }
-
 /*** TEMPLATE FUNTIONS ARE CODED BELOW ***/
 
 template <typename T>
 void init_array()
 {
+    cod::array<T> arr;
+    Scanner sc;
+    int ch{0};
+
     do
     {
         system("cls"); // clear the screen each timemenu_controller
 
         title(); // print the title = iCoder
 
-        menu();
+        if (arr.max_size())
+            menu(menu_create_size + array_data);
+        else
+            menu(menu_update_size + array_data);
 
-        Scanner sc;
+        arrays_controller<T>(ch);
         sc.scan(ch);
 
         if (ch == ESC || ch == 6)
             return;
-
-        if (array_type_selector(ch)) // call the array funtion with user defined data type
-            return;
+        create_array<T>(arr);
 
     } while (1); // always true
-    display_array_menu();
-    cod::array<T> arr;
-    create_array<T>(arr);
+    // display_array_menu();
+}
+
+template <typename T>
+void arrays_controller(int ch)
+{
+    switch (ch)
+    {
+    case 1:              // arrays
+        print_message(); // default is ~ to be Implemented
+        // Arrays();
+        break;
+
+    case 2:              // strings
+        print_message(); // default is ~ to be Implemented
+        break;
+
+    case 3: // matrices
+        print_message();
+
+        break;
+
+    case 4: // sparse matrix
+        print_message();
+
+        break;
+
+    case 5: // polynomial representation
+        print_message();
+        break;
+
+    case 6: // linked list
+        print_message();
+        break;
+
+    case 7:
+        break;
+
+    case 8: // exit the program
+        break;
+
+    case ESC: //ESC
+        return;
+
+    default:
+        print_message(std::string{"Invalid choice"});
+        break;
+    }
+
+    press_key(); // program paused - getch()
 }
 
 template <typename T>
@@ -144,9 +150,8 @@ void create_array(cod::array<T> &arr)
     Scanner sc;
     int size;
 
-    std::cout << "Enter the size of array: ";
+    std::cout << "\nEnter the size of array: ";
 
     sc.scan(size);
-
-    arr = cod::array<T>(size);
+    arr.set_size(size);
 }

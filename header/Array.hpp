@@ -5,10 +5,12 @@
 
 void Arrays();
 bool array_type_selector(int ch);
-void arrays_controller(int ch);
 
 template <typename T>
 void init_array();
+
+template <typename T>
+void arrays_controller(int ch);
 
 template <typename T>
 void create_array(cod::array<T> &arr);

@@ -31,6 +31,9 @@ public:
 
     T front() const;
     T back() const;
+    size_t max_size() const;
+    size_t get_length() const;
+    void set_size(int x);
     void fill(const T &x);
     bool empty() const;
     void clear();

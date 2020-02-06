@@ -23,11 +23,16 @@ extern const std::string txtUsername;
 extern const std::string txtChar;
 extern const std::string txtString;
 
+// common menu option
+extern const std::string menu_create_size;
+extern const std::string menu_update_size;
+
 // menuhandler.h
 extern const std::string main_menu_data;
 extern const std::string home_data;
 extern const std::string settings_data;
 extern const std::string get_dataType_data;
+extern const std::string array_data;
 
 //accounthandler.h
 extern const std::string fuser;
