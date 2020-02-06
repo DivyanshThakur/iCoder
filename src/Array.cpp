@@ -84,8 +84,8 @@ void init_array()
         else
             menu(menu_update_size + array_data);
 
-        arrays_controller<T>(ch);
         sc.scan(ch);
+        arrays_controller<T>(ch);
 
         if (ch == ESC || ch == 6)
             return;
