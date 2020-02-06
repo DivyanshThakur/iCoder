@@ -23,10 +23,16 @@ public:
     T operator[](size_t x) const;
     T &operator[](size_t x);
 
+    T at(size_t x) const;
+    T &at(size_t x);
+
     array &operator=(const array &rhs);
     array &operator=(array &&rhs);
 
+    T front() const;
+    T back() const;
     void fill(const T &x);
+    bool empty() const;
     void clear();
     void swap(array &rhs);
 

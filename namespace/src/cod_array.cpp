@@ -22,7 +22,7 @@ cod::array<T>::array(const cod::array<T> &rhs)
         length = rhs.length;
         arr = new T[size];
 
-        for (size_t i = 0; i < rhs.length; ++i)
+        for (size_t i = 0; i < rhs.size; ++i)
         {
             arr[i] = rhs.arr[i];
         }
@@ -43,8 +43,34 @@ cod::array<T>::array(cod::array<T> &&rhs)
 }
 
 template <typename T>
+T cod::array<T>::operator[](size_t x) const
+{
+    return arr[x];
+}
+
+template <typename T>
 T &cod::array<T>::operator[](size_t x)
 {
+    return arr[x];
+}
+
+template <typename T>
+T cod::array<T>::at(size_t x) const
+{
+    if (x < 0 || x >= size)
+    {
+        std::cerr << "Out of bounds exception";
+    }
+    return arr[x];
+}
+
+template <typename T>
+T &cod::array<T>::at(size_t x)
+{
+    if (x < 0 || x >= size)
+    {
+        std::cerr << "Out of bounds exception";
+    }
     return arr[x];
 }
 
@@ -59,7 +85,7 @@ cod::array<T> &cod::array<T>::operator=(const cod::array<T> &rhs)
         length = rhs.length;
         arr = new T[size];
 
-        for (size_t i = 0; i < rhs.length; ++i)
+        for (size_t i = 0; i < rhs.size; ++i)
         {
             arr[i] = rhs.arr[i];
         }
@@ -84,12 +110,30 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
 }
 
 template <typename T>
+T cod::array<T>::front() const
+{
+    return arr[0];
+}
+
+template <typename T>
+T cod::array<T>::back() const
+{
+    return ((length > 0) ? arr[length - 1] : MIN_VALUE);
+}
+
+template <typename T>
 void cod::array<T>::fill(const T &x)
 {
     for (size_t i{0}; i < size; ++i)
     {
         arr[i] = x;
     }
+}
+
+template <typename T>
+bool cod::array<T>::empty() const
+{
+    return (length > 0);
 }
 
 template <typename T>
