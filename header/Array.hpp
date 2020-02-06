@@ -10,9 +10,9 @@ template <typename T>
 void init_array();
 
 template <typename T>
-void arrays_controller(int ch);
+void arrays_controller(cod::array<T> &arr, int ch);
 
 template <typename T>
-void create_array(cod::array<T> &arr);
+void update_size(cod::array<T> &arr);
 
 #endif

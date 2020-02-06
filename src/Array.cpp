@@ -80,61 +80,46 @@ void init_array()
         title(); // print the title = iCoder
 
         if (arr.max_size())
-            menu(menu_create_size + array_data);
-        else
             menu(menu_update_size + array_data);
+        else
+            menu(menu_create_size + array_data);
 
         sc.scan(ch);
-        arrays_controller<T>(ch);
 
-        if (ch == ESC || ch == 6)
+        if (ch == ESC || ch == 5)
             return;
-        create_array<T>(arr);
 
-    } while (1); // always true
-    // display_array_menu();
+        arrays_controller<T>(arr, ch);
+
+    } while (ch != 6); // exit at ch==6
+    exit(0);
 }
 
 template <typename T>
-void arrays_controller(int ch)
+void arrays_controller(cod::array<T> &arr, int ch)
 {
     switch (ch)
     {
-    case 1:              // arrays
+    case 1: // add or update size of array
+        update_size<T>(arr);
+        break;
+
+    case 2:
         print_message(); // default is ~ to be Implemented
-        // Arrays();
         break;
 
-    case 2:              // strings
-        print_message(); // default is ~ to be Implemented
-        break;
-
-    case 3: // matrices
+    case 3:
         print_message();
 
         break;
 
-    case 4: // sparse matrix
+    case 4:
         print_message();
 
         break;
 
-    case 5: // polynomial representation
-        print_message();
+    case 6: // exit the program
         break;
-
-    case 6: // linked list
-        print_message();
-        break;
-
-    case 7:
-        break;
-
-    case 8: // exit the program
-        break;
-
-    case ESC: //ESC
-        return;
 
     default:
         print_message(std::string{"Invalid choice"});
@@ -145,7 +130,7 @@ void arrays_controller(int ch)
 }
 
 template <typename T>
-void create_array(cod::array<T> &arr)
+void update_size(cod::array<T> &arr)
 {
     Scanner sc;
     int size;

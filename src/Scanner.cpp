@@ -44,7 +44,10 @@ void Scanner::scan(double &choice)
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
         if (checkChar() == -1)
+        {
             choice = ESC;
+            return;
+        }
     }
 
     std::stringstream ss{value};
