@@ -110,11 +110,30 @@ bool array_type_selector(int ch)
 //     // press_key(); // program paused - getch()
 // }
 
-/*** TEMPLATE FUNTION ARE CODED BELOW ***/
+/*** TEMPLATE FUNTIONS ARE CODED BELOW ***/
 
 template <typename T>
 void init_array()
 {
+    do
+    {
+        system("cls"); // clear the screen each timemenu_controller
+
+        title(); // print the title = iCoder
+
+        menu();
+
+        Scanner sc;
+        sc.scan(ch);
+
+        if (ch == ESC || ch == 6)
+            return;
+
+        if (array_type_selector(ch)) // call the array funtion with user defined data type
+            return;
+
+    } while (1); // always true
+    display_array_menu();
     cod::array<T> arr;
     create_array<T>(arr);
 }

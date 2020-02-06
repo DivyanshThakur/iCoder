@@ -27,6 +27,12 @@ const std::string home_data{"1. Array\n2. Strings\n3. Matrices\n4. Sparse Matrix
 const std::string settings_data{"1. Change menu speed\n2. Change warning speed\n3. Main Menu\n4. Exit"};
 const std::string get_dataType_data{"1. Int\n2. Long\n3. Double\n4. Char\n5. String\n6. Main Menu"};
 
+// common menu option
+const std::string menu_create_size{"1. Add max size to "};
+const std::string menu_update_size{"1. Update max size of "};
+
+const std::string array_data{"array\n2. Add elements\n3. Delete elements\n4. Display array\n5. Home\n6. Exit"};
+
 //accounthandler.h
 const std::string fuser{"./data/users.dat"};
 const std::string fsetting{"./data/settings.dat"};
