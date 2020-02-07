@@ -76,7 +76,7 @@ void home_controller(int ch)
         return;
 
     case 8: // exit the program
-        break;
+        return;
 
     case ESC: //ESC
         return;

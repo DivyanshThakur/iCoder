@@ -8,10 +8,21 @@ namespace cod
 template <typename T>
 class array
 {
+    // friend std::ostream &operator<<(std::ostream &os, const array &arr)
+    // {
+    //     // for (size_t i = 0; i < arr.max_size(); ++i)
+    //     // {
+    //     arr[0] = 54;
+    //     os << arr[0] << " ";
+    //     // }
+    //     os << std::endl;
+    //     return os;
+    // }
+
 private:
-    T *arr;
+    T *A;
     size_t size;
-    size_t length;
+    size_t len;
     T MIN_VALUE;
 
 public:
@@ -32,7 +43,8 @@ public:
     T front() const;
     T back() const;
     size_t max_size() const;
-    size_t get_length() const;
+    size_t length() const;
+    T get_min_val() const;
     void set_size(int x);
     void fill(const T &x);
     bool empty() const;

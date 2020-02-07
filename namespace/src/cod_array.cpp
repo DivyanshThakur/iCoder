@@ -3,12 +3,12 @@
 #include "../header/cod_array.hpp"
 
 template <typename T>
-cod::array<T>::array() : arr(nullptr), size(0), length(0), MIN_VALUE(std::numeric_limits<T>::min()) {}
+cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(std::numeric_limits<T>::min()) {}
 
 template <typename T>
-cod::array<T>::array(size_t size) : arr(nullptr), size(size), length(0), MIN_VALUE(std::numeric_limits<T>::min())
+cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(std::numeric_limits<T>::min())
 {
-    arr = new T[size];
+    A = new T[size];
 }
 
 template <typename T>
@@ -19,12 +19,12 @@ cod::array<T>::array(const cod::array<T> &rhs)
         clear();
 
         size = rhs.size;
-        length = rhs.length;
-        arr = new T[size];
+        len = rhs.len;
+        A = new T[size];
 
         for (size_t i = 0; i < rhs.size; ++i)
         {
-            arr[i] = rhs.arr[i];
+            A[i] = rhs.A[i];
         }
     }
 }
@@ -45,13 +45,13 @@ cod::array<T>::array(cod::array<T> &&rhs)
 template <typename T>
 T cod::array<T>::operator[](size_t x) const
 {
-    return arr[x];
+    return A[x];
 }
 
 template <typename T>
 T &cod::array<T>::operator[](size_t x)
 {
-    return arr[x];
+    return A[x];
 }
 
 template <typename T>
@@ -61,7 +61,7 @@ T cod::array<T>::at(size_t x) const
     {
         std::cerr << "Out of bounds exception";
     }
-    return arr[x];
+    return A[x];
 }
 
 template <typename T>
@@ -71,7 +71,7 @@ T &cod::array<T>::at(size_t x)
     {
         std::cerr << "Out of bounds exception";
     }
-    return arr[x];
+    return A[x];
 }
 
 template <typename T>
@@ -82,12 +82,12 @@ cod::array<T> &cod::array<T>::operator=(const cod::array<T> &rhs)
         clear();
 
         size = rhs.size;
-        length = rhs.length;
-        arr = new T[size];
+        len = rhs.len;
+        A = new T[size];
 
         for (size_t i = 0; i < rhs.size; ++i)
         {
-            arr[i] = rhs.arr[i];
+            A[i] = rhs.A[i];
         }
     }
     return *this;
@@ -100,9 +100,9 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
     {
         clear();
 
-        arr = rhs.arr;
+        A = rhs.A;
         size = rhs.size;
-        length = rhs.length;
+        len = rhs.len;
 
         rhs.clear();
     }
@@ -112,13 +112,13 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
 template <typename T>
 T cod::array<T>::front() const
 {
-    return arr[0];
+    return A[0];
 }
 
 template <typename T>
 T cod::array<T>::back() const
 {
-    return ((length > 0) ? arr[length - 1] : MIN_VALUE);
+    return ((len > 0) ? A[len - 1] : MIN_VALUE);
 }
 
 template <typename T>
@@ -128,9 +128,15 @@ size_t cod::array<T>::max_size() const
 }
 
 template <typename T>
-size_t cod::array<T>::get_length() const
+size_t cod::array<T>::length() const
 {
-    return length;
+    return len;
+}
+
+template <typename T>
+T cod::array<T>::get_min_val() const
+{
+    return MIN_VALUE;
 }
 
 template <typename T>
@@ -145,21 +151,21 @@ void cod::array<T>::fill(const T &x)
 {
     for (size_t i{0}; i < size; ++i)
     {
-        arr[i] = x;
+        A[i] = x;
     }
 }
 
 template <typename T>
 bool cod::array<T>::empty() const
 {
-    return (length > 0);
+    return (len > 0);
 }
 
 template <typename T>
 void cod::array<T>::clear()
 {
-    delete[] arr;
-    size = length = 0;
+    delete[] A;
+    size = len = 0;
 }
 
 template <typename T>
@@ -171,8 +177,8 @@ void cod::array<T>::swap(cod::array<T> &rhs)
 template <typename T>
 cod::array<T>::~array()
 {
-    delete[] arr;
-    size = length = 0;
+    delete[] A;
+    size = len = 0;
 }
 
 template class cod::array<int>;
