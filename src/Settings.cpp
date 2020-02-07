@@ -9,17 +9,16 @@
 void settings()
 {
     int ch{0};
-    bool flag{true};
     do
     {
         system("cls"); // clear the screen each time
 
         title(); // print the title = iCoder
 
-        flag = menu(settings_data, flag, std::string{" SETTINGS "}); // display the startup menu for settings screen
+        menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
 
         Scanner sc;
-        ch = sc.scanChoice();
+        sc.scan(ch);
 
         if (ch == ESC || ch == 3) //return when ESC is pressed
             return;
@@ -61,7 +60,7 @@ void change_menu_speed()
 
     std::cout << "\n\nEnter the speed" << std::endl;
 
-    speed = sc.scanChoice();
+    sc.scan(speed);
 
     if (speed == -1 || speed == ESC)
         return;

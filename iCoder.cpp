@@ -32,7 +32,6 @@ int main()
         save_active_user(std::string{"NULL"});
 
     int ch{0};
-    bool flag{true}; // it will keep track if the menu animation occurred or not
 
     do
     {
@@ -40,10 +39,10 @@ int main()
 
         title(); // print the title = iCoder
 
-        flag = menu(main_menu_data, flag); // display the startup menu
+        menu(main_menu_data); // display the startup menu
 
         Scanner sc;
-        ch = sc.scanChoice();
+        sc.scan(ch);
 
         main_menu_controller(ch); // start as per user choice
 
@@ -58,19 +57,20 @@ void main_menu_controller(int ch)
     {
     case 1: // go to log in screen
         login();
-        return;
+        break;
 
     case 2: // go to create account screen
         create_account();
-        return;
+        break;
 
     case 3: // login Anonymously
         home(std::string{"User"});
-        return;
+        break;
 
     case 4: // show saved user details
         if (!display_users())
             std::cout << "No user in database" << std::endl;
+        press_key(); // getch()
         break;
 
     case 5: // details about the software and the shortcut/hint that can be used in it
@@ -79,20 +79,19 @@ void main_menu_controller(int ch)
 
     case 6: // Customize the software using settings
         settings();
-        return;
+        break;
 
     case 7: // exit the program
         break;
 
     case ESC: //ESC
-        return;
+        break;
 
     default:
         print_message(std::string{"Invalid choice"});
+        press_key(); // getch()
         break;
     }
-
-    press_key(); // getch()
 }
 
 void makeDirectory()

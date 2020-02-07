@@ -6,6 +6,7 @@
 #include "../header/AccountHandler.hpp"
 #include "../header/Array.hpp"
 #include "../header/Scanner.hpp"
+#include "../namespace/header/cod_array.hpp"
 
 void home(const std::string &userID)
 {
@@ -19,12 +20,15 @@ void home(const std::string &userID)
         title(); // print the title = iCoder
 
         if (flag)
+        {
+            flag = 0;
             emessage("--> Welcome " + userID + "!"); // display the welcome message
+        }
 
-        flag = menu(home_data, flag); // display the startup menu
+        menu(home_data); // display the startup menu
 
         Scanner sc;
-        ch = sc.scanChoice();
+        sc.scan(ch);
 
         home_controller(ch); // start as per user choice
 
@@ -40,12 +44,12 @@ void home_controller(int ch)
 {
     switch (ch)
     {
-    case 1:              // arrays
-        print_message(); // default is ~ to be Implemented
-        break;
+    case 1: // arrays
+        Arrays();
+        return;
 
-    case 2: // strings
-        print_message();
+    case 2:              // strings
+        print_message(); // default is ~ to be Implemented
         break;
 
     case 3: // matrices
@@ -72,7 +76,7 @@ void home_controller(int ch)
         return;
 
     case 8: // exit the program
-        break;
+        return;
 
     case ESC: //ESC
         return;

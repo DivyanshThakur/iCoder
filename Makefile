@@ -1,5 +1,5 @@
 OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Scanner.o obj\Settings.o obj\UIhandler.o
-OBJCOD = obj\cod_array.o
+OBJCOD = obj\cod_array.o obj\cod_limits.o
 OBJF = obj/*.o
 CC = g++
 LFLAG = -Wall
@@ -47,6 +47,9 @@ obj\UIhandler.o: src\UIhandler.cpp header\UIhandler.hpp
 
 obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
 	$(CC) $(CFLAGS) namespace\src\cod_array.cpp -o obj\cod_array.o
+
+obj\cod_limits.o: namespace\src\cod_limits.cpp namespace\header\cod_limits.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_limits.cpp -o obj\cod_limits.o
 
 ### Extras
 
