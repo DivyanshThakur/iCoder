@@ -41,7 +41,7 @@ bool array_type_selector(int ch)
         break;
 
     case 2:
-        init_array<long>();
+        init_array<long long>();
         break;
 
     case 3:
