@@ -73,6 +73,8 @@ void init_array()
     Scanner sc;
     int ch{0};
 
+    update_size<T>(arr);
+
     do
     {
         system("cls"); // clear the screen each timemenu_controller
@@ -106,16 +108,17 @@ void arrays_controller(cod::array<T> &arr, int ch)
 
     case 2:
         print_message(); // default is ~ to be Implemented
+        press_key();     // program paused - getch()
         break;
 
     case 3:
         print_message();
-
+        press_key(); // program paused - getch()
         break;
 
     case 4:
         print_message();
-
+        press_key(); // program paused - getch()
         break;
 
     case 6: // exit the program
@@ -123,20 +126,27 @@ void arrays_controller(cod::array<T> &arr, int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
+        press_key(); // program paused - getch()
         break;
     }
-
-    press_key(); // program paused - getch()
 }
 
 template <typename T>
 void update_size(cod::array<T> &arr)
 {
-    Scanner sc;
-    int size;
+    // Scanner sc;
+    // int size;
 
-    std::cout << "\nEnter the size of array: ";
+    system("cls"); // clear the screen each timemenu_controller
 
-    sc.scan(size);
-    arr.set_size(size);
+    title(); // print the title = iCoder
+
+    header(std::string{" ARRAY SIZE "});
+
+    // animater(std::string{"Enter size: "});
+
+    // sc.scan(size);
+    // arr.set_size(size);
+    std::cout << arr.get_min_val();
+    igetch();
 }
