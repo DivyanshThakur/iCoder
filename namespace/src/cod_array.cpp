@@ -3,18 +3,12 @@
 #include "../header/cod_array.hpp"
 
 template <typename T>
-cod::array<T>::array() : A(nullptr), size(0), len(0)
-{
-    cod::limits<T> l;
-    MIN_VALUE = l.min();
-}
+cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(cod::limits<T>::min()) {}
 
 template <typename T>
-cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0)
+cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(cod::limits<T>::min())
 {
     A = new T[size];
-    // cod::limits<T> l;
-    // MIN_VALUE = l.min();
 }
 
 template <typename T>

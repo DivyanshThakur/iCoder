@@ -6,31 +6,31 @@
 /** MIN VALUES **/
 
 template <>
-int cod::limits<int>::min() const
+int cod::limits<int>::min()
 {
     return INT_MIN;
 }
 
 template <>
-long long cod::limits<long long>::min() const
+long long cod::limits<long long>::min()
 {
     return LLONG_MIN;
 }
 
 template <>
-double cod::limits<double>::min() const
+double cod::limits<double>::min()
 {
     return DBL_MIN;
 }
 
 template <>
-char cod::limits<char>::min() const
+char cod::limits<char>::min()
 {
     return CHAR_MIN;
 }
 
 template <>
-std::string cod::limits<std::string>::min() const
+std::string cod::limits<std::string>::min()
 {
     return std::string{""};
 }

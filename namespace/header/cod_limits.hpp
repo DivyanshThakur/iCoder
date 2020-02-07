@@ -7,7 +7,7 @@ template <typename T>
 class limits
 {
 public:
-    T min() const;
+    static T min();
 };
 } // namespace cod
 #endif
