@@ -1,14 +1,20 @@
 #include <iostream>
-#include <limits>
+#include "../header/cod_limits.hpp"
 #include "../header/cod_array.hpp"
 
 template <typename T>
-cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(std::numeric_limits<T>::min()) {}
+cod::array<T>::array() : A(nullptr), size(0), len(0)
+{
+    cod::limits<T> l;
+    MIN_VALUE = l.min();
+}
 
 template <typename T>
-cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(std::numeric_limits<T>::min())
+cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0)
 {
     A = new T[size];
+    // cod::limits<T> l;
+    // MIN_VALUE = l.min();
 }
 
 template <typename T>
