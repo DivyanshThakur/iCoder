@@ -1,14 +1,13 @@
 #ifndef COD_LIMITS_HPP
 #define COD_LIMITS_HPP
 
-#include <limits>
 namespace cod
 {
 template <typename T>
-class limits : public std::numeric_limits
+class limits
 {
 public:
-    T min() override;
+    T min() const;
 };
 } // namespace cod
 #endif

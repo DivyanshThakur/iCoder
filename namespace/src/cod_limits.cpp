@@ -6,69 +6,37 @@
 /** MIN VALUES **/
 
 template <>
-int cod::limits<int>::min()
+int cod::limits<int>::min() const
 {
     return INT_MIN;
 }
 
 template <>
-long cod::limits<long>::min()
+long long cod::limits<long long>::min() const
 {
-    return LONG_MIN;
+    return LLONG_MIN;
 }
 
 template <>
-double cod::limits<double>::min()
+double cod::limits<double>::min() const
 {
     return DBL_MIN;
 }
 
 template <>
-char cod::limits<char>::min()
+char cod::limits<char>::min() const
 {
     return CHAR_MIN;
 }
 
 template <>
-std::string cod::limits<std::string>::min()
+std::string cod::limits<std::string>::min() const
 {
     return std::string{""};
 }
 
-/** MAX VALUES **/
-
-// template <>
-// int cod::limits<int>::max()
-// {
-//     return INT_MAX;
-// }
-
-// template <>
-// long cod::limits<long>::max()
-// {
-//     return LONG_MAX;
-// }
-
-// template <>
-// double cod::limits<double>::max()
-// {
-//     return DBL_MAX;
-// }
-
-// template <>
-// char cod::limits<char>::max()
-// {
-//     return CHAR_MAX;
-// }
-
-// template <>
-// std::string cod::limits<std::string>::max()
-// {
-//     return std::string{""};
-// }
-
 template class cod::limits<int>;
-template class cod::limits<long>;
+template class cod::limits<long long>;
 template class cod::limits<double>;
 template class cod::limits<char>;
 template class cod::limits<std::string>;

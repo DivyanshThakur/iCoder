@@ -188,7 +188,7 @@ cod::array<T>::~array()
 }
 
 template class cod::array<int>;
-template class cod::array<long>;
+template class cod::array<long long>;
 template class cod::array<double>;
 template class cod::array<char>;
 template class cod::array<std::string>;
