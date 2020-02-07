@@ -8,17 +8,6 @@ namespace cod
 template <typename T>
 class array
 {
-    // friend std::ostream &operator<<(std::ostream &os, const array &arr)
-    // {
-    //     // for (size_t i = 0; i < arr.max_size(); ++i)
-    //     // {
-    //     arr[0] = 54;
-    //     os << arr[0] << " ";
-    //     // }
-    //     os << std::endl;
-    //     return os;
-    // }
-
 private:
     T *A;
     size_t size;
