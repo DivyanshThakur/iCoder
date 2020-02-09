@@ -16,7 +16,7 @@ public:
     Scanner(); // type of string - username, pass, char
 
     void scan(int &choice);
-    void scan(long &choice);
+    void scan(long long &choice);
     void scan(double &choice);
     void scan(char &choice);
     void scan(std::string &choice);

@@ -2,22 +2,31 @@
 #define COD_ARRAY_HPP
 
 #include <iostream>
+#include "../../header/Scanner.hpp"
 
 namespace cod
 {
 template <typename T>
 class array
 {
-    // friend std::ostream &operator<<(std::ostream &os, const array &arr)
-    // {
-    //     // for (size_t i = 0; i < arr.max_size(); ++i)
-    //     // {
-    //     arr[0] = 54;
-    //     os << arr[0] << " ";
-    //     // }
-    //     os << std::endl;
-    //     return os;
-    // }
+    friend std::ostream &operator<<(std::ostream &os, const array &arr)
+    {
+        for (size_t i = 0; i < arr.max_size(); ++i)
+        {
+            os << arr[i] << " ";
+        }
+        os << std::endl;
+        return os;
+    }
+
+    friend Scanner &operator>>(Scanner &sc, array &arr)
+    {
+        for (size_t i = 0; i < arr.max_size(); ++i)
+        {
+            sc.scan(arr[i]);
+        }
+        return sc;
+    }
 
 private:
     T *A;

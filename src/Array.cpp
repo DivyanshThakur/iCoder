@@ -148,8 +148,10 @@ void update_size(cod::array<T> &arr)
     sc.scan(size);
     arr.set_size(size);
 
-    for (size_t i = 0; i < arr.max_size(); ++i)
-        std::cout << arr[i] << " ";
-    std::cout << std::endl;
+    std::cout << "Enter the values:" << std::endl;
+
+    sc >> arr;
+    std::cout << arr;
+
     igetch();
 }

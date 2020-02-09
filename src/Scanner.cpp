@@ -63,11 +63,11 @@ void Scanner::scan(int &choice)
     choice = static_cast<int>(value);
 }
 
-void Scanner::scan(long &choice)
+void Scanner::scan(long long &choice)
 {
     double value;
     scan(value);
-    choice = static_cast<long>(value);
+    choice = static_cast<long long>(value);
 }
 
 void Scanner::scan(char &choice)
