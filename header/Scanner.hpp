@@ -11,14 +11,14 @@ private:
     bool isLimitExceed;
 
     int checkChar(bool isPassword = false);
-    bool print(const std::string &s) const;
+    bool print(const std::string &s = "") const;
 
 public:
     Scanner(); // type of string - username, pass, char
 
-    void scan(int &choice);
+    void scan(int &choice, bool isNeedLine = true);
     void scan(long long &choice);
-    void scan(double &choice);
+    void scan(double &choice, bool isNeedLine = true);
     void scan(char &choice);
     void scan(std::string &choice);
 

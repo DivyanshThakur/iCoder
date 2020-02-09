@@ -18,7 +18,7 @@ void settings()
         menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
 
         Scanner sc;
-        sc.scan(ch);
+        sc.scan(ch, false);
 
         if (ch == ESC || ch == 3) //return when ESC is pressed
             return;

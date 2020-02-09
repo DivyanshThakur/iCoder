@@ -108,8 +108,9 @@ void animater(const std::string &anime)
 
 void print_message(const std::string &message)
 {
-    std::cout << std::endl
-              << message;
+    border(width_menu);
+
+    std::cout << message;
 }
 
 void press_key()

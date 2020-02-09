@@ -42,7 +42,7 @@ int main()
         menu(main_menu_data); // display the startup menu
 
         Scanner sc;
-        sc.scan(ch);
+        sc.scan(ch, false);
 
         main_menu_controller(ch); // start as per user choice
 
@@ -75,6 +75,7 @@ void main_menu_controller(int ch)
 
     case 5: // details about the software and the shortcut/hint that can be used in it
         print_message();
+        press_key();
         break;
 
     case 6: // Customize the software using settings

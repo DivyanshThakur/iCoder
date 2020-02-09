@@ -10,7 +10,7 @@ Scanner::Scanner() : isLimitExceed{false} {}
 
 bool Scanner::print(const std::string &s) const
 {
-    std::cout << s;
+    (s != "") ? std::cout << s : std::cout << std::endl;
     return true;
 }
 
@@ -44,11 +44,11 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-void Scanner::scan(double &choice)
+void Scanner::scan(double &choice, bool isNeedLine)
 {
     reset();
 
-    while ((c = getch()) && !(value.size() && ((c == '\r' && print("\n")) || (c == ' ' && print(" ")))))
+    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
     {
         if (checkChar() == -1)
         {
@@ -57,16 +57,24 @@ void Scanner::scan(double &choice)
         }
     }
 
+    if (c == '\r')
+    {
+        if (isNeedLine)
+            print();
+    }
+    else if (c == ' ')
+        print(" ");
+
     std::stringstream ss{value};
 
     if (!(ss >> choice))
         choice = -1;
 }
 
-void Scanner::scan(int &choice)
+void Scanner::scan(int &choice, bool isNeedLine)
 {
     double value;
-    scan(value);
+    scan(value, isNeedLine);
     choice = static_cast<int>(value);
 }
 
@@ -81,7 +89,7 @@ void Scanner::scan(char &choice)
 {
     reset();
 
-    while ((c = getch()) && !(value.size() && ((c == '\r' && print("\n")) || (c == ' ' && print(" ")))))
+    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
     {
         if (checkChar() == -1)
         {
@@ -90,6 +98,11 @@ void Scanner::scan(char &choice)
         }
     }
 
+    if (c == '\r')
+        print();
+    else if (c == ' ')
+        print(" ");
+
     choice = value.at(0);
 }
 
@@ -97,7 +110,7 @@ void Scanner::scan(std::string &choice)
 {
     reset();
 
-    while ((c = getch()) && !(value.size() && ((c == '\r' && print("\n")) || (c == ' ' && print(" ")))))
+    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
     {
         if (checkChar() == -1)
         {
@@ -105,6 +118,12 @@ void Scanner::scan(std::string &choice)
             return;
         }
     }
+
+    if (c == '\r')
+        print();
+    else if (c == ' ')
+        print(" ");
+
     choice = value;
 }
 
@@ -112,7 +131,7 @@ std::string Scanner::scanUsername()
 {
     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size() && print("\n")))
+    while ((c = getch()) && !(c == '\r' && value.size()))
     {
         isLimitExceed = (value.size() >= static_cast<unsigned int>(width_username));
 
@@ -133,6 +152,10 @@ std::string Scanner::scanUsername()
             break;
         }
     }
+
+    if (c == '\r')
+        print();
+
     return value;
 }
 
