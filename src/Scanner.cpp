@@ -48,7 +48,7 @@ void Scanner::scanChoice(int &choice)
 {
     reset();
 
-    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
+    while ((c = getch()) && !(value.size() && c == '\r'))
     {
         if (checkChar() == -1)
         {
