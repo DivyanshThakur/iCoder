@@ -134,8 +134,8 @@ void arrays_controller(cod::array<T> &arr, int ch)
 template <typename T>
 void update_size(cod::array<T> &arr)
 {
-    // Scanner sc;
-    // int size;
+    Scanner sc;
+    int size;
 
     system("cls"); // clear the screen each timemenu_controller
 
@@ -143,10 +143,13 @@ void update_size(cod::array<T> &arr)
 
     header(std::string{" ARRAY SIZE "});
 
-    // animater(std::string{"Enter size: "});
+    animater(std::string{"Enter size: "});
 
-    // sc.scan(size);
-    // arr.set_size(size);
-    std::cout << arr.get_min_val();
+    sc.scan(size);
+    arr.set_size(size);
+
+    for (size_t i = 0; i < arr.max_size(); ++i)
+        std::cout << arr[i] << " ";
+    std::cout << std::endl;
     igetch();
 }

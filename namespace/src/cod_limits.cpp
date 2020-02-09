@@ -34,9 +34,3 @@ std::string cod::limits<std::string>::min()
 {
     return std::string{""};
 }
-
-template class cod::limits<int>;
-template class cod::limits<long long>;
-template class cod::limits<double>;
-template class cod::limits<char>;
-template class cod::limits<std::string>;

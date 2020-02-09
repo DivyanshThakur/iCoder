@@ -8,7 +8,10 @@ cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(cod::limits<T>::
 template <typename T>
 cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(cod::limits<T>::min())
 {
-    A = new T[size];
+    if (size < 0)
+        std::cerr << "Enter valid size" << std::endl;
+    else
+        A = new T[size];
 }
 
 template <typename T>
@@ -142,8 +145,12 @@ T cod::array<T>::get_min_val() const
 template <typename T>
 void cod::array<T>::set_size(int x)
 {
-    if (x >= 0)
-        size = x;
+    if (x < 0)
+        return;
+
+    cod::array<T> temp_arr(x);
+
+    temp_arr.swap(*this);
 }
 
 template <typename T>
@@ -151,6 +158,7 @@ void cod::array<T>::fill(const T &x)
 {
     for (size_t i{0}; i < size; ++i)
     {
+        ++len;
         A[i] = x;
     }
 }
@@ -171,7 +179,11 @@ void cod::array<T>::clear()
 template <typename T>
 void cod::array<T>::swap(cod::array<T> &rhs)
 {
-    cod::array<T> temp;
+    cod::array<T> temp{*this};
+
+    *this = rhs;
+
+    rhs = temp;
 }
 
 template <typename T>
