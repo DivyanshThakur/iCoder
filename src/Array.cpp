@@ -20,7 +20,7 @@ void Arrays()
         menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
 
         Scanner sc;
-        sc.scan(ch);
+        sc.scanChoice(ch);
 
         if (ch == ESC || ch == 6)
             return;
@@ -86,7 +86,7 @@ void init_array()
         else
             menu(menu_create_size + array_data);
 
-        sc.scan(ch);
+        sc.scanChoice(ch);
 
         if (ch == ESC || ch == 5)
             return;

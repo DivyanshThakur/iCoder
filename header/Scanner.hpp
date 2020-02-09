@@ -16,9 +16,10 @@ private:
 public:
     Scanner(); // type of string - username, pass, char
 
-    void scan(int &choice, bool isNeedLine = true);
+    void scanChoice(int &choice);
+    void scan(int &choice);
     void scan(long long &choice);
-    void scan(double &choice, bool isNeedLine = true);
+    void scan(double &choice);
     void scan(char &choice);
     void scan(std::string &choice);
 

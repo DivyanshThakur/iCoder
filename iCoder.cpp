@@ -42,7 +42,7 @@ int main()
         menu(main_menu_data); // display the startup menu
 
         Scanner sc;
-        sc.scan(ch, false);
+        sc.scanChoice(ch);
 
         main_menu_controller(ch); // start as per user choice
 

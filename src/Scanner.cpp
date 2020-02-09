@@ -44,7 +44,26 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-void Scanner::scan(double &choice, bool isNeedLine)
+void Scanner::scanChoice(int &choice)
+{
+    reset();
+
+    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
+    {
+        if (checkChar() == -1)
+        {
+            choice = ESC;
+            return;
+        }
+    }
+
+    std::stringstream ss{value};
+
+    if (!(ss >> choice))
+        choice = -1;
+}
+
+void Scanner::scan(double &choice)
 {
     reset();
 
@@ -58,10 +77,7 @@ void Scanner::scan(double &choice, bool isNeedLine)
     }
 
     if (c == '\r')
-    {
-        if (isNeedLine)
-            print();
-    }
+        print();
     else if (c == ' ')
         print(" ");
 
@@ -71,10 +87,10 @@ void Scanner::scan(double &choice, bool isNeedLine)
         choice = -1;
 }
 
-void Scanner::scan(int &choice, bool isNeedLine)
+void Scanner::scan(int &choice)
 {
     double value;
-    scan(value, isNeedLine);
+    scan(value);
     choice = static_cast<int>(value);
 }
 
