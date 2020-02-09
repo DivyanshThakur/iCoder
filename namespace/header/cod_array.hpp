@@ -11,6 +11,8 @@ class array
 {
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
+        os << std::endl;
+
         for (size_t i = 0; i < arr.max_size(); ++i)
         {
             os << arr[i] << " ";

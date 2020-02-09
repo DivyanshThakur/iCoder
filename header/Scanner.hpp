@@ -11,6 +11,7 @@ private:
     bool isLimitExceed;
 
     int checkChar(bool isPassword = false);
+    bool print(const std::string &s) const;
 
 public:
     Scanner(); // type of string - username, pass, char

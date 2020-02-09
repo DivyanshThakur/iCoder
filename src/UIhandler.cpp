@@ -65,10 +65,12 @@ void header(const std::string &menu_name)
               << std::endl;
 }
 
-void border(int size)
+void border(int size, bool isNeedLine)
 {
-    std::cout << std::endl
-              << std::setfill('-')
+    if (isNeedLine)
+        std::cout << std::endl;
+
+    std::cout << std::setfill('-')
               << std::setw(size) << ""
               << std::setfill(' ')
               << std::endl;
@@ -107,7 +109,6 @@ void animater(const std::string &anime)
 void print_message(const std::string &message)
 {
     std::cout << std::endl
-              << std::endl
               << message;
 }
 

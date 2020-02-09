@@ -34,8 +34,6 @@ bool Account::input_data()
     if (userID == "")
         return false;
 
-    std::cout << std::endl;
-
     animater(password);
 
     pass = sc.scanPassword(); // scanning password

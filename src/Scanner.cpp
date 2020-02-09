@@ -8,6 +8,12 @@
 
 Scanner::Scanner() : isLimitExceed{false} {}
 
+bool Scanner::print(const std::string &s) const
+{
+    std::cout << s;
+    return true;
+}
+
 int Scanner::checkChar(bool isPassword)
 {
     int flag{0};
@@ -16,8 +22,9 @@ int Scanner::checkChar(bool isPassword)
         flag = -1; // -1 means that user has pressed ESC, stop the scanner and return to startup menu
 
     else if (c == ' ')
+    {
         flag = 1;
-
+    }
     else if (c == '\b' && value.size())
     {                         // cheking backspace and limit it to size of value
         std::cout << "\b \b"; // remove last element from console
@@ -41,7 +48,7 @@ void Scanner::scan(double &choice)
 {
     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size()))
+    while ((c = getch()) && !(value.size() && ((c == '\r' && print("\n")) || (c == ' ' && print(" ")))))
     {
         if (checkChar() == -1)
         {
@@ -74,10 +81,13 @@ void Scanner::scan(char &choice)
 {
     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size()) && !(c == ' ' && value.size()))
+    while ((c = getch()) && !(value.size() && ((c == '\r' && print("\n")) || (c == ' ' && print(" ")))))
     {
         if (checkChar() == -1)
+        {
             choice = ESC;
+            return;
+        }
     }
 
     choice = value.at(0);
@@ -87,10 +97,13 @@ void Scanner::scan(std::string &choice)
 {
     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size()) && !(c == ' ' && value.size()))
+    while ((c = getch()) && !(value.size() && ((c == '\r' && print("\n")) || (c == ' ' && print(" ")))))
     {
         if (checkChar() == -1)
+        {
             choice = ""; //NULL
+            return;
+        }
     }
     choice = value;
 }
@@ -99,7 +112,7 @@ std::string Scanner::scanUsername()
 {
     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size()))
+    while ((c = getch()) && !(c == '\r' && value.size() && print("\n")))
     {
         isLimitExceed = (value.size() >= static_cast<unsigned int>(width_username));
 
