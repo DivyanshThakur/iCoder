@@ -118,7 +118,9 @@ void arrays_controller(cod::array<T> &arr, int ch)
     case 4:
         border(width_menu);
         std::cout << "Max size: " << arr.max_size() << std::endl
-                  << "No of elements stored: " << arr.length() << arr;
+                  << std::endl
+                  << "No of elements stored: " << arr.length() << std::endl
+                  << arr;
         press_key(); // program paused - getch()
         break;
 
@@ -146,7 +148,8 @@ void update_size(cod::array<T> &arr)
 
     animater(std::string{"Enter size: "});
 
-    sc.scan(size);
+    if (!sc.scan(size))
+        return;
     arr.set_size(size);
 }
 
@@ -154,7 +157,7 @@ template <typename T>
 void add_elements(cod::array<T> &arr)
 {
     Scanner sc;
-    size_t len;
+    // size_t len;
     T value;
 
     system("cls"); // clear the screen each timemenu_controller
@@ -163,15 +166,18 @@ void add_elements(cod::array<T> &arr)
 
     header(std::string{" INSERT VALUES "});
 
-    animater(std::string{"Enter size: "});
+    if (!sc.scan(value))
+        return;
+    arr.insert(value, 0);
+    // animater(std::string{"Enter size: "});
 
-    sc.scan(len);
+    // sc.scan(len);
 
-    for (size_t i{arr.length()}; i < len; ++i)
-    {
-        if (!sc.scan(value))
-            return;
-        arr.insert(value, i);
-    }
+    // for (size_t i{arr.length()}; i < len; ++i)
+    // {
+    //     if (!sc.scan(value))
+    //         return;
+    //     arr.insert(value, i);
+    // }
     press_key();
 }

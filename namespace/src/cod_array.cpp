@@ -26,9 +26,9 @@ cod::array<T>::array(const cod::array<T> &rhs)
         len = rhs.len;
         A = new T[size];
 
-        for (size_t i = 0; i < rhs.size; ++i)
+        for (size_t i = 0; i < len; ++i)
         {
-            A[i] = rhs.A[i];
+            A[i] = rhs[i];
         }
     }
 }
@@ -89,9 +89,9 @@ cod::array<T> &cod::array<T>::operator=(const cod::array<T> &rhs)
         len = rhs.len;
         A = new T[size];
 
-        for (size_t i = 0; i < rhs.size; ++i)
+        for (size_t i = 0; i < len; ++i)
         {
-            A[i] = rhs.A[i];
+            A[i] = rhs[i];
         }
     }
     return *this;
@@ -174,9 +174,6 @@ void cod::array<T>::set_size(int x)
     cod::array<T> temp_arr(x);
 
     temp_arr.swap(*this);
-    std::cout << temp_arr << std::endl
-              << *this;
-    press_key();
 }
 
 template <typename T>
