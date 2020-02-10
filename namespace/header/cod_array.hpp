@@ -13,7 +13,7 @@ class array
     {
         os << std::endl;
 
-        for (size_t i = 0; i < arr.max_size(); ++i)
+        for (size_t i = 0; i < arr.length(); ++i)
         {
             os << arr[i] << " ";
         }
@@ -55,7 +55,7 @@ public:
     array &operator=(const array &rhs);
     array &operator=(array &&rhs);
 
-    void insert(T &x, int pos = length());
+    void insert(T &x, size_t pos = length());
 
     T front() const;
     T back() const;

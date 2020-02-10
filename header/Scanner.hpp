@@ -17,6 +17,7 @@ public:
     Scanner(); // type of string - username, pass, char
 
     void scanChoice(int &choice);
+    bool scan(size_t &choice);
     bool scan(int &choice);
     bool scan(long long &choice);
     bool scan(double &choice);

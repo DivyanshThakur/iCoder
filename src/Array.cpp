@@ -154,7 +154,7 @@ template <typename T>
 void add_elements(cod::array<T> &arr)
 {
     Scanner sc;
-    int len;
+    size_t len;
     T value;
 
     system("cls"); // clear the screen each timemenu_controller
@@ -167,7 +167,7 @@ void add_elements(cod::array<T> &arr)
 
     sc.scan(len);
 
-    for (int i{arr.length()}; i < len; ++i)
+    for (size_t i{arr.length()}; i < len; ++i)
     {
         if (!sc.scan(value))
             return;

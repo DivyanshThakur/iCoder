@@ -85,6 +85,16 @@ bool Scanner::scan(double &choice)
     return true;
 }
 
+bool Scanner::scan(size_t &choice)
+{
+    double value;
+    if (!scan(value))
+        return false;
+
+    choice = static_cast<size_t>(value);
+    return true;
+}
+
 bool Scanner::scan(int &choice)
 {
     double value;

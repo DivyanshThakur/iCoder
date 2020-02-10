@@ -114,7 +114,7 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
 }
 
 template <typename T>
-void cod::array<T>::insert(T &x, int pos)
+void cod::array<T>::insert(T &x, size_t pos)
 {
     if (pos >= size || pos < 0)
         emessage(std::string{"Invalid Position!"});
@@ -174,6 +174,9 @@ void cod::array<T>::set_size(int x)
     cod::array<T> temp_arr(x);
 
     temp_arr.swap(*this);
+    std::cout << temp_arr << std::endl
+              << *this;
+    press_key();
 }
 
 template <typename T>
