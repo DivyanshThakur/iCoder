@@ -157,7 +157,7 @@ template <typename T>
 void add_elements(cod::array<T> &arr)
 {
     Scanner sc;
-    // size_t len;
+    size_t len;
     T value;
 
     system("cls"); // clear the screen each timemenu_controller
@@ -166,18 +166,15 @@ void add_elements(cod::array<T> &arr)
 
     header(std::string{" INSERT VALUES "});
 
-    if (!sc.scan(value))
-        return;
-    arr.insert(value, 0);
-    // animater(std::string{"Enter size: "});
+    animater(std::string{"Enter size: "});
 
-    // sc.scan(len);
+    sc.scan(len);
 
-    // for (size_t i{arr.length()}; i < len; ++i)
-    // {
-    //     if (!sc.scan(value))
-    //         return;
-    //     arr.insert(value, i);
-    // }
+    for (size_t i{0}; i < len; ++i)
+    {
+        if (!sc.scan(value))
+            return;
+        arr.insert(value, arr.length());
+    }
     press_key();
 }
