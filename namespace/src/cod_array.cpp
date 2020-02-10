@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../header/cod_limits.hpp"
 #include "../header/cod_array.hpp"
+#include "../../header/UIhandler.hpp"
 
 template <typename T>
 cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(cod::limits<T>::min()) {}
@@ -113,6 +114,28 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
 }
 
 template <typename T>
+void cod::array<T>::insert(T &x, int pos)
+{
+    if (pos >= size || pos < 0)
+        emessage(std::string{"Invalid Position!"});
+    else
+    {
+        if (len < size)
+        {
+            size_t i;
+
+            for (i = len++; i > pos; --i)
+            {
+                A[i] = A[i - 1];
+            }
+            A[i] = x;
+        }
+        else
+            emessage(std::string{"Array is full! Please update the size"});
+    }
+}
+
+template <typename T>
 T cod::array<T>::front() const
 {
     return A[0];
@@ -154,9 +177,9 @@ void cod::array<T>::set_size(int x)
 }
 
 template <typename T>
-void cod::array<T>::fill(const T &x)
+void cod::array<T>::fill(const T &x, size_t start, size_t end)
 {
-    for (size_t i{0}; i < size; ++i)
+    for (size_t i{start}; i < end; ++i)
     {
         ++len;
         A[i] = x;

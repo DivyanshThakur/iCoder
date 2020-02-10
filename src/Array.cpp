@@ -107,8 +107,7 @@ void arrays_controller(cod::array<T> &arr, int ch)
         break;
 
     case 2:
-        print_message(); // default is ~ to be Implemented
-        press_key();     // program paused - getch()
+        add_elements<T>(arr);
         break;
 
     case 3:
@@ -117,7 +116,9 @@ void arrays_controller(cod::array<T> &arr, int ch)
         break;
 
     case 4:
-        print_message();
+        border(width_menu);
+        std::cout << "Max size: " << arr.max_size() << std::endl
+                  << "No of elements stored: " << arr.length() << arr;
         press_key(); // program paused - getch()
         break;
 
@@ -147,11 +148,30 @@ void update_size(cod::array<T> &arr)
 
     sc.scan(size);
     arr.set_size(size);
+}
 
-    std::cout << "Enter the values:" << std::endl;
+template <typename T>
+void add_elements(cod::array<T> &arr)
+{
+    Scanner sc;
+    int len;
+    T value;
 
-    sc >> arr;
-    std::cout << arr;
+    system("cls"); // clear the screen each timemenu_controller
 
-    igetch();
+    title(); // print the title = iCoder
+
+    header(std::string{" INSERT VALUES "});
+
+    animater(std::string{"Enter size: "});
+
+    sc.scan(len);
+
+    for (int i{arr.length()}; i < len; ++i)
+    {
+        if (!sc.scan(value))
+            return;
+        arr.insert(value, i);
+    }
+    press_key();
 }

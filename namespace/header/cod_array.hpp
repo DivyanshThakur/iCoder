@@ -23,10 +23,13 @@ class array
 
     friend Scanner &operator>>(Scanner &sc, array &arr)
     {
-        for (size_t i = 0; i < arr.max_size(); ++i)
+        size_t i;
+        for (i = 0; i < arr.max_size(); ++i)
         {
-            sc.scan(arr[i]);
+            if (!sc.scan(arr[i]))
+                break;
         }
+        arr.fill(arr.get_min_val(), i);
         return sc;
     }
 
@@ -35,6 +38,7 @@ private:
     size_t size;
     size_t len;
     T MIN_VALUE;
+    T DEF_VALUE;
 
 public:
     array();
@@ -51,13 +55,15 @@ public:
     array &operator=(const array &rhs);
     array &operator=(array &&rhs);
 
+    void insert(T &x, int pos = length());
+
     T front() const;
     T back() const;
     size_t max_size() const;
     size_t length() const;
     T get_min_val() const;
     void set_size(int x);
-    void fill(const T &x);
+    void fill(const T &x, size_t start = 0, size_t end = max_size());
     bool empty() const;
     void clear();
     void swap(array &rhs);

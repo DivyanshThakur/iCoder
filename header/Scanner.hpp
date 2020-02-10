@@ -17,11 +17,11 @@ public:
     Scanner(); // type of string - username, pass, char
 
     void scanChoice(int &choice);
-    void scan(int &choice);
-    void scan(long long &choice);
-    void scan(double &choice);
-    void scan(char &choice);
-    void scan(std::string &choice);
+    bool scan(int &choice);
+    bool scan(long long &choice);
+    bool scan(double &choice);
+    bool scan(char &choice);
+    bool scan(std::string &choice);
 
     std::string scanUsername();
     std::string scanPassword();

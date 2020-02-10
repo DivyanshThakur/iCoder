@@ -15,4 +15,7 @@ void arrays_controller(cod::array<T> &arr, int ch);
 template <typename T>
 void update_size(cod::array<T> &arr);
 
+template <typename T>
+void add_elements(cod::array<T> &arr);
+
 #endif

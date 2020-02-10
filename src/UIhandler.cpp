@@ -76,13 +76,13 @@ void border(int size, bool isNeedLine)
               << std::endl;
 }
 
-void emessage(const std::string &emessage)
+void emessage(const std::string &message)
 {
-    animater(emessage);
+    animater(message);
 
     igetch();
 
-    for (unsigned int i{0}; i < emessage.size(); ++i)
+    for (size_t i{0}; i < message.size(); ++i)
     {
         std::cout << "\b \b";
         Sleep(sleep_time);

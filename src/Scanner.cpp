@@ -63,17 +63,14 @@ void Scanner::scanChoice(int &choice)
         choice = -1;
 }
 
-void Scanner::scan(double &choice)
+bool Scanner::scan(double &choice)
 {
     reset();
 
     while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
     {
         if (checkChar() == -1)
-        {
-            choice = ESC;
-            return;
-        }
+            return false;
     }
 
     if (c == '\r')
@@ -85,33 +82,37 @@ void Scanner::scan(double &choice)
 
     if (!(ss >> choice))
         choice = -1;
+    return true;
 }
 
-void Scanner::scan(int &choice)
+bool Scanner::scan(int &choice)
 {
     double value;
-    scan(value);
+    if (!scan(value))
+        return false;
+
     choice = static_cast<int>(value);
+    return true;
 }
 
-void Scanner::scan(long long &choice)
+bool Scanner::scan(long long &choice)
 {
     double value;
-    scan(value);
+    if (!scan(value))
+        return false;
+
     choice = static_cast<long long>(value);
+    return true;
 }
 
-void Scanner::scan(char &choice)
+bool Scanner::scan(char &choice)
 {
     reset();
 
     while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
     {
         if (checkChar() == -1)
-        {
-            choice = ESC;
-            return;
-        }
+            return false;
     }
 
     if (c == '\r')
@@ -120,19 +121,17 @@ void Scanner::scan(char &choice)
         print(" ");
 
     choice = value.at(0);
+    return true;
 }
 
-void Scanner::scan(std::string &choice)
+bool Scanner::scan(std::string &choice)
 {
     reset();
 
     while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
     {
         if (checkChar() == -1)
-        {
-            choice = ""; //NULL
-            return;
-        }
+            return false;
     }
 
     if (c == '\r')
@@ -141,6 +140,7 @@ void Scanner::scan(std::string &choice)
         print(" ");
 
     choice = value;
+    return true;
 }
 
 std::string Scanner::scanUsername()
