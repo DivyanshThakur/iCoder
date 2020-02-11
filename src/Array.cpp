@@ -116,11 +116,8 @@ void arrays_controller(cod::array<T> &arr, int ch)
         break;
 
     case 4:
-        border(width_menu);
-        std::cout << "Max size: " << arr.max_size() << std::endl
-                  << std::endl
-                  << "No of elements stored: " << arr.length() << std::endl
-                  << arr;
+        display_arr(arr);
+
         press_key(); // program paused - getch()
         break;
 
@@ -150,7 +147,10 @@ void update_size(cod::array<T> &arr)
 
     if (!sc.scan(size))
         return;
-    arr.set_size(size);
+
+    arr.update_size(size);
+
+    press_key();
 }
 
 template <typename T>
@@ -174,7 +174,19 @@ void add_elements(cod::array<T> &arr)
     {
         if (!sc.scan(value))
             return;
-        arr.insert(value, arr.length());
+        arr.push_back(value);
     }
-    press_key();
+    // press_key();
+}
+
+template <typename T>
+void display_arr(cod::array<T> &arr)
+{
+    system("cls"); // clear the screen each timemenu_controller
+
+    title(); // print the title = iCoder
+
+    header(std::string{" DISPLAY ARRAY "});
+
+    std::cout << arr;
 }

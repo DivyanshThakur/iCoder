@@ -39,7 +39,6 @@ cod::array<T>::array(cod::array<T> &&rhs)
     if (this != &rhs)
     {
         clear();
-
         *this = rhs;
 
         rhs.clear();
@@ -94,6 +93,7 @@ cod::array<T> &cod::array<T>::operator=(const cod::array<T> &rhs)
             A[i] = rhs[i];
         }
     }
+
     return *this;
 }
 
@@ -103,7 +103,6 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
     if (this != &rhs)
     {
         clear();
-
         A = rhs.A;
         size = rhs.size;
         len = rhs.len;
@@ -133,6 +132,15 @@ void cod::array<T>::insert(T &x, size_t pos)
         else
             emessage(std::string{"Array is full! Please update the size"});
     }
+}
+
+template <typename T>
+void cod::array<T>::push_back(T &x)
+{
+    if (len < size)
+        A[len++] = x;
+    else
+        emessage(std::string{"Array is full! Please update the size"});
 }
 
 template <typename T>
@@ -166,14 +174,24 @@ T cod::array<T>::get_min_val() const
 }
 
 template <typename T>
-void cod::array<T>::set_size(int x)
+void cod::array<T>::update_size(int x)
 {
     if (x < 0)
         return;
 
-    cod::array<T> temp_arr(x);
+    T *temp_Arr = new T[x];
 
-    temp_arr.swap(*this);
+    for (size_t i{0}; i < len; ++i)
+        temp_Arr[i] = A[i];
+
+    delete[] A;
+    A = temp_Arr;
+}
+
+template <typename T>
+void cod::array<T>::fill(const T &x)
+{
+    fill(x, 0, size);
 }
 
 template <typename T>
@@ -203,9 +221,7 @@ template <typename T>
 void cod::array<T>::swap(cod::array<T> &rhs)
 {
     cod::array<T> temp{*this};
-
     *this = rhs;
-
     rhs = temp;
 }
 

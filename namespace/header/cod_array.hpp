@@ -11,13 +11,20 @@ class array
 {
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
-        os << std::endl;
 
-        for (size_t i = 0; i < arr.length(); ++i)
+        os << "Max size: " << arr.max_size()
+           << std::endl
+           << "Elements stored: " << arr.length() << std::endl
+           << "Array: ";
+
+        if (arr.length())
         {
-            os << arr[i] << " ";
+            for (size_t i = 0; i < arr.length(); ++i)
+                os << arr[i] << " ";
         }
-        os << std::endl;
+        else
+            os << "No elements in Array";
+
         return os;
     }
 
@@ -55,15 +62,17 @@ public:
     array &operator=(const array &rhs);
     array &operator=(array &&rhs);
 
-    void insert(T &x, size_t pos = length());
+    void insert(T &x, size_t pos);
+    void push_back(T &x);
 
     T front() const;
     T back() const;
     size_t max_size() const;
     size_t length() const;
     T get_min_val() const;
-    void set_size(int x);
-    void fill(const T &x, size_t start = 0, size_t end = max_size());
+    void update_size(int x);
+    void fill(const T &x);
+    void fill(const T &x, size_t start, size_t end);
     bool empty() const;
     void clear();
     void swap(array &rhs);
