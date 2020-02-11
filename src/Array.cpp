@@ -88,12 +88,12 @@ void init_array()
 
         sc.scanChoice(ch);
 
-        if (ch == ESC || ch == 5)
+        if (ch == ESC || ch == 7)
             return;
 
         arrays_controller<T>(arr, ch);
 
-    } while (ch != 6); // exit at ch==6
+    } while (ch != 8); // exit at ch==6
     exit(0);
 }
 
@@ -106,29 +106,34 @@ void arrays_controller(cod::array<T> &arr, int ch)
         update_size<T>(arr);
         break;
 
-    case 2:
+    case 2: // add elements after last element in array
         add_elements<T>(arr);
         break;
 
-    case 3:
+    case 3: // insert a value at a given position
         print_message();
-        press_key(); // program paused - getch()
         break;
 
-    case 4:
+    case 4: // delete a range of values
+        print_message();
+        break;
+
+    case 5: // delete from a given position
+        print_message();
+        break;
+
+    case 6: // display elements
         display_arr(arr);
-
-        press_key(); // program paused - getch()
         break;
 
-    case 6: // exit the program
-        break;
+    case 8: // exit the program
+        return;
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(); // program paused - getch()
         break;
     }
+    press_key(); // program paused - getch()
 }
 
 template <typename T>
@@ -149,8 +154,6 @@ void update_size(cod::array<T> &arr)
         return;
 
     arr.update_size(size);
-
-    press_key();
 }
 
 template <typename T>
@@ -176,7 +179,6 @@ void add_elements(cod::array<T> &arr)
             return;
         arr.push_back(value);
     }
-    // press_key();
 }
 
 template <typename T>

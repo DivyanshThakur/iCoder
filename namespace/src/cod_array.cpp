@@ -179,7 +179,12 @@ void cod::array<T>::update_size(int x)
     if (x < 0)
         return;
 
-    T *temp_Arr = new T[x];
+    size = x;
+
+    if (len > size)
+        len = size;
+
+    T *temp_Arr = new T[size];
 
     for (size_t i{0}; i < len; ++i)
         temp_Arr[i] = A[i];
