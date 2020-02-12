@@ -19,6 +19,15 @@ template <typename T>
 void add_elements(cod::array<T> &arr);
 
 template <typename T>
+void insert_value(cod::array<T> &arr);
+
+template <typename T>
+void remove_value(cod::array<T> &arr);
+
+template <typename T>
+void remove_multiple_values(cod::array<T> &arr);
+
+template <typename T>
 void display_arr(cod::array<T> &arr);
 
 #endif

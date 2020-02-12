@@ -115,7 +115,7 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
 template <typename T>
 void cod::array<T>::insert(T &x, size_t pos)
 {
-    if (pos >= size || pos < 0)
+    if (pos > len || pos <= 0)
         emessage(std::string{"Invalid Position!"});
     else
     {
@@ -123,7 +123,7 @@ void cod::array<T>::insert(T &x, size_t pos)
         {
             size_t i;
 
-            for (i = len++; i > pos; --i)
+            for (i = len++; i >= pos; --i)
             {
                 A[i] = A[i - 1];
             }
@@ -135,12 +135,64 @@ void cod::array<T>::insert(T &x, size_t pos)
 }
 
 template <typename T>
-void cod::array<T>::push_back(T &x)
+T cod::array<T>::remove(size_t pos)
 {
-    if (len < size)
-        A[len++] = x;
+    T value{MIN_VALUE};
+
+    if (pos > len || pos <= 0)
+        emessage(std::string{"Invalid Position!"});
     else
+    {
+        size_t i = pos - 1;
+
+        value = A[i];
+
+        --len;
+
+        while (i < len)
+        {
+            A[i] = A[i + 1];
+            ++i;
+        }
+    }
+    return value;
+}
+
+template <typename T>
+T *cod::array<T>::remove(size_t pos, size_t n)
+{
+    T *values = new T[n];
+
+    if (pos > len || pos <= 0)
+        emessage(std::string{"Invalid Position!"});
+    else
+    {
+        size_t i, j;
+        i = pos - 1;
+        for (j = 0; j < n; ++j, ++i)
+        {
+            if (pos + j > len)
+                break;
+            values[j] = A[i];
+        }
+        for (i = pos - 1; i + n < len; ++i)
+            A[i] = A[i + n];
+        len -= n;
+    }
+    return values;
+}
+
+template <typename T>
+bool cod::array<T>::push_back(T &x)
+{
+    if (len >= size)
+    {
         emessage(std::string{"Array is full! Please update the size"});
+        return false;
+    }
+
+    A[len++] = x;
+    return true;
 }
 
 template <typename T>
