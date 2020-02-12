@@ -252,6 +252,9 @@ void remove_multiple_values(cod::array<T> &arr)
 
     values = arr.remove(pos, n);
 
+    if (pos + n - 1 > arr.length())
+        n = arr.length() - (pos - 1);
+
     std::cout << n;
 
     (n == 1) ? std::cout << " value: " : std::cout << " values:" << std::endl;
