@@ -7,27 +7,27 @@ void Arrays();
 bool array_type_selector(int ch);
 
 template <typename T>
-void init_array();
+class ArrayHandler
+{
+    cod::array<T> arr;
+    Scanner sc;
 
-template <typename T>
-void arrays_controller(cod::array<T> &arr, int ch);
+    void arrays_controller(int ch);
 
-template <typename T>
-void update_size(cod::array<T> &arr);
+    void update_size();
 
-template <typename T>
-void add_elements(cod::array<T> &arr);
+    void add_elements();
 
-template <typename T>
-void insert_value(cod::array<T> &arr);
+    void insert_value();
 
-template <typename T>
-void remove_value(cod::array<T> &arr);
+    void remove_value();
 
-template <typename T>
-void remove_multiple_values(cod::array<T> &arr);
+    void remove_multiple_values();
 
-template <typename T>
-void display_arr(cod::array<T> &arr);
+    void display_arr() const;
+
+public:
+    void start();
+};
 
 #endif

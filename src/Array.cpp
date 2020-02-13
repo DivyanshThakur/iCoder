@@ -33,27 +33,32 @@ void Arrays()
 
 bool array_type_selector(int ch)
 {
+    ArrayHandler<int> int_handler;
+    ArrayHandler<long long> long_handler;
+    ArrayHandler<double> db_handler;
+    ArrayHandler<char> char_handler;
+    ArrayHandler<std::string> str_handler;
 
     switch (ch)
     {
     case 1:
-        init_array<int>();
+        int_handler.start();
         break;
 
     case 2:
-        init_array<long long>();
+        long_handler.start();
         break;
 
     case 3:
-        init_array<double>();
+        db_handler.start();
         break;
 
     case 4:
-        init_array<char>();
+        char_handler.start();
         break;
 
     case 5:
-        init_array<std::string>();
+        str_handler.start();
         break;
 
     default:
@@ -64,16 +69,14 @@ bool array_type_selector(int ch)
     return true;
 }
 
-/*** TEMPLATE FUNTIONS ARE CODED BELOW ***/
+/*** TEMPLATE  CLASS FUNTIONS ARE CODED BELOW ***/
 
 template <typename T>
-void init_array()
+void ArrayHandler<T>::start()
 {
-    cod::array<T> arr;
-    Scanner sc;
     int ch{0};
 
-    update_size<T>(arr);
+    update_size(); // update array size
 
     do
     {
@@ -91,39 +94,39 @@ void init_array()
         if (ch == ESC || ch == 7)
             return;
 
-        arrays_controller<T>(arr, ch);
+        arrays_controller(ch);
 
     } while (ch != 8); // exit at ch==6
     exit(0);
 }
 
 template <typename T>
-void arrays_controller(cod::array<T> &arr, int ch)
+void ArrayHandler<T>::arrays_controller(int ch)
 {
     switch (ch)
     {
     case 1: // add or update size of array
-        update_size<T>(arr);
+        update_size();
         break;
 
     case 2: // add elements after last element in array
-        add_elements<T>(arr);
+        add_elements();
         break;
 
     case 3: // insert a value at a given position
-        insert_value<T>(arr);
+        insert_value();
         break;
 
     case 4: // delete a range of values
-        remove_multiple_values(arr);
+        remove_multiple_values();
         break;
 
     case 5: // delete from a given position
-        remove_value(arr);
+        remove_value();
         break;
 
     case 6: // display elements
-        display_arr(arr);
+        display_arr();
         break;
 
     case 8: // exit the program
@@ -137,9 +140,8 @@ void arrays_controller(cod::array<T> &arr, int ch)
 }
 
 template <typename T>
-void update_size(cod::array<T> &arr)
+void ArrayHandler<T>::update_size()
 {
-    Scanner sc;
     int size;
 
     system("cls"); // clear the screen each timemenu_controller
@@ -157,9 +159,8 @@ void update_size(cod::array<T> &arr)
 }
 
 template <typename T>
-void add_elements(cod::array<T> &arr)
+void ArrayHandler<T>::add_elements()
 {
-    Scanner sc;
     size_t len;
     bool isLast;
     T value;
@@ -189,9 +190,8 @@ void add_elements(cod::array<T> &arr)
 }
 
 template <typename T>
-void insert_value(cod::array<T> &arr)
+void ArrayHandler<T>::insert_value()
 {
-    Scanner sc;
     size_t pos;
     T value;
 
@@ -215,9 +215,8 @@ void insert_value(cod::array<T> &arr)
 }
 
 template <typename T>
-void remove_value(cod::array<T> &arr)
+void ArrayHandler<T>::remove_value()
 {
-    Scanner sc;
     size_t pos;
     T value;
 
@@ -240,9 +239,8 @@ void remove_value(cod::array<T> &arr)
 }
 
 template <typename T>
-void remove_multiple_values(cod::array<T> &arr)
+void ArrayHandler<T>::remove_multiple_values()
 {
-    Scanner sc;
     size_t pos, n;
     cod::array<T> values;
 
@@ -282,7 +280,7 @@ void remove_multiple_values(cod::array<T> &arr)
 }
 
 template <typename T>
-void display_arr(cod::array<T> &arr)
+void ArrayHandler<T>::display_arr() const
 {
     system("cls"); // clear the screen each timemenu_controller
 
