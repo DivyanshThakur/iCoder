@@ -173,7 +173,8 @@ void ArrayHandler<T>::add_elements()
 
     animater(std::string{"Enter size: "});
 
-    sc.scan(len);
+    if (!sc.scan(len))
+        return;
 
     std::cout << std::endl;
 
@@ -230,12 +231,11 @@ void ArrayHandler<T>::remove_value()
     if (!sc.scan(pos))
         return;
 
-    std::cout << std::endl;
-
     value = arr.remove(pos);
 
     if (value != arr.get_min_val())
-        std::cout << value << " is deleted from the array" << std::endl;
+        std::cout << std::endl
+                  << value << " is deleted from the array";
 }
 
 template <typename T>
@@ -260,11 +260,16 @@ void ArrayHandler<T>::remove_multiple_values()
     if (!sc.scan(n))
         return;
 
-    std::cout << std::endl;
+    // std::cout << std::endl;
 
     values = arr.remove(pos, n);
 
     n = values.length();
+
+    if (!n) // if position is invalid return to menu screen
+        return;
+
+    border(width_menu);
 
     std::cout << n;
 
@@ -275,7 +280,7 @@ void ArrayHandler<T>::remove_multiple_values()
         if (i < n - 1)
             std::cout << values[i] << ", ";
         else
-            std::cout << values[i] << " deleted from array" << std::endl;
+            std::cout << values[i] << " deleted from array";
     }
 }
 
