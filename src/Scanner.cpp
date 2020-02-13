@@ -139,11 +139,20 @@ template <typename T>
 bool Scanner::scan(T &choice, bool isLast)
 {
     reset();
+    int count{0};
 
     while ((c = getch()) && !(value.size() && c == '\r'))
     {
-        if (!isLast && c == ' ')
-            break;
+        if (c == ' ')
+        {
+            if (isLast)
+                ++count;
+            else
+                break;
+        }
+
+        if (count == 2)
+            emessage(std::string{"     Press Enter to submit data"});
 
         if (checkChar() == -1)
             return false;

@@ -205,6 +205,8 @@ void insert_value(cod::array<T> &arr)
     if (!sc.scan(value))
         return;
 
+    std::cout << std::endl;
+
     animater(std::string{"Enter the position: "});
     if (!sc.scan(pos))
         return;
@@ -229,6 +231,8 @@ void remove_value(cod::array<T> &arr)
     if (!sc.scan(pos))
         return;
 
+    std::cout << std::endl;
+
     value = arr.remove(pos);
 
     if (value != arr.get_min_val())
@@ -252,9 +256,13 @@ void remove_multiple_values(cod::array<T> &arr)
     if (!sc.scan(pos))
         return;
 
+    std::cout << std::endl;
+
     animater(std::string{"Enter the number of elements: "});
     if (!sc.scan(n))
         return;
+
+    std::cout << std::endl;
 
     values = arr.remove(pos, n);
 
