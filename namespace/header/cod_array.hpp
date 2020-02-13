@@ -64,7 +64,7 @@ public:
 
     void insert(T &x, size_t pos);
     T remove(size_t pos);
-    T *remove(size_t pos, size_t n);
+    array remove(size_t pos, size_t n);
 
     bool push_back(T &x);
 

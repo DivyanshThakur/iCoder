@@ -87,7 +87,6 @@ cod::array<T> &cod::array<T>::operator=(const cod::array<T> &rhs)
         size = rhs.size;
         len = rhs.len;
         A = new T[size];
-
         for (size_t i = 0; i < len; ++i)
         {
             A[i] = rhs[i];
@@ -103,11 +102,12 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
     if (this != &rhs)
     {
         clear();
+
         A = rhs.A;
         size = rhs.size;
         len = rhs.len;
 
-        rhs.clear();
+        rhs.A = nullptr;
     }
     return *this;
 }
@@ -159,9 +159,9 @@ T cod::array<T>::remove(size_t pos)
 }
 
 template <typename T>
-T *cod::array<T>::remove(size_t pos, size_t n)
+cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
 {
-    T *values = new T[n];
+    cod::array<T> values(n);
 
     if (pos > len || pos <= 0)
         emessage(std::string{"Invalid Position!"});
@@ -173,11 +173,12 @@ T *cod::array<T>::remove(size_t pos, size_t n)
         {
             if (pos + j > len)
                 break;
-            values[j] = A[i];
+            values.push_back(A[i]);
         }
         for (i = pos - 1; i + n < len; ++i)
             A[i] = A[i + n];
-        len -= n;
+
+        len -= values.length();
     }
     return values;
 }

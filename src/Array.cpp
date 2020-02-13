@@ -226,7 +226,8 @@ void remove_value(cod::array<T> &arr)
 
     value = arr.remove(pos);
 
-    std::cout << value << " is deleted from the array" << std::endl;
+    if (value != arr.get_min_val())
+        std::cout << value << " is deleted from the array" << std::endl;
 }
 
 template <typename T>
@@ -234,7 +235,7 @@ void remove_multiple_values(cod::array<T> &arr)
 {
     Scanner sc;
     size_t pos, n;
-    T *values;
+    cod::array<T> values;
 
     system("cls"); // clear the screen each timemenu_controller
 
@@ -252,8 +253,7 @@ void remove_multiple_values(cod::array<T> &arr)
 
     values = arr.remove(pos, n);
 
-    if (pos + n - 1 > arr.length())
-        n = arr.length() - (pos - 1);
+    n = values.length();
 
     std::cout << n;
 
@@ -266,8 +266,6 @@ void remove_multiple_values(cod::array<T> &arr)
         else
             std::cout << values[i] << " deleted from array" << std::endl;
     }
-
-    delete[] values;
 }
 
 template <typename T>
