@@ -66,83 +66,6 @@ void Scanner::scanChoice(int &choice)
         choice = cod::limits<int>::min();
 }
 
-/** TEMPLATE FUNCTIONS **/
-
-template <typename T>
-bool Scanner::scan(T &choice, bool isLast)
-{
-    reset();
-    while ((c = getch()) && !(value.size() && c == '\r'))
-    {
-        if (!isLast && c == ' ')
-            break;
-
-        if (checkChar() == -1)
-            return false;
-    }
-
-    if (!isLast)
-    {
-        if (c == '\r')
-            print();
-        else if (c == ' ')
-            print(" ");
-    }
-
-    std::stringstream ss{value};
-
-    if (!(ss >> choice))
-        choice = cod::limits<T>::min();
-    return true;
-}
-
-template <>
-bool Scanner::scan<char>(char &choice, bool isLast)
-{
-    reset();
-
-    int flag;
-
-    while ((c = getch()))
-    {
-        flag = checkChar();
-
-        if (flag == -1)
-            return false;
-
-        if (flag == 3)
-            break;
-    }
-
-    if (isLast)
-        print();
-    else
-        print(" ");
-
-    choice = value.at(0);
-    return true;
-}
-
-template <>
-bool Scanner::scan<std::string>(std::string &choice, bool isLast)
-{
-    reset();
-
-    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
-    {
-        if (checkChar() == -1)
-            return false;
-    }
-
-    if (c == '\r')
-        print();
-    else if (c == ' ')
-        print(" ");
-
-    choice = value;
-    return true;
-}
-
 std::string Scanner::scanUsername()
 {
     reset();
@@ -210,6 +133,38 @@ void Scanner::reset()
     isLimitExceed = false;
 }
 
+/** TEMPLATE FUNCTIONS **/
+
+template <typename T>
+bool Scanner::scan(T &choice, bool isLast)
+{
+    reset();
+
+    while ((c = getch()) && !(value.size() && c == '\r'))
+    {
+        if (!isLast && c == ' ')
+            break;
+
+        if (checkChar() == -1)
+            return false;
+    }
+
+    if (!isLast)
+    {
+        if (c == '\r')
+            print();
+        else if (c == ' ')
+            print(" ");
+    }
+
+    std::stringstream ss{value};
+
+    if (!(ss >> choice))
+        choice = cod::limits<T>::min();
+
+    return true;
+}
+
 template bool Scanner::scan<int>(int &choice, bool isLast);
 
 template bool Scanner::scan<size_t>(size_t &choice, bool isLast);
@@ -217,3 +172,7 @@ template bool Scanner::scan<size_t>(size_t &choice, bool isLast);
 template bool Scanner::scan<long long>(long long &choice, bool isLast);
 
 template bool Scanner::scan<double>(double &choice, bool isLast);
+
+template bool Scanner::scan<char>(char &choice, bool isLast);
+
+template bool Scanner::scan<std::string>(std::string &choice, bool isLast);

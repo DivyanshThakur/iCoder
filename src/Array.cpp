@@ -174,6 +174,8 @@ void add_elements(cod::array<T> &arr)
 
     sc.scan(len);
 
+    std::cout << std::endl;
+
     for (size_t i{0}; i < len; ++i)
     {
         isLast = (i == len - 1);
