@@ -17,12 +17,17 @@ public:
     Scanner(); // type of string - username, pass, char
 
     void scanChoice(int &choice);
-    bool scan(size_t &choice);
-    bool scan(int &choice);
-    bool scan(long long &choice);
-    bool scan(double &choice);
-    bool scan(char &choice);
-    bool scan(std::string &choice);
+
+    template <typename T>
+    bool scan(T &choice, bool isLast = true);
+
+    // bool scan(size_t &choice);
+    // bool scan(int &choice);
+    // bool scan(long long &choice);
+    // bool scan(double &choice);
+    // template <typename T>
+    // bool scan(char &choice);
+    // bool scan(std::string &choice);
 
     std::string scanUsername();
     std::string scanPassword();

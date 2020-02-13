@@ -12,6 +12,12 @@ int cod::limits<int>::min()
 }
 
 template <>
+size_t cod::limits<size_t>::min()
+{
+    return 0;
+}
+
+template <>
 long long cod::limits<long long>::min()
 {
     return LLONG_MIN;

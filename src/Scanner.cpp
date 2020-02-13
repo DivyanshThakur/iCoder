@@ -5,6 +5,7 @@
 #include "../header/Scanner.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
+#include "../namespace/header/cod_limits.hpp"
 
 Scanner::Scanner() : isLimitExceed{false} {}
 
@@ -36,6 +37,8 @@ int Scanner::checkChar(bool isPassword)
 
     else if (c >= '!' && c <= '~')
     {
+        flag = 3;
+
         value.push_back(c); // add element at last of pass string
 
         std::cout << (isPassword ? '*' : c);
@@ -60,81 +63,68 @@ void Scanner::scanChoice(int &choice)
     std::stringstream ss{value};
 
     if (!(ss >> choice))
-        choice = -1;
+        choice = cod::limits<int>::min();
 }
 
-bool Scanner::scan(double &choice)
+/** TEMPLATE FUNCTIONS **/
+
+template <typename T>
+bool Scanner::scan(T &choice, bool isLast)
 {
     reset();
-
-    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
+    while ((c = getch()) && !(value.size() && c == '\r'))
     {
+        if (!isLast && c == ' ')
+            break;
+
         if (checkChar() == -1)
             return false;
     }
 
-    if (c == '\r')
-        print();
-    else if (c == ' ')
-        print(" ");
+    if (!isLast)
+    {
+        if (c == '\r')
+            print();
+        else if (c == ' ')
+            print(" ");
+    }
 
     std::stringstream ss{value};
 
     if (!(ss >> choice))
-        choice = -1;
+        choice = cod::limits<T>::min();
     return true;
 }
 
-bool Scanner::scan(size_t &choice)
-{
-    double value;
-    if (!scan(value))
-        return false;
-
-    choice = static_cast<size_t>(value);
-    return true;
-}
-
-bool Scanner::scan(int &choice)
-{
-    double value;
-    if (!scan(value))
-        return false;
-
-    choice = static_cast<int>(value);
-    return true;
-}
-
-bool Scanner::scan(long long &choice)
-{
-    double value;
-    if (!scan(value))
-        return false;
-
-    choice = static_cast<long long>(value);
-    return true;
-}
-
-bool Scanner::scan(char &choice)
+template <>
+bool Scanner::scan<char>(char &choice, bool isLast)
 {
     reset();
 
-    while ((c = getch()) && !(value.size() && (c == '\r' || c == ' ')))
+    int flag;
+
+    while ((c = getch()))
     {
-        if (checkChar() == -1)
+        flag = checkChar();
+
+        if (flag == -1)
             return false;
+
+        if (flag == 3)
+            break;
     }
 
-    if (c == '\r')
+    if (isLast)
         print();
-    else if (c == ' ')
+    else
         print(" ");
 
     choice = value.at(0);
     return true;
 }
 
-bool Scanner::scan(std::string &choice)
+template <>
+bool Scanner::scan<std::string>(std::string &choice, bool isLast)
 {
     reset();
 
@@ -219,3 +209,11 @@ void Scanner::reset()
     value.clear();
     isLimitExceed = false;
 }
+
+template bool Scanner::scan<int>(int &choice, bool isLast);
+
+template bool Scanner::scan<size_t>(size_t &choice, bool isLast);
+
+template bool Scanner::scan<long long>(long long &choice, bool isLast);
+
+template bool Scanner::scan<double>(double &choice, bool isLast);

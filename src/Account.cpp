@@ -51,7 +51,7 @@ bool Account::display_remember_me() const
 
     // scanning character
     char c;
-    sc.scan(c);
+    sc.scan<char>(c);
 
     if (c == ESC)
         return false;

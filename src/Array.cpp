@@ -161,6 +161,7 @@ void add_elements(cod::array<T> &arr)
 {
     Scanner sc;
     size_t len;
+    bool isLast;
     T value;
 
     system("cls"); // clear the screen each timemenu_controller
@@ -175,7 +176,9 @@ void add_elements(cod::array<T> &arr)
 
     for (size_t i{0}; i < len; ++i)
     {
-        if (!sc.scan(value))
+        isLast = (i == len - 1);
+
+        if (!sc.scan(value, isLast))
             return;
 
         if (!arr.push_back(value))
