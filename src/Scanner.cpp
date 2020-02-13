@@ -149,10 +149,10 @@ bool Scanner::scan(T &choice, bool isLast)
                 ++count;
             else
                 break;
-        }
 
-        if (count == 2)
-            emessage(std::string{"     Press Enter to submit data"});
+            if (count == 5)
+                emessage(std::string{"     Press Enter to submit data"});
+        }
 
         if (checkChar() == -1)
             return false;
