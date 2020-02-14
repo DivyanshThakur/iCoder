@@ -10,7 +10,7 @@ void load();
 void title();
 void menu(std::string menu_str, const std::string heading = " MENU ");
 void header(const std::string &menu_name);
-void border(int size); //, bool isNeedLine = true);
+void border(int size);
 void emessage(const std::string &emessage);
 void animater(const std::string &anime);
 void igetch();
