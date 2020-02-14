@@ -29,7 +29,7 @@ const std::string menu_create_size{"1. Add max size\n"};
 const std::string menu_update_size{"1. Update max size\n"};
 
 // menuhandler.h
-const std::string main_menu_data{"1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. Help\n6. About\n7. Settings\n8. Exit"};
+const std::string main_menu_data{"1. Log In\n2. Create Account\n3. Try (Anonymous)\n4. Users\n5. About\n6. Settings\n7. Exit"};
 const std::string home_data{"1. Array (New)\n2. Strings\n3. Matrices\n4. Sparse Matrix\n5. Polynomial  Representation\n6. Linked List and more...\n7. Main Menu (Sign Out)\n8. Exit"};
 const std::string settings_data{"1. Change text animation speed\n2. Main Menu\n3. Exit"};
 const std::string get_dataType_data{"1. Int\n2. Long\n3. Double\n4. Char\n5. String\n6. Home"};

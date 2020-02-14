@@ -142,7 +142,7 @@ void ArrayHandler<T>::arrays_controller(int ch)
 template <typename T>
 void ArrayHandler<T>::update_size()
 {
-    int size;
+    size_t size;
 
     system("cls"); // clear the screen each timemenu_controller
 

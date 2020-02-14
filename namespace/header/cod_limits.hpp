@@ -8,6 +8,8 @@ class limits
 {
 public:
     static T min();
+    static T def();
+    static T max();
 };
 } // namespace cod
 #endif
