@@ -178,13 +178,8 @@ bool Scanner::scan(T &choice, bool isLast)
 }
 
 template bool Scanner::scan<int>(int &choice, bool isLast);
-
 template bool Scanner::scan<size_t>(size_t &choice, bool isLast);
-
 template bool Scanner::scan<long long>(long long &choice, bool isLast);
-
 template bool Scanner::scan<double>(double &choice, bool isLast);
-
 template bool Scanner::scan<char>(char &choice, bool isLast);
-
 template bool Scanner::scan<std::string>(std::string &choice, bool isLast);
