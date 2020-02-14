@@ -41,7 +41,7 @@ cod::array<T>::array(cod::array<T> &&rhs)
         clear();
         *this = rhs;
 
-        rhs.clear();
+        rhs.A = nullptr;
     }
 }
 

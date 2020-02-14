@@ -287,7 +287,7 @@ void ArrayHandler<T>::remove_multiple_values()
 template <typename T>
 void ArrayHandler<T>::display_arr() const
 {
-    system("cls"); // clear the screen each timemenu_controller
+    system("cls"); // clear the screen each time
 
     title(); // print the title = iCoder
 

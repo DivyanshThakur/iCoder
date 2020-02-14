@@ -20,12 +20,12 @@ void settings()
         Scanner sc;
         sc.scanChoice(ch);
 
-        if (ch == ESC || ch == 3) //return when ESC is pressed
+        if (ch == ESC || ch == 2) //return when ESC is pressed
             return;
 
         settings_controller(ch); // start as per user choice
 
-    } while (ch != 4);
+    } while (ch != 3);
     exit(0);
 }
 
@@ -35,14 +35,10 @@ void settings_controller(char ch)
     switch (ch)
     {
     case 1: // change the animation speed of the menu
-        change_menu_speed();
+        change_text_anime_speed();
         return;
 
-    case 2:              // go to create account screen
-        print_message(); // print - to be implemented
-        break;
-
-    case 4: // exit the program
+    case 3: //exit
         break;
 
     default:
@@ -53,16 +49,20 @@ void settings_controller(char ch)
     press_key(); // getch()
 }
 
-void change_menu_speed()
+void change_text_anime_speed()
 {
-    int speed;
+    size_t speed;
     Scanner sc;
 
-    std::cout << "\n\nEnter the speed" << std::endl;
+    system("cls"); // clear the screen each time
 
-    sc.scan(speed);
+    title(); // print the title = iCoder
 
-    if (speed == -1 || speed == ESC)
+    header(std::string{" CHANGE ANIMATION SPEED "});
+
+    std::cout << "Enter the speed:";
+
+    if (!sc.scan(speed))
         return;
 
     sleep_time = speed;

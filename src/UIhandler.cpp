@@ -13,7 +13,7 @@ void load()
 
     std::string loader{"LOADING..."};
 
-    for (int i{0}; i <= rand() % 20 + (rand() % 15) * 2 + 10; ++i)
+    for (int i{0}; i <= rand() % 21 + (rand() % 17) * 2 + 10; ++i)
     {
         if (i % 10 == 0)
             std::cout << "\r          \r";         // erasing current line
