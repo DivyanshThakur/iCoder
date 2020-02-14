@@ -76,7 +76,11 @@ void ArrayHandler<T>::start()
 {
     int ch{0};
 
-    update_size(); // update array size
+    if (!update_size())
+    { // update array size
+        press_key();
+        return; // return to home , if invalid
+    }
 
     do
     {
@@ -140,9 +144,9 @@ void ArrayHandler<T>::arrays_controller(int ch)
 }
 
 template <typename T>
-void ArrayHandler<T>::update_size()
+bool ArrayHandler<T>::update_size()
 {
-    size_t size;
+    int size;
 
     system("cls"); // clear the screen each timemenu_controller
 
@@ -153,9 +157,10 @@ void ArrayHandler<T>::update_size()
     animater(std::string{"Enter size: "});
 
     if (!sc.scan(size))
-        return;
+        return false;
 
     arr.update_size(size);
+    return true;
 }
 
 template <typename T>

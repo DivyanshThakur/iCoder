@@ -73,7 +73,7 @@ public:
     size_t max_size() const;
     size_t length() const;
     T get_min_val() const;
-    void update_size(size_t x);
+    void update_size(int x);
     void fill(const T &x);
     void fill(const T &x, size_t start, size_t end);
     bool empty() const;

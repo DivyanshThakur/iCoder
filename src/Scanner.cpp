@@ -168,7 +168,7 @@ bool Scanner::scan(T &choice, bool isLast)
 
     std::stringstream ss{value};
 
-    if (!(ss >> choice || choice < cod::limits<T>::def()))
+    if (!(ss >> choice && choice >= cod::limits<T>::def()))
     {
         print_message(std::string{"Invalid size"});
         return false;

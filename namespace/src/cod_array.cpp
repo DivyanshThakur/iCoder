@@ -230,7 +230,7 @@ T cod::array<T>::get_min_val() const
 }
 
 template <typename T>
-void cod::array<T>::update_size(size_t x)
+void cod::array<T>::update_size(int x)
 {
     size = x;
 

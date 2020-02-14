@@ -13,7 +13,7 @@ class ArrayHandler
     Scanner sc;
 
     void arrays_controller(int ch);
-    void update_size();
+    bool update_size();
     void add_elements();
     void insert_value();
     void remove_value();
