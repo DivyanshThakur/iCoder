@@ -22,7 +22,7 @@ public:
     std::string scanPassword();
 
     template <typename T>
-    bool scan(T &choice, bool isLast = true);
+    bool scan(T &data, bool isLast = true);
 
     void reset(); // reset the values of scanner class
 };

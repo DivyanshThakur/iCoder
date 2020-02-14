@@ -232,6 +232,11 @@ T cod::array<T>::get_min_val() const
 template <typename T>
 void cod::array<T>::update_size(int x)
 {
+    if (x < 0)
+        x = 0 - x;
+    else if (static_cast<int>(size) == x)
+        return;
+
     size = x;
 
     if (len > size)

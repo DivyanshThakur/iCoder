@@ -136,7 +136,7 @@ void Scanner::reset()
 /** TEMPLATE FUNCTIONS **/
 
 template <typename T>
-bool Scanner::scan(T &choice, bool isLast)
+bool Scanner::scan(T &data, bool isLast)
 {
     reset();
     int count{0};
@@ -168,11 +168,8 @@ bool Scanner::scan(T &choice, bool isLast)
 
     std::stringstream ss{value};
 
-    if (!(ss >> choice && choice >= cod::limits<T>::def()))
-    {
-        print_message(std::string{"Invalid size"});
+    if (!(ss >> data))
         return false;
-    }
 
     return true;
 }

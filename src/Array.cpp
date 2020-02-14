@@ -76,11 +76,7 @@ void ArrayHandler<T>::start()
 {
     int ch{0};
 
-    if (!update_size())
-    { // update array size
-        press_key();
-        return; // return to home , if invalid
-    }
+    update_size();
 
     do
     {
@@ -144,7 +140,7 @@ void ArrayHandler<T>::arrays_controller(int ch)
 }
 
 template <typename T>
-bool ArrayHandler<T>::update_size()
+void ArrayHandler<T>::update_size()
 {
     int size;
 
@@ -157,10 +153,9 @@ bool ArrayHandler<T>::update_size()
     animater(std::string{"Enter size: "});
 
     if (!sc.scan(size))
-        return false;
+        return;
 
     arr.update_size(size);
-    return true;
 }
 
 template <typename T>
