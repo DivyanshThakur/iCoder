@@ -81,7 +81,6 @@ void main_menu_controller(int ch)
 
     case 6: // details about the software
         about();
-        press_key();
         break;
 
     case 7: // Customize the software using settings

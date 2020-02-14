@@ -9,22 +9,19 @@ void about()
 {
     char ch;
 
-    // system(std:: string("start https://github.com/DivyanshThakur/iCoder").c_str());
-
     system("cls"); // clear the screen each time
 
     title(); // print the title = iCoder
 
     header(std::string{" ABOUT "});
 
-    //   "\nVersion: " + version_info + "\nSource code: \ngithub.com/DivyanshThakur/iCoder"
     std::cout << "Developer: " << dev_name << std::endl
               << "Version: " << version_info;
 
     border(width_menu);
 
     std::cout << "Source code:" << std::endl
-              << "github.com/DivyanshThakur/iCoder";
+              << scode_url.substr(8);
 
     border(width_menu);
 
@@ -33,7 +30,7 @@ void about()
     ch = getch();
 
     if (::tolower(ch) == 'i')
-        system(std::string("start https://github.com/DivyanshThakur/iCoder").c_str());
+        system(std::string("start " + scode_url).c_str());
     else
         return;
 }
