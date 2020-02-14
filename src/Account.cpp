@@ -52,7 +52,7 @@ bool Account::display_remember_me() const
     // scanning character
     char c;
     sc.scan(c);
-    std::cout << std::endl;
+    // std::cout << std::endl;
 
     if (c == ESC)
         return false;

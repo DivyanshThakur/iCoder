@@ -67,10 +67,10 @@ void header(const std::string &menu_name)
               << std::endl;
 }
 
-void border(int size, bool isNeedLine)
+void border(int size) //, bool isNeedLine)
 {
-    if (isNeedLine)
-        std::cout << std::endl;
+    // if (isNeedLine)
+    std::cout << std::endl;
 
     std::cout << std::setfill('-')
               << std::setw(size) << ""
