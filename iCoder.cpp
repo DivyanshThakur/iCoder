@@ -7,6 +7,7 @@
 #include "header/UIhandler.hpp"
 #include "header/AccountHandler.hpp"
 #include "header/Home.hpp"
+#include "header/About.hpp"
 #include "header/Settings.hpp"
 #include "header/Scanner.hpp"
 
@@ -46,7 +47,7 @@ int main()
 
         main_menu_controller(ch); // start as per user choice
 
-    } while (ch != 7);
+    } while (ch != 8);
 
     return 0;
 }
@@ -73,16 +74,21 @@ void main_menu_controller(int ch)
         press_key(); // getch()
         break;
 
-    case 5: // details about the software and the shortcut/hint that can be used in it
-        print_message();
+    case 5: // details about the hint/shortcuts that can be used in it
+        help();
         press_key();
         break;
 
-    case 6: // Customize the software using settings
+    case 6: // details about the software
+        about();
+        press_key();
+        break;
+
+    case 7: // Customize the software using settings
         settings();
         break;
 
-    case 7: // exit the program
+    case 8: // exit the program
         break;
 
     case ESC: //ESC
@@ -111,16 +117,3 @@ bool isDirectoryExists()
 
     return (attribs & FILE_ATTRIBUTE_DIRECTORY);
 }
-
-/** HINTS **/
-/*
-
-Press ESC to go to home and main menu
-
-press esc , enter, backspace, space to continue in animate warning
-
-themes
-
-settings to change speed animation
-
-*/

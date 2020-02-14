@@ -44,10 +44,7 @@ void menu(std::string menu_str, const std::string heading)
 
     header(heading);
 
-    for (auto c : menu_str)
-    {
-        std::cout << c;
-    }
+    std::cout << menu_str;
 
     border(width_menu); // display the footer '----'
 
@@ -99,7 +96,7 @@ void igetch()
 
 void animater(const std::string &anime)
 {
-    for (auto c : anime)
+    for (const auto &c : anime)
     {
         std::cout << c;
         Sleep(sleep_time);

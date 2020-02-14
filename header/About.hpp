@@ -2,5 +2,6 @@
 #define ABOUT_HPP
 
 void about();
+void help();
 
 #endif

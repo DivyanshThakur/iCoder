@@ -1,4 +1,4 @@
-OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Scanner.o obj\Settings.o obj\UIhandler.o
+OBJS = obj\iCoder.o obj\About.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\Home.o obj\Scanner.o obj\Settings.o obj\UIhandler.o
 OBJCOD = obj\cod_array.o obj\cod_limits.o
 OBJF = obj/*.o
 CC = g++
@@ -15,7 +15,10 @@ all: $(OBJS) $(OBJCOD)
 obj\iCoder.o: iCoder.cpp
 	$(CC) $(CFLAGS) iCoder.cpp -o obj\iCoder.o
 
-obj\Account.o : src\Account.cpp header\Account.hpp
+obj\About.o: src\About.cpp header\About.hpp
+	$(CC) $(CFLAGS) src\About.cpp -o obj\About.o
+
+obj\Account.o: src\Account.cpp header\Account.hpp
 	$(CC) $(CFLAGS) src\Account.cpp -o obj\Account.o
 
 obj\AccountHandler.o: src\AccountHandler.cpp header\AccountHandler.hpp

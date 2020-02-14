@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 #include "../header/About.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
@@ -6,24 +7,49 @@
 
 void about()
 {
-    int ch{0};
-    do
-    {
-        system(std::string("start https://www.").c_str());
-        system("cls"); // clear the screen each time
+    char ch;
 
-        title(); // print the title = iCoder
+    // system(std:: string("start https://github.com/DivyanshThakur/iCoder").c_str());
 
-        menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
+    system("cls"); // clear the screen each time
 
-        Scanner sc;
-        sc.scanChoice(ch);
+    title(); // print the title = iCoder
 
-        if (ch == ESC || ch == 2) //return when ESC is pressed
-            return;
+    header(std::string{" ABOUT "});
 
-        // settings_controller(ch); // start as per user choice
+    //   "\nVersion: " + version_info + "\nSource code: \ngithub.com/DivyanshThakur/iCoder"
+    std::cout << "Developer: " << dev_name << std::endl
+              << "Version: " << version_info;
 
-    } while (ch != 3);
-    exit(0);
+    border(width_menu);
+
+    std::cout << "Source code:" << std::endl
+              << "github.com/DivyanshThakur/iCoder";
+
+    border(width_menu);
+
+    std::cout << "Press i to open URL";
+
+    ch = getch();
+
+    if (::tolower(ch) == 'i')
+        system(std::string("start https://github.com/DivyanshThakur/iCoder").c_str());
+    else
+        return;
 }
+
+void help()
+{
+}
+/** HINTS **/
+/*
+
+Press ESC to go to home and main menu
+
+press esc , enter, backspace, space to continue in animate warning
+
+themes
+
+settings to change speed animation
+
+*/
