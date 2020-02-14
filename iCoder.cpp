@@ -2,12 +2,12 @@
 #include <fstream>
 #include <limits>
 #include <windows.h>
+#include <conio.h>
 #include <dir.h>
 #include "header/Constants.hpp"
 #include "header/UIhandler.hpp"
 #include "header/AccountHandler.hpp"
 #include "header/Home.hpp"
-#include "header/About.hpp"
 #include "header/Settings.hpp"
 #include "header/Scanner.hpp"
 
@@ -15,6 +15,7 @@
 void main_menu_controller(int ch);
 void makeDirectory();
 bool isDirectoryExists();
+void about();
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
     if (check_new_user())
     {
         title(); // display title
-        emessage(std::string{"--> See HELP for hints and shortcuts..."});
+        emessage(std::string{"--> Use ESC key to return to previous screen"});
     }
 
     if (check_active_user())
@@ -47,7 +48,7 @@ int main()
 
         main_menu_controller(ch); // start as per user choice
 
-    } while (ch != 8);
+    } while (ch != 7);
 
     return 0;
 }
@@ -74,20 +75,15 @@ void main_menu_controller(int ch)
         press_key(); // getch()
         break;
 
-    case 5: // details about the hint/shortcuts that can be used in it
-        help();
-        press_key();
-        break;
-
-    case 6: // details about the software
+    case 5: // details about the software
         about();
         break;
 
-    case 7: // Customize the software using settings
+    case 6: // Customize the software using settings
         settings();
         break;
 
-    case 8: // exit the program
+    case 7: // exit the program
         break;
 
     case ESC: //ESC
@@ -115,4 +111,34 @@ bool isDirectoryExists()
         return false;
 
     return (attribs & FILE_ATTRIBUTE_DIRECTORY);
+}
+
+void about()
+{
+    char ch;
+
+    system("cls"); // clear the screen each time
+
+    title(); // print the title = iCoder
+
+    header(std::string{" ABOUT "});
+
+    std::cout << "Developer: " << dev_name << std::endl
+              << "Version: " << version_info;
+
+    border(width_menu);
+
+    std::cout << "Source code:" << std::endl
+              << scode_url.substr(8);
+
+    border(width_menu);
+
+    std::cout << "Press i to open URL";
+
+    ch = getch();
+
+    if (::tolower(ch) == 'i')
+        system(std::string("start " + scode_url).c_str());
+    else
+        return;
 }

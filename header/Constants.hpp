@@ -33,7 +33,6 @@ extern const std::string menu_update_size;
 // menuhandler.h
 extern const std::string main_menu_data;
 extern const std::string home_data;
-extern const std::string about_data;
 extern const std::string settings_data;
 extern const std::string get_dataType_data;
 extern const std::string array_data;
