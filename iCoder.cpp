@@ -71,7 +71,7 @@ void main_menu_controller(int ch)
 
     case 4: // show saved user details
         if (!display_users())
-            std::cout << "No user in database" << std::endl;
+            std::cout << "No user in database";
         press_key(); // getch()
         break;
 
