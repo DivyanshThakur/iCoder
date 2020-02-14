@@ -5,6 +5,7 @@
 
 /** FUNCTION PROTOTYPES **/
 
+void mod(int &x);
 void load();
 void title();
 void menu(std::string menu_str, const std::string heading = " MENU ");

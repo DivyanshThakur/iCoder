@@ -116,7 +116,7 @@ template <typename T>
 void cod::array<T>::insert(T &x, size_t pos)
 {
     if (pos > len || pos <= 0)
-        print_message(std::string{"Invalid choice"});
+        print_message(std::string{"Invalid position"});
 
     else
     {
@@ -131,7 +131,7 @@ void cod::array<T>::insert(T &x, size_t pos)
             A[i] = x;
         }
         else
-            print_message(std::string{"Invalid choice"});
+            print_message(std::string{"Array is full!!!"});
     }
 }
 
@@ -141,7 +141,7 @@ T cod::array<T>::remove(size_t pos)
     T value{MIN_VALUE};
 
     if (pos > len || pos <= 0)
-        print_message(std::string{"Invalid choice"});
+        print_message(std::string{"Invalid position"});
 
     else
     {
@@ -166,7 +166,7 @@ cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
     cod::array<T> values(n);
 
     if (pos > len || pos <= 0)
-        print_message(std::string{"Invalid choice"});
+        print_message(std::string{"Invalid position"});
 
     else
     {
@@ -191,7 +191,7 @@ bool cod::array<T>::push_back(T &x)
 {
     if (len >= size)
     {
-        print_message(std::string{"Invalid choice"});
+        print_message(std::string{"Array is full!!!"});
         return false;
     }
 
@@ -233,7 +233,7 @@ template <typename T>
 void cod::array<T>::update_size(int x)
 {
     if (x < 0)
-        x = 0 - x;
+        mod(x);
     else if (static_cast<int>(size) == x)
         return;
 

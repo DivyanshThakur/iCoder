@@ -161,7 +161,7 @@ void ArrayHandler<T>::update_size()
 template <typename T>
 void ArrayHandler<T>::add_elements()
 {
-    size_t len;
+    int len;
     bool isLast;
     T value;
 
@@ -176,9 +176,15 @@ void ArrayHandler<T>::add_elements()
     if (!sc.scan(len))
         return;
 
+    if (len < 0)
+    {
+        print_message(std::string{"Invalid size"});
+        return;
+    }
+
     std::cout << std::endl;
 
-    for (size_t i{0}; i < len; ++i)
+    for (int i{0}; i < len; ++i)
     {
         isLast = (i == len - 1);
 
