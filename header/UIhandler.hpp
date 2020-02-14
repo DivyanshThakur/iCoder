@@ -16,5 +16,6 @@ void animater(const std::string &anime);
 void igetch();
 void print_message(const std::string &message = std::string{"TO BE IMPLEMENTED..."});
 void press_key();
+bool press_esc();
 
 #endif

@@ -75,7 +75,10 @@ void login()
     if (!acc->check_account())
     {
         std::cout << "UserID/Pass is incorrect";
-        press_key();
+
+        if (press_esc())
+            return;
+
         login();
     }
     else
@@ -107,13 +110,19 @@ void create_account()
     if (acc->get_pass() != acc->get_pass2()) // validating same password or not
     {
         std::cout << "Password not matched";
-        press_key();
+
+        if (press_esc())
+            return;
+
         create_account();
     }
     else if (!acc->upload_account())
     {
         std::cout << "Username already exists!";
-        press_key();
+
+        if (press_esc())
+            return;
+
         create_account();
     }
     else

@@ -121,3 +121,14 @@ void press_key()
     std::cout << "Press a key to continue";
     getch();
 }
+
+bool press_esc()
+{
+    char ch;
+
+    border(width_menu); // display the border
+    std::cout << "Press ESC to return";
+    ch = getch();
+
+    return (ch == ESC);
+}
