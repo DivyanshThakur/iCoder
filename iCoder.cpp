@@ -22,16 +22,16 @@ int main()
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
 
-    if (check_new_user())
+    if (check_new_user()) // if there is no current user, it displays below message
     {
-        title(); // display title
-        emessage(std::string{"--> Use ESC key to return to previous screen"});
+        title();                                                               // display title
+        emessage(std::string{"--> Use ESC key to return to previous screen"}); // 1 time message to user
     }
 
-    if (check_active_user())
-        home(signedUserID); // if the user is saved in file it will automatically sign in the active user
+    if (check_active_user()) // checking for current signed user
+        home(signedUserID);  // if the user is saved in file it will automatically sign in the active user
     else
-        save_active_user(std::string{"NULL"});
+        save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 
     int ch{0};
 
@@ -44,11 +44,11 @@ int main()
         menu(main_menu_data); // display the startup menu
 
         Scanner sc;
-        sc.scanChoice(ch);
+        sc.scanChoice(ch); // scan user's choice
 
         main_menu_controller(ch); // start as per user choice
 
-    } while (ch != 7);
+    } while (ch != 7); // the program terminates after this line
 
     return 0;
 }
@@ -104,6 +104,7 @@ void makeDirectory()
 
 bool isDirectoryExists()
 {
+    // code to check if a Directory exists or not
     DWORD attribs = ::GetFileAttributesA("data");
 
     if (attribs == INVALID_FILE_ATTRIBUTES)
@@ -136,7 +137,7 @@ void about()
 
     ch = getch();
 
-    if (::tolower(ch) == 'i')
+    if (::tolower(ch) == 'i') // this code will open github source code in default browser
         system(std::string("start " + scode_url).c_str());
     else
         return;

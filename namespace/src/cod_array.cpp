@@ -5,10 +5,10 @@
 #include "../../header/ExHandler.hpp"
 
 template <typename T>
-cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(cod::limits<T>::min()) {}
+cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(cod::limits<T>::min()), DEF_VALUE(cod::limits<T>::def()) {}
 
 template <typename T>
-cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(cod::limits<T>::min())
+cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(cod::limits<T>::min()), DEF_VALUE(cod::limits<T>::def())
 {
     if (size < 0)
         throw NegativeValueException();
@@ -213,12 +213,6 @@ template <typename T>
 size_t cod::array<T>::length() const
 {
     return len;
-}
-
-template <typename T>
-T cod::array<T>::get_min_val() const
-{
-    return MIN_VALUE;
 }
 
 template <typename T>
