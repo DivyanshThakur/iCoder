@@ -4,6 +4,7 @@
 #include "../header/Account.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
+#include "../header/ExHandler.hpp"
 #include "../header/AccountHandler.hpp"
 #include "../header/Scanner.hpp"
 
@@ -23,7 +24,7 @@ std::ifstream &operator>>(std::ifstream &ifs, Account &acc)
     return ifs;
 }
 
-bool Account::input_data()
+void Account::input_data()
 {
     animater(username);
 
@@ -32,19 +33,17 @@ bool Account::input_data()
     userID = sc.scanUsername(); // taking username from user
 
     if (userID == "")
-        return false;
+        throw EscPressed();
 
     animater(password);
 
     pass = sc.scanPassword(); // scanning password
 
     if (pass == "")
-        return false;
-
-    return true;
+        throw EscPressed();
 }
 
-bool Account::display_remember_me() const
+void Account::display_remember_me() const
 {
     Scanner sc;
     animater(std::string{"Remember me? (Y/N): "});
@@ -55,40 +54,31 @@ bool Account::display_remember_me() const
     std::cout << std::endl;
 
     if (c == ESC)
-        return false;
+        throw EscPressed();
 
     if (c == 'y' || c == 'Y')
         save_active_user(userID); // save the current user
-
-    return true;
 }
 
-bool Account::check_account() const
+void Account::check_account() const
 {
     std::ifstream file(fuser);
     std::string fusername, fpassword;
 
     if (!file)
-    {
-        return false;
-    }
+        throw FileNotOpenedException();
 
     while (file >> fusername && file >> fpassword)
     {
         if (userID == fusername && pass == fpassword)
         {
             file.close();
-            return true;
+            return;
         }
     }
 
     file.close();
-    return false;
-}
-
-void Account::reset_index()
-{
-    index = 0;
+    throw InvalidUser();
 }
 
 std::string Account::get_userID() const

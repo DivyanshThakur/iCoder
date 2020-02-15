@@ -10,9 +10,9 @@ private:
     std::string pass2;
 
 public:
-    bool input_data();
-    bool upload_account();
-    bool isValidUser();
+    void input_data();
+    void upload_account();
+    void isValidUser();
 
     std::string get_pass2() const;
 };

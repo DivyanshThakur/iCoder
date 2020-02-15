@@ -7,6 +7,7 @@
 #include "../header/AccountHandler.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
+#include "../header/ExHandler.hpp"
 #include "../header/Home.hpp"
 #include "../header/CreateAccount.hpp"
 
@@ -43,8 +44,8 @@ void save_active_user(const std::string &userID)
     if (!file)
     {
         std::cerr << "Error Saving current user" << std::endl;
-        getch();
-        exit(1);
+        press_key();
+        return;
     }
 
     signedUserID = userID;
@@ -54,7 +55,6 @@ void save_active_user(const std::string &userID)
          << std::endl;
 
     file.close();
-    return;
 }
 
 void login()
@@ -63,32 +63,44 @@ void login()
 
     title(); // display the "iCoder" title
 
-    auto acc = std::make_unique<Account>();
-
     header(std::string{" LOGIN "});
 
-    if (!acc->input_data()) // taking username and password
-        return;
+    auto acc = std::make_unique<Account>();
 
-    border(width_menu); // display the border '----'
-
-    if (!acc->check_account())
+    try
     {
-        std::cout << "UserID/Pass is incorrect";
+        acc->input_data(); // taking username and password
+
+        border(width_menu); // display the border '----'
+
+        acc->check_account();
+
+        acc->display_remember_me(); // it will display remember me message
+
+        border(width_menu, false); // display the border
+        load();                    // animate loading screen
+        home(acc->get_userID());   // calling the main menu (HOME) screen to show all program list
+    }
+    catch (const EscPressed &e)
+    {
+        return;
+    }
+    catch (const InvalidUser &e)
+    {
+        std::cerr << e.what();
 
         if (press_esc())
             return;
 
         login();
     }
-    else
+    catch (const FileNotOpenedException &e)
     {
-        if (!acc->display_remember_me()) // it will display remember me message
-            return;
-
-        border(width_menu, false); // display the border
-        load();                    // animate loading screen
-        home(acc->get_userID());   // calling the main menu (HOME) screen to show all program list
+        std::cerr << e.what();
+    }
+    catch (...)
+    {
+        std::cerr << "Unknown error occured!!!" << std::endl;
     }
 }
 
@@ -102,42 +114,59 @@ void create_account()
 
     auto acc = std::make_unique<CreateAccount>(); // pointer to CreateAccount class
 
-    if (!(acc->input_data())) // taking userID, pass and confirmed password from the user
-        return;
-
-    border(width_menu); // display the border
-
-    if (acc->get_pass() != acc->get_pass2()) // validating same password or not
+    try
     {
-        std::cout << "Password not matched";
+        acc->input_data(); // taking userID, pass and confirmed password from the user
 
-        if (press_esc())
-            return;
+        border(width_menu); // display the border
 
-        create_account();
-    }
-    else if (!acc->upload_account())
-    {
-        std::cout << "Username already exists!";
+        if (acc->get_pass() != acc->get_pass2()) // validating same password or not
+            throw PasswordNotMatchedException();
 
-        if (press_esc())
-            return;
+        acc->upload_account();
 
-        create_account();
-    }
-    else
-    { // go to home
-
-        if (!acc->display_remember_me()) // it will display remember me message
-            return;
+        acc->display_remember_me(); // it will display remember me message
 
         border(width_menu);      // display the border
         load();                  // animate loading screen
         home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
+    catch (const EscPressed &e)
+    {
+        return;
+    }
+    catch (const PasswordNotMatchedException &e)
+    {
+        std::cerr << e.what();
+        if (press_esc())
+            return;
+
+        create_account();
+    }
+    catch (const SavingUserException &e)
+    {
+        std::cerr << e.what();
+    }
+    catch (const FileNotOpenedException &e)
+    {
+        std::cerr << e.what();
+    }
+    catch (const UsernameAlreadyExistsException &e)
+    {
+        std::cerr << e.what();
+
+        if (press_esc())
+            return;
+
+        create_account();
+    }
+    catch (...)
+    {
+        std::cerr << "Unknown error occured!!!" << std::endl;
+    }
 }
 
-bool display_users()
+void display_users()
 {
 
     system("cls");
@@ -147,9 +176,16 @@ bool display_users()
     header(" USERS ");
 
     std::ifstream file(fuser);
-
-    if (!file)
-        return false;
+    try
+    {
+        if (!file)
+            throw NouserException();
+    }
+    catch (const NouserException &e)
+    {
+        std::cerr << e.what() << std::endl;
+        return;
+    }
 
     auto acc = std::make_unique<Account>();
 
@@ -171,13 +207,10 @@ bool display_users()
     {
         std::cout << *acc; // display the id,pass to console using operator<< overloading
     }
-    acc->reset_index(); // to reset the index back to 0 in the Account class
 
     border(width_index * 3 + width_username + width_password - 1);
 
     file.close();
-
-    return true;
 }
 
 std::string pass_to_asteric(const std::string &pass)

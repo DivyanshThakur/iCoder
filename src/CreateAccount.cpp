@@ -4,13 +4,13 @@
 #include <iomanip>
 #include "../header/CreateAccount.hpp"
 #include "../header/Constants.hpp"
+#include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
 
-bool CreateAccount::input_data()
+void CreateAccount::input_data()
 {
-    if (!(Account::input_data()))
-        return false;
+    Account::input_data();
 
     std::cout << std::endl;
 
@@ -21,44 +21,38 @@ bool CreateAccount::input_data()
     pass2 = sc.scanPassword(); // scanning password
 
     if (pass2 == "")
-        return false;
-
-    return true;
+        throw EscPressed();
 }
 
-bool CreateAccount::upload_account()
+void CreateAccount::upload_account()
 {
     std::ofstream file{fuser, std::ios::app};
 
     if (!file)
-    {
-        std::cerr << "Error saving user details" << std::endl;
-        getch();
-        exit(1);
-    }
+        throw SavingUserException();
 
-    if (!isValidUser())
+    try
     {
-        // user account already exists
+        isValidUser();
+    }
+    catch (...)
+    {
         file.close();
-        return false;
+        throw;
     }
 
     file << std::setw(width_username) << std::left << userID << std::setw(width_password) << std::left << pass << std::endl;
 
     file.close();
-    return true;
 }
 
-bool CreateAccount::isValidUser()
+void CreateAccount::isValidUser()
 {
     std::ifstream file(fuser);
 
     if (!file)
     {
-        std::cerr << "Error validating user details" << std::endl;
-        getch();
-        exit(1);
+        throw FileNotOpenedException();
     }
 
     std::string fname, fpass;
@@ -68,12 +62,11 @@ bool CreateAccount::isValidUser()
         if (fname == userID)
         {
             file.close();
-            return false;
+            throw UsernameAlreadyExistsException();
         }
     }
 
     file.close(); /// close the file
-    return true;
 }
 
 std::string CreateAccount::get_pass2() const

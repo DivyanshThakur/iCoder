@@ -15,11 +15,10 @@ protected:
     std::string userID, pass;
 
 public:
-    bool input_data();
-    bool display_remember_me() const;
-    bool check_account() const;
+    void input_data();
+    void display_remember_me() const;
+    void check_account() const;
 
-    void reset_index();
     std::string get_userID() const;
     std::string get_pass() const;
 };
