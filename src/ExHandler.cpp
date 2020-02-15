@@ -47,7 +47,7 @@ const char *SavingUserException::what() const noexcept
 const char *InvalidUser::what() const noexcept
 {
     border(width_menu);
-    return "Invalid UserID/Pass!";
+    return "Invalid UserID/Password!";
 }
 
 const char *FileNotOpenedException::what() const noexcept
@@ -77,5 +77,5 @@ const char *InvalidPositionException::what() const noexcept
 const char *OutofBoundsException::what() const noexcept
 {
     border(width_menu);
-    return "Invalid Index";
+    return "Invalid Index!";
 }
