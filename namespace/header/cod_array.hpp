@@ -23,7 +23,7 @@ class array
                 os << arr[i] << " ";
         }
         else
-            os << "No elements in Array";
+            os << "No elements to display";
 
         return os;
     }
