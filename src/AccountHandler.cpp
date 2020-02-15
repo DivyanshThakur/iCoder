@@ -75,9 +75,9 @@ void login()
 
         acc->display_remember_me(); // it will display remember me message
 
-        border(width_menu, false); // display the border
-        load();                    // animate loading screen
-        home(acc->get_userID());   // calling the main menu (HOME) screen to show all program list
+        border(width_menu);      // display the border
+        load();                  // animate loading screen
+        home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
     catch (const EscPressed &e)
     {
