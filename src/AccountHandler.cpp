@@ -116,8 +116,6 @@ void create_account()
     {
         acc->input_data(); // taking userID, pass and confirmed password from the user
 
-        border(width_menu); // display the border
-
         if (acc->get_pass() != acc->get_pass2()) // validating same password or not
             throw PasswordNotMatchedException();
 

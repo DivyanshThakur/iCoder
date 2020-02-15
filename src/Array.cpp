@@ -76,7 +76,22 @@ void ArrayHandler<T>::start()
 {
     int ch{0};
 
-    update_size();
+    try
+    {
+        update_size();
+    }
+    catch (const EscPressed &e)
+    {
+        // do nothing
+    }
+    catch (const InvalidInputException &e)
+    {
+        std::cerr << e.what();
+    }
+    catch (const NegativeValueException &e)
+    {
+        std::cerr << e.what();
+    }
 
     do
     {
@@ -100,7 +115,7 @@ void ArrayHandler<T>::start()
         }
         catch (const EscPressed &e)
         {
-            return;
+            continue;
         }
         catch (const InvalidInputException &e)
         {
@@ -120,6 +135,7 @@ void ArrayHandler<T>::start()
         }
         catch (...)
         {
+            border(width_menu);
             std::cerr << "Unknown error occured" << std::endl;
         }
 
@@ -165,7 +181,6 @@ void ArrayHandler<T>::arrays_controller(int ch)
         print_message(std::string{"Invalid choice"});
         break;
     }
-    press_key(); // program paused - getch()
 }
 
 template <typename T>
