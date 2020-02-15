@@ -123,6 +123,8 @@ void ArrayHandler<T>::start()
             std::cerr << "Unknown error occured" << std::endl;
         }
 
+        press_key(); // program paused - getch()
+
     } while (ch != 8); // exit at ch==6
     exit(0);
 }

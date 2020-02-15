@@ -71,8 +71,6 @@ void login()
     {
         acc->input_data(); // taking username and password
 
-        border(width_menu); // display the border '----'
-
         acc->check_account();
 
         acc->display_remember_me(); // it will display remember me message

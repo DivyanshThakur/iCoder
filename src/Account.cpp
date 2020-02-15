@@ -46,6 +46,9 @@ void Account::input_data()
 void Account::display_remember_me() const
 {
     Scanner sc;
+
+    border(width_menu);
+
     animater(std::string{"Remember me? (Y/N): "});
 
     // scanning character

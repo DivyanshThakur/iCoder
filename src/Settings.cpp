@@ -52,7 +52,7 @@ void settings_controller(char ch)
 
 void change_text_anime_speed()
 {
-    size_t speed;
+    int speed;
     Scanner sc;
 
     system("cls"); // clear the screen each time
@@ -84,4 +84,5 @@ void change_text_anime_speed()
     {
         std::cerr << e.what();
     }
+    press_key();
 }
