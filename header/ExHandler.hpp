@@ -84,6 +84,42 @@ public:
     virtual const char *what() const noexcept;
 };
 
+class ArrayFullException : public std::exception
+{
+public:
+    ArrayFullException() noexcept = default;
+    ~ArrayFullException() = default;
+
+    virtual const char *what() const noexcept;
+};
+
+class ArrayEmptyException : public std::exception
+{
+public:
+    ArrayEmptyException() noexcept = default;
+    ~ArrayEmptyException() = default;
+
+    virtual const char *what() const noexcept;
+};
+
+class InvalidPositionException : public std::exception
+{
+public:
+    InvalidPositionException() noexcept = default;
+    ~InvalidPositionException() = default;
+
+    virtual const char *what() const noexcept;
+};
+
+class OutofBoundsException : public std::exception
+{
+public:
+    OutofBoundsException() noexcept = default;
+    ~OutofBoundsException() = default;
+
+    virtual const char *what() const noexcept;
+};
+
 class EscPressed : public std::exception
 {
 };

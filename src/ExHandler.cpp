@@ -44,3 +44,23 @@ const char *FileNotOpenedException::what() const noexcept
 {
     return "Error fetching data!";
 }
+
+const char *ArrayFullException::what() const noexcept
+{
+    return "Array is full!";
+}
+
+const char *ArrayEmptyException::what() const noexcept
+{
+    return "Array is empty!";
+}
+
+const char *InvalidPositionException::what() const noexcept
+{
+    return "Invalid position!";
+}
+
+const char *OutofBoundsException::what() const noexcept
+{
+    return "Invalid Index";
+}

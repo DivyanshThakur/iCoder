@@ -2,6 +2,7 @@
 #include "../header/cod_limits.hpp"
 #include "../header/cod_array.hpp"
 #include "../../header/UIhandler.hpp"
+#include "../../header/ExHandler.hpp"
 
 template <typename T>
 cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(cod::limits<T>::min()) {}
@@ -10,7 +11,7 @@ template <typename T>
 cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(cod::limits<T>::min())
 {
     if (size < 0)
-        std::cerr << "Enter valid size" << std::endl;
+        throw NegativeValueException();
     else
         A = new T[size];
 }
@@ -61,9 +62,8 @@ template <typename T>
 T cod::array<T>::at(size_t x) const
 {
     if (x < 0 || x >= size)
-    {
-        std::cerr << "Out of bounds exception";
-    }
+        throw OutofBoundsException();
+
     return A[x];
 }
 
@@ -71,9 +71,8 @@ template <typename T>
 T &cod::array<T>::at(size_t x)
 {
     if (x < 0 || x >= size)
-    {
-        std::cerr << "Out of bounds exception";
-    }
+        throw OutofBoundsException();
+
     return A[x];
 }
 
@@ -116,47 +115,40 @@ template <typename T>
 void cod::array<T>::insert(T &x, size_t pos)
 {
     if (pos > len || pos <= 0)
-        print_message(std::string{"Invalid position"});
+        throw InvalidPositionException();
 
-    else
+    if (len >= size)
+        throw ArrayFullException();
+
+    size_t i;
+
+    for (i = len++; i >= pos; --i)
     {
-        if (len < size)
-        {
-            size_t i;
-
-            for (i = len++; i >= pos; --i)
-            {
-                A[i] = A[i - 1];
-            }
-            A[i] = x;
-        }
-        else
-            print_message(std::string{"Array is full!!!"});
+        A[i] = A[i - 1];
     }
+    A[i] = x;
 }
 
 template <typename T>
 T cod::array<T>::remove(size_t pos)
 {
-    T value{MIN_VALUE};
+    T value;
 
     if (pos > len || pos <= 0)
-        print_message(std::string{"Invalid position"});
+        throw InvalidPositionException();
 
-    else
+    size_t i = pos - 1;
+
+    value = A[i];
+
+    --len;
+
+    while (i < len)
     {
-        size_t i = pos - 1;
-
-        value = A[i];
-
-        --len;
-
-        while (i < len)
-        {
-            A[i] = A[i + 1];
-            ++i;
-        }
+        A[i] = A[i + 1];
+        ++i;
     }
+
     return value;
 }
 
@@ -166,49 +158,49 @@ cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
     cod::array<T> values(n);
 
     if (pos > len || pos <= 0)
-        print_message(std::string{"Invalid position"});
+        throw InvalidPositionException();
 
-    else
+    size_t i, j;
+    i = pos - 1;
+    for (j = 0; j < n; ++j, ++i)
     {
-        size_t i, j;
-        i = pos - 1;
-        for (j = 0; j < n; ++j, ++i)
-        {
-            if (pos + j > len)
-                break;
-            values.push_back(A[i]);
-        }
-        for (i = pos - 1; i + n < len; ++i)
-            A[i] = A[i + n];
-
-        len -= values.length();
+        if (pos + j > len)
+            break;
+        values.push_back(A[i]);
     }
+    for (i = pos - 1; i + n < len; ++i)
+        A[i] = A[i + n];
+
+    len -= values.length();
+
     return values;
 }
 
 template <typename T>
-bool cod::array<T>::push_back(T &x)
+void cod::array<T>::push_back(T &x)
 {
     if (len >= size)
-    {
-        print_message(std::string{"Array is full!!!"});
-        return false;
-    }
+        throw ArrayFullException();
 
     A[len++] = x;
-    return true;
 }
 
 template <typename T>
 T cod::array<T>::front() const
 {
+    if (len == 0)
+        throw ArrayEmptyException();
+
     return A[0];
 }
 
 template <typename T>
 T cod::array<T>::back() const
 {
-    return ((len > 0) ? A[len - 1] : MIN_VALUE);
+    if (len <= 0)
+        throw ArrayEmptyException();
+
+    return A[len - 1];
 }
 
 template <typename T>
@@ -233,8 +225,9 @@ template <typename T>
 void cod::array<T>::update_size(int x)
 {
     if (x < 0)
-        mod(x);
-    else if (static_cast<int>(size) == x)
+        throw NegativeValueException();
+
+    if (static_cast<int>(size) == x)
         return;
 
     size = x;

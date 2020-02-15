@@ -66,7 +66,7 @@ public:
     T remove(size_t pos);
     array remove(size_t pos, size_t n);
 
-    bool push_back(T &x);
+    void push_back(T &x);
 
     T front() const;
     T back() const;

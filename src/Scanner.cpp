@@ -5,14 +5,14 @@
 #include "../header/Scanner.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
+#include "../header/ExHandler.hpp"
 #include "../namespace/header/cod_limits.hpp"
 
 Scanner::Scanner() : isLimitExceed{false} {}
 
-bool Scanner::print(const std::string &s) const
+void Scanner::print(const std::string &s) const
 {
     (s != "") ? std::cout << s : std::cout << std::endl;
-    return true;
 }
 
 int Scanner::checkChar(bool isPassword)
@@ -136,7 +136,7 @@ void Scanner::reset()
 /** TEMPLATE FUNCTIONS **/
 
 template <typename T>
-bool Scanner::scan(T &data, bool isLast)
+void Scanner::scan(T &data, bool isLast)
 {
     reset();
     int count{0};
@@ -155,7 +155,7 @@ bool Scanner::scan(T &data, bool isLast)
         }
 
         if (checkChar() == -1)
-            return false;
+            throw EscPressed();
     }
 
     if (!isLast)
@@ -169,14 +169,12 @@ bool Scanner::scan(T &data, bool isLast)
     std::stringstream ss{value};
 
     if (!(ss >> data))
-        return false;
-
-    return true;
+        throw InvalidInputException();
 }
 
-template bool Scanner::scan<int>(int &choice, bool isLast);
-template bool Scanner::scan<size_t>(size_t &choice, bool isLast);
-template bool Scanner::scan<long long>(long long &choice, bool isLast);
-template bool Scanner::scan<double>(double &choice, bool isLast);
-template bool Scanner::scan<char>(char &choice, bool isLast);
-template bool Scanner::scan<std::string>(std::string &choice, bool isLast);
+template void Scanner::scan<int>(int &choice, bool isLast);
+template void Scanner::scan<size_t>(size_t &choice, bool isLast);
+template void Scanner::scan<long long>(long long &choice, bool isLast);
+template void Scanner::scan<double>(double &choice, bool isLast);
+template void Scanner::scan<char>(char &choice, bool isLast);
+template void Scanner::scan<std::string>(std::string &choice, bool isLast);

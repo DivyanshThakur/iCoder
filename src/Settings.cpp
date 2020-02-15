@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "../header/Settings.hpp"
 #include "../header/Constants.hpp"
+#include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
 
@@ -62,8 +63,25 @@ void change_text_anime_speed()
 
     std::cout << "Enter the speed:";
 
-    if (!sc.scan(speed))
-        return;
+    try
+    {
+        sc.scan(speed);
 
-    sleep_time = speed;
+        if (speed < 0)
+            throw NegativeValueException();
+
+        sleep_time = speed;
+    }
+    catch (const EscPressed &e)
+    {
+        return;
+    }
+    catch (const InvalidInputException &e)
+    {
+        std::cerr << e.what();
+    }
+    catch (const NegativeValueException &e)
+    {
+        std::cerr << e.what();
+    }
 }

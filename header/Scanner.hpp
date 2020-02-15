@@ -11,7 +11,7 @@ private:
     bool isLimitExceed;
 
     int checkChar(bool isPassword = false);
-    bool print(const std::string &s = "") const;
+    void print(const std::string &s = "") const;
 
 public:
     Scanner(); // type of string - username, pass, char
@@ -22,7 +22,7 @@ public:
     std::string scanPassword();
 
     template <typename T>
-    bool scan(T &data, bool isLast = true);
+    void scan(T &data, bool isLast = true);
 
     void reset(); // reset the values of scanner class
 };

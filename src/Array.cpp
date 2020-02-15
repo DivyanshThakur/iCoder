@@ -3,12 +3,12 @@
 #include "../header/Array.hpp"
 #include "../namespace/header/cod_array.hpp"
 #include "../header/Scanner.hpp"
+#include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Constants.hpp"
 
 void Arrays()
 {
-
     int ch{0};
 
     do
@@ -94,7 +94,34 @@ void ArrayHandler<T>::start()
         if (ch == ESC || ch == 7)
             return;
 
-        arrays_controller(ch);
+        try
+        {
+            arrays_controller(ch);
+        }
+        catch (const EscPressed &e)
+        {
+            return;
+        }
+        catch (const InvalidInputException &e)
+        {
+            std::cerr << e.what();
+        }
+        catch (const NegativeValueException &e)
+        {
+            std::cerr << e.what();
+        }
+        catch (const ArrayFullException &e)
+        {
+            std::cerr << e.what();
+        }
+        catch (const InvalidPositionException &e)
+        {
+            std::cerr << e.what();
+        }
+        catch (...)
+        {
+            std::cerr << "Unknown error occured" << std::endl;
+        }
 
     } while (ch != 8); // exit at ch==6
     exit(0);
@@ -152,9 +179,7 @@ void ArrayHandler<T>::update_size()
 
     animater(std::string{"Enter size: "});
 
-    if (!sc.scan(size))
-        return;
-
+    sc.scan(size);
     arr.update_size(size);
 }
 
@@ -173,14 +198,10 @@ void ArrayHandler<T>::add_elements()
 
     animater(std::string{"Enter size: "});
 
-    if (!sc.scan(len))
-        return;
+    sc.scan(len);
 
     if (len < 0)
-    {
-        print_message(std::string{"Invalid size"});
-        return;
-    }
+        throw NegativeValueException();
 
     std::cout << std::endl;
 
@@ -188,11 +209,9 @@ void ArrayHandler<T>::add_elements()
     {
         isLast = (i == len - 1);
 
-        if (!sc.scan(value, isLast))
-            return;
+        sc.scan(value, isLast);
 
-        if (!arr.push_back(value))
-            return;
+        arr.push_back(value);
     }
 }
 
@@ -209,14 +228,14 @@ void ArrayHandler<T>::insert_value()
     header(std::string{" INSERT VALUE "});
 
     animater(std::string{"Enter the value: "});
-    if (!sc.scan(value))
-        return;
+
+    sc.scan(value);
 
     std::cout << std::endl;
 
     animater(std::string{"Enter the position: "});
-    if (!sc.scan(pos))
-        return;
+
+    sc.scan(pos);
 
     arr.insert(value, pos);
 }
@@ -234,14 +253,13 @@ void ArrayHandler<T>::remove_value()
     header(std::string{" DELETE VALUE "});
 
     animater(std::string{"Enter the position: "});
-    if (!sc.scan(pos))
-        return;
+
+    sc.scan(pos);
 
     value = arr.remove(pos);
 
-    if (value != arr.get_min_val())
-        std::cout << std::endl
-                  << value << " is deleted from the array";
+    std::cout << std::endl
+              << value << " is deleted from the array";
 }
 
 template <typename T>
@@ -257,16 +275,14 @@ void ArrayHandler<T>::remove_multiple_values()
     header(std::string{" DELETE MULTIPLE VALUES "});
 
     animater(std::string{"Enter the starting position: "});
-    if (!sc.scan(pos))
-        return;
+
+    sc.scan(pos);
 
     std::cout << std::endl;
 
     animater(std::string{"Enter the number of elements: "});
-    if (!sc.scan(n))
-        return;
 
-    // std::cout << std::endl;
+    sc.scan(n);
 
     values = arr.remove(pos, n);
 
