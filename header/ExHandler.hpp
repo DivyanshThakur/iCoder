@@ -30,15 +30,6 @@ public:
     virtual const char *what() const noexcept;
 };
 
-class NouserException : public std::exception
-{
-public:
-    NouserException() noexcept = default;
-    ~NouserException() = default;
-
-    virtual const char *what() const noexcept;
-};
-
 class PasswordNotMatchedException : public std::exception
 {
 public:

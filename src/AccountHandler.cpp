@@ -95,10 +95,12 @@ void login()
     catch (const FileNotOpenedException &e)
     {
         std::cerr << e.what();
+        press_key();
     }
     catch (...)
     {
         std::cerr << "Unknown error occured!!!" << std::endl;
+        press_key();
     }
 }
 
@@ -142,10 +144,12 @@ void create_account()
     catch (const SavingUserException &e)
     {
         std::cerr << e.what();
+        press_key();
     }
     catch (const FileNotOpenedException &e)
     {
         std::cerr << e.what();
+        press_key();
     }
     catch (const UsernameAlreadyExistsException &e)
     {
@@ -159,6 +163,7 @@ void create_account()
     catch (...)
     {
         std::cerr << "Unknown error occured!!!" << std::endl;
+        press_key();
     }
 }
 
@@ -172,14 +177,10 @@ void display_users()
     header(" USERS ");
 
     std::ifstream file(fuser);
-    try
+
+    if (!file)
     {
-        if (!file)
-            throw NouserException();
-    }
-    catch (const NouserException &e)
-    {
-        std::cerr << e.what() << std::endl;
+        std::cout << "No user in database!";
         return;
     }
 

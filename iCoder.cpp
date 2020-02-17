@@ -24,8 +24,8 @@ int main()
 
     if (check_new_user()) // if there is no current user, it displays below message
     {
-        title();                                                               // display title
-        emessage(std::string{"--> Use ESC key to return to previous screen"}); // 1 time message to user
+        title();                                                                     // display title
+        emessage(std::string{" HINT --> Use ESC key to return to previous screen"}); // 1 time message to user
     }
 
     if (check_active_user()) // checking for current signed user

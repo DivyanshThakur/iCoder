@@ -16,14 +16,7 @@ const char *InvalidChoiceException::what() const noexcept
 
 const char *InvalidInputException::what() const noexcept
 {
-    border(width_menu);
     return "Invalid input!";
-}
-
-const char *NouserException::what() const noexcept
-{
-    border(width_menu);
-    return "No user in database!";
 }
 
 const char *PasswordNotMatchedException::what() const noexcept
