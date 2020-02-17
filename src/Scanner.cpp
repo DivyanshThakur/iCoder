@@ -1,7 +1,6 @@
 #include <iostream>
 #include <sstream>
 #include <conio.h>
-
 #include "../header/Scanner.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
