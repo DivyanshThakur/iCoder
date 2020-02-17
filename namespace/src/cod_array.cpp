@@ -224,6 +224,16 @@ void cod::array<T>::update_size(int x)
     if (static_cast<int>(size) == x)
         return;
 
+    if (x < static_cast<int>(len))
+    {
+        bool in;
+
+        in = confirm_the_change(std::string{"Entered size is less than actual\nSome elements might get deleted!"});
+
+        if (!in)
+            return;
+    }
+
     size = x;
 
     if (len > size)

@@ -130,3 +130,22 @@ bool press_esc()
 
     return (ch == ESC);
 }
+
+bool confirm_the_change(const std::string &message)
+{
+    print_message(message);
+
+    border(width_menu);
+
+    animater(std::string{"Do you want to proceed? (Y/N): "});
+
+    // scanning character
+    Scanner sc;
+    char c;
+    sc.scan(c);
+
+    if (c == ESC)
+        return false;
+
+    return (::tolower(c) == 'y');
+}
