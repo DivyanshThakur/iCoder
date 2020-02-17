@@ -6,11 +6,6 @@
 #include "../header/Scanner.hpp"
 #include "../header/Constants.hpp"
 
-void mod(int &x)
-{
-    x = 0 - x;
-}
-
 void load()
 {
 
