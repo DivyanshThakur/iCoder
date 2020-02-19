@@ -3,8 +3,13 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.0
+ * VERSION - 1.2-BETA
  * 
+ * FIRST BETA - 27 DECEMBER, 2019
+ * 
+ * FIRST STABLE RELEASE - 19 FEBRUARY, 2020
+ * 
+ * DESCRIPTION :
  * A SMALL PROJECT WITH ALL FEATURES SUCH AS DATA STRUCTURE & ALGORITHM, GAMES AND MUCH MORE...
  * 
  * **********************************************************************************************************************/
