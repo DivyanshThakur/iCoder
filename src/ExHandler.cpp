@@ -16,6 +16,7 @@ const char *InvalidChoiceException::what() const noexcept
 
 const char *InvalidInputException::what() const noexcept
 {
+    border(width_menu);
     return "Invalid input!";
 }
 
