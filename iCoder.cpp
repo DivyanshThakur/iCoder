@@ -1,3 +1,14 @@
+/*************************************************************************************************************************
+ *                                                   ICODER
+ * 
+ * DEVELOPER - DIVYANSH SINGH THAKUR
+ * 
+ * VERSION - 1.0
+ * 
+ * A SMALL PROJECT WITH ALL FEATURES SUCH AS DATA STRUCTURE & ALGORITHM, GAMES AND MUCH MORE...
+ * 
+ * **********************************************************************************************************************/
+
 #include <iostream>
 #include <fstream>
 #include <limits>
