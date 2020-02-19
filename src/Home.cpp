@@ -32,7 +32,7 @@ void home(const std::string &userID)
 
         home_controller(ch); // start as per user choice
 
-        if (ch == 7)
+        if (ch == 7 || ch == ESC)
             return;
 
     } while (ch != 8); // exit the program when ch == 8

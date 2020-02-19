@@ -146,7 +146,7 @@ void Scanner::scan(T &data, bool isLast)
         {
             if (isLast)
                 ++count;
-            else
+            else if (value.size()) // will break only when the string has minimum 1 element
                 break;
 
             if (count == 5)

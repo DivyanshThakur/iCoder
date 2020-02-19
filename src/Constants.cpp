@@ -8,7 +8,7 @@
 std::string signedUserID; // this will be initialized at runtime
 int sleep_time = 25;
 const std::string dev_name{"Divyansh Singh Thakur"};
-std::string version_info{"1.0"};
+std::string version_info{"1.2-BETA"};
 std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
 
 /** CONSTANTS **/
