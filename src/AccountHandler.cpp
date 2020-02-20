@@ -20,6 +20,14 @@ void restore_saved_changes()
     {
         signedUserID = std::string{"NULL"};
         sleep_time = 25;
+
+        std::ofstream out_file(fsetting);
+
+        print_to_file(out_file, std::string{"CURRENT_USER"}, signedUserID);
+        print_to_file(out_file, std::string{"ANIMATION_SPEED"}, sleep_time);
+
+        out_file.close();
+
         return;
     }
 
@@ -219,23 +227,17 @@ void save_to_file(const std::string &file_name, const std::string &title, const 
 {
     std::ifstream in_file(file_name);
 
-    std::string file_str, file_title, line;
-    bool isTitleFound = false;
+    std::string file_str, file_title, line, val;
 
     if (!in_file)
     {
-        std::ofstream out_file(file_name);
-
-        out_file << std::setw(width_username) << std::left << title
-                 << std::setw(width_username) << std::left << data << std::endl;
-
-        out_file.close();
+        std::cerr << "Error saving user details!" << std::endl;
         return;
     }
 
     while (std::getline(in_file, line))
     {
-        file_str += line + "\n";
+        file_str += line;
     }
 
     in_file.close();
@@ -244,37 +246,20 @@ void save_to_file(const std::string &file_name, const std::string &title, const 
 
     while (ss >> file_title)
     {
-        out_file << std::setw(width_username) << std::left << file_title;
+        ss >> val;
 
         if (file_title == title)
-        {
-            T temp;
-            ss >> temp;
-            out_file << std::setw(width_username) << std::left << data << std::endl;
-            isTitleFound = true;
-        }
+            print_to_file(out_file, file_title, data);
         else
-        {
-            if (file_title == std::string{"CURRENT_USER"})
-            {
-                std::string val;
-                ss >> val;
-                out_file << std::setw(width_username) << std::left << val << std::endl;
-            }
-            else if (file_title == std::string{"ANIMATION_SPEED"})
-            {
-                int val;
-                ss >> val;
-                out_file << std::setw(width_username) << std::left << val << std::endl;
-            }
-        }
+            print_to_file(out_file, file_title, val);
     }
+}
 
-    if (!isTitleFound)
-    {
-        out_file << std::setw(width_username) << std::left << title
-                 << std::setw(width_username) << std::left << data << std::endl;
-    }
+template <typename T>
+void print_to_file(std::ofstream &out_file, const std::string &title, const T &data)
+{
+    out_file << std::setw(width_username) << std::left << title
+             << std::setw(width_username) << std::left << data << std::endl;
 }
 
 template void save_to_file<std::string>(const std::string &file_name, const std::string &title, const std::string &data);

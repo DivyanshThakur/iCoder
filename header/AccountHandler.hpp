@@ -17,4 +17,7 @@ int nextLine();
 template <typename T>
 void save_to_file(const std::string &file_name, const std::string &title, const T &data);
 
+template <typename T>
+void print_to_file(std::ofstream &out_file, const std::string &title, const T &data);
+
 #endif
