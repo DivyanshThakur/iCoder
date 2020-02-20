@@ -56,7 +56,6 @@ void change_text_anime_speed()
 {
     int speed;
     Scanner sc;
-    std::ofstream file(fsetting, std::ios::app | std::ios::in);
 
     system("cls"); // clear the screen each time
 
@@ -64,13 +63,10 @@ void change_text_anime_speed()
 
     header(std::string{" CHANGE ANIMATION SPEED "});
 
-    std::cout << "Enter the speed:";
+    std::cout << "Enter the speed: ";
 
     try
     {
-        if (!file)
-            throw FileNotOpenedException();
-
         sc.scan(speed);
 
         if (speed < 0)
@@ -78,7 +74,7 @@ void change_text_anime_speed()
 
         sleep_time = speed;
 
-        save_to_file(file, std::string{"ANIMATION_SPEED"}, speed, nextLine());
+        save_to_file(fsetting, std::string{"ANIMATION_SPEED"}, speed);
     }
     catch (const EscPressed &e)
     {
@@ -92,9 +88,6 @@ void change_text_anime_speed()
     {
         std::cerr << e.what();
     }
-    catch (const FileNotOpenedException &e)
-    {
-        std::cerr << e.what();
-    }
+
     press_key();
 }

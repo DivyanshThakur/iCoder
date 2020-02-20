@@ -15,6 +15,6 @@ std::string pass_to_asteric(const std::string &pass);
 int nextLine();
 
 template <typename T>
-void save_to_file(std::ofstream &file, const std::string &title, const T &data, int pos = 0);
+void save_to_file(const std::string &file_name, const std::string &title, const T &data);
 
 #endif

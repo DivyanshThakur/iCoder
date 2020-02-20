@@ -6,10 +6,11 @@
 
 /*** GLOBAL VARIABLES ***/
 std::string signedUserID; // this will be initialized at runtime
-int sleep_time = 25;
+int sleep_time;
 const std::string dev_name{"Divyansh Singh Thakur"};
 std::string version_info{"1.2-BETA"};
 std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
+int pos_anime_speed;
 
 /** CONSTANTS **/
 

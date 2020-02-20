@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <iomanip>
 #include <string>
 #include <conio.h>
@@ -16,7 +17,11 @@ void restore_saved_changes()
     std::ifstream file(fsetting);
 
     if (!file)
+    {
+        signedUserID = std::string{"NULL"};
+        sleep_time = 25;
         return;
+    }
 
     std::string title;
 
@@ -43,20 +48,9 @@ bool check_new_user()
 
 void save_active_user(const std::string &userID)
 {
-    std::ofstream file(fsetting, std::ios::app);
-
-    if (!file)
-    {
-        std::cerr << "Error Saving current user" << std::endl;
-        press_key();
-        return;
-    }
-
     signedUserID = userID;
 
-    save_to_file(file, std::string{"CURRENT_USER"}, signedUserID);
-
-    file.close();
+    save_to_file(fsetting, std::string{"CURRENT_USER"}, signedUserID);
 }
 
 void login()
@@ -221,33 +215,67 @@ std::string pass_to_asteric(const std::string &pass)
 }
 
 template <typename T>
-void save_to_file(std::ofstream &file, const std::string &title, const T &data, int pos)
+void save_to_file(const std::string &file_name, const std::string &title, const T &data)
 {
+    std::ifstream in_file(file_name);
 
-    file.seekp(pos);
+    std::string file_str, file_title, line;
+    bool isTitleFound = false;
 
-    file << std::setw(width_username) << std::left << title
-         << std::setw(width_username) << std::left << data
-         << std::endl;
-}
-
-int nextLine()
-{
-    std::ifstream file(fsetting);
-
-    if (!file)
-        return 0;
-
-    char c;
-    int pos{0};
-    while (file >> c)
+    if (!in_file)
     {
-        if (c == '\n')
-            return pos;
-        ++pos;
+        std::ofstream out_file(file_name);
+
+        out_file << std::setw(width_username) << std::left << title
+                 << std::setw(width_username) << std::left << data << std::endl;
+
+        out_file.close();
+        return;
     }
-    return pos;
+
+    while (std::getline(in_file, line))
+    {
+        file_str += line + "\n";
+    }
+
+    in_file.close();
+    std::ofstream out_file(file_name);
+    std::stringstream ss{file_str};
+
+    while (ss >> file_title)
+    {
+        out_file << std::setw(width_username) << std::left << file_title;
+
+        if (file_title == title)
+        {
+            T temp;
+            ss >> temp;
+            out_file << std::setw(width_username) << std::left << data << std::endl;
+            isTitleFound = true;
+        }
+        else
+        {
+            if (file_title == std::string{"CURRENT_USER"})
+            {
+                std::string val;
+                ss >> val;
+                out_file << std::setw(width_username) << std::left << val << std::endl;
+            }
+            else if (file_title == std::string{"ANIMATION_SPEED"})
+            {
+                int val;
+                ss >> val;
+                out_file << std::setw(width_username) << std::left << val << std::endl;
+            }
+        }
+    }
+
+    if (!isTitleFound)
+    {
+        out_file << std::setw(width_username) << std::left << title
+                 << std::setw(width_username) << std::left << data << std::endl;
+    }
 }
 
-template void save_to_file<std::string>(std::ofstream &file, const std::string &title, const std::string &data, int pos);
-template void save_to_file<int>(std::ofstream &file, const std::string &title, const int &data, int pos);
+template void save_to_file<std::string>(const std::string &file_name, const std::string &title, const std::string &data);
+template void save_to_file<int>(const std::string &file_name, const std::string &title, const int &data);
