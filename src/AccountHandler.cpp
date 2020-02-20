@@ -27,12 +27,17 @@ bool check_active_user()
     if (!file)
         return false;
 
+    std::string title;
+
+    file >> title;
     file >> signedUserID;
-    if (signedUserID == std::string{"NULL"})
+
+    if (title == std::string{"CURRENT_USER"} && signedUserID == std::string{"NULL"})
     {
         file.close();
         return false;
     }
+
     file.close();
     return true;
 }
@@ -51,7 +56,8 @@ void save_active_user(const std::string &userID)
     signedUserID = userID;
 
     file.seekp(0, std::ios::beg);
-    file << std::setw(width_username + width_password) << std::left << signedUserID << std::endl
+    file << std::setw(width_username) << std::left << "CURRENT_USER"
+         << std::setw(width_username) << std::left << signedUserID
          << std::endl;
 
     file.close();
