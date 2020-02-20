@@ -11,6 +11,26 @@
 #include "../header/Home.hpp"
 #include "../header/CreateAccount.hpp"
 
+void restore_saved_changes()
+{
+    std::ifstream file(fsetting);
+
+    if (!file)
+        return;
+
+    std::string title;
+
+    while (file >> title)
+    {
+        if (title == std::string{"CURRENT_USER"})
+            file >> signedUserID;
+        else if (title == std::string{"ANIMATION_SPEED"})
+            file >> sleep_time;
+    }
+
+    file.close();
+}
+
 bool check_new_user()
 {
     std::ifstream file(fuser);
@@ -21,30 +41,9 @@ bool check_new_user()
     return false;
 }
 
-bool check_active_user()
-{
-    std::ifstream file(fsetting);
-    if (!file)
-        return false;
-
-    std::string title;
-
-    file >> title;
-    file >> signedUserID;
-
-    if (title == std::string{"CURRENT_USER"} && signedUserID == std::string{"NULL"})
-    {
-        file.close();
-        return false;
-    }
-
-    file.close();
-    return true;
-}
-
 void save_active_user(const std::string &userID)
 {
-    std::ofstream file(fsetting, std::ios::ate);
+    std::ofstream file(fsetting, std::ios::app);
 
     if (!file)
     {
@@ -55,10 +54,7 @@ void save_active_user(const std::string &userID)
 
     signedUserID = userID;
 
-    file.seekp(0, std::ios::beg);
-    file << std::setw(width_username) << std::left << "CURRENT_USER"
-         << std::setw(width_username) << std::left << signedUserID
-         << std::endl;
+    save_to_file(file, std::string{"CURRENT_USER"}, signedUserID);
 
     file.close();
 }
@@ -223,3 +219,35 @@ std::string pass_to_asteric(const std::string &pass)
         ast += "*";
     return ast;
 }
+
+template <typename T>
+void save_to_file(std::ofstream &file, const std::string &title, const T &data, int pos)
+{
+
+    file.seekp(pos);
+
+    file << std::setw(width_username) << std::left << title
+         << std::setw(width_username) << std::left << data
+         << std::endl;
+}
+
+int nextLine()
+{
+    std::ifstream file(fsetting);
+
+    if (!file)
+        return 0;
+
+    char c;
+    int pos{0};
+    while (file >> c)
+    {
+        if (c == '\n')
+            return pos;
+        ++pos;
+    }
+    return pos;
+}
+
+template void save_to_file<std::string>(std::ofstream &file, const std::string &title, const std::string &data, int pos);
+template void save_to_file<int>(std::ofstream &file, const std::string &title, const int &data, int pos);

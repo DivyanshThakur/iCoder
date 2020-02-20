@@ -38,14 +38,16 @@ int main()
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
 
+    restore_saved_changes(); // restore the settings that was previously changed and saved
+
     if (check_new_user()) // if there is no current user, it displays below message
     {
         title();                                                                     // display title
         emessage(std::string{" HINT --> Use ESC key to return to previous screen"}); // 1 time message to user
     }
 
-    if (check_active_user()) // checking for current signed user
-        home(signedUserID);  // if the user is saved in file it will automatically sign in the active user
+    if (signedUserID != std::string{"NULL"}) // checking for current signed user
+        home(signedUserID);                  // if the user is saved in file it will automatically sign in the active user
     else
         save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 

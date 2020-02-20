@@ -1,7 +1,9 @@
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
+#include "../header/AccountHandler.hpp"
 #include "../header/Constants.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
@@ -54,6 +56,7 @@ void change_text_anime_speed()
 {
     int speed;
     Scanner sc;
+    std::ofstream file(fsetting, std::ios::app | std::ios::in);
 
     system("cls"); // clear the screen each time
 
@@ -65,12 +68,17 @@ void change_text_anime_speed()
 
     try
     {
+        if (!file)
+            throw FileNotOpenedException();
+
         sc.scan(speed);
 
         if (speed < 0)
             throw NegativeValueException();
 
         sleep_time = speed;
+
+        save_to_file(file, std::string{"ANIMATION_SPEED"}, speed, nextLine());
     }
     catch (const EscPressed &e)
     {
@@ -81,6 +89,10 @@ void change_text_anime_speed()
         std::cerr << e.what();
     }
     catch (const NegativeValueException &e)
+    {
+        std::cerr << e.what();
+    }
+    catch (const FileNotOpenedException &e)
     {
         std::cerr << e.what();
     }

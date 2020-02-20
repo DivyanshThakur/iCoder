@@ -5,12 +5,16 @@
 
 /** FUNCTION PROTOTYPES **/
 
+void restore_saved_changes();
 void login();
 void display_users();
 bool check_new_user();
 void create_account();
-bool check_active_user();
 void save_active_user(const std::string &userID);
 std::string pass_to_asteric(const std::string &pass);
+int nextLine();
+
+template <typename T>
+void save_to_file(std::ofstream &file, const std::string &title, const T &data, int pos = 0);
 
 #endif
