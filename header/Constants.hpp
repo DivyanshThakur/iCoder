@@ -17,6 +17,7 @@ extern std::string scode_url;
 // uihandler.h
 extern const int console_width;
 extern const int console_height;
+extern const int console_title_relative_width;
 extern const int width_menu;
 extern const int width_title;
 extern const int width_index;

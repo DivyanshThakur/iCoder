@@ -27,12 +27,12 @@ void title()
 
     const std::string title{"iCoder"};
 
-    std::cout << std::setw(width_menu) << ""
+    std::cout << std::setw(console_title_relative_width) << ""
               << std::setw(width_title) << std::setfill('=') << ""
               << std::setfill(' ') << std::endl
-              << std::setw(width_menu + width_title / 2 - title.size() / 2) << ""
+              << std::setw(console_title_relative_width + width_title / 2 - title.size() / 2) << ""
               << title << std::endl
-              << std::setw(width_menu) << ""
+              << std::setw(console_title_relative_width) << ""
               << std::setw(width_title) << std::setfill('=') << ""
               << std::setfill(' ')
               << std::endl

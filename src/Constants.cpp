@@ -15,8 +15,9 @@ int pos_anime_speed;
 /** CONSTANTS **/
 
 // uihandler.h
-const int console_width = 800;
+const int console_width = 850;
 const int console_height = 600;
+const int console_title_relative_width = (113 - width_title) / 2;
 const int width_menu = 32;
 const int width_title = 30;
 const int width_index = 5;
