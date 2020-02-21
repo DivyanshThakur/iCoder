@@ -99,10 +99,7 @@ void ArrayHandler<T>::start()
 
         title(); // print the title = iCoder
 
-        if (arr.max_size())
-            menu(menu_update_size + array_data_listView);
-        else
-            menu(menu_create_size + array_data_listView);
+        menu(menu_screen_selector());
 
         sc.scanChoice(ch);
 
@@ -143,6 +140,32 @@ void ArrayHandler<T>::start()
 
     } while (ch != 20); // exit at ch==6
     exit(0);
+}
+
+template <typename T>
+std::string ArrayHandler<T>::menu_screen_selector()
+{
+    // select the correct menu to display as per need
+
+    std::string menu_to_display;
+
+    /***
+     * 
+     * if(theme=listview)menu_to_display= adListview
+     * else if(theme = titileview)m_to_d = adtview
+     * else if(t=gv) mtd=adgv
+     * 
+     * if(arr.maxsize()) mtd = menu update size + mtd
+     * else mtd = menu create size + mtd
+     * 
+     ***/
+
+    if (arr.max_size())
+        menu_to_display = menu_update_size + array_data_listView;
+    else
+        menu_to_display = menu_create_size + array_data_listView;
+
+    return menu_to_display;
 }
 
 template <typename T>

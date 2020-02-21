@@ -12,6 +12,7 @@ class ArrayHandler
     cod::array<T> arr;
     Scanner sc;
 
+    std::string menu_screen_selector();
     void arrays_controller(int ch);
     void update_size();
     void add_elements();
