@@ -100,13 +100,13 @@ void ArrayHandler<T>::start()
         title(); // print the title = iCoder
 
         if (arr.max_size())
-            menu(menu_update_size + array_data);
+            menu(menu_update_size + array_data_listView);
         else
-            menu(menu_create_size + array_data);
+            menu(menu_create_size + array_data_listView);
 
         sc.scanChoice(ch);
 
-        if (ch == ESC || ch == 7)
+        if (ch == ESC || ch == 19)
             return;
 
         try
@@ -141,7 +141,7 @@ void ArrayHandler<T>::start()
 
         press_key(); // program paused - getch()
 
-    } while (ch != 8); // exit at ch==6
+    } while (ch != 20); // exit at ch==6
     exit(0);
 }
 
@@ -174,7 +174,55 @@ void ArrayHandler<T>::arrays_controller(int ch)
         display_arr();
         break;
 
-    case 8: // exit the program
+    case 7:
+        print_message();
+        break;
+
+    case 8:
+        print_message();
+        break;
+
+    case 9:
+        print_message();
+        break;
+
+    case 10:
+        print_message();
+        break;
+
+    case 11:
+        print_message();
+        break;
+
+    case 12:
+        print_message();
+        break;
+
+    case 13:
+        print_message();
+        break;
+
+    case 14:
+        print_message();
+        break;
+
+    case 15:
+        print_message();
+        break;
+
+    case 16:
+        print_message();
+        break;
+
+    case 17:
+        print_message();
+        break;
+
+    case 18:
+        print_message();
+        break;
+
+    case 20: // exit the program
         return;
 
     default:
