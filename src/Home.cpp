@@ -32,7 +32,7 @@ void home(const std::string &userID)
 
         home_controller(ch); // start as per user choice
 
-        if (ch == 7 || ch == ESC)
+        if (ch == 7 || (ch == ESC && signedUserID == std::string{"NULL"}))
             return;
 
     } while (ch != 8); // exit the program when ch == 8
@@ -54,12 +54,10 @@ void home_controller(int ch)
 
     case 3: // matrices
         print_message();
-
         break;
 
     case 4: // sparse matrix
         print_message();
-
         break;
 
     case 5: // polynomial representation
@@ -78,7 +76,7 @@ void home_controller(int ch)
     case 8: // exit the program
         return;
 
-    case ESC: //ESC
+    case ESC:
         return;
 
     default:

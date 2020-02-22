@@ -15,6 +15,9 @@ extern std::string scode_url;
 /** CONSTANTS **/
 
 // uihandler.h
+extern const int console_width;
+extern const int console_height;
+extern const int console_title_relative_width;
 extern const int width_menu;
 extern const int width_title;
 extern const int width_index;
@@ -32,10 +35,17 @@ extern const std::string menu_update_size;
 
 // menuhandler.h
 extern const std::string main_menu_data;
-extern const std::string home_data;
 extern const std::string settings_data;
 extern const std::string get_dataType_data;
-extern const std::string array_data;
+
+// THEME - LIST VIEW
+extern const std::string home_data;
+extern const std::string array_data_listView;
+
+// THEME - TITLE VIEW
+extern const std::string array_data_titleView;
+
+// THEME - GRID VIEW
 
 //accounthandler.h
 extern const std::string fuser;

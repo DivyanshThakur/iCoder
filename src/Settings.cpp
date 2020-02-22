@@ -1,7 +1,9 @@
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
+#include "../header/AccountHandler.hpp"
 #include "../header/Constants.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
@@ -61,7 +63,7 @@ void change_text_anime_speed()
 
     header(std::string{" CHANGE ANIMATION SPEED "});
 
-    std::cout << "Enter the speed:";
+    std::cout << "Enter the speed: ";
 
     try
     {
@@ -71,6 +73,8 @@ void change_text_anime_speed()
             throw NegativeValueException();
 
         sleep_time = speed;
+
+        save_to_file(fsetting, std::string{"ANIMATION_SPEED"}, speed);
     }
     catch (const EscPressed &e)
     {
@@ -84,5 +88,6 @@ void change_text_anime_speed()
     {
         std::cerr << e.what();
     }
+
     press_key();
 }
