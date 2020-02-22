@@ -106,11 +106,11 @@ void ArrayHandler<T>::start()
         try
         {
             if (show_adv_opn)
-                arrays_controller(ch);
+                arrays_controller_adv(ch);
 
             else
             {
-                arrays_controller_limited(ch);
+                arrays_controller(ch);
 
                 if (ch == 8 || ch == 9)
                     ch += 11;
@@ -170,7 +170,8 @@ std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
 
     for (i = 2; i < array_data.size() - 2; ++i)
     {
-        menu_to_display.push_back(array_data.at(i));
+        if (!(i == 7 && show_adv_opn))
+            menu_to_display.push_back(array_data.at(i));
 
         if (i == 7 && !show_adv_opn)
             break;
@@ -185,7 +186,7 @@ std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
 }
 
 template <typename T>
-void ArrayHandler<T>::arrays_controller_limited(int ch)
+void ArrayHandler<T>::arrays_controller(int ch)
 {
 
     switch (ch)
@@ -227,7 +228,7 @@ void ArrayHandler<T>::arrays_controller_limited(int ch)
 }
 
 template <typename T>
-void ArrayHandler<T>::arrays_controller(int ch)
+void ArrayHandler<T>::arrays_controller_adv(int ch)
 {
     switch (ch)
     {

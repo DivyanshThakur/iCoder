@@ -16,7 +16,7 @@ class ArrayHandler
 
     std::vector<std::string> menu_screen_selector();
     void arrays_controller(int ch);
-    void arrays_controller_limited(int ch);
+    void arrays_controller_adv(int ch);
     void update_size();
     void add_elements();
     void insert_value();
