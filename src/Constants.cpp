@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "../header/Constants.hpp"
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
@@ -33,12 +32,12 @@ const std::string menu_create_size{" 1. Add max size\n"};
 const std::string menu_update_size{" 1. Update max size\n"};
 
 // menuhandler.h
-const std::string main_menu_data{" 1. Log In\n 2. Create Account\n 3. Try (Anonymous)\n 4. Users\n 5. About\n 6. Settings\n 7. Exit"};
-const std::string settings_data{" 1. Change text animation speed\n 2. Main Menu\n 3. Exit"};
-const std::string get_dataType_data{" 1. Int\n 2. Long\n 3. Double\n 4. Char\n 5. String\n 6. Home"};
+const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "About", "Settings", "Exit"};
+const std::vector<std::string> settings_data{"Change text animation speed", "Main Menu", "Exit"};
+const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String", "Home"};
+const std::vector<std::string> home_data{"Array", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
 
 // THEME - LIST VIEW
-const std::string home_data{" 1. Array (New)\n 2. Strings\n 3. Matrices\n 4. Sparse Matrix\n 5. Polynomial  Representation\n 6. Linked List and more...\n 7. Main Menu (Sign Out)\n 8. Exit"};
 const std::string array_data_listView{" 2. Add elements\n 3. Insert at a position\n 4. Delete multiple elements\n 5. Delete from a position\n 6. Display array\n 7. Linear Search\n 8. Binary Search\n 9. Average\n10. Sum\n11. Max and Min value\n12. Merge\n13. Shift/Rotation\n14. Reverse the Array\n15. SET Operations\n16. Find missing elements\n17. Finding Duplicates\n18. Find a pair with sum K\n19. Home\n20. Exit"};
 
 // THEME - TITLE VIEW

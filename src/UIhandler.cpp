@@ -39,7 +39,25 @@ void title()
               << std::endl;
 }
 
-void menu(std::string menu_str, const std::string heading)
+void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
+{ // show the specific menu
+
+    header(heading);
+
+    for (size_t index{0}; index < vec_menu.size(); ++index)
+    {
+        std::cout << std::setw(2) << index + 1 << ". " << vec_menu.at(index);
+
+        if (index < vec_menu.size() - 1)
+            std::cout << std::endl;
+    }
+
+    border(width_menu);
+
+    std::cout << "Your Choice: ";
+}
+
+void menu(std::string menu_str, const std::string &heading)
 { // show the specific menu
 
     header(heading);
