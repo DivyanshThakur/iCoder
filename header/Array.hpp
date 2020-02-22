@@ -1,6 +1,7 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
+#include <vector>
 #include "../namespace/header/cod_array.hpp"
 
 void Arrays();
@@ -11,9 +12,11 @@ class ArrayHandler
 {
     cod::array<T> arr;
     Scanner sc;
+    bool show_adv_opn{false};
 
-    std::string menu_screen_selector();
+    std::vector<std::string> menu_screen_selector();
     void arrays_controller(int ch);
+    void arrays_controller_limited(int ch);
     void update_size();
     void add_elements();
     void insert_value();

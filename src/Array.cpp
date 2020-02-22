@@ -103,12 +103,24 @@ void ArrayHandler<T>::start()
 
         sc.scanChoice(ch);
 
-        if (ch == ESC || ch == 19)
-            return;
-
         try
         {
-            arrays_controller(ch);
+            if (show_adv_opn)
+                arrays_controller(ch);
+
+            else
+            {
+                arrays_controller_limited(ch);
+
+                if (ch == 8 || ch == 9)
+                    ch += 11;
+            }
+
+            if (ch == ESC || ch == 19)
+                return;
+
+            if (ch == 20)
+                exit(0);
         }
         catch (const EscPressed &e)
         {
@@ -135,37 +147,83 @@ void ArrayHandler<T>::start()
             border(width_menu);
             std::cerr << "Unknown error occured" << std::endl;
         }
+        if (ch == 7 && !show_adv_opn)
+            show_adv_opn = true;
+        else
+            press_key(); // program paused - getch()
 
-        press_key(); // program paused - getch()
-
-    } while (ch != 20); // exit at ch==6
-    exit(0);
+    } while (1); // true
 }
 
 template <typename T>
-std::string ArrayHandler<T>::menu_screen_selector()
+std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
 {
     // select the correct menu to display as per need
 
-    std::string menu_to_display;
-
-    /***
-     * 
-     * if(theme=listview)menu_to_display= adListview
-     * else if(theme = titileview)m_to_d = adtview
-     * else if(t=gv) mtd=adgv
-     * 
-     * if(arr.maxsize()) mtd = menu update size + mtd
-     * else mtd = menu create size + mtd
-     * 
-     ***/
+    std::vector<std::string> menu_to_display;
+    size_t i;
 
     if (arr.max_size())
-        menu_to_display = menu_update_size + array_data_listView;
+        menu_to_display.push_back(array_data.at(0));
     else
-        menu_to_display = menu_create_size + array_data_listView;
+        menu_to_display.push_back(array_data.at(1));
+
+    for (i = 2; i < array_data.size() - 2; ++i)
+    {
+        menu_to_display.push_back(array_data.at(i));
+
+        if (i == 7 && !show_adv_opn)
+            break;
+    }
+
+    i = array_data.size() - 2;
+
+    while (i < array_data.size())
+        menu_to_display.push_back(array_data.at(i++));
 
     return menu_to_display;
+}
+
+template <typename T>
+void ArrayHandler<T>::arrays_controller_limited(int ch)
+{
+
+    switch (ch)
+    {
+    case 1: // add or update size of array
+        update_size();
+        break;
+
+    case 2: // add elements after last element in array
+        add_elements();
+        break;
+
+    case 3: // insert a value at a given position
+        insert_value();
+        break;
+
+    case 4: // delete a range of values
+        remove_multiple_values();
+        break;
+
+    case 5: // delete from a given position
+        remove_value();
+        break;
+
+    case 6: // display elements
+        display_arr();
+        break;
+
+    case 7:   // make show_adb_opn = true at end of while loop
+    case 8:   // return to Home
+    case 9:   // exit the program
+    case ESC: // return
+        break;
+
+    default:
+        print_message(std::string{"Invalid choice"});
+        break;
+    }
 }
 
 template <typename T>
@@ -245,8 +303,10 @@ void ArrayHandler<T>::arrays_controller(int ch)
         print_message();
         break;
 
-    case 20: // exit the program
-        return;
+    case 19:  // return to Homw
+    case ESC: // return
+    case 20:  // exit the program
+        break;
 
     default:
         print_message(std::string{"Invalid choice"});

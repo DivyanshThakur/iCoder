@@ -27,23 +27,14 @@ const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};
 const std::string txtString{"String"};
 
-// common menu option
-const std::string menu_create_size{" 1. Add max size\n"};
-const std::string menu_update_size{" 1. Update max size\n"};
-
 // menuhandler.h
 const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "About", "Settings", "Exit"};
 const std::vector<std::string> settings_data{"Change text animation speed", "Main Menu", "Exit"};
 const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String", "Home"};
 const std::vector<std::string> home_data{"Array", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
+const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Average", "Sum", "Max and Min value", "Merge", "Shift/Rotation", "Reverse the Array", "SET Operations", "Find missing elements", "Finding Duplicates", "Find a pair with sum K", "Home", "Exit"};
 
-// THEME - LIST VIEW
-const std::string array_data_listView{" 2. Add elements\n 3. Insert at a position\n 4. Delete multiple elements\n 5. Delete from a position\n 6. Display array\n 7. Linear Search\n 8. Binary Search\n 9. Average\n10. Sum\n11. Max and Min value\n12. Merge\n13. Shift/Rotation\n14. Reverse the Array\n15. SET Operations\n16. Find missing elements\n17. Finding Duplicates\n18. Find a pair with sum K\n19. Home\n20. Exit"};
-
-// THEME - TITLE VIEW
-const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
-
-// THEME - GRID VIEW
+// const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 
 //accounthandler.h
 const std::string fuser{"./data/users.dat"};

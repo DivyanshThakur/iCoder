@@ -30,23 +30,12 @@ extern const std::string txtUsername;
 extern const std::string txtChar;
 extern const std::string txtString;
 
-// common menu option
-extern const std::string menu_create_size;
-extern const std::string menu_update_size;
-
 // menuhandler.h
 extern const std::vector<std::string> main_menu_data;
 extern const std::vector<std::string> settings_data;
 extern const std::vector<std::string> get_dataType_data;
 extern const std::vector<std::string> home_data;
-
-// THEME - LIST VIEW
-extern const std::string array_data_listView;
-
-// THEME - TITLE VIEW
-extern const std::string array_data_titleView;
-
-// THEME - GRID VIEW
+extern const std::vector<std::string> array_data;
 
 //accounthandler.h
 extern const std::string fuser;
