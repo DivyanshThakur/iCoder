@@ -3,7 +3,7 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.2-BETA
+ * VERSION - 1.2
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
@@ -31,12 +31,17 @@
 void main_menu_controller(int ch);
 void makeDirectory();
 bool isDirectoryExists();
+void adjust_console_size();
 void about();
 
 int main()
 {
+    adjust_console_size(); // adjust the window size
+
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
+
+    restore_saved_changes(); // restore the settings that was previously changed and saved
 
     if (check_new_user()) // if there is no current user, it displays below message
     {
@@ -44,8 +49,8 @@ int main()
         emessage(std::string{" HINT --> Use ESC key to return to previous screen"}); // 1 time message to user
     }
 
-    if (check_active_user()) // checking for current signed user
-        home(signedUserID);  // if the user is saved in file it will automatically sign in the active user
+    if (signedUserID != std::string{"NULL"}) // checking for current signed user
+        home(signedUserID);                  // if the user is saved in file it will automatically sign in the active user
     else
         save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 
@@ -157,4 +162,13 @@ void about()
         system(std::string("start " + scode_url).c_str());
     else
         return;
+}
+
+void adjust_console_size()
+{
+    HWND console = GetConsoleWindow();
+    RECT r;
+    GetWindowRect(console, &r); //stores the console's current dimensions
+
+    MoveWindow(console, r.left, r.top, console_width, console_height, TRUE); // 850 width, 600 height
 }

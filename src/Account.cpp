@@ -58,7 +58,7 @@ void Account::display_remember_me() const
     if (c == ESC)
         throw EscPressed();
 
-    if (c == 'y' || c == 'Y')
+    if (::tolower(c) == 'y')
         save_active_user(userID); // save the current user
 }
 
