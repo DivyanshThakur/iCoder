@@ -39,7 +39,6 @@ obj\Scanner.o: src\Scanner.cpp header\Scanner.hpp
 obj\Array.o: src\Array.cpp header\Array.hpp
 	$(CC) $(CFLAGS) src\Array.cpp -o obj\Array.o
 
-
 obj\Settings.o: src\Settings.cpp header\Settings.hpp
 	$(CC) $(CFLAGS) src\Settings.cpp -o obj\Settings.o
 
@@ -57,10 +56,7 @@ obj\cod_limits.o: namespace\src\cod_limits.cpp namespace\header\cod_limits.hpp
 ### Extras
 
 clean:
-	rm -f obj/*.o iCoder iCoder.tar
+	rm -f obj/*.o iCoder
 
 cleandata:
 	rm -rf data
-
-tar:
-	tar cfv iCoder.tar Makefile src/*.cpp header/*.hpp namespace/src/*.cpp namespace/header/*.hpp
