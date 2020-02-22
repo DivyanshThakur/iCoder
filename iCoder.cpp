@@ -31,10 +31,13 @@
 void main_menu_controller(int ch);
 void makeDirectory();
 bool isDirectoryExists();
+void adjust_console_size();
 void about();
 
 int main()
 {
+    adjust_console_size(); // adjust the window size
+
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
 
@@ -159,4 +162,13 @@ void about()
         system(std::string("start " + scode_url).c_str());
     else
         return;
+}
+
+void adjust_console_size()
+{
+    HWND console = GetConsoleWindow();
+    RECT r;
+    GetWindowRect(console, &r); //stores the console's current dimensions
+
+    MoveWindow(console, r.left, r.top, console_width, console_height, TRUE); // 850 width, 600 height
 }
