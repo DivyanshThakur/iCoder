@@ -1,7 +1,3 @@
-#include <iostream>
-#include <string>
-#include <tchar.h>
-#include <windows.h>
 #include "../header/Constants.hpp"
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
@@ -16,23 +12,6 @@ std::string path;
 std::string fuser;
 std::string fsetting;
 // int pos_anime_speed;
-
-void create_path()
-{
-    TCHAR szBuf[MAX_PATH] = {0};
-    int i = 0;
-
-    ::GetEnvironmentVariable(_T( "USERPROFILE" ), szBuf, MAX_PATH);
-
-    while (szBuf[i] != '\0')
-    {
-        path += szBuf[i++];
-    }
-
-    path += "\\Documents\\iCoder";
-    fuser = path + "\\users.dat";
-    fsetting = path + "\\settings.dat";
-}
 
 /** CONSTANTS **/
 

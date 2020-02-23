@@ -15,8 +15,6 @@ extern std::string path;
 extern std::string fuser;
 extern std::string fsetting;
 
-void create_path();
-
 /** CONSTANTS **/
 
 // uihandler.h

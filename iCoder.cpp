@@ -19,6 +19,7 @@
 #include <limits>
 #include <windows.h>
 #include <conio.h>
+#include <tchar.h>
 #include <dir.h>
 #include "header/Constants.hpp"
 #include "header/UIhandler.hpp"
@@ -33,6 +34,7 @@ void makeDirectory();
 bool isDirectoryExists();
 void adjust_console_size();
 void about();
+void create_path();
 
 int main()
 {
@@ -172,4 +174,21 @@ void adjust_console_size()
     GetWindowRect(console, &r); //stores the console's current dimensions
 
     MoveWindow(console, r.left, r.top, console_width, console_height, TRUE); // 850 width, 600 height
+}
+
+void create_path()
+{
+    TCHAR szBuf[MAX_PATH] = {0};
+    int i = 0;
+
+    ::GetEnvironmentVariable(_T( "USERPROFILE" ), szBuf, MAX_PATH);
+
+    while (szBuf[i] != '\0')
+    {
+        path += szBuf[i++];
+    }
+
+    path += "\\Documents\\iCoder";
+    fuser = path + "\\users.dat";
+    fsetting = path + "\\settings.dat";
 }
