@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <tchar.h>
+#include <windows.h>
 #include "../header/Constants.hpp"
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
@@ -10,7 +12,27 @@ int sleep_time;
 const std::string dev_name{"Divyansh Singh Thakur"};
 std::string version_info{"1.2"};
 std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
-int pos_anime_speed;
+std::string path;
+std::string fuser;
+std::string fsetting;
+// int pos_anime_speed;
+
+void create_path()
+{
+    TCHAR szBuf[MAX_PATH] = {0};
+    int i = 0;
+
+    ::GetEnvironmentVariable(_T( "USERPROFILE" ), szBuf, MAX_PATH);
+
+    while (szBuf[i] != '\0')
+    {
+        path += szBuf[i++];
+    }
+
+    path += "\\Documents\\iCoder";
+    fuser = path + "\\users.dat";
+    fsetting = path + "\\settings.dat";
+}
 
 /** CONSTANTS **/
 
@@ -47,8 +69,6 @@ const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit
 // THEME - GRID VIEW
 
 //accounthandler.h
-const std::string fuser{"./data/users.dat"};
-const std::string fsetting{"./data/settings.dat"};
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};

@@ -11,6 +11,11 @@ extern int sleep_time;
 extern const std::string dev_name;
 extern std::string version_info;
 extern std::string scode_url;
+extern std::string path;
+extern std::string fuser;
+extern std::string fsetting;
+
+void create_path();
 
 /** CONSTANTS **/
 
@@ -48,8 +53,6 @@ extern const std::string array_data_titleView;
 // THEME - GRID VIEW
 
 //accounthandler.h
-extern const std::string fuser;
-extern const std::string fsetting;
 extern const std::string username;
 extern const std::string password;
 extern const std::string RePassword;

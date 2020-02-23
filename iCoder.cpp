@@ -37,6 +37,7 @@ void about();
 int main()
 {
     adjust_console_size(); // adjust the window size
+    create_path();         // initilize the paths
 
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
@@ -119,14 +120,14 @@ void main_menu_controller(int ch)
 void makeDirectory()
 {
     // these code will create a folder in that specific destination
-    std::string dirpath{"data"};
+    std::string dirpath{path};
     mkdir(dirpath.c_str());
 }
 
 bool isDirectoryExists()
 {
     // code to check if a Directory exists or not
-    DWORD attribs = ::GetFileAttributesA("data");
+    DWORD attribs = ::GetFileAttributesA(path.c_str());
 
     if (attribs == INVALID_FILE_ATTRIBUTES)
         return false;
