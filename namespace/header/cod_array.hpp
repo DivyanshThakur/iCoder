@@ -66,7 +66,7 @@ public:
     void clear();
     void swap(array &rhs);
     void swap(size_t i, size_t j);
-    T average(size_t start, int n) const;
+    double average(size_t start, int n) const;
 
     ~array();
 };

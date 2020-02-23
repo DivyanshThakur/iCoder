@@ -683,9 +683,10 @@ void ArrayHandler<T>::display_arr() const
 }
 
 template <typename T>
-T ArrayHandler<T>::average()
+void ArrayHandler<T>::average()
 {
     int ch{0};
+    size_t pos, n;
     T avg;
 
     do
@@ -700,18 +701,32 @@ T ArrayHandler<T>::average()
         {
         case 1:
             avg = arr.average(0, arr.length());
-            border(width_menu);
-            std::cout << "Average: " << avg;
-            break;
+            print_message(std::string{"Average: " + std::to_string(avg)});
+            return;
+
+        case 2:
+            animater(std::string{"\nEnter the starting position: "});
+            sc.scan(pos);
+
+            std::cout << std::endl;
+
+            animater(std::string{"Enter the number of elements: "});
+
+            sc.scan(n);
+
+            avg = arr.average(pos - 1, n);
+            print_message(std::string{"Average: " + std::to_string(avg)});
+            return;
 
         case ESC:
             throw EscPressed();
 
         default:
             print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
             break;
         }
-        press_key();
 
     } while (1);
 }

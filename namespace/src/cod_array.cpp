@@ -294,15 +294,22 @@ void cod::array<T>::swap(size_t i, size_t j)
 }
 
 template <typename T>
-T cod::array<T>::average(size_t start, int n) const
+double cod::array<T>::average(size_t start, int n) const
 {
-    int i = n;
-    T avg{DEF_VAL};
+    if (start >= len || start < 0)
+        throw InvalidPositionException();
 
-    while (i--)
+    double avg{0.0};
+    int i;
+
+    for (i = 0; i < n; ++i)
+    {
+        if (start == len)
+            break;
         avg += A[start++];
+    }
 
-    return (avg / n);
+    return (avg / i);
 }
 
 template <typename T>
@@ -314,15 +321,15 @@ cod::array<T>::~array()
 
 // useless types in funcitons
 template <>
-char cod::array<char>::average(size_t start, int n) const
+double cod::array<char>::average(size_t start, int n) const
 {
-    return DEF_VAL;
+    return 0;
 }
 
 template <>
-std::string cod::array<std::string>::average(size_t start, int n) const
+double cod::array<std::string>::average(size_t start, int n) const
 {
-    return DEF_VAL;
+    return 0;
 }
 
 // template class declaration
