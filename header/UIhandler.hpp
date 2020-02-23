@@ -9,7 +9,6 @@
 void load();
 void title();
 void menu(const std::vector<std::string> &vec_menu, const std::string &heading = " MENU ");
-void menu(std::string menu_str, const std::string &heading = " MENU ");
 void header(const std::string &menu_name);
 void border(int size);
 void emessage(const std::string &emessage);

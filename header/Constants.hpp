@@ -40,6 +40,9 @@ extern const std::vector<std::string> get_dataType_data;
 extern const std::vector<std::string> home_data;
 extern const std::vector<std::string> array_data;
 
+// small menu funtions
+extern const std::vector<std::string> average_data;
+
 //accounthandler.h
 extern const std::string username;
 extern const std::string password;

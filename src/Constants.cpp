@@ -33,8 +33,11 @@ const std::string txtString{"String"};
 const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "About", "Settings", "Exit"};
 const std::vector<std::string> settings_data{"Change text animation speed", "Main Menu", "Exit"};
 const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String", "Home"};
-const std::vector<std::string> home_data{"Array", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
-const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Average", "Sum", "Max and Min value", "Merge", "Shift/Rotation", "Reverse the Array", "SET Operations", "Find missing elements", "Finding Duplicates", "Find a pair with sum K", "Home", "Exit"};
+const std::vector<std::string> home_data{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
+const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "Shift/Rotation", "Reverse the Array", "SET Operations", "Find missing elements", "Finding Duplicates", "Find a pair with sum K", "Max and Min value", "Average", "Sum", "Home", "Exit"};
+
+// small menu funtions
+const std::vector<std::string> average_data{"Average of all elements", "Select a range"};
 
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 

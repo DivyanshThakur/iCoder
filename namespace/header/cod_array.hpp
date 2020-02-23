@@ -32,6 +32,7 @@ private:
     T *A;
     size_t size;
     size_t len;
+    T DEF_VAL;
 
 public:
     array();
@@ -65,6 +66,7 @@ public:
     void clear();
     void swap(array &rhs);
     void swap(size_t i, size_t j);
+    T average(size_t start, int n) const;
 
     ~array();
 };

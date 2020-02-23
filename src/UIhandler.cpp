@@ -58,18 +58,6 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
     std::cout << "Your Choice: ";
 }
 
-void menu(std::string menu_str, const std::string &heading)
-{ // show the specific menu
-
-    header(heading);
-
-    std::cout << menu_str;
-
-    border(width_menu); // display the footer '----'
-
-    std::cout << "Your Choice: ";
-}
-
 void header(const std::string &menu_name)
 {
 

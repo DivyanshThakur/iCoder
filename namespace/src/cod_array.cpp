@@ -5,10 +5,10 @@
 #include "../../header/ExHandler.hpp"
 
 template <typename T>
-cod::array<T>::array() : A(nullptr), size(0), len(0) {}
+cod::array<T>::array() : A(nullptr), size(0), len(0), DEF_VAL(cod::limits<T>::def()) {}
 
 template <typename T>
-cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0)
+cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), DEF_VAL(cod::limits<T>::def())
 {
     if (size < 0)
         throw NegativeValueException();
@@ -294,12 +294,38 @@ void cod::array<T>::swap(size_t i, size_t j)
 }
 
 template <typename T>
+T cod::array<T>::average(size_t start, int n) const
+{
+    int i = n;
+    T avg{DEF_VAL};
+
+    while (i--)
+        avg += A[start++];
+
+    return (avg / n);
+}
+
+template <typename T>
 cod::array<T>::~array()
 {
     delete[] A;
     size = len = 0;
 }
 
+// useless types in funcitons
+template <>
+char cod::array<char>::average(size_t start, int n) const
+{
+    return DEF_VAL;
+}
+
+template <>
+std::string cod::array<std::string>::average(size_t start, int n) const
+{
+    return DEF_VAL;
+}
+
+// template class declaration
 template class cod::array<int>;
 template class cod::array<long long>;
 template class cod::array<double>;

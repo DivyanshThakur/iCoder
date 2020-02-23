@@ -23,6 +23,7 @@ class ArrayHandler
     void remove_value();
     void remove_multiple_values();
     void display_arr() const;
+    T average();
 
 public:
     void start();
