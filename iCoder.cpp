@@ -32,11 +32,17 @@ void main_menu_controller(int ch);
 void makeDirectory();
 bool isDirectoryExists();
 void adjust_console_size();
+std::string get_http_data(const std::string &server, const std::string &file);
+void downloadiCoder();
 void about();
 
 int main()
 {
     adjust_console_size(); // adjust the window size
+
+    downloadiCoder();
+
+    press_key();
 
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
@@ -171,4 +177,63 @@ void adjust_console_size()
     GetWindowRect(console, &r); //stores the console's current dimensions
 
     MoveWindow(console, r.left, r.top, console_width, console_height, TRUE); // 850 width, 600 height
+}
+
+std::string get_http_data(const std::string &server, const std::string &file)
+{
+    try
+    {
+        boost::asio::ip::tcp::iostream s(server, "http");
+        s.expires_from_now(boost::posix_time::seconds(60));
+
+        if (!s)
+        {
+            throw "Unable to connect: " + s.error().message();
+        }
+
+        // ask for the file
+        s << "GET " << file << " HTTP/1.0\r\n";
+        s << "Host: " << server << "\r\n";
+        s << "Accept: */*\r\n";
+        s << "Connection: close\r\n\r\n";
+
+        // Check that response is OK.
+        std::string http_version;
+        s >> http_version;
+        unsigned int status_code;
+        s >> status_code;
+        std::string status_message;
+        std::getline(s, status_message);
+        if (!s && http_version.substr(0, 5) != "HTTP/")
+        {
+            throw "Invalid response\n";
+        }
+        if (status_code != 200)
+        {
+            throw "Response returned with status code " + status_code;
+        }
+
+        // Process the response headers, which are terminated by a blank line.
+        std::string header;
+        while (std::getline(s, header) && header != "\r")
+        {
+        }
+
+        // Write the remaining data to output.
+        std::stringstream ss;
+        ss << s.rdbuf();
+        return ss.str();
+    }
+    catch (std::exception &e)
+    {
+        return e.what();
+    }
+}
+
+void downloadiCoder()
+{
+    std::string result = get_http_data("www.open-std.org", "/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf");
+
+    std::ofstream of("cpp11_draft_n3242.pdf", std::ios::binary);
+    of << result;
 }
