@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../header/Constants.hpp"
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
@@ -9,7 +8,10 @@ int sleep_time;
 const std::string dev_name{"Divyansh Singh Thakur"};
 std::string version_info{"1.2"};
 std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
-int pos_anime_speed;
+std::string path;
+std::string fuser;
+std::string fsetting;
+// int pos_anime_speed;
 
 /** CONSTANTS **/
 
@@ -37,8 +39,6 @@ const std::vector<std::string> array_data{"Update max size", "Add max size", "Ad
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 
 //accounthandler.h
-const std::string fuser{"./data/users.dat"};
-const std::string fsetting{"./data/settings.dat"};
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};

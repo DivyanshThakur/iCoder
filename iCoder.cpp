@@ -19,6 +19,7 @@
 #include <limits>
 #include <windows.h>
 #include <conio.h>
+#include <tchar.h>
 #include <dir.h>
 #include "header/Constants.hpp"
 #include "header/UIhandler.hpp"
@@ -35,10 +36,12 @@ void adjust_console_size();
 std::string get_http_data(const std::string &server, const std::string &file);
 void downloadiCoder();
 void about();
+void create_path();
 
 int main()
 {
     adjust_console_size(); // adjust the window size
+    create_path();         // initilize the paths
 
     downloadiCoder();
 
@@ -125,14 +128,14 @@ void main_menu_controller(int ch)
 void makeDirectory()
 {
     // these code will create a folder in that specific destination
-    std::string dirpath{"data"};
+    std::string dirpath{path};
     mkdir(dirpath.c_str());
 }
 
 bool isDirectoryExists()
 {
     // code to check if a Directory exists or not
-    DWORD attribs = ::GetFileAttributesA("data");
+    DWORD attribs = ::GetFileAttributesA(path.c_str());
 
     if (attribs == INVALID_FILE_ATTRIBUTES)
         return false;
@@ -179,61 +182,19 @@ void adjust_console_size()
     MoveWindow(console, r.left, r.top, console_width, console_height, TRUE); // 850 width, 600 height
 }
 
-std::string get_http_data(const std::string &server, const std::string &file)
+void create_path()
 {
-    try
+    TCHAR szBuf[MAX_PATH] = {0};
+    int i = 0;
+
+    ::GetEnvironmentVariable(_T( "USERPROFILE" ), szBuf, MAX_PATH);
+
+    while (szBuf[i] != '\0')
     {
-        boost::asio::ip::tcp::iostream s(server, "http");
-        s.expires_from_now(boost::posix_time::seconds(60));
-
-        if (!s)
-        {
-            throw "Unable to connect: " + s.error().message();
-        }
-
-        // ask for the file
-        s << "GET " << file << " HTTP/1.0\r\n";
-        s << "Host: " << server << "\r\n";
-        s << "Accept: */*\r\n";
-        s << "Connection: close\r\n\r\n";
-
-        // Check that response is OK.
-        std::string http_version;
-        s >> http_version;
-        unsigned int status_code;
-        s >> status_code;
-        std::string status_message;
-        std::getline(s, status_message);
-        if (!s && http_version.substr(0, 5) != "HTTP/")
-        {
-            throw "Invalid response\n";
-        }
-        if (status_code != 200)
-        {
-            throw "Response returned with status code " + status_code;
-        }
-
-        // Process the response headers, which are terminated by a blank line.
-        std::string header;
-        while (std::getline(s, header) && header != "\r")
-        {
-        }
-
-        // Write the remaining data to output.
-        std::stringstream ss;
-        ss << s.rdbuf();
-        return ss.str();
+        path += szBuf[i++];
     }
-    catch (std::exception &e)
-    {
-        return e.what();
-    }
-}
 
-void downloadiCoder()
-{
-    std::string result = get_http_data("www.open-std.org", "/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf");
-
-    std::ofstream of("cpp11_draft_n3242.pdf", std::ios::binary);
-    of << result;
+    path += "\\Documents\\iCoder";
+    fuser = path + "\\users.dat";
+    fsetting = path + "\\settings.dat";
 }

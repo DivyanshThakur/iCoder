@@ -12,6 +12,9 @@ extern int sleep_time;
 extern const std::string dev_name;
 extern std::string version_info;
 extern std::string scode_url;
+extern std::string path;
+extern std::string fuser;
+extern std::string fsetting;
 
 /** CONSTANTS **/
 
@@ -38,8 +41,6 @@ extern const std::vector<std::string> home_data;
 extern const std::vector<std::string> array_data;
 
 //accounthandler.h
-extern const std::string fuser;
-extern const std::string fsetting;
 extern const std::string username;
 extern const std::string password;
 extern const std::string RePassword;
