@@ -33,8 +33,6 @@ void main_menu_controller(int ch);
 void makeDirectory();
 bool isDirectoryExists();
 void adjust_console_size();
-std::string get_http_data(const std::string &server, const std::string &file);
-void downloadiCoder();
 void about();
 void create_path();
 
@@ -42,10 +40,6 @@ int main()
 {
     adjust_console_size(); // adjust the window size
     create_path();         // initilize the paths
-
-    downloadiCoder();
-
-    press_key();
 
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
