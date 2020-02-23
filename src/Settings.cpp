@@ -14,8 +14,6 @@ void settings()
     int ch{0};
     do
     {
-        system("cls"); // clear the screen each time
-
         title(); // print the title = iCoder
 
         menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
@@ -56,8 +54,6 @@ void change_text_anime_speed()
 {
     int speed;
     Scanner sc;
-
-    system("cls"); // clear the screen each time
 
     title(); // print the title = iCoder
 

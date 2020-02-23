@@ -63,8 +63,6 @@ void save_active_user(const std::string &userID)
 
 void login()
 {
-    system("cls");
-
     title(); // display the "iCoder" title
 
     header(std::string{" LOGIN "});
@@ -110,8 +108,6 @@ void login()
 
 void create_account()
 {
-    system("cls");
-
     title(); // display the "iCoder" title
 
     header(std::string{" CREATE ACCOUNT "}); // display the header
@@ -173,9 +169,6 @@ void create_account()
 
 void display_users()
 {
-
-    system("cls");
-
     title(); // display "iCoder"
 
     header(" USERS ");

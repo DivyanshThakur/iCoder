@@ -32,8 +32,6 @@ private:
     T *A;
     size_t size;
     size_t len;
-    T MIN_VALUE;
-    T DEF_VALUE;
 
 public:
     array();
@@ -66,6 +64,7 @@ public:
     bool empty() const;
     void clear();
     void swap(array &rhs);
+    void swap(size_t i, size_t j);
 
     ~array();
 };

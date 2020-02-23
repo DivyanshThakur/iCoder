@@ -5,10 +5,10 @@
 #include "../../header/ExHandler.hpp"
 
 template <typename T>
-cod::array<T>::array() : A(nullptr), size(0), len(0), MIN_VALUE(cod::limits<T>::min()), DEF_VALUE(cod::limits<T>::def()) {}
+cod::array<T>::array() : A(nullptr), size(0), len(0) {}
 
 template <typename T>
-cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), MIN_VALUE(cod::limits<T>::min()), DEF_VALUE(cod::limits<T>::def())
+cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0)
 {
     if (size < 0)
         throw NegativeValueException();
@@ -283,6 +283,14 @@ void cod::array<T>::swap(cod::array<T> &rhs)
     cod::array<T> temp{*this};
     *this = rhs;
     rhs = temp;
+}
+
+template <typename T>
+void cod::array<T>::swap(size_t i, size_t j)
+{
+    T temp = A[i];
+    A[i] = A[j];
+    A[j] = temp;
 }
 
 template <typename T>

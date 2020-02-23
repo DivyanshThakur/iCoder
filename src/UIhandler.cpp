@@ -23,9 +23,10 @@ void load()
 }
 
 void title()
-{ // this display the title at top of screen
+{
+    system("cls"); // clear the screen each time
 
-    const std::string title{"iCoder"};
+    const std::string title{"iCoder"}; // this display the title at top of screen
 
     std::cout << std::setw(console_title_relative_width) << ""
               << std::setw(width_title) << std::setfill('=') << ""

@@ -57,6 +57,3 @@ obj\cod_limits.o: namespace\src\cod_limits.cpp namespace\header\cod_limits.hpp
 
 clean:
 	rm -f obj/*.o iCoder
-
-cleandata:
-	rm -rf data

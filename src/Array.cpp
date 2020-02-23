@@ -13,8 +13,6 @@ void Arrays()
 
     do
     {
-        system("cls"); // clear the screen each timemenu_controller
-
         title(); // print the title = iCoder
 
         menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
@@ -95,8 +93,6 @@ void ArrayHandler<T>::start()
 
     do
     {
-        system("cls"); // clear the screen each timemenu_controller
-
         title(); // print the title = iCoder
 
         menu(menu_screen_selector());
@@ -320,8 +316,6 @@ void ArrayHandler<T>::update_size()
 {
     int size;
 
-    system("cls"); // clear the screen each timemenu_controller
-
     title(); // print the title = iCoder
 
     header(std::string{" ARRAY SIZE "});
@@ -338,8 +332,6 @@ void ArrayHandler<T>::add_elements()
     int len;
     bool isLast;
     T value;
-
-    system("cls"); // clear the screen each timemenu_controller
 
     title(); // print the title = iCoder
 
@@ -370,8 +362,6 @@ void ArrayHandler<T>::insert_value()
     size_t pos;
     T value;
 
-    system("cls"); // clear the screen each timemenu_controller
-
     title(); // print the title = iCoder
 
     header(std::string{" INSERT VALUE "});
@@ -395,8 +385,6 @@ void ArrayHandler<T>::remove_value()
     size_t pos;
     T value;
 
-    system("cls"); // clear the screen each timemenu_controller
-
     title(); // print the title = iCoder
 
     header(std::string{" DELETE VALUE "});
@@ -416,8 +404,6 @@ void ArrayHandler<T>::remove_multiple_values()
 {
     size_t pos, n;
     cod::array<T> values;
-
-    system("cls"); // clear the screen each timemenu_controller
 
     title(); // print the title = iCoder
 
@@ -458,8 +444,6 @@ void ArrayHandler<T>::remove_multiple_values()
 template <typename T>
 void ArrayHandler<T>::display_arr() const
 {
-    system("cls"); // clear the screen each time
-
     title(); // print the title = iCoder
 
     header(std::string{" DISPLAY ARRAY "});
