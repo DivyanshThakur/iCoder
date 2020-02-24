@@ -160,6 +160,9 @@ cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
     if (pos > len || pos <= 0)
         throw InvalidPositionException();
 
+    if (n < 0)
+        throw NegativeValueException();
+
     size_t i, j;
     i = pos - 1;
     for (j = 0; j < n; ++j, ++i)
@@ -302,6 +305,9 @@ double cod::array<T>::average(size_t start, int n) const
     if (start >= len || start < 0)
         throw InvalidPositionException();
 
+    if (n < 0)
+        throw NegativeValueException();
+
     double avg{0.0};
     int i;
 
@@ -324,6 +330,9 @@ T cod::array<T>::sum(size_t start, int n) const
     if (start >= len || start < 0)
         throw InvalidPositionException();
 
+    if (n < 0)
+        throw NegativeValueException();
+
     T sum{DEF_VAL};
     int i;
 
@@ -334,6 +343,25 @@ T cod::array<T>::sum(size_t start, int n) const
         sum += A[start++];
     }
     return sum;
+}
+
+template <typename T>
+T cod::array<T>::min() const
+{
+    if (len == 0)
+        throw ArrayEmptyException();
+
+    T min;
+
+    min = A[0];
+
+    for (size_t i{1}; i < len; ++i)
+    {
+        if (min > A[i])
+            min = A[i];
+    }
+
+    return min;
 }
 
 template <typename T>

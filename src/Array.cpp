@@ -584,11 +584,18 @@ void ArrayHandler<T>::add_elements()
 
     for (int i{0}; i < len; ++i)
     {
-        isLast = (i == len - 1);
+
+        if (arr.length() + 1 == arr.max_size())
+            isLast = true;
+        else
+            isLast = (i == len - 1);
 
         sc.scan(value, isLast);
 
         arr.push_back(value);
+
+        if (arr.length() == arr.max_size())
+            throw ArrayFullException();
     }
 }
 
