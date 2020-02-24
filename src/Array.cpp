@@ -123,6 +123,10 @@ void ArrayHandler<T>::start()
         {
             std::cerr << e.what();
         }
+        catch (const OutofBoundsException &e)
+        {
+            std::cerr << e.what();
+        }
         catch (const ArrayFullException &e)
         {
             std::cerr << e.what();
@@ -138,7 +142,7 @@ void ArrayHandler<T>::start()
         catch (...)
         {
             border(width_menu);
-            std::cerr << "Unknown error occured" << std::endl;
+            std::cerr << "Unknown error occured";
         }
         if (ch == 7 && !show_adv_opn)
             show_adv_opn = true;
@@ -198,7 +202,7 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
         if (!(i == 7 && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
-        if ((i == 7 && !show_adv_opn) || (i == 17 && show_adv_opn))
+        if ((i == 7 && !show_adv_opn) || (i == 19 && show_adv_opn))
             break;
     }
 
@@ -228,7 +232,7 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
         if (!(i == 7 && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
-        if ((i == 7 && !show_adv_opn) || (i == 17 && show_adv_opn))
+        if ((i == 7 && !show_adv_opn) || (i == 19 && show_adv_opn))
             break;
     }
 
@@ -358,21 +362,28 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         print_message();
         break;
 
-    case 17:
+    case 17: // get value
+        get_value();
+        break;
+
+    case 18: // set value
+        set_value();
+        break;
+
+    case 19:
         // average value
         average();
         break;
 
-    case 18:
-        // sum
+    case 20: // sum
         sum();
         break;
 
-    case 19:  // return to Home
+    case 21:  // return to Home
     case ESC: // return
         throw Esc();
 
-    case 20: // exit the program
+    case 22: // exit the program
         exit(0);
 
     default:
@@ -450,11 +461,19 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         print_message();
         break;
 
-    case 17:  // return to Home
+    case 17: // get value
+        get_value();
+        break;
+
+    case 18: // set value
+        set_value();
+        break;
+
+    case 19:  // return to Home
     case ESC: // return
         throw Esc();
 
-    case 18: // exit the program
+    case 20: // exit the program
         exit(0);
 
     default:
@@ -532,11 +551,19 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         print_message();
         break;
 
-    case 17:  // return to Home
+    case 17: // get value
+        get_value();
+        break;
+
+    case 18: // set value
+        set_value();
+        break;
+
+    case 19:  // return to Home
     case ESC: // return
         throw Esc();
 
-    case 18: // exit the program
+    case 20: // exit the program
         exit(0);
 
     default:
@@ -794,4 +821,48 @@ void ArrayHandler<T>::sum()
         }
 
     } while (1);
+}
+
+template <typename T>
+void ArrayHandler<T>::get_value()
+{
+    size_t pos;
+
+    title(); // print the title "iCoder"
+
+    header(std::string{" GET VALUE "});
+
+    animater(std::string{"Enter the position: "});
+    sc.scan(pos);
+
+    T val = arr[pos - 1];
+
+    border(width_menu);
+    std::cout << "Value: " << val;
+}
+
+template <typename T>
+void ArrayHandler<T>::set_value()
+{
+    size_t pos;
+    T set_val, get_val;
+
+    title(); // print the title "iCoder"
+
+    header(std::string{" SET VALUE "});
+
+    animater(std::string{"Enter the position: "});
+    sc.scan(pos);
+
+    std::cout << std::endl;
+
+    animater(std::string{"Enter the value: "});
+    sc.scan(set_val);
+
+    get_val = arr[pos - 1];
+    arr[pos - 1] = set_val;
+
+    border(width_menu);
+    std::cout << "Old Value: " << get_val << std::endl
+              << "New Value: " << set_val;
 }

@@ -25,6 +25,8 @@ class ArrayHandler
     void display_arr() const;
     void average();
     void sum();
+    void get_value();
+    void set_value();
 
 public:
     void start();

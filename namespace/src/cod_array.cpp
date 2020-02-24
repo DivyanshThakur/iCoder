@@ -49,19 +49,25 @@ cod::array<T>::array(cod::array<T> &&rhs)
 template <typename T>
 T cod::array<T>::operator[](size_t x) const
 {
+    if (x < 0 || x >= len)
+        throw OutofBoundsException();
+
     return A[x];
 }
 
 template <typename T>
 T &cod::array<T>::operator[](size_t x)
 {
+    if (x < 0 || x >= len)
+        throw OutofBoundsException();
+
     return A[x];
 }
 
 template <typename T>
 T cod::array<T>::at(size_t x) const
 {
-    if (x < 0 || x >= size)
+    if (x < 0 || x >= len)
         throw OutofBoundsException();
 
     return A[x];
@@ -70,7 +76,7 @@ T cod::array<T>::at(size_t x) const
 template <typename T>
 T &cod::array<T>::at(size_t x)
 {
-    if (x < 0 || x >= size)
+    if (x < 0 || x >= len)
         throw OutofBoundsException();
 
     return A[x];
