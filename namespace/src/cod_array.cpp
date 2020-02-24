@@ -296,6 +296,9 @@ void cod::array<T>::swap(size_t i, size_t j)
 template <typename T>
 double cod::array<T>::average(size_t start, int n) const
 {
+    if (len == 0)
+        throw ArrayEmptyException();
+
     if (start >= len || start < 0)
         throw InvalidPositionException();
 

@@ -126,6 +126,10 @@ void ArrayHandler<T>::start()
         {
             std::cerr << e.what();
         }
+        catch (const ArrayEmptyException &e)
+        {
+            std::cerr << e.what();
+        }
         catch (const InvalidPositionException &e)
         {
             std::cerr << e.what();
@@ -190,10 +194,10 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
 
     for (i = 2; i < array_data.size() - 2; ++i)
     {
-        if (!((i == 7 || i == 10 || i == 11) && show_adv_opn))
+        if (!(i == 7 && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
-        if (i == 7 && !show_adv_opn)
+        if ((i == 7 && !show_adv_opn) || (i == 17 && show_adv_opn))
             break;
     }
 
