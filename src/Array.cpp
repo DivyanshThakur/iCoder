@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include "../header/Array.hpp"
 #include "../namespace/header/cod_array.hpp"
@@ -364,7 +365,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
 
     case 18:
         // sum
-        print_message();
+        sum();
         break;
 
     case 19:  // return to Home
@@ -691,7 +692,7 @@ void ArrayHandler<T>::average()
 {
     int ch{0};
     size_t pos, n;
-    T avg;
+    double avg;
 
     do
     {
@@ -705,11 +706,13 @@ void ArrayHandler<T>::average()
         {
         case 1:
             avg = arr.average(0, arr.length());
-            print_message(std::string{"Average: " + std::to_string(avg)});
+            print_message(std::string{"Average: "});
+            std::cout << std::fixed << std::setprecision(4) << avg;
             return;
 
         case 2:
-            animater(std::string{"\nEnter the starting position: "});
+            border(width_menu);
+            animater(std::string{"Enter the starting position: "});
             sc.scan(pos);
 
             std::cout << std::endl;
@@ -719,7 +722,58 @@ void ArrayHandler<T>::average()
             sc.scan(n);
 
             avg = arr.average(pos - 1, n);
-            print_message(std::string{"Average: " + std::to_string(avg)});
+            print_message(std::string{"Average: "});
+            std::cout << std::fixed << std::setprecision(4) << avg;
+            return;
+
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+
+    } while (1);
+}
+
+template <typename T>
+void ArrayHandler<T>::sum()
+{
+    int ch{0};
+    size_t pos, n;
+    T sum;
+
+    do
+    {
+        title(); // print the title "iCoder"
+
+        menu(average_data, std::string{" SUM "});
+
+        sc.scanChoice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            sum = arr.sum(0, arr.length());
+            print_message(std::string{"Sum: " + std::to_string(sum)});
+            return;
+
+        case 2:
+            border(width_menu);
+            animater(std::string{"Enter the starting position: "});
+            sc.scan(pos);
+
+            std::cout << std::endl;
+
+            animater(std::string{"Enter the number of elements: "});
+
+            sc.scan(n);
+
+            sum = arr.sum(pos - 1, n);
+            print_message(std::string{"Sum: " + std::to_string(sum)});
             return;
 
         case ESC:

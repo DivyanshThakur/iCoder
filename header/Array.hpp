@@ -24,6 +24,7 @@ class ArrayHandler
     void remove_multiple_values();
     void display_arr() const;
     void average();
+    void sum();
 
 public:
     void start();

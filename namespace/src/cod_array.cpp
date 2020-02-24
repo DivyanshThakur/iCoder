@@ -316,6 +316,27 @@ double cod::array<T>::average(size_t start, int n) const
 }
 
 template <typename T>
+T cod::array<T>::sum(size_t start, int n) const
+{
+    if (len == 0)
+        throw ArrayEmptyException();
+
+    if (start >= len || start < 0)
+        throw InvalidPositionException();
+
+    T sum{DEF_VAL};
+    int i;
+
+    for (i = 0; i < n; ++i)
+    {
+        if (start == len)
+            break;
+        sum += A[start++];
+    }
+    return sum;
+}
+
+template <typename T>
 cod::array<T>::~array()
 {
     delete[] A;
@@ -331,6 +352,18 @@ double cod::array<char>::average(size_t start, int n) const
 
 template <>
 double cod::array<std::string>::average(size_t start, int n) const
+{
+    return 0;
+}
+
+template <>
+char cod::array<char>::sum(size_t start, int n) const
+{
+    return 0;
+}
+
+template <>
+std::string cod::array<std::string>::sum(size_t start, int n) const
 {
     return 0;
 }
