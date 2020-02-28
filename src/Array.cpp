@@ -784,7 +784,7 @@ void ArrayHandler<T>::sum()
     {
         title(); // print the title "iCoder"
 
-        menu(average_data, std::string{" SUM "});
+        menu(sum_data, std::string{" SUM "});
 
         sc.scanChoice(ch);
 

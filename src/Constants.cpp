@@ -38,6 +38,7 @@ const std::vector<std::string> array_data{"Update max size", "Add max size", "Ad
 
 // small menu funtions
 const std::vector<std::string> average_data{"Average of all elements", "Select a range"};
+const std::vector<std::string> sum_data{"Sum of all elements", "Select a range"};
 
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 
