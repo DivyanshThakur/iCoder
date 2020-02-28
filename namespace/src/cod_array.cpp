@@ -371,6 +371,25 @@ T cod::array<T>::min() const
 }
 
 template <typename T>
+T cod::array<T>::max() const
+{
+    if (len == 0)
+        throw ArrayEmptyException();
+
+    T max;
+
+    max = A[0];
+
+    for (size_t i{1}; i < len; ++i)
+    {
+        if (max < A[i])
+            max = A[i];
+    }
+
+    return max;
+}
+
+template <typename T>
 cod::array<T>::~array()
 {
     delete[] A;

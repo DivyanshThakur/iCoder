@@ -20,13 +20,14 @@ class ArrayHandler
     void update_size();
     void add_elements();
     void insert_value();
-    void remove_value();
     void remove_multiple_values();
+    void remove_value();
     void display_arr() const;
-    void average();
-    void sum();
+    void max_min();
     void get_value();
     void set_value();
+    void average();
+    void sum();
 
 public:
     void start();

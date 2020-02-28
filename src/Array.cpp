@@ -359,7 +359,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         break;
 
     case 16: // min and max value
-        print_message();
+        max_min();
         break;
 
     case 17: // get value
@@ -650,26 +650,6 @@ void ArrayHandler<T>::insert_value()
 }
 
 template <typename T>
-void ArrayHandler<T>::remove_value()
-{
-    size_t pos;
-    T value;
-
-    title(); // print the title = iCoder
-
-    header(std::string{" DELETE VALUE "});
-
-    animater(std::string{"Enter the position: "});
-
-    sc.scan(pos);
-
-    value = arr.remove(pos);
-
-    std::cout << std::endl
-              << value << " is deleted from the array";
-}
-
-template <typename T>
 void ArrayHandler<T>::remove_multiple_values()
 {
     size_t pos, n;
@@ -712,6 +692,26 @@ void ArrayHandler<T>::remove_multiple_values()
 }
 
 template <typename T>
+void ArrayHandler<T>::remove_value()
+{
+    size_t pos;
+    T value;
+
+    title(); // print the title = iCoder
+
+    header(std::string{" DELETE VALUE "});
+
+    animater(std::string{"Enter the position: "});
+
+    sc.scan(pos);
+
+    value = arr.remove(pos);
+
+    std::cout << std::endl
+              << value << " is deleted from the array";
+}
+
+template <typename T>
 void ArrayHandler<T>::display_arr() const
 {
     title(); // print the title = iCoder
@@ -719,6 +719,64 @@ void ArrayHandler<T>::display_arr() const
     header(std::string{" DISPLAY ARRAY "});
 
     std::cout << arr;
+}
+
+template <typename T>
+void ArrayHandler<T>::max_min()
+{
+    T min_val = arr.min();
+    T max_val = arr.max();
+
+    title(); // print the title "iCoder"
+
+    header(std::string{" MAX & MIN VALUE "});
+
+    std::cout << "Min Value: " << min_val << std::endl
+              << "Max Value: " << max_val;
+}
+
+template <typename T>
+void ArrayHandler<T>::get_value()
+{
+    size_t pos;
+
+    title(); // print the title "iCoder"
+
+    header(std::string{" GET VALUE "});
+
+    animater(std::string{"Enter the position: "});
+    sc.scan(pos);
+
+    T val = arr[pos - 1];
+
+    border(width_menu);
+    std::cout << "Value: " << val;
+}
+
+template <typename T>
+void ArrayHandler<T>::set_value()
+{
+    size_t pos;
+    T set_val, get_val;
+
+    title(); // print the title "iCoder"
+
+    header(std::string{" SET VALUE "});
+
+    animater(std::string{"Enter the position: "});
+    sc.scan(pos);
+
+    std::cout << std::endl;
+
+    animater(std::string{"Enter the value: "});
+    sc.scan(set_val);
+
+    get_val = arr[pos - 1];
+    arr[pos - 1] = set_val;
+
+    border(width_menu);
+    std::cout << "Old Value: " << get_val << std::endl
+              << "New Value: " << set_val;
 }
 
 template <typename T>
@@ -821,48 +879,4 @@ void ArrayHandler<T>::sum()
         }
 
     } while (1);
-}
-
-template <typename T>
-void ArrayHandler<T>::get_value()
-{
-    size_t pos;
-
-    title(); // print the title "iCoder"
-
-    header(std::string{" GET VALUE "});
-
-    animater(std::string{"Enter the position: "});
-    sc.scan(pos);
-
-    T val = arr[pos - 1];
-
-    border(width_menu);
-    std::cout << "Value: " << val;
-}
-
-template <typename T>
-void ArrayHandler<T>::set_value()
-{
-    size_t pos;
-    T set_val, get_val;
-
-    title(); // print the title "iCoder"
-
-    header(std::string{" SET VALUE "});
-
-    animater(std::string{"Enter the position: "});
-    sc.scan(pos);
-
-    std::cout << std::endl;
-
-    animater(std::string{"Enter the value: "});
-    sc.scan(set_val);
-
-    get_val = arr[pos - 1];
-    arr[pos - 1] = set_val;
-
-    border(width_menu);
-    std::cout << "Old Value: " << get_val << std::endl
-              << "New Value: " << set_val;
 }
