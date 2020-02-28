@@ -303,6 +303,24 @@ void cod::array<T>::swap(size_t i, size_t j)
 }
 
 template <typename T>
+void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
+{
+    size_t i = start, j = end;
+
+    if (len == 0)
+        throw ArrayEmptyException();
+
+    if (start > end)
+        throw InvalidPositionException();
+
+    if (start < 0 || end >= len)
+        throw InvalidInputException();
+
+    while (i < j)
+        swap(i++, j--);
+}
+
+template <typename T>
 double cod::array<T>::average(size_t start, int n) const
 {
     if (len == 0)

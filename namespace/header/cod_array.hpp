@@ -66,6 +66,7 @@ public:
     void clear();
     void swap(array &rhs);
     void swap(size_t i, size_t j);
+    void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;
     T sum(size_t start, int n) const;
     T min() const;

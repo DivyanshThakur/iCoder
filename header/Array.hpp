@@ -23,6 +23,7 @@ class ArrayHandler
     void remove_multiple_values();
     void remove_value();
     void display_arr() const;
+    void reverse_arr();
     void max_min();
     void get_value();
     void set_value();

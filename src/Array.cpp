@@ -341,9 +341,11 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         break;
 
     case 11: // reverse the array
+        reverse_arr();
         break;
 
     case 12: // set operations
+        print_message();
         break;
 
     case 13: // find missing elements
@@ -438,7 +440,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         break;
 
     case 11: // reverse the array
-        print_message();
+        reverse_arr();
         break;
 
     case 12: // set operations
@@ -458,7 +460,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         break;
 
     case 16: // min and max value
-        print_message();
+        max_min();
         break;
 
     case 17: // get value
@@ -528,7 +530,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         break;
 
     case 11: // reverse the array
-        print_message();
+        reverse_arr();
         break;
 
     case 12: // set operations
@@ -548,7 +550,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         break;
 
     case 16: // min and max value
-        print_message();
+        max_min();
         break;
 
     case 17: // get value
@@ -719,6 +721,56 @@ void ArrayHandler<T>::display_arr() const
     header(std::string{" DISPLAY ARRAY "});
 
     std::cout << arr;
+}
+
+template <typename T>
+void ArrayHandler<T>::reverse_arr()
+{
+
+    int ch{0};
+    size_t start, end;
+
+    do
+    {
+        title(); // print the title = iCoder
+
+        menu(reverse_data, std::string{" REVERSE ARRAY "});
+
+        sc.scanChoice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            arr.reverse(0, arr.length() - 1);
+            print_message(std::string{"Array Updated"});
+            return;
+
+        case 2:
+            border(width_menu);
+            animater(std::string{"Enter the starting position: "});
+            sc.scan(start);
+
+            std::cout << std::endl;
+
+            animater(std::string{"Enter the ending position: "});
+
+            sc.scan(end);
+
+            arr.reverse(start - 1, end - 1);
+            print_message(std::string{"Array Updated"});
+            return;
+
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+
+    } while (1);
 }
 
 template <typename T>
