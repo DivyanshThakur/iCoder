@@ -202,7 +202,7 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
         if (!(i == 7 && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
-        if ((i == 7 && !show_adv_opn) || (i == 19 && show_adv_opn))
+        if ((i == 7 && !show_adv_opn) || (i == 20 && show_adv_opn))
             break;
     }
 
@@ -232,7 +232,7 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
         if (!(i == 7 && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
-        if ((i == 7 && !show_adv_opn) || (i == 19 && show_adv_opn))
+        if ((i == 7 && !show_adv_opn) || (i == 20 && show_adv_opn))
             break;
     }
 
@@ -337,7 +337,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         break;
 
     case 10: // shift/Rotation
-        print_message();
+        shift_rotate();
         break;
 
     case 11: // reverse the array
@@ -348,44 +348,48 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         print_message();
         break;
 
-    case 13: // find missing elements
+    case 13: // sorting
         print_message();
         break;
 
-    case 14: // finding duplicates
+    case 14: // find missing elements
         print_message();
         break;
 
-    case 15: // find a pair with sum K
+    case 15: // finding duplicates
         print_message();
         break;
 
-    case 16: // min and max value
+    case 16: // find a pair with sum K
+        print_message();
+        break;
+
+    case 17: // min and max value
         max_min();
         break;
 
-    case 17: // get value
+    case 18: // get value
         get_value();
         break;
 
-    case 18: // set value
+    case 19: // set value
         set_value();
         break;
 
-    case 19:
+    case 20:
         // average value
         average();
         break;
 
-    case 20: // sum
+    case 21: // sum
         sum();
         break;
 
-    case 21:  // return to Home
+    case 22:  // return to Home
     case ESC: // return
         throw Esc();
 
-    case 22: // exit the program
+    case 23: // exit the program
         exit(0);
 
     default:
@@ -436,7 +440,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         break;
 
     case 10: // shift/Rotation
-        print_message();
+        shift_rotate();
         break;
 
     case 11: // reverse the array
@@ -447,35 +451,39 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         print_message();
         break;
 
-    case 13: // find missing elements
+    case 13: // sorting
         print_message();
         break;
 
-    case 14: // finding duplicates
+    case 14: // find missing elements
         print_message();
         break;
 
-    case 15: // find a pair with sum K
+    case 15: // finding duplicates
         print_message();
         break;
 
-    case 16: // min and max value
+    case 16: // find a pair with sum K
+        print_message();
+        break;
+
+    case 17: // min and max value
         max_min();
         break;
 
-    case 17: // get value
+    case 18: // get value
         get_value();
         break;
 
-    case 18: // set value
+    case 19: // set value
         set_value();
         break;
 
-    case 19:  // return to Home
+    case 20:  // return to Home
     case ESC: // return
         throw Esc();
 
-    case 20: // exit the program
+    case 21: // exit the program
         exit(0);
 
     default:
@@ -526,7 +534,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         break;
 
     case 10: // shift/Rotation
-        print_message();
+        shift_rotate();
         break;
 
     case 11: // reverse the array
@@ -537,35 +545,39 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         print_message();
         break;
 
-    case 13: // find missing elements
+    case 13: // sorting
         print_message();
         break;
 
-    case 14: // finding duplicates
+    case 14: // find missing elements
         print_message();
         break;
 
-    case 15: // find a pair with sum K
+    case 15: // finding duplicates
         print_message();
         break;
 
-    case 16: // min and max value
+    case 16: // find a pair with sum K
+        print_message();
+        break;
+
+    case 17: // min and max value
         max_min();
         break;
 
-    case 17: // get value
+    case 18: // get value
         get_value();
         break;
 
-    case 18: // set value
+    case 19: // set value
         set_value();
         break;
 
-    case 19:  // return to Home
+    case 20:  // return to Home
     case ESC: // return
         throw Esc();
 
-    case 20: // exit the program
+    case 21: // exit the program
         exit(0);
 
     default:
@@ -721,6 +733,14 @@ void ArrayHandler<T>::display_arr() const
     header(std::string{" DISPLAY ARRAY "});
 
     std::cout << arr;
+}
+
+template <typename T>
+void ArrayHandler<T>::shift_rotate()
+{
+    title(); // print the title = iCoder
+
+    header(std::string{" DISPLAY ARRAY "});
 }
 
 template <typename T>
