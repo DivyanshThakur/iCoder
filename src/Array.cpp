@@ -610,6 +610,9 @@ void ArrayHandler<T>::add_elements()
     bool isLast;
     T value;
 
+    if (arr.length() == arr.max_size())
+        throw ArrayFullException();
+
     title(); // print the title = iCoder
 
     header(std::string{" INSERT VALUES "});
@@ -625,6 +628,8 @@ void ArrayHandler<T>::add_elements()
 
     for (int i{0}; i < len; ++i)
     {
+        if (isLast && arr.length() == arr.max_size())
+            throw ArrayFullException();
 
         if (arr.length() + 1 == arr.max_size())
             isLast = true;
@@ -634,9 +639,6 @@ void ArrayHandler<T>::add_elements()
         sc.scan(value, isLast);
 
         arr.push_back(value);
-
-        if (arr.length() == arr.max_size())
-            throw ArrayFullException();
     }
 }
 
@@ -732,7 +734,11 @@ void ArrayHandler<T>::display_arr() const
 
     header(std::string{" DISPLAY ARRAY "});
 
-    std::cout << arr;
+    std::cout << "Max size: " << arr.max_size()
+              << std::endl
+              << "Elements stored: " << arr.length() << std::endl
+              << "Array: "
+              << arr;
 }
 
 template <typename T>
@@ -740,6 +746,7 @@ void ArrayHandler<T>::shift_rotate()
 {
 
     int ch{0};
+    int n;
 
     do
     {
@@ -749,10 +756,17 @@ void ArrayHandler<T>::shift_rotate()
 
         sc.scanChoice(ch);
 
+        animater(std::string{"Enter the number of operations: "});
+        sc.scan(n);
+
         switch (ch)
         {
         case 1:
-            // arr.reverse(0, arr.length() - 1);
+            title();
+            header(std::string{" LEFT SHIFT "});
+            animater(std::string{"Enter the number of operations: "});
+            sc.scan(n);
+            // arr.lshift(n);
             // print_message(std::string{"Array Updated"});
             return;
 

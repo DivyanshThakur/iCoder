@@ -11,17 +11,9 @@ class array
 {
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
-
-        os << "Max size: " << arr.max_size()
-           << std::endl
-           << "Elements stored: " << arr.length() << std::endl
-           << "Array: ";
-
         if (arr.length())
-        {
             for (size_t i = 0; i < arr.length(); ++i)
                 os << arr[i] << " ";
-        }
         else
             os << "No elements to display";
 
