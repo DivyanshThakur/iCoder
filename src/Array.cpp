@@ -738,9 +738,56 @@ void ArrayHandler<T>::display_arr() const
 template <typename T>
 void ArrayHandler<T>::shift_rotate()
 {
-    title(); // print the title = iCoder
 
-    header(std::string{" DISPLAY ARRAY "});
+    int ch{0};
+
+    do
+    {
+        title(); // print the title = iCoder
+
+        menu(shift_rotate_data, std::string{" SHIFT/ROTATE ARRAY "});
+
+        sc.scanChoice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            // arr.reverse(0, arr.length() - 1);
+            // print_message(std::string{"Array Updated"});
+            return;
+
+        case 2:
+            // border(width_menu);
+            // animater(std::string{"Enter the starting position: "});
+            // sc.scan(start);
+
+            // std::cout << std::endl;
+
+            // animater(std::string{"Enter the ending position: "});
+
+            // sc.scan(end);
+
+            // arr.reverse(start - 1, end - 1);
+            // print_message(std::string{"Array Updated"});
+            return;
+
+        case 3:
+            return;
+
+        case 4:
+            return;
+
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+
+    } while (1);
 }
 
 template <typename T>
@@ -762,7 +809,7 @@ void ArrayHandler<T>::reverse_arr()
         {
         case 1:
             arr.reverse(0, arr.length() - 1);
-            print_message(std::string{"Array Updated"});
+            print_message(std::string{"Array Updated!"});
             return;
 
         case 2:
@@ -777,7 +824,7 @@ void ArrayHandler<T>::reverse_arr()
             sc.scan(end);
 
             arr.reverse(start - 1, end - 1);
-            print_message(std::string{"Array Updated"});
+            print_message(std::string{"Array Updated!"});
             return;
 
         case ESC:

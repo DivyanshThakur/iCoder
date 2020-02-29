@@ -120,11 +120,15 @@ cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
 template <typename T>
 void cod::array<T>::insert(T &x, size_t pos)
 {
-    if (pos > len || pos <= 0)
-        throw InvalidPositionException();
 
     if (len >= size)
         throw ArrayFullException();
+
+    if (len == 0)
+        throw ArrayEmptyException();
+
+    if (pos > len || pos <= 0)
+        throw InvalidPositionException();
 
     size_t i;
 
@@ -139,6 +143,9 @@ template <typename T>
 T cod::array<T>::remove(size_t pos)
 {
     T value;
+
+    if (len == 0)
+        throw ArrayEmptyException();
 
     if (pos > len || pos <= 0)
         throw InvalidPositionException();
@@ -161,7 +168,10 @@ T cod::array<T>::remove(size_t pos)
 template <typename T>
 cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
 {
-    cod::array<T> values(n);
+    array values(n);
+
+    if (len == 0)
+        throw ArrayEmptyException();
 
     if (pos > len || pos <= 0)
         throw InvalidPositionException();
@@ -206,7 +216,7 @@ T cod::array<T>::front() const
 template <typename T>
 T cod::array<T>::back() const
 {
-    if (len <= 0)
+    if (len == 0)
         throw ArrayEmptyException();
 
     return A[len - 1];
