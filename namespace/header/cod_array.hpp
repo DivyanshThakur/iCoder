@@ -12,7 +12,7 @@ class array
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
         if (arr.length())
-            for (size_t i = 0; i < arr.length(); ++i)
+            for (size_t i{0}; i < arr.length(); ++i)
                 os << arr[i] << " ";
         else
             os << "No elements to display";

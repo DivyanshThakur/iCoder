@@ -756,39 +756,34 @@ void ArrayHandler<T>::shift_rotate()
 
         sc.scanChoice(ch);
 
-        animater(std::string{"Enter the number of operations: "});
-        sc.scan(n);
-
         switch (ch)
         {
         case 1:
             title();
             header(std::string{" LEFT SHIFT "});
-            animater(std::string{"Enter the number of operations: "});
+            animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
-            // arr.lshift(n);
-            // print_message(std::string{"Array Updated"});
             return;
 
         case 2:
-            // border(width_menu);
-            // animater(std::string{"Enter the starting position: "});
-            // sc.scan(start);
-
-            // std::cout << std::endl;
-
-            // animater(std::string{"Enter the ending position: "});
-
-            // sc.scan(end);
-
-            // arr.reverse(start - 1, end - 1);
-            // print_message(std::string{"Array Updated"});
+            title();
+            header(std::string{" RIGHT SHIFT "});
+            animater(std::string{"Enter the number of shifts: "});
+            sc.scan(n);
             return;
 
         case 3:
+            title();
+            header(std::string{" LEFT ROTATE "});
+            animater(std::string{"Enter the number of rotations: "});
+            sc.scan(n);
             return;
 
         case 4:
+            title();
+            header(std::string{" RIGHT ROTATE "});
+            animater(std::string{"Enter the number of rotations: "});
+            sc.scan(n);
             return;
 
         case ESC:
