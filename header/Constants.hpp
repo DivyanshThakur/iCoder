@@ -10,8 +10,9 @@
 extern std::string signedUserID; // this will be initialized at runtime
 extern int sleep_time;
 extern const std::string dev_name;
-extern std::string version_info;
-extern std::string scode_url;
+extern const std::string version_info;
+extern const std::string scode_url;
+extern const std::string icoder_url;
 extern std::string path;
 extern std::string fuser;
 extern std::string fsetting;
