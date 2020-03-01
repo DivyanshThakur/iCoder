@@ -51,4 +51,11 @@ extern const std::string username;
 extern const std::string password;
 extern const std::string RePassword;
 
+// enums
+enum Side
+{
+    LEFT,
+    RIGHT
+};
+
 #endif

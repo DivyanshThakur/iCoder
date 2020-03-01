@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../namespace/header/cod_array.hpp"
+#include "../header/Scanner.hpp"
 
 void Arrays();
 bool array_type_selector(int ch);

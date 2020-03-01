@@ -313,6 +313,18 @@ void cod::array<T>::swap(size_t i, size_t j)
 }
 
 template <typename T>
+void cod::array<T>::shift(Side s, int n)
+{
+    // code to shift the elements
+}
+
+template <typename T>
+void cod::array<T>::rotate(Side s, int n)
+{
+    // code to rotate the array
+}
+
+template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
 {
     size_t i = start, j = end;

@@ -2,7 +2,7 @@
 #define COD_ARRAY_HPP
 
 #include <iostream>
-#include "../../header/Scanner.hpp"
+#include "../../header/Constants.hpp"
 
 namespace cod
 {
@@ -13,7 +13,12 @@ class array
     {
         if (arr.length())
             for (size_t i{0}; i < arr.length(); ++i)
-                os << arr[i] << " ";
+            {
+                if (i < arr.length() - 1)
+                    std::cout << arr[i] << " ";
+                else
+                    std::cout << arr[i];
+            }
         else
             os << "No elements to display";
 
@@ -58,6 +63,10 @@ public:
     void clear();
     void swap(array &rhs);
     void swap(size_t i, size_t j);
+
+    // shift & roate functions
+    void shift(Side s, int n);
+    void rotate(Side s, int n);
 
     void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;

@@ -698,13 +698,7 @@ void ArrayHandler<T>::remove_multiple_values()
 
     (n == 1) ? std::cout << " value: " : std::cout << " values:" << std::endl;
 
-    for (size_t i{0}; i < n; ++i)
-    {
-        if (i < n - 1)
-            std::cout << values[i] << ", ";
-        else
-            std::cout << values[i] << " deleted from array";
-    }
+    std::cout << values << " deleted from array";
 }
 
 template <typename T>
@@ -763,6 +757,7 @@ void ArrayHandler<T>::shift_rotate()
             header(std::string{" LEFT SHIFT "});
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
+            arr.shift(LEFT, n);
             return;
 
         case 2:
@@ -770,6 +765,7 @@ void ArrayHandler<T>::shift_rotate()
             header(std::string{" RIGHT SHIFT "});
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
+            arr.shift(RIGHT, n);
             return;
 
         case 3:
@@ -777,6 +773,7 @@ void ArrayHandler<T>::shift_rotate()
             header(std::string{" LEFT ROTATE "});
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
+            arr.rotate(LEFT, n);
             return;
 
         case 4:
@@ -784,6 +781,7 @@ void ArrayHandler<T>::shift_rotate()
             header(std::string{" RIGHT ROTATE "});
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
+            arr.rotate(RIGHT, n);
             return;
 
         case ESC:
