@@ -4,8 +4,8 @@
 namespace cod
 {
 /*** MIN FUNCTION ***/
-template <typename T>
-T min();
+// template <typename T>
+// T min();
 
 } // namespace cod
 

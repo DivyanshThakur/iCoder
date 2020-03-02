@@ -270,17 +270,14 @@ void cod::array<T>::update_size(int x)
 template <typename T>
 void cod::array<T>::fill(const T &x)
 {
-    fill(x, 0, size);
+    fill(x, 0, len);
 }
 
 template <typename T>
 void cod::array<T>::fill(const T &x, size_t start, size_t end)
 {
     for (size_t i{start}; i < end; ++i)
-    {
-        ++len;
         A[i] = x;
-    }
 }
 
 template <typename T>
@@ -313,15 +310,57 @@ void cod::array<T>::swap(size_t i, size_t j)
 }
 
 template <typename T>
-void cod::array<T>::shift(Side s, int n)
+void cod::array<T>::shift(Side s, size_t n)
 {
     // code to shift the elements
+
+    size_t i, j;
+    switch (s)
+    {
+    case LEFT:
+        for (i = n, j = 0; i < len; ++i, ++j)
+            A[j] = A[i];
+        fill(0, j, i);
+        break;
+    case RIGHT:
+        for (i = len - n - 1, j = len - 1; i + 1 > 0; --i, --j)
+            A[j] = A[i];
+        fill(0, i + 1, j + 1);
+        break;
+    }
 }
 
 template <typename T>
-void cod::array<T>::rotate(Side s, int n)
+void cod::array<T>::rotate(Side s, size_t n)
 {
     // code to rotate the array
+
+    size_t i, j;
+    array temp_arr(n);
+
+    switch (s)
+    {
+    case LEFT:
+        for (i = 0; i < n; ++i)
+            temp_arr.push_back(A[i]);
+
+        for (i = n, j = 0; i < len; ++i, ++j)
+            A[j] = A[i];
+
+        for (i = 0; j < len; ++i, ++j)
+            A[j] = temp_arr[i];
+        break;
+    case RIGHT:
+        for (i = 0, j = len - 1; i < n; ++i)
+            temp_arr.push_back(A[j--]);
+
+        for (i = len - n - 1, j = len - 1; i + 1 > 0; --i, --j)
+            A[j] = A[i];
+
+        for (i = 0; j < len; ++i, --j)
+            A[j] = temp_arr[i];
+        break;
+    }
 }
 
 template <typename T>

@@ -65,8 +65,8 @@ public:
     void swap(size_t i, size_t j);
 
     // shift & roate functions
-    void shift(Side s, int n);
-    void rotate(Side s, int n);
+    void shift(Side s, size_t n);
+    void rotate(Side s, size_t n);
 
     void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;
