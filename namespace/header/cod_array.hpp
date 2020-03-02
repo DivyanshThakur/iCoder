@@ -11,10 +11,10 @@ class array
 {
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
-        if (arr.length())
-            for (size_t i{0}; i < arr.length(); ++i)
+        if (arr.len)
+            for (size_t i{0}; i < arr.len; ++i)
             {
-                if (i < arr.length() - 1)
+                if (i < arr.len - 1)
                     std::cout << arr[i] << " ";
                 else
                     std::cout << arr[i];
