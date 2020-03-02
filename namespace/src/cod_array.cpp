@@ -320,12 +320,12 @@ void cod::array<T>::shift(Side s, size_t n)
     case LEFT:
         for (i = n, j = 0; i < len; ++i, ++j)
             A[j] = A[i];
-        fill(0, j, i);
+        fill(DEF_VAL, j, i);
         break;
     case RIGHT:
         for (i = len - n - 1, j = len - 1; i + 1 > 0; --i, --j)
             A[j] = A[i];
-        fill(0, i + 1, j + 1);
+        fill(DEF_VAL, i + 1, j + 1);
         break;
     }
 }

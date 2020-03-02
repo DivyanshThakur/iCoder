@@ -46,19 +46,24 @@ std::string cod::limits<std::string>::min()
 template <typename T>
 T cod::limits<T>::def()
 {
-    return 0;
+    return 0.0;
 }
 
 template int cod::limits<int>::def();
 template size_t cod::limits<size_t>::def();
 template long long cod::limits<long long>::def();
 template double cod::limits<double>::def();
-template char cod::limits<char>::def();
+
+template <>
+char cod::limits<char>::def()
+{
+    return '-';
+}
 
 template <>
 std::string cod::limits<std::string>::def()
 {
-    return std::string{""};
+    return std::string{"-"};
 }
 
 /** MAX VALUES **/
