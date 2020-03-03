@@ -364,7 +364,7 @@ void cod::array<T>::rotate(Side s, size_t n)
 }
 
 template <typename T>
-size_t cod::array<T>::lsearch(const T &x) const
+size_t cod::array<T>::lsearch(const T &x)
 {
     size_t i{0};
     for (; i < len; ++i)
@@ -393,6 +393,7 @@ size_t cod::array<T>::lsearch(const T &x) const
 template <typename T>
 size_t cod::array<T>::bsearch(const T &x) const
 {
+    return 0;
 }
 
 template <typename T>

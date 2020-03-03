@@ -46,6 +46,7 @@ extern const std::vector<std::string> average_data;
 extern const std::vector<std::string> sum_data;
 extern const std::vector<std::string> reverse_data;
 extern const std::vector<std::string> shift_rotate_data;
+extern const std::vector<std::string> lsearch_data;
 
 //accounthandler.h
 extern const std::string username;
@@ -64,6 +65,8 @@ enum Status
     DEFAULT,
     EASY,
     ADV
-} stats;
+};
+
+extern enum Status stats;
 
 #endif
