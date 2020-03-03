@@ -41,8 +41,6 @@ void settings()
             std::cerr << e.what();
         }
 
-        press_key(); // getch()
-
     } while (1); // true
 }
 
@@ -67,6 +65,8 @@ void settings_controller(char ch)
         print_message(std::string{"Invalid choice"});
         break;
     }
+
+    press_key(); // getch()
 }
 
 void change_text_anime_speed()
@@ -110,7 +110,7 @@ void change_lsearch_type()
         case 2:
         case 3:
             update_stats(ch - 1);
-            break;
+            return;
 
         case ESC:
             throw EscPressed();

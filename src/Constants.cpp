@@ -32,7 +32,7 @@ const std::string txtString{"String"};
 
 // menuhandler.h
 const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "About", "Settings", "Exit"};
-const std::vector<std::string> settings_data{"Change text animation speed", "Main Menu", "Exit"};
+const std::vector<std::string> settings_data{"Change text animation speed", "Change linear search type", "Main Menu", "Exit"};
 const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String", "Home"};
 const std::vector<std::string> home_data{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
 const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "Shift/Rotation", "Reverse the Array", "SET Operations", "Check is the array sorted", "Find missing elements", "Finding Duplicates", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum", "Home", "Exit"};

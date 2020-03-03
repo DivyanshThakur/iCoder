@@ -369,6 +369,7 @@ size_t cod::array<T>::lsearch(const T &x)
     size_t i{0};
     for (; i < len; ++i)
         if (A[i] == x)
+        {
             switch (stats)
             {
             case DEFAULT:
@@ -378,6 +379,8 @@ size_t cod::array<T>::lsearch(const T &x)
             case EASY:
                 if (i) // check for i !=0 and swap with previous index
                     swap(i - 1, i);
+                else
+                    i = 1;
                 break;
 
             case ADV:
@@ -386,6 +389,11 @@ size_t cod::array<T>::lsearch(const T &x)
                 i = 1;
                 break;
             }
+            break;
+        }
+
+    if (i == len)
+        i = 0;
 
     return i;
 }

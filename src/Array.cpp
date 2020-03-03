@@ -756,7 +756,7 @@ void ArrayHandler<T>::linear_search_arr()
         break;
 
     case ADV:
-        std::cout << "Status: MOVE TO FRONT";
+        std::cout << "Status: MOVE-TO-FRONT";
         break;
     }
 
