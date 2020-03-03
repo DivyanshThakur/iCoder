@@ -364,6 +364,38 @@ void cod::array<T>::rotate(Side s, size_t n)
 }
 
 template <typename T>
+size_t cod::array<T>::lsearch(const T &x) const
+{
+    size_t i{0};
+    for (; i < len; ++i)
+        if (A[i] == x)
+            switch (stats)
+            {
+            case DEFAULT:
+                ++i; // add 1 to i to return position
+                break;
+
+            case EASY:
+                if (i) // check for i !=0 and swap with previous index
+                    swap(i - 1, i);
+                break;
+
+            case ADV:
+                if (i) // swap with first value each time
+                    swap(0, i);
+                i = 1;
+                break;
+            }
+
+    return i;
+}
+
+template <typename T>
+size_t cod::array<T>::bsearch(const T &x) const
+{
+}
+
+template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
 {
     size_t i = start, j = end;

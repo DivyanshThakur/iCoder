@@ -59,4 +59,11 @@ enum Side
     RIGHT
 };
 
+enum Status
+{
+    DEFAULT,
+    EASY,
+    ADV
+} stats;
+
 #endif

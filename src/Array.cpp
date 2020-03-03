@@ -324,7 +324,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         break;
 
     case 7: // linear search
-        print_message();
+        linear_search_arr();
         break;
 
     case 8: // binary search
@@ -428,7 +428,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         break;
 
     case 7: // linear search
-        print_message();
+        linear_search_arr();
         break;
 
     case 8: // binary search
@@ -522,7 +522,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         break;
 
     case 7: // linear search
-        print_message();
+        linear_search_arr();
         break;
 
     case 8: // binary search
@@ -733,6 +733,41 @@ void ArrayHandler<T>::display_arr() const
               << "Elements stored: " << arr.length() << std::endl
               << "Array: "
               << arr;
+}
+
+template <typename T>
+void ArrayHandler<T>::linear_search_arr()
+{
+    T val;
+    size_t pos;
+
+    title(); // print the title = iCoder
+
+    header(std::string{" LINEAR SEARCH "});
+
+    switch (stats)
+    {
+    case DEFAULT:
+        std::cout << "Status: DEFAULT";
+        break;
+
+    case EASY:
+        std::cout << "Status: TRANSPOSITION";
+        break;
+
+    case ADV:
+        std::cout << "Status: MOVE TO FRONT";
+        break;
+    }
+
+    border(width_menu);
+    animater(std::string{"Enter the value: "});
+    sc.scan(val);
+    pos = arr.lsearch(val);
+    if (pos)
+        print_message(std::string{"Found at position "} + std::to_string(pos));
+    else
+        print_message(std::string{"The value doesn't exists!"});
 }
 
 template <typename T>

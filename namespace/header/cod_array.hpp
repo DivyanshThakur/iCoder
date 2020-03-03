@@ -67,6 +67,8 @@ public:
     // shift & roate functions
     void shift(Side s, size_t n);
     void rotate(Side s, size_t n);
+    size_t lsearch(const T &x) const;
+    size_t bsearch(const T &x) const;
 
     void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;
