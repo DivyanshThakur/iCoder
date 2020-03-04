@@ -423,6 +423,25 @@ size_t cod::array<T>::bsearch(const T &x) const
 }
 
 template <typename T>
+bool cod::array<T>::isSorted() const
+{
+    for (size_t i{1}; i < len; ++i)
+        if (A[i - 1] > A[i])
+            return false;
+
+    return true;
+}
+
+template <typename T>
+void cod::array<T>::sort()
+{
+    for (size_t i{0}; i < len; ++i)
+        for (size_t j{i + 1}; j < len; ++j)
+            if (A[i] > A[j])
+                swap(i, j);
+}
+
+template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
 {
     size_t i = start, j = end;

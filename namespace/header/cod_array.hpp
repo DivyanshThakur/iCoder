@@ -69,6 +69,8 @@ public:
     void rotate(Side s, size_t n);
     size_t lsearch(const T &x);
     size_t bsearch(const T &x) const;
+    bool isSorted() const;
+    void sort();
 
     void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;

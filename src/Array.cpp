@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <windows.h>
 #include "../header/Array.hpp"
 #include "../namespace/header/cod_array.hpp"
 #include "../header/Scanner.hpp"
@@ -776,6 +777,26 @@ void ArrayHandler<T>::binary_search_arr()
     T val;
     size_t pos;
 
+    if (!arr.isSorted())
+    {
+        title(); // print the title = iCoder
+
+        header(std::string{" BINARY SEARCH "});
+
+        std::cout << "Checking sorted array...";
+        Sleep(1000);
+
+        bool toSort = confirm_the_change(std::string{"The array is not sorted"}, std::string{"Do you want to sort?"});
+        if (toSort)
+        {
+            arr.sort();
+            print_message(std::string{"Array sorted!"});
+            press_key();
+        }
+        else
+            return;
+    }
+
     title(); // print the title = iCoder
 
     header(std::string{" BINARY SEARCH "});
@@ -792,7 +813,7 @@ void ArrayHandler<T>::binary_search_arr()
 template <typename T>
 void ArrayHandler<T>::merge_arr()
 {
-    print_message("TO BE IMPLEMENTED");
+    print_message();
 }
 
 template <typename T>
@@ -910,31 +931,31 @@ void ArrayHandler<T>::reverse_arr()
 template <typename T>
 void ArrayHandler<T>::set_opn_arr()
 {
-    print_message("TO BE IMPLEMENTED");
+    print_message();
 }
 
 template <typename T>
 void ArrayHandler<T>::sort_opn_arr()
 {
-    print_message("TO BE IMPLEMENTED");
+    print_message();
 }
 
 template <typename T>
 void ArrayHandler<T>::find_miss_ele_arr()
 {
-    print_message("TO BE IMPLEMENTED");
+    print_message();
 }
 
 template <typename T>
 void ArrayHandler<T>::find_dup_ele_arr()
 {
-    print_message("TO BE IMPLEMENTED");
+    print_message();
 }
 
 template <typename T>
 void ArrayHandler<T>::find_pair_sum_arr()
 {
-    print_message("TO BE IMPLEMENTED");
+    print_message();
 }
 
 template <typename T>

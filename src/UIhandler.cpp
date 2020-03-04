@@ -12,13 +12,15 @@ void load()
     srand(time(nullptr)); // it will generate unique random numbers each time
 
     std::string loader{"LOADING..."};
+    size_t loadLimit = loader.size();
 
-    for (int i{0}; i <= rand() % 20 + (rand() % 10) * 2 + 10; ++i)
+    for (size_t i{0}; i <= rand() % (2 * loadLimit) + (rand() % loadLimit) * 2 + loadLimit; ++i)
     {
-        if (i % 10 == 0)
-            std::cout << "\r          \r";         // erasing current line
-        std::cout << loader.at(i % loader.size()); // display char one by one
-        Sleep(150);                                // delay
+        if (i % loadLimit == 0)
+            std::cout << "\r" << std::setw(loadLimit) << " "
+                      << "\r";                 // erasing current line
+        std::cout << loader.at(i % loadLimit); // display char one by one
+        Sleep(150);                            // delay
     }
 }
 
@@ -130,16 +132,16 @@ bool press_esc()
     std::cout << "Press ESC to return";
     ch = getch();
 
-    return (ch == ESC);
+    return (ch == ESC); // throw EScPressed()
 }
 
-bool confirm_the_change(const std::string &message)
+bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
 {
     print_message(message);
 
     border(width_menu);
 
-    animater(std::string{"Do you want to proceed? (Y/N): "});
+    animater(txtConfirm + std::string{" (Y/N): "});
 
     // scanning character
     Scanner sc;
