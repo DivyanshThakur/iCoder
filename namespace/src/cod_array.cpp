@@ -401,6 +401,24 @@ size_t cod::array<T>::lsearch(const T &x)
 template <typename T>
 size_t cod::array<T>::bsearch(const T &x) const
 {
+    int l, h, mid;
+
+    l = 0;
+    h = static_cast<int>(len) - 1;
+
+    while (l <= h)
+    {
+        mid = (l + h) / 2;
+
+        if (A[mid] == x)
+            return mid + 1;
+
+        if (A[mid] > x)
+            h = mid - 1;
+        else
+            l = mid + 1;
+    }
+
     return 0;
 }
 

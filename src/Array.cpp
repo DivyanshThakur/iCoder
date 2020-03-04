@@ -328,16 +328,16 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         break;
 
     case 8: // binary search
-        print_message();
+        binary_search_arr();
         break;
 
     case 9:
         // merge
-        print_message();
+        merge_arr();
         break;
 
     case 10: // shift/Rotation
-        shift_rotate();
+        shift_rotate_arr();
         break;
 
     case 11: // reverse the array
@@ -345,23 +345,23 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         break;
 
     case 12: // set operations
-        print_message();
+        set_opn_arr();
         break;
 
     case 13: // sorting
-        print_message();
+        sort_opn_arr();
         break;
 
     case 14: // find missing elements
-        print_message();
+        find_miss_ele_arr();
         break;
 
     case 15: // finding duplicates
-        print_message();
+        find_dup_ele_arr();
         break;
 
     case 16: // find a pair with sum K
-        print_message();
+        find_pair_sum_arr();
         break;
 
     case 17: // min and max value
@@ -432,15 +432,15 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         break;
 
     case 8: // binary search
-        print_message();
+        binary_search_arr();
         break;
 
     case 9: // merge
-        print_message();
+        merge_arr();
         break;
 
     case 10: // shift/Rotation
-        shift_rotate();
+        shift_rotate_arr();
         break;
 
     case 11: // reverse the array
@@ -448,23 +448,23 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         break;
 
     case 12: // set operations
-        print_message();
+        set_opn_arr();
         break;
 
     case 13: // sorting
-        print_message();
+        sort_opn_arr();
         break;
 
     case 14: // find missing elements
-        print_message();
+        find_miss_ele_arr();
         break;
 
     case 15: // finding duplicates
-        print_message();
+        find_dup_ele_arr();
         break;
 
     case 16: // find a pair with sum K
-        print_message();
+        find_pair_sum_arr();
         break;
 
     case 17: // min and max value
@@ -526,15 +526,15 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         break;
 
     case 8: // binary search
-        print_message();
+        binary_search_arr();
         break;
 
     case 9: // merge
-        print_message();
+        merge_arr();
         break;
 
     case 10: // shift/Rotation
-        shift_rotate();
+        shift_rotate_arr();
         break;
 
     case 11: // reverse the array
@@ -542,23 +542,23 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         break;
 
     case 12: // set operations
-        print_message();
+        set_opn_arr();
         break;
 
     case 13: // sorting
-        print_message();
+        sort_opn_arr();
         break;
 
     case 14: // find missing elements
-        print_message();
+        find_miss_ele_arr();
         break;
 
     case 15: // finding duplicates
-        print_message();
+        find_dup_ele_arr();
         break;
 
     case 16: // find a pair with sum K
-        print_message();
+        find_pair_sum_arr();
         break;
 
     case 17: // min and max value
@@ -771,7 +771,32 @@ void ArrayHandler<T>::linear_search_arr()
 }
 
 template <typename T>
-void ArrayHandler<T>::shift_rotate()
+void ArrayHandler<T>::binary_search_arr()
+{
+    T val;
+    size_t pos;
+
+    title(); // print the title = iCoder
+
+    header(std::string{" BINARY SEARCH "});
+
+    animater(std::string{"Enter the value: "});
+    sc.scan(val);
+    pos = arr.bsearch(val);
+    if (pos)
+        print_message(std::string{"Found at position "} + std::to_string(pos));
+    else
+        print_message(std::string{"The value doesn't exists!"});
+}
+
+template <typename T>
+void ArrayHandler<T>::merge_arr()
+{
+    print_message("TO BE IMPLEMENTED");
+}
+
+template <typename T>
+void ArrayHandler<T>::shift_rotate_arr()
 {
 
     int ch{0};
@@ -880,6 +905,36 @@ void ArrayHandler<T>::reverse_arr()
         }
 
     } while (1);
+}
+
+template <typename T>
+void ArrayHandler<T>::set_opn_arr()
+{
+    print_message("TO BE IMPLEMENTED");
+}
+
+template <typename T>
+void ArrayHandler<T>::sort_opn_arr()
+{
+    print_message("TO BE IMPLEMENTED");
+}
+
+template <typename T>
+void ArrayHandler<T>::find_miss_ele_arr()
+{
+    print_message("TO BE IMPLEMENTED");
+}
+
+template <typename T>
+void ArrayHandler<T>::find_dup_ele_arr()
+{
+    print_message("TO BE IMPLEMENTED");
+}
+
+template <typename T>
+void ArrayHandler<T>::find_pair_sum_arr()
+{
+    print_message("TO BE IMPLEMENTED");
 }
 
 template <typename T>
