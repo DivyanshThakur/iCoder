@@ -790,7 +790,7 @@ void ArrayHandler<T>::binary_search_arr()
         if (toSort)
         {
             arr.sort();
-            print_message(std::string{"Array sorted!"});
+            print_message(std::string{"Array Sorted!"});
             press_key();
         }
         else
@@ -937,7 +937,26 @@ void ArrayHandler<T>::set_opn_arr()
 template <typename T>
 void ArrayHandler<T>::sort_opn_arr()
 {
-    print_message();
+    title(); // print the title = iCoder
+
+    header(std::string{" BINARY SEARCH "});
+
+    if (arr.isSorted())
+        print_message(std::string{"Array Sorted!"});
+    else
+    {
+        std::cout << "Checking sorted array...";
+        Sleep(1000);
+
+        bool toSort = confirm_the_change(std::string{"The array is not sorted"}, std::string{"Do you want to sort?"});
+        if (toSort)
+        {
+            arr.sort();
+            print_message(std::string{"Array Sorted!"});
+        }
+        else
+            return;
+    }
 }
 
 template <typename T>
