@@ -783,13 +783,10 @@ void ArrayHandler<T>::binary_search_arr()
 
         header(std::string{" BINARY SEARCH "});
 
-        std::cout << "Checking sorted array...";
-        Sleep(1000);
+        wait_message(std::string{"Checking array..."});
 
-        bool toSort = confirm_the_change(std::string{"The array is not sorted"}, std::string{"Do you want to sort?"});
-        if (toSort)
+        if (arr.sort())
         {
-            arr.sort();
             print_message(std::string{"Array Sorted!"});
             press_key();
         }
@@ -813,7 +810,54 @@ void ArrayHandler<T>::binary_search_arr()
 template <typename T>
 void ArrayHandler<T>::merge_arr()
 {
-    print_message();
+    ArrayHandler arrHndlr;
+
+    try
+    {
+        arrHndlr.update_size();
+        arrHndlr.add_elements();
+    }
+    catch (const ArrayFullException &e)
+    {
+        e.what();
+        press_key();
+    }
+
+    if (!arr.isSorted())
+    {
+
+        title(); // print the title = iCoder
+
+        header(std::string{" MERGE "});
+
+        wait_message(std::string{"Checking array 1..."});
+
+        if (!arr.sort())
+            return;
+    }
+
+    if (!arrHndlr.arr.isSorted())
+    {
+        title(); // print the title = iCoder
+
+        header(std::string{" MERGE "});
+
+        wait_message(std::string{"Checking array 2..."});
+
+        if (!arrHndlr.arr.sort())
+            return;
+    }
+
+    title(); // print the title = iCoder
+
+    header(std::string{" MERGE "});
+
+    cod::array<T> mix_arr = arr.merge(arrHndlr.arr);
+
+    std::cout << "Array merged!" << std::endl
+              << "Array: ";
+
+    std::cout << mix_arr;
 }
 
 template <typename T>
@@ -939,23 +983,17 @@ void ArrayHandler<T>::sort_opn_arr()
 {
     title(); // print the title = iCoder
 
-    header(std::string{" BINARY SEARCH "});
+    header(std::string{" SORT "});
 
     if (arr.isSorted())
-        print_message(std::string{"Array Sorted!"});
+        print_message(std::string{"Array already Sorted!"});
     else
     {
-        std::cout << "Checking sorted array...";
-        Sleep(1000);
+        wait_message(std::string{"Checking array..."});
 
-        bool toSort = confirm_the_change(std::string{"The array is not sorted"}, std::string{"Do you want to sort?"});
-        if (toSort)
-        {
-            arr.sort();
-            print_message(std::string{"Array Sorted!"});
-        }
-        else
-            return;
+        arr.sort();
+
+        print_message(std::string{"Array Sorted!"});
     }
 }
 

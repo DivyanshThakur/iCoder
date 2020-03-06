@@ -17,7 +17,7 @@ cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), DEF_VAL(cod:
 }
 
 template <typename T>
-cod::array<T>::array(const cod::array<T> &rhs)
+cod::array<T>::array(const array &rhs)
 {
     if (this != &rhs)
     {
@@ -35,7 +35,7 @@ cod::array<T>::array(const cod::array<T> &rhs)
 }
 
 template <typename T>
-cod::array<T>::array(cod::array<T> &&rhs)
+cod::array<T>::array(array &&rhs)
 {
     if (this != &rhs)
     {
@@ -83,7 +83,7 @@ T &cod::array<T>::at(size_t x)
 }
 
 template <typename T>
-cod::array<T> &cod::array<T>::operator=(const cod::array<T> &rhs)
+cod::array<T> &cod::array<T>::operator=(const array &rhs)
 {
     if (this != &rhs)
     {
@@ -102,7 +102,7 @@ cod::array<T> &cod::array<T>::operator=(const cod::array<T> &rhs)
 }
 
 template <typename T>
-cod::array<T> &cod::array<T>::operator=(cod::array<T> &&rhs)
+cod::array<T> &cod::array<T>::operator=(array &&rhs)
 {
     if (this != &rhs)
     {
@@ -294,9 +294,9 @@ void cod::array<T>::clear()
 }
 
 template <typename T>
-void cod::array<T>::swap(cod::array<T> &rhs)
+void cod::array<T>::swap(array &rhs)
 {
-    cod::array<T> temp{*this};
+    array temp{*this};
     *this = rhs;
     rhs = temp;
 }
@@ -433,12 +433,43 @@ bool cod::array<T>::isSorted() const
 }
 
 template <typename T>
-void cod::array<T>::sort()
+bool cod::array<T>::sort()
 {
-    for (size_t i{0}; i < len; ++i)
-        for (size_t j{i + 1}; j < len; ++j)
-            if (A[i] > A[j])
-                swap(i, j);
+    bool toSort = confirm_the_change(std::string{"The array is not sorted"}, std::string{"Do you want to sort?"});
+    if (toSort)
+    {
+        for (size_t i{0}; i < len; ++i)
+            for (size_t j{i + 1}; j < len; ++j)
+                if (A[i] > A[j])
+                    swap(i, j);
+
+        return true;
+    }
+    return false;
+}
+
+template <typename T>
+cod::array<T> cod::array<T>::merge(const array &rhs)
+{
+    array mix_arr(len + rhs.len);
+
+    size_t i{0}, j{0};
+
+    while (i < len && j < rhs.len)
+    {
+        if (A[i] < rhs[j])
+            mix_arr.push_back(A[i++]);
+        else
+            mix_arr.push_back(rhs.A[j++]);
+    }
+
+    while (i < len)
+        mix_arr.push_back(A[i++]);
+
+    while (j < rhs.len)
+        mix_arr.push_back(rhs.A[j++]);
+
+    return mix_arr;
 }
 
 template <typename T>

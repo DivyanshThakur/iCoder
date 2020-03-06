@@ -124,6 +124,12 @@ void press_key()
     getch();
 }
 
+void wait_message(const std::string &message)
+{
+    std::cout << message;
+    Sleep(1000);
+}
+
 bool press_esc()
 {
     char ch;
