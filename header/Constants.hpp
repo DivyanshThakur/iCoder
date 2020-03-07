@@ -44,6 +44,7 @@ extern const std::vector<std::string> array_data;
 // small menu funtions
 extern const std::vector<std::string> average_data;
 extern const std::vector<std::string> sum_data;
+extern const std::vector<std::string> set_data;
 extern const std::vector<std::string> reverse_data;
 extern const std::vector<std::string> shift_rotate_data;
 extern const std::vector<std::string> lsearch_data;

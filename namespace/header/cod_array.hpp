@@ -73,6 +73,10 @@ public:
     bool sort();
     cod::array<T> merge(const array &rhs);
 
+    cod::array<T> Union(const array &rhs);
+    cod::array<T> Intersection(const array &rhs);
+    cod::array<T> Difference(const array &rhs);
+
     void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;
     T sum(size_t start, int n) const;

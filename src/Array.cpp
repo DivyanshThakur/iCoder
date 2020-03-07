@@ -975,7 +975,76 @@ void ArrayHandler<T>::reverse_arr()
 template <typename T>
 void ArrayHandler<T>::set_opn_arr()
 {
-    print_message();
+
+    int ch{0};
+    ArrayHandler arrHndlr;
+    cod::array<T> set_arr;
+
+    try
+    {
+        arrHndlr.update_size();
+        arrHndlr.add_elements();
+    }
+    catch (const ArrayFullException &e)
+    {
+        e.what();
+        press_key();
+    }
+
+    do
+    {
+        title(); // print the title "iCoder"
+
+        menu(set_data, std::string{" SET "});
+
+        sc.scanChoice(ch);
+
+        switch (ch)
+        {
+        case 1: // union
+            set_arr = arr.Union(arrHndlr.arr);
+
+            print_message(std::string{"Union!"});
+
+            std::cout << std::endl
+                      << "Array: ";
+
+            std::cout << set_arr;
+            return;
+
+        case 2: // intersection
+            set_arr = arr.Intersection(arrHndlr.arr);
+
+            print_message(std::string{"Intersection!"});
+
+            std::cout << std::endl
+                      << "Array: ";
+
+            std::cout << set_arr;
+            return;
+
+        case 3: // difference
+            set_arr = arr.Difference(arrHndlr.arr);
+
+            print_message(std::string{"Difference!"});
+
+            std::cout << std::endl
+                      << "Array: ";
+
+            std::cout << set_arr;
+            return;
+
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+
+    } while (1);
 }
 
 template <typename T>

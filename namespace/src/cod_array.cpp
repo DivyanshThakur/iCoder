@@ -473,6 +473,151 @@ cod::array<T> cod::array<T>::merge(const array &rhs)
 }
 
 template <typename T>
+cod::array<T> cod::array<T>::Union(const array &rhs)
+{
+    array temp_arr(len + rhs.len);
+
+    if (this->isSorted() && rhs.isSorted())
+    {
+        size_t i{0}, j{0};
+
+        while (i < len && j < rhs.len)
+        {
+            if (A[i] < rhs.A[j])
+                temp_arr.push_back(A[i++]);
+            else if (A[i] > rhs.A[j])
+                temp_arr.push_back(rhs.A[j++]);
+            else
+            {
+                temp_arr.push_back(A[i++]);
+                ++j;
+            }
+        }
+
+        while (i < len)
+            temp_arr.push_back(A[i++]);
+
+        while (j < rhs.len)
+            temp_arr.push_back(rhs.A[j++]);
+    }
+    else
+    {
+        bool isNew{true};
+
+        for (size_t i{0}; i < len; ++i)
+            temp_arr.push_back(A[i]);
+
+        for (size_t j{0}; j < rhs.len; ++j, isNew = true)
+        {
+            for (size_t i{0}; i < len; ++i)
+                if (A[i] == rhs.A[i])
+                    isNew = false;
+
+            if (isNew)
+                temp_arr.push_back(rhs.A[j]);
+        }
+    }
+    return temp_arr;
+}
+
+template <typename T>
+cod::array<T> cod::array<T>::Intersection(const array &rhs)
+{
+    array temp_arr(len + rhs.len);
+
+    if (this->isSorted() && rhs.isSorted())
+    {
+        size_t i{0}, j{0};
+
+        while (i < len && j < rhs.len)
+        {
+            if (A[i] < rhs.A[j])
+                ++i;
+            else if (A[i] > rhs.A[j])
+                ++j;
+            else
+            {
+                temp_arr.push_back(A[i++]);
+                ++j;
+            }
+        }
+    }
+    else
+    {
+        size_t i{0}, j{0};
+
+        while (i < len)
+        {
+            j = 0;
+
+            while (j < rhs.len)
+            {
+                if (A[i] == rhs.A[j])
+                {
+                    temp_arr.push_back(A[i++]);
+                    break;
+                }
+
+                ++j;
+            }
+        }
+    }
+
+    return temp_arr;
+}
+
+template <typename T>
+cod::array<T> cod::array<T>::Difference(const array &rhs)
+{
+    array temp_arr(len + rhs.len);
+
+    if (this->isSorted() && rhs.isSorted())
+    {
+        size_t i{0}, j{0};
+
+        while (i < len && j < rhs.len)
+        {
+            if (A[i] < rhs.A[j])
+                temp_arr.push_back(A[i++]);
+            else if (A[i] > rhs.A[j])
+                temp_arr.push_back(rhs.A[j++]);
+            else
+            {
+                ++i;
+                ++j;
+            }
+        }
+
+        while (i < len)
+            temp_arr.push_back(A[i++]);
+
+        while (j < rhs.len)
+            temp_arr.push_back(rhs.A[j++]);
+    }
+    else
+    {
+        size_t i{0}, j{0};
+
+        while (i < len)
+        {
+            j = 0;
+
+            while (j < rhs.len)
+            {
+                if (A[i] == rhs.A[j])
+                {
+                    ++i;
+                    break;
+                }
+
+                ++j;
+            }
+        }
+    }
+    return temp_arr;
+}
+
+template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
 {
     size_t i = start, j = end;
