@@ -1050,14 +1050,14 @@ void ArrayHandler<T>::set_opn_arr()
 template <typename T>
 void ArrayHandler<T>::sort_opn_arr()
 {
-    title(); // print the title = iCoder
-
-    header(std::string{" SORT "});
-
     if (arr.isSorted())
         print_message(std::string{"Array already Sorted!"});
     else
     {
+        title(); // print the title = iCoder
+
+        header(std::string{" SORT "});
+
         wait_message(std::string{"Checking array..."});
 
         arr.sort();
