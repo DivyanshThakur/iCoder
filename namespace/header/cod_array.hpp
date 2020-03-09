@@ -2,6 +2,7 @@
 #define COD_ARRAY_HPP
 
 #include <iostream>
+#include <vector>
 #include "../../header/Constants.hpp"
 
 namespace cod
@@ -52,6 +53,7 @@ public:
 
     void push_back(T &x);
 
+    // basic operations
     T front() const;
     T back() const;
     size_t max_size() const;
@@ -71,12 +73,19 @@ public:
     size_t bsearch(const T &x) const;
     bool isSorted() const;
     bool sort();
-    cod::array<T> merge(const array &rhs);
+    array merge(const array &rhs);
 
-    cod::array<T> Union(const array &rhs);
-    cod::array<T> Intersection(const array &rhs);
-    cod::array<T> Difference(const array &rhs);
+    // sets
+    array Union(const array &rhs);
+    array Intersection(const array &rhs);
+    array Difference(const array &rhs);
 
+    // finding values
+    array<array> find_duplicates(size_t start, size_t end);
+    std::vector<std::vector<T>> find_missing(size_t start, size_t end);
+    array<array> find_pair_sum(size_t start, size_t end);
+
+    // basic operations
     void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;
     T sum(size_t start, int n) const;

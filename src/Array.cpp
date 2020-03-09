@@ -332,33 +332,32 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         binary_search_arr();
         break;
 
-    case 9:
-        // merge
+    case 9: // merge
         merge_arr();
         break;
 
-    case 10: // shift/Rotation
-        shift_rotate_arr();
-        break;
-
-    case 11: // reverse the array
-        reverse_arr();
-        break;
-
-    case 12: // set operations
+    case 10: // set operations
         set_opn_arr();
         break;
 
-    case 13: // sorting
+    case 11: // sorting
         sort_opn_arr();
         break;
 
-    case 14: // find missing elements
-        find_miss_ele_arr();
+    case 12: // reverse the array
+        reverse_arr();
         break;
 
-    case 15: // finding duplicates
-        find_dup_ele_arr();
+    case 13: // shift/Rotation
+        shift_rotate_arr();
+        break;
+
+    case 14: // finding duplicates
+        find_dup_val_arr();
+        break;
+
+    case 15: // find missing elements
+        find_miss_val_arr();
         break;
 
     case 16: // find a pair with sum K
@@ -440,28 +439,28 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         merge_arr();
         break;
 
-    case 10: // shift/Rotation
-        shift_rotate_arr();
-        break;
-
-    case 11: // reverse the array
-        reverse_arr();
-        break;
-
-    case 12: // set operations
+    case 10: // set operations
         set_opn_arr();
         break;
 
-    case 13: // sorting
+    case 11: // sorting
         sort_opn_arr();
         break;
 
-    case 14: // find missing elements
-        find_miss_ele_arr();
+    case 12: // reverse the array
+        reverse_arr();
         break;
 
-    case 15: // finding duplicates
-        find_dup_ele_arr();
+    case 13: // shift/Rotation
+        shift_rotate_arr();
+        break;
+
+    case 14: // finding duplicates
+        find_dup_val_arr();
+        break;
+
+    case 15: // find missing elements
+        find_miss_val_arr();
         break;
 
     case 16: // find a pair with sum K
@@ -534,28 +533,28 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         merge_arr();
         break;
 
-    case 10: // shift/Rotation
-        shift_rotate_arr();
-        break;
-
-    case 11: // reverse the array
-        reverse_arr();
-        break;
-
-    case 12: // set operations
+    case 10: // set operations
         set_opn_arr();
         break;
 
-    case 13: // sorting
+    case 11: // sorting
         sort_opn_arr();
         break;
 
-    case 14: // find missing elements
-        find_miss_ele_arr();
+    case 12: // reverse the array
+        reverse_arr();
         break;
 
-    case 15: // finding duplicates
-        find_dup_ele_arr();
+    case 13: // shift/Rotation
+        shift_rotate_arr();
+        break;
+
+    case 14: // finding duplicates
+        find_dup_val_arr();
+        break;
+
+    case 15: // find missing elements
+        find_miss_val_arr();
         break;
 
     case 16: // find a pair with sum K
@@ -861,118 +860,6 @@ void ArrayHandler<T>::merge_arr()
 }
 
 template <typename T>
-void ArrayHandler<T>::shift_rotate_arr()
-{
-
-    int ch{0};
-    int n;
-
-    do
-    {
-        title(); // print the title = iCoder
-
-        menu(shift_rotate_data, std::string{" SHIFT/ROTATE ARRAY "});
-
-        sc.scanChoice(ch);
-
-        switch (ch)
-        {
-        case 1:
-            title();
-            header(std::string{" LEFT SHIFT "});
-            animater(std::string{"Enter the number of shifts: "});
-            sc.scan(n);
-            arr.shift(LEFT, n);
-            return;
-
-        case 2:
-            title();
-            header(std::string{" RIGHT SHIFT "});
-            animater(std::string{"Enter the number of shifts: "});
-            sc.scan(n);
-            arr.shift(RIGHT, n);
-            return;
-
-        case 3:
-            title();
-            header(std::string{" LEFT ROTATE "});
-            animater(std::string{"Enter the number of rotations: "});
-            sc.scan(n);
-            arr.rotate(LEFT, n);
-            return;
-
-        case 4:
-            title();
-            header(std::string{" RIGHT ROTATE "});
-            animater(std::string{"Enter the number of rotations: "});
-            sc.scan(n);
-            arr.rotate(RIGHT, n);
-            return;
-
-        case ESC:
-            throw EscPressed();
-
-        default:
-            print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
-            break;
-        }
-
-    } while (1);
-}
-
-template <typename T>
-void ArrayHandler<T>::reverse_arr()
-{
-
-    int ch{0};
-    size_t start, end;
-
-    do
-    {
-        title(); // print the title = iCoder
-
-        menu(reverse_data, std::string{" REVERSE ARRAY "});
-
-        sc.scanChoice(ch);
-
-        switch (ch)
-        {
-        case 1:
-            arr.reverse(0, arr.length() - 1);
-            print_message(std::string{"Array Updated!"});
-            return;
-
-        case 2:
-            border(width_menu);
-            animater(std::string{"Enter the starting position: "});
-            sc.scan(start);
-
-            std::cout << std::endl;
-
-            animater(std::string{"Enter the ending position: "});
-
-            sc.scan(end);
-
-            arr.reverse(start - 1, end - 1);
-            print_message(std::string{"Array Updated!"});
-            return;
-
-        case ESC:
-            throw EscPressed();
-
-        default:
-            print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
-            break;
-        }
-
-    } while (1);
-}
-
-template <typename T>
 void ArrayHandler<T>::set_opn_arr()
 {
 
@@ -1067,21 +954,283 @@ void ArrayHandler<T>::sort_opn_arr()
 }
 
 template <typename T>
-void ArrayHandler<T>::find_miss_ele_arr()
+void ArrayHandler<T>::reverse_arr()
 {
-    print_message();
+
+    int ch{0};
+    size_t start, end;
+
+    do
+    {
+        title(); // print the title = iCoder
+
+        menu(reverse_data, std::string{" REVERSE ARRAY "});
+
+        sc.scanChoice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            arr.reverse(0, arr.length() - 1);
+            print_message(std::string{"Array Updated!"});
+            return;
+
+        case 2:
+            border(width_menu);
+            animater(std::string{"Enter the starting position: "});
+            sc.scan(start);
+
+            std::cout << std::endl;
+
+            animater(std::string{"Enter the ending position: "});
+
+            sc.scan(end);
+
+            arr.reverse(start - 1, end - 1);
+            print_message(std::string{"Array Updated!"});
+            return;
+
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+
+    } while (1);
+}
+template <typename T>
+void ArrayHandler<T>::shift_rotate_arr()
+{
+
+    int ch{0};
+    int n;
+
+    do
+    {
+        title(); // print the title = iCoder
+
+        menu(shift_rotate_data, std::string{" SHIFT/ROTATE ARRAY "});
+
+        sc.scanChoice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            title();
+            header(std::string{" LEFT SHIFT "});
+            animater(std::string{"Enter the number of shifts: "});
+            sc.scan(n);
+            arr.shift(LEFT, n);
+            return;
+
+        case 2:
+            title();
+            header(std::string{" RIGHT SHIFT "});
+            animater(std::string{"Enter the number of shifts: "});
+            sc.scan(n);
+            arr.shift(RIGHT, n);
+            return;
+
+        case 3:
+            title();
+            header(std::string{" LEFT ROTATE "});
+            animater(std::string{"Enter the number of rotations: "});
+            sc.scan(n);
+            arr.rotate(LEFT, n);
+            return;
+
+        case 4:
+            title();
+            header(std::string{" RIGHT ROTATE "});
+            animater(std::string{"Enter the number of rotations: "});
+            sc.scan(n);
+            arr.rotate(RIGHT, n);
+            return;
+
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+
+    } while (1);
 }
 
 template <typename T>
-void ArrayHandler<T>::find_dup_ele_arr()
+void ArrayHandler<T>::find_miss_val_arr()
 {
-    print_message();
+
+    int ch{0};
+    size_t start, end;
+    std::vector<std::vector<T>> vec;
+
+    do
+    {
+        title(); // print the title = iCoder
+
+        menu(find_missing_val_data, std::string{" FIND MISSING VALUES "});
+
+        sc.scanChoice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            vec = arr.find_missing(0, arr.length() - 1);
+            print_message(std::string{"Missing Values:\n"});
+
+            for (auto &outer : vec)
+            {
+                for (auto &inner : outer)
+                {
+                    std::cout << inner << " ";
+                }
+                std::cout << std::endl;
+            }
+            return;
+
+        case 2:
+            border(width_menu);
+            animater(std::string{"Enter the starting position: "});
+            sc.scan(start);
+
+            std::cout << std::endl;
+
+            animater(std::string{"Enter the ending position: "});
+
+            sc.scan(end);
+
+            vec = arr.find_missing(start - 1, end - 1);
+            print_message(std::string{"Missing Values:\n"});
+
+            for (auto &outer : vec)
+            {
+                for (auto &inner : outer)
+                {
+                    std::cout << inner << " ";
+                }
+                std::cout << std::endl;
+            }
+            return;
+
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+
+    } while (1);
+}
+
+template <typename T>
+void ArrayHandler<T>::find_dup_val_arr()
+{
+
+    // int ch{0};
+    // size_t start, end;
+
+    // do
+    // {
+    //     title(); // print the title = iCoder
+
+    //     menu(reverse_data, std::string{" REVERSE ARRAY "});
+
+    //     sc.scanChoice(ch);
+
+    //     switch (ch)
+    //     {
+    //     case 1:
+    //         arr.reverse(0, arr.length() - 1);
+    //         print_message(std::string{"Array Updated!"});
+    //         return;
+
+    //     case 2:
+    //         border(width_menu);
+    //         animater(std::string{"Enter the starting position: "});
+    //         sc.scan(start);
+
+    //         std::cout << std::endl;
+
+    //         animater(std::string{"Enter the ending position: "});
+
+    //         sc.scan(end);
+
+    //         arr.reverse(start - 1, end - 1);
+    //         print_message(std::string{"Array Updated!"});
+    //         return;
+
+    //     case ESC:
+    //         throw EscPressed();
+
+    //     default:
+    //         print_message(std::string{"Invalid choice"});
+    //         if (press_esc())
+    //             return;
+    //         break;
+    //     }
+
+    // } while (1);
 }
 
 template <typename T>
 void ArrayHandler<T>::find_pair_sum_arr()
 {
-    print_message();
+
+    // int ch{0};
+    // size_t start, end;
+
+    // do
+    // {
+    //     title(); // print the title = iCoder
+
+    //     menu(reverse_data, std::string{" REVERSE ARRAY "});
+
+    //     sc.scanChoice(ch);
+
+    //     switch (ch)
+    //     {
+    //     case 1:
+    //         arr.reverse(0, arr.length() - 1);
+    //         print_message(std::string{"Array Updated!"});
+    //         return;
+
+    //     case 2:
+    //         border(width_menu);
+    //         animater(std::string{"Enter the starting position: "});
+    //         sc.scan(start);
+
+    //         std::cout << std::endl;
+
+    //         animater(std::string{"Enter the ending position: "});
+
+    //         sc.scan(end);
+
+    //         arr.reverse(start - 1, end - 1);
+    //         print_message(std::string{"Array Updated!"});
+    //         return;
+
+    //     case ESC:
+    //         throw EscPressed();
+
+    //     default:
+    //         print_message(std::string{"Invalid choice"});
+    //         if (press_esc())
+    //             return;
+    //         break;
+    //     }
+
+    // } while (1);
 }
 
 template <typename T>

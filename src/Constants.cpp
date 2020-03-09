@@ -35,7 +35,7 @@ const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (
 const std::vector<std::string> settings_data{"Change text animation speed", "Change linear search type", "Main Menu", "Exit"};
 const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String", "Home"};
 const std::vector<std::string> home_data{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
-const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "Shift/Rotation", "Reverse the Array", "SET", "Check is the array sorted", "Find missing elements", "Finding Duplicates", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum", "Home", "Exit"};
+const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find missing values", "Find duplicate values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum", "Home", "Exit"};
 
 // small menu funtions
 const std::vector<std::string> average_data{"Average of all elements", "Select a range"};
@@ -44,6 +44,9 @@ const std::vector<std::string> set_data{"Union", "Intersection", "Difference"};
 const std::vector<std::string> reverse_data{"Reverse the array", "Select a range"};
 const std::vector<std::string> shift_rotate_data{"Left Shift", "Right Shift", "Left Rotation", "Right Rotation"};
 const std::vector<std::string> lsearch_data{"Default", "Transposition", "Move to front"};
+const std::vector<std::string> find_missing_val_data{"Search the array", "Select a range"};
+const std::vector<std::string> find_duplicate_val_dataL{"d"};
+const std::vector<std::string> find_pair_sum_data{"d"};
 
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 

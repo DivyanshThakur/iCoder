@@ -617,6 +617,92 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
     return temp_arr;
 }
 
+// template <typename T>
+// cod::array<cod::array<T>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
+// {
+//     if (len == 0)
+//         throw ArrayEmptyException();
+
+//     if (start > end)
+//         throw InvalidPositionException();
+
+//     if (start < 0 || end >= len)
+//         throw InvalidInputException();
+// }
+
+template <typename T>
+std::vector<std::vector<T>> cod::array<T>::find_missing(size_t start, size_t end) // not for string
+{
+    if (len == 0)
+        throw ArrayEmptyException();
+
+    if (start > end)
+        throw InvalidPositionException();
+
+    if (start < 0 || end >= len)
+        throw InvalidInputException();
+
+    std::vector<std::vector<T>> vec2d;
+    size_t i{start};
+    T l = A[i];
+    size_t diff = l - i;
+
+    if (this->isSorted())
+    {
+        for (; i <= end; ++i)
+        {
+            if (A[i] - i != diff)
+            {
+                std::vector<T> temp_vec;
+
+                while (diff < A[i] - i)
+                {
+                    temp_vec.push_back(i + diff);
+                    ++diff;
+                }
+
+                vec2d.push_back(temp_vec);
+            }
+        }
+    }
+    else
+    {
+        T min = this->min();
+        array hash(max() - min + 2);
+        hash.len = hash.size;
+        hash.fill(DEF_VAL);
+
+        std::vector<T> temp_vec;
+
+        for (; i <= end; ++i)
+            ++hash[A[i] - min];
+
+        for (i = 0; i <= hash.len; ++i)
+        {
+            if (hash[i] == DEF_VAL)
+            {
+                temp_vec.push_back(min + i);
+            }
+        }
+        vec2d.push_back(temp_vec);
+    }
+    return vec2d;
+}
+
+// template <typename T>
+// cod::array<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end) // only for numbers
+// {
+//     if (len == 0)
+//         throw ArrayEmptyException();
+
+//     if (start > end)
+//         throw InvalidPositionException();
+
+//     if (start < 0 || end >= len)
+//         throw InvalidInputException();
+
+// }
+
 template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
 {
@@ -752,6 +838,12 @@ template <>
 std::string cod::array<std::string>::sum(size_t start, int n) const
 {
     return 0;
+}
+
+template <>
+std::vector<std::vector<std::string>> cod::array<std::string>::find_missing(size_t start, size_t end)
+{
+    return std::vector<std::vector<std::string>>();
 }
 
 // template class declaration

@@ -27,12 +27,12 @@ class ArrayHandler
     void linear_search_arr();
     void binary_search_arr();
     void merge_arr();
-    void shift_rotate_arr();
-    void reverse_arr();
     void set_opn_arr();
     void sort_opn_arr();
-    void find_miss_ele_arr();
-    void find_dup_ele_arr();
+    void reverse_arr();
+    void shift_rotate_arr();
+    void find_miss_val_arr();
+    void find_dup_val_arr();
     void find_pair_sum_arr();
     void max_min();
     void get_value();
