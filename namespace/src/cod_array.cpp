@@ -631,7 +631,7 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
 // }
 
 template <typename T>
-std::vector<std::vector<T>> cod::array<T>::find_missing(size_t start, size_t end) // not for string
+std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for string
 {
     if (len == 0)
         throw ArrayEmptyException();
@@ -642,7 +642,7 @@ std::vector<std::vector<T>> cod::array<T>::find_missing(size_t start, size_t end
     if (start < 0 || end >= len)
         throw InvalidInputException();
 
-    std::vector<std::vector<T>> vec2d;
+    std::vector<T> vec;
     size_t i{start};
     T l = A[i];
     size_t diff = l - i;
@@ -650,43 +650,28 @@ std::vector<std::vector<T>> cod::array<T>::find_missing(size_t start, size_t end
     if (this->isSorted())
     {
         for (; i <= end; ++i)
-        {
             if (A[i] - i != diff)
-            {
-                std::vector<T> temp_vec;
-
                 while (diff < A[i] - i)
                 {
-                    temp_vec.push_back(i + diff);
+                    vec.push_back(i + diff);
                     ++diff;
                 }
-
-                vec2d.push_back(temp_vec);
-            }
-        }
     }
     else
     {
         T min = this->min();
-        array hash(max() - min + 2);
+        array hash(max() - min + 1);
         hash.len = hash.size;
         hash.fill(DEF_VAL);
-
-        std::vector<T> temp_vec;
 
         for (; i <= end; ++i)
             ++hash[A[i] - min];
 
-        for (i = 0; i <= hash.len; ++i)
-        {
+        for (i = 0; i < hash.len; ++i)
             if (hash[i] == DEF_VAL)
-            {
-                temp_vec.push_back(min + i);
-            }
-        }
-        vec2d.push_back(temp_vec);
+                vec.push_back(min + i);
     }
-    return vec2d;
+    return vec;
 }
 
 // template <typename T>
@@ -841,9 +826,9 @@ std::string cod::array<std::string>::sum(size_t start, int n) const
 }
 
 template <>
-std::vector<std::vector<std::string>> cod::array<std::string>::find_missing(size_t start, size_t end)
+std::vector<std::string> cod::array<std::string>::find_missing(size_t start, size_t end)
 {
-    return std::vector<std::vector<std::string>>();
+    return std::vector<std::string>();
 }
 
 // template class declaration

@@ -2,7 +2,6 @@
 #define COD_ARRAY_HPP
 
 #include <iostream>
-#include <vector>
 #include "../../header/Constants.hpp"
 
 namespace cod
@@ -82,7 +81,7 @@ public:
 
     // finding values
     array<array> find_duplicates(size_t start, size_t end);
-    std::vector<std::vector<T>> find_missing(size_t start, size_t end);
+    std::vector<T> find_missing(size_t start, size_t end);
     array<array> find_pair_sum(size_t start, size_t end);
 
     // basic operations

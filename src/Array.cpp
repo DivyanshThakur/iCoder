@@ -1070,7 +1070,7 @@ void ArrayHandler<T>::find_miss_val_arr()
 
     int ch{0};
     size_t start, end;
-    std::vector<std::vector<T>> vec;
+    std::vector<T> vec;
 
     do
     {
@@ -1084,17 +1084,7 @@ void ArrayHandler<T>::find_miss_val_arr()
         {
         case 1:
             vec = arr.find_missing(0, arr.length() - 1);
-            print_message(std::string{"Missing Values:\n"});
-
-            for (auto &outer : vec)
-            {
-                for (auto &inner : outer)
-                {
-                    std::cout << inner << " ";
-                }
-                std::cout << std::endl;
-            }
-            return;
+            break;
 
         case 2:
             border(width_menu);
@@ -1108,17 +1098,7 @@ void ArrayHandler<T>::find_miss_val_arr()
             sc.scan(end);
 
             vec = arr.find_missing(start - 1, end - 1);
-            print_message(std::string{"Missing Values:\n"});
-
-            for (auto &outer : vec)
-            {
-                for (auto &inner : outer)
-                {
-                    std::cout << inner << " ";
-                }
-                std::cout << std::endl;
-            }
-            return;
+            break;
 
         case ESC:
             throw EscPressed();
@@ -1127,10 +1107,20 @@ void ArrayHandler<T>::find_miss_val_arr()
             print_message(std::string{"Invalid choice"});
             if (press_esc())
                 return;
-            break;
+            continue;
         }
 
-    } while (1);
+        if (vec.size())
+        {
+            print_message(std::string{"Missing Values:\n"});
+
+            for (auto &val : vec)
+                std::cout << val << " ";
+        }
+        else
+            print_message(std::string{"No values missing"});
+
+    } while (0);
 }
 
 template <typename T>
