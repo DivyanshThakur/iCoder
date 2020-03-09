@@ -29,6 +29,7 @@ class ArrayHandler
     void merge_arr();
     void set_opn_arr();
     void sort_opn_arr();
+    void sort(const std::string &heading = " SORT ", const std::string &message = "Checking array...");
     void reverse_arr();
     void shift_rotate_arr();
     void find_miss_val_arr();

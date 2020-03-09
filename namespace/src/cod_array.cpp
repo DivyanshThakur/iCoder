@@ -433,19 +433,16 @@ bool cod::array<T>::isSorted() const
 }
 
 template <typename T>
-bool cod::array<T>::sort()
+void cod::array<T>::sort()
 {
     bool toSort = confirm_the_change(std::string{"The array is not sorted"}, std::string{"Do you want to sort?"});
-    if (toSort)
-    {
-        for (size_t i{0}; i < len; ++i)
-            for (size_t j{i + 1}; j < len; ++j)
-                if (A[i] > A[j])
-                    swap(i, j);
+    if (!toSort)
+        throw EscPressed();
 
-        return true;
-    }
-    return false;
+    for (size_t i{0}; i < len; ++i)
+        for (size_t j{i + 1}; j < len; ++j)
+            if (A[i] > A[j])
+                swap(i, j);
 }
 
 template <typename T>
@@ -617,18 +614,18 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
     return temp_arr;
 }
 
-// template <typename T>
-// cod::array<cod::array<T>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
-// {
-//     if (len == 0)
-//         throw ArrayEmptyException();
+template <typename T>
+cod::array<cod::array<T>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
+{
+    if (len == 0)
+        throw ArrayEmptyException();
 
-//     if (start > end)
-//         throw InvalidPositionException();
+    if (start > end)
+        throw InvalidPositionException();
 
-//     if (start < 0 || end >= len)
-//         throw InvalidInputException();
-// }
+    if (start < 0 || end >= len)
+        throw InvalidInputException();
+}
 
 template <typename T>
 std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for string
@@ -674,19 +671,18 @@ std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for 
     return vec;
 }
 
-// template <typename T>
-// cod::array<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end) // only for numbers
-// {
-//     if (len == 0)
-//         throw ArrayEmptyException();
+template <typename T>
+cod::array<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end) // only for numbers
+{
+    if (len == 0)
+        throw ArrayEmptyException();
 
-//     if (start > end)
-//         throw InvalidPositionException();
+    if (start > end)
+        throw InvalidPositionException();
 
-//     if (start < 0 || end >= len)
-//         throw InvalidInputException();
-
-// }
+    if (start < 0 || end >= len)
+        throw InvalidInputException();
+}
 
 template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array

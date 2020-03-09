@@ -200,7 +200,7 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
 
     for (i = 2; i < array_data.size() - 2; ++i)
     {
-        if (!(i == 7 && show_adv_opn))
+        if (!((i == 7 || i == 16 || i == 17) && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
         if ((i == 7 && !show_adv_opn) || (i == 20 && show_adv_opn))
@@ -230,7 +230,7 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
 
     for (i = 2; i < array_data.size() - 2; ++i)
     {
-        if (!(i == 7 && show_adv_opn))
+        if (!((i == 7 || i == 17) && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
         if ((i == 7 && !show_adv_opn) || (i == 20 && show_adv_opn))
@@ -463,19 +463,15 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         find_miss_val_arr();
         break;
 
-    case 16: // find a pair with sum K
-        find_pair_sum_arr();
-        break;
-
-    case 17: // min and max value
+    case 16: // min and max value
         max_min();
         break;
 
-    case 18: // get value
+    case 17: // get value
         get_value();
         break;
 
-    case 19: // set value
+    case 18: // set value
         set_value();
         break;
 
@@ -483,7 +479,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
     case ESC: // return
         throw Esc();
 
-    case 21: // exit the program
+    case 19: // exit the program
         exit(0);
 
     default:
@@ -553,31 +549,23 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         find_dup_val_arr();
         break;
 
-    case 15: // find missing elements
-        find_miss_val_arr();
-        break;
-
-    case 16: // find a pair with sum K
-        find_pair_sum_arr();
-        break;
-
-    case 17: // min and max value
+    case 15: // min and max value
         max_min();
         break;
 
-    case 18: // get value
+    case 16: // get value
         get_value();
         break;
 
-    case 19: // set value
+    case 17: // set value
         set_value();
         break;
 
-    case 20:  // return to Home
+    case 18:  // return to Home
     case ESC: // return
         throw Esc();
 
-    case 21: // exit the program
+    case 19: // exit the program
         exit(0);
 
     default:
@@ -778,19 +766,10 @@ void ArrayHandler<T>::binary_search_arr()
 
     if (!arr.isSorted())
     {
-        title(); // print the title = iCoder
+        this->sort(std::string{" BINARY SEARCH "});
 
-        header(std::string{" BINARY SEARCH "});
-
-        wait_message(std::string{"Checking array..."});
-
-        if (arr.sort())
-        {
-            print_message(std::string{"Array Sorted!"});
-            press_key();
-        }
-        else
-            return;
+        print_message(std::string{"Array Sorted!"});
+        press_key();
     }
 
     title(); // print the title = iCoder
@@ -823,29 +802,10 @@ void ArrayHandler<T>::merge_arr()
     }
 
     if (!arr.isSorted())
-    {
-
-        title(); // print the title = iCoder
-
-        header(std::string{" MERGE "});
-
-        wait_message(std::string{"Checking array 1..."});
-
-        if (!arr.sort())
-            return;
-    }
+        this->sort(std::string{" MERGE "}, std::string{"Checking array 1..."});
 
     if (!arrHndlr.arr.isSorted())
-    {
-        title(); // print the title = iCoder
-
-        header(std::string{" MERGE "});
-
-        wait_message(std::string{"Checking array 2..."});
-
-        if (!arrHndlr.arr.sort())
-            return;
-    }
+        arrHndlr.sort(std::string{" MERGE "}, std::string{"Checking array 2..."});
 
     title(); // print the title = iCoder
 
@@ -892,34 +852,19 @@ void ArrayHandler<T>::set_opn_arr()
             set_arr = arr.Union(arrHndlr.arr);
 
             print_message(std::string{"Union!"});
-
-            std::cout << std::endl
-                      << "Array: ";
-
-            std::cout << set_arr;
-            return;
+            break;
 
         case 2: // intersection
             set_arr = arr.Intersection(arrHndlr.arr);
 
             print_message(std::string{"Intersection!"});
-
-            std::cout << std::endl
-                      << "Array: ";
-
-            std::cout << set_arr;
-            return;
+            break;
 
         case 3: // difference
             set_arr = arr.Difference(arrHndlr.arr);
 
             print_message(std::string{"Difference!"});
-
-            std::cout << std::endl
-                      << "Array: ";
-
-            std::cout << set_arr;
-            return;
+            break;
 
         case ESC:
             throw EscPressed();
@@ -928,10 +873,12 @@ void ArrayHandler<T>::set_opn_arr()
             print_message(std::string{"Invalid choice"});
             if (press_esc())
                 return;
-            break;
+            continue;
         }
+        std::cout << std::endl
+                  << "Array: " << set_arr;
 
-    } while (1);
+    } while (0);
 }
 
 template <typename T>
@@ -941,16 +888,21 @@ void ArrayHandler<T>::sort_opn_arr()
         print_message(std::string{"Array already Sorted!"});
     else
     {
-        title(); // print the title = iCoder
-
-        header(std::string{" SORT "});
-
-        wait_message(std::string{"Checking array..."});
-
-        arr.sort();
-
+        this->sort();
         print_message(std::string{"Array Sorted!"});
     }
+}
+
+template <typename T>
+void ArrayHandler<T>::sort(const std::string &heading, const std::string &message)
+{
+    title(); // print the title = iCoder
+
+    header(heading);
+
+    wait_message(std::string{message});
+
+    arr.sort();
 }
 
 template <typename T>
@@ -1118,7 +1070,7 @@ void ArrayHandler<T>::find_miss_val_arr()
                 std::cout << val << " ";
         }
         else
-            print_message(std::string{"No values missing"});
+            print_message(std::string{"No missing value found"});
 
     } while (0);
 }
@@ -1127,100 +1079,118 @@ template <typename T>
 void ArrayHandler<T>::find_dup_val_arr()
 {
 
-    // int ch{0};
-    // size_t start, end;
+    int ch{0};
+    size_t start, end;
+    std::vector<T> vec;
 
-    // do
-    // {
-    //     title(); // print the title = iCoder
+    do
+    {
+        title(); // print the title = iCoder
 
-    //     menu(reverse_data, std::string{" REVERSE ARRAY "});
+        menu(find_missing_val_data, std::string{" FIND DUPLICATE VALUES "});
 
-    //     sc.scanChoice(ch);
+        sc.scanChoice(ch);
 
-    //     switch (ch)
-    //     {
-    //     case 1:
-    //         arr.reverse(0, arr.length() - 1);
-    //         print_message(std::string{"Array Updated!"});
-    //         return;
+        switch (ch)
+        {
+        case 1:
+            // vec = arr.find_duplicates(0, arr.length() - 1);
+            break;
 
-    //     case 2:
-    //         border(width_menu);
-    //         animater(std::string{"Enter the starting position: "});
-    //         sc.scan(start);
+        case 2:
+            border(width_menu);
+            animater(std::string{"Enter the starting position: "});
+            sc.scan(start);
 
-    //         std::cout << std::endl;
+            std::cout << std::endl;
 
-    //         animater(std::string{"Enter the ending position: "});
+            animater(std::string{"Enter the ending position: "});
 
-    //         sc.scan(end);
+            sc.scan(end);
 
-    //         arr.reverse(start - 1, end - 1);
-    //         print_message(std::string{"Array Updated!"});
-    //         return;
+            // vec = arr.find_duplicates(start - 1, end - 1);
+            break;
 
-    //     case ESC:
-    //         throw EscPressed();
+        case ESC:
+            throw EscPressed();
 
-    //     default:
-    //         print_message(std::string{"Invalid choice"});
-    //         if (press_esc())
-    //             return;
-    //         break;
-    //     }
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            continue;
+        }
 
-    // } while (1);
+        if (vec.size())
+        {
+            print_message(std::string{"Duplicate Values:\n"});
+
+            for (auto &val : vec)
+                std::cout << val << " ";
+        }
+        else
+            print_message(std::string{"No duplicated value found"});
+
+    } while (0);
 }
 
 template <typename T>
 void ArrayHandler<T>::find_pair_sum_arr()
 {
 
-    // int ch{0};
-    // size_t start, end;
+    int ch{0};
+    size_t start, end;
+    std::vector<T> vec;
 
-    // do
-    // {
-    //     title(); // print the title = iCoder
+    do
+    {
+        title(); // print the title = iCoder
 
-    //     menu(reverse_data, std::string{" REVERSE ARRAY "});
+        menu(find_missing_val_data, std::string{" FIND A PAIR WITH SUM K "});
 
-    //     sc.scanChoice(ch);
+        sc.scanChoice(ch);
 
-    //     switch (ch)
-    //     {
-    //     case 1:
-    //         arr.reverse(0, arr.length() - 1);
-    //         print_message(std::string{"Array Updated!"});
-    //         return;
+        switch (ch)
+        {
+        case 1:
+            // vec = arr.find_pair_sum(0, arr.length() - 1);
+            break;
 
-    //     case 2:
-    //         border(width_menu);
-    //         animater(std::string{"Enter the starting position: "});
-    //         sc.scan(start);
+        case 2:
+            border(width_menu);
+            animater(std::string{"Enter the starting position: "});
+            sc.scan(start);
 
-    //         std::cout << std::endl;
+            std::cout << std::endl;
 
-    //         animater(std::string{"Enter the ending position: "});
+            animater(std::string{"Enter the ending position: "});
 
-    //         sc.scan(end);
+            sc.scan(end);
 
-    //         arr.reverse(start - 1, end - 1);
-    //         print_message(std::string{"Array Updated!"});
-    //         return;
+            // vec = arr.find_pair_sum(start - 1, end - 1);
+            break;
 
-    //     case ESC:
-    //         throw EscPressed();
+        case ESC:
+            throw EscPressed();
 
-    //     default:
-    //         print_message(std::string{"Invalid choice"});
-    //         if (press_esc())
-    //             return;
-    //         break;
-    //     }
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            continue;
+        }
 
-    // } while (1);
+        if (vec.size())
+        {
+            print_message(std::string{"Paired Values:\n"});
+
+            for (auto &val : vec)
+                std::cout << val << " ";
+        }
+        else
+            print_message(std::string{"No paired value found"});
+
+    } while (0);
 }
 
 template <typename T>
