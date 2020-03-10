@@ -61,8 +61,6 @@ int main()
 
     do
     {
-        system("cls"); // clear the screen each time
-
         title(); // print the title = iCoder
 
         menu(main_menu_data); // display the startup menu
@@ -140,8 +138,6 @@ bool isDirectoryExists()
 void about()
 {
     char ch;
-
-    system("cls"); // clear the screen each time
 
     title(); // print the title = iCoder
 

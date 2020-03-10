@@ -15,8 +15,6 @@ void home(const std::string &userID)
 
     do
     {
-        system("cls"); // clear the screen each timemenu_controller
-
         title(); // print the title = iCoder
 
         if (flag)

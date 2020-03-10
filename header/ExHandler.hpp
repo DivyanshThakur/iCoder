@@ -111,7 +111,11 @@ public:
     virtual const char *what() const noexcept;
 };
 
-class EscPressed : public std::exception
+class EscPressed
+{
+};
+
+class Esc
 {
 };
 

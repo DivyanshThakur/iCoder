@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <windows.h>
 #include <conio.h>
+#include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
 #include "../header/Constants.hpp"
@@ -12,20 +13,23 @@ void load()
     srand(time(nullptr)); // it will generate unique random numbers each time
 
     std::string loader{"LOADING..."};
+    size_t loadLimit = loader.size();
 
-    for (int i{0}; i <= rand() % 20 + (rand() % 10) * 2 + 10; ++i)
+    for (size_t i{0}; i <= rand() % (2 * loadLimit) + (rand() % loadLimit) * 2 + loadLimit; ++i)
     {
-        if (i % 10 == 0)
-            std::cout << "\r          \r";         // erasing current line
-        std::cout << loader.at(i % loader.size()); // display char one by one
-        Sleep(150);                                // delay
+        if (i % loadLimit == 0)
+            std::cout << "\r" << std::setw(loadLimit) << " "
+                      << "\r";                 // erasing current line
+        std::cout << loader.at(i % loadLimit); // display char one by one
+        Sleep(150);                            // delay
     }
 }
 
 void title()
-{ // this display the title at top of screen
+{
+    system("cls"); // clear the screen each time
 
-    const std::string title{"iCoder"};
+    const std::string title{"iCoder"}; // this display the title at top of screen
 
     std::cout << std::setw(console_title_relative_width) << ""
               << std::setw(width_title) << std::setfill('=') << ""
@@ -39,14 +43,20 @@ void title()
               << std::endl;
 }
 
-void menu(std::string menu_str, const std::string heading)
+void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
 { // show the specific menu
 
     header(heading);
 
-    std::cout << menu_str;
+    for (size_t index{0}; index < vec_menu.size(); ++index)
+    {
+        std::cout << std::setw(2) << index + 1 << ". " << vec_menu.at(index);
 
-    border(width_menu); // display the footer '----'
+        if (index < vec_menu.size() - 1)
+            std::cout << std::endl;
+    }
+
+    border(width_menu);
 
     std::cout << "Your Choice: ";
 }
@@ -115,7 +125,13 @@ void press_key()
     getch();
 }
 
-bool press_esc()
+void wait_message(const std::string &message)
+{
+    std::cout << message;
+    Sleep(1000);
+}
+
+void press_esc()
 {
     char ch;
 
@@ -123,16 +139,17 @@ bool press_esc()
     std::cout << "Press ESC to return";
     ch = getch();
 
-    return (ch == ESC);
+    if (ch == ESC)
+        throw EscPressed();
 }
 
-bool confirm_the_change(const std::string &message)
+bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
 {
     print_message(message);
 
     border(width_menu);
 
-    animater(std::string{"Do you want to proceed? (Y/N): "});
+    animater(txtConfirm + std::string{" (Y/N): "});
 
     // scanning character
     Scanner sc;
@@ -140,7 +157,7 @@ bool confirm_the_change(const std::string &message)
     sc.scan(c);
 
     if (c == ESC)
-        return false;
+        throw EscPressed();
 
     return (::tolower(c) == 'y');
 }

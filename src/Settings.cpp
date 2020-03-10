@@ -14,8 +14,6 @@ void settings()
     int ch{0};
     do
     {
-        system("cls"); // clear the screen each time
-
         title(); // print the title = iCoder
 
         menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
@@ -23,13 +21,27 @@ void settings()
         Scanner sc;
         sc.scanChoice(ch);
 
-        if (ch == ESC || ch == 2) //return when ESC is pressed
+        if (ch == ESC || ch == 3) //return when ESC is pressed
             return;
 
-        settings_controller(ch); // start as per user choice
+        try
+        {
+            settings_controller(ch); // start as per user choice
+        }
+        catch (const EscPressed &e)
+        {
+            // do nothing, already returned to previous screen
+        }
+        catch (const InvalidInputException &e)
+        {
+            std::cerr << e.what();
+        }
+        catch (const NegativeValueException &e)
+        {
+            std::cerr << e.what();
+        }
 
-    } while (ch != 3);
-    exit(0);
+    } while (1); // true
 }
 
 void settings_controller(char ch)
@@ -39,10 +51,15 @@ void settings_controller(char ch)
     {
     case 1: // change the animation speed of the menu
         change_text_anime_speed();
-        return;
-
-    case 3: //exit
         break;
+
+    case 2: // change linear search type
+        change_lsearch_type();
+        save_to_file(fsetting, std::string{"LSEARCH_STATUS"}, stats);
+        break;
+
+    case 4: //exit
+        exit(0);
 
     default:
         print_message(std::string{"Invalid choice"});
@@ -57,37 +74,52 @@ void change_text_anime_speed()
     int speed;
     Scanner sc;
 
-    system("cls"); // clear the screen each time
-
     title(); // print the title = iCoder
 
     header(std::string{" CHANGE ANIMATION SPEED "});
 
-    std::cout << "Enter the speed: ";
+    animater(std::string{"Enter the speed: "});
 
-    try
+    sc.scan(speed);
+
+    if (speed < 0)
+        throw NegativeValueException();
+
+    sleep_time = speed;
+
+    save_to_file(fsetting, std::string{"ANIMATION_SPEED"}, speed);
+}
+
+void change_lsearch_type()
+{
+
+    int ch;
+    Scanner sc;
+
+    do
     {
-        sc.scan(speed);
+        title(); // print the title = iCoder
 
-        if (speed < 0)
-            throw NegativeValueException();
+        menu(lsearch_data, std::string{" CHANGE LINEAR SEARCH TYPE "});
 
-        sleep_time = speed;
+        sc.scanChoice(ch);
 
-        save_to_file(fsetting, std::string{"ANIMATION_SPEED"}, speed);
-    }
-    catch (const EscPressed &e)
-    {
-        return;
-    }
-    catch (const InvalidInputException &e)
-    {
-        std::cerr << e.what();
-    }
-    catch (const NegativeValueException &e)
-    {
-        std::cerr << e.what();
-    }
+        switch (ch)
+        {
+        case 1:
+        case 2:
+        case 3:
+            update_stats(ch - 1);
+            return;
 
-    press_key();
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            if (press_esc())
+                return;
+            break;
+        }
+    } while (1);
 }

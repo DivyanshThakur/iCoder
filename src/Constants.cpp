@@ -6,8 +6,9 @@
 std::string signedUserID; // this will be initialized at runtime
 int sleep_time;
 const std::string dev_name{"Divyansh Singh Thakur"};
-std::string version_info{"1.2"};
-std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
+const std::string version_info{"1.2"};
+const std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
+const std::string icoder_url{"https://github.com/DivyanshThakur/iCoder/raw/master/iCoder.exe"};
 std::string path;
 std::string fuser;
 std::string fsetting;
@@ -29,25 +30,30 @@ const std::string txtUsername{"Username"};
 const std::string txtChar{"Char"};
 const std::string txtString{"String"};
 
-// common menu option
-const std::string menu_create_size{" 1. Add max size\n"};
-const std::string menu_update_size{" 1. Update max size\n"};
-
 // menuhandler.h
-const std::string main_menu_data{" 1. Log In\n 2. Create Account\n 3. Try (Anonymous)\n 4. Users\n 5. About\n 6. Settings\n 7. Exit"};
-const std::string settings_data{" 1. Change text animation speed\n 2. Main Menu\n 3. Exit"};
-const std::string get_dataType_data{" 1. Int\n 2. Long\n 3. Double\n 4. Char\n 5. String\n 6. Home"};
+const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "About", "Settings", "Exit"};
+const std::vector<std::string> settings_data{"Change text animation speed", "Change linear search type", "Main Menu", "Exit"};
+const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String", "Home"};
+const std::vector<std::string> home_data{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
+const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum", "Home", "Exit"};
 
-// THEME - LIST VIEW
-const std::string home_data{" 1. Array (New)\n 2. Strings\n 3. Matrices\n 4. Sparse Matrix\n 5. Polynomial  Representation\n 6. Linked List and more...\n 7. Main Menu (Sign Out)\n 8. Exit"};
-const std::string array_data_listView{" 2. Add elements\n 3. Insert at a position\n 4. Delete multiple elements\n 5. Delete from a position\n 6. Display array\n 7. Linear Search\n 8. Binary Search\n 9. Average\n10. Sum\n11. Max and Min value\n12. Merge\n13. Shift/Rotation\n14. Reverse the Array\n15. SET Operations\n16. Find missing elements\n17. Finding Duplicates\n18. Find a pair with sum K\n19. Home\n20. Exit"};
+// small menu funtions
+const std::vector<std::string> average_data{"Average of all elements", "Select a range"};
+const std::vector<std::string> sum_data{"Sum of all elements", "Select a range"};
+const std::vector<std::string> set_data{"Union", "Intersection", "Difference"};
+const std::vector<std::string> reverse_data{"Reverse the array", "Select a range"};
+const std::vector<std::string> shift_rotate_data{"Left Shift", "Right Shift", "Left Rotation", "Right Rotation"};
+const std::vector<std::string> lsearch_data{"Default", "Transposition", "Move to front"};
+const std::vector<std::string> find_missing_val_data{"Search the array", "Select a range"};
+const std::vector<std::string> find_duplicate_val_dataL{"d"};
+const std::vector<std::string> find_pair_sum_data{"d"};
 
-// THEME - TITLE VIEW
-const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
-
-// THEME - GRID VIEW
+// const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 
 //accounthandler.h
 const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};
+
+// enums
+Status stats;

@@ -2,7 +2,8 @@
 #define COD_ARRAY_HPP
 
 #include <iostream>
-#include "../../header/Scanner.hpp"
+#include "../header/cod_pair.hpp"
+#include "../../header/Constants.hpp"
 
 namespace cod
 {
@@ -11,17 +12,14 @@ class array
 {
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
-
-        os << "Max size: " << arr.max_size()
-           << std::endl
-           << "Elements stored: " << arr.length() << std::endl
-           << "Array: ";
-
-        if (arr.length())
-        {
-            for (size_t i = 0; i < arr.length(); ++i)
-                os << arr[i] << " ";
-        }
+        if (arr.len)
+            for (size_t i{0}; i < arr.len; ++i)
+            {
+                if (i < arr.len - 1)
+                    std::cout << arr[i] << " ";
+                else
+                    std::cout << arr[i];
+            }
         else
             os << "No elements to display";
 
@@ -32,8 +30,7 @@ private:
     T *A;
     size_t size;
     size_t len;
-    T MIN_VALUE;
-    T DEF_VALUE;
+    T DEF_VAL;
 
 public:
     array();
@@ -56,6 +53,7 @@ public:
 
     void push_back(T &x);
 
+    // basic operations
     T front() const;
     T back() const;
     size_t max_size() const;
@@ -66,6 +64,33 @@ public:
     bool empty() const;
     void clear();
     void swap(array &rhs);
+    void swap(size_t i, size_t j);
+
+    // shift & roate functions
+    void shift(Side s, size_t n);
+    void rotate(Side s, size_t n);
+    size_t lsearch(const T &x);
+    size_t bsearch(const T &x) const;
+    bool isSorted() const;
+    void sort();
+    array merge(const array &rhs);
+
+    // sets
+    array Union(const array &rhs);
+    array Intersection(const array &rhs);
+    array Difference(const array &rhs);
+
+    // finding values
+    std::vector<cod::pair<T, int>> find_duplicates(size_t start, size_t end);
+    std::vector<T> find_missing(size_t start, size_t end);
+    std::vector<array<T>> find_pair_sum(size_t start, size_t end, T &k);
+
+    // basic operations
+    void reverse(size_t start, size_t end);
+    double average(size_t start, int n) const;
+    T sum(size_t start, int n) const;
+    T min() const;
+    T max() const;
 
     ~array();
 };
