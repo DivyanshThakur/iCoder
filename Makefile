@@ -47,14 +47,14 @@ obj\UIhandler.o: src\UIhandler.cpp header\UIhandler.hpp
 
 ### Namespace files are compiled from below
 
+obj\cod_algorithm.o: namespace\src\cod_algorithm.cpp namespace\header\cod_algorithm.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_algorithm.cpp -o obj\cod_algorithm.o
+	
 obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
 	$(CC) $(CFLAGS) namespace\src\cod_array.cpp -o obj\cod_array.o
 
 obj\cod_limits.o: namespace\src\cod_limits.cpp namespace\header\cod_limits.hpp
 	$(CC) $(CFLAGS) namespace\src\cod_limits.cpp -o obj\cod_limits.o
-
-obj\cod_algorithm.o: namespace\src\cod_algorithm.cpp namespace\header\cod_algorithm.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_algorithm.cpp -o obj\cod_algorithm.o
 
 ### Extras
 

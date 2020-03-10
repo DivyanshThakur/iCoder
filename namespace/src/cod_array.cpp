@@ -615,7 +615,7 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
 }
 
 template <typename T>
-cod::array<cod::array<T>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
+std::vector<T> cod::array<T>::find_duplicates(size_t start, size_t end) // all
 {
     if (len == 0)
         throw ArrayEmptyException();
@@ -625,6 +625,23 @@ cod::array<cod::array<T>> cod::array<T>::find_duplicates(size_t start, size_t en
 
     if (start < 0 || end >= len)
         throw InvalidInputException();
+
+    std::vector<T> vec;
+    size_t i{start};
+
+    T min = this->min();
+    array hash(max() - min + 1);
+    hash.len = hash.size;
+    hash.fill(DEF_VAL);
+
+    for (; i <= end; ++i)
+        ++hash[A[i] - min];
+
+    for (i = 0; i < hash.len; ++i)
+        if (hash[i] == DEF_VAL)
+            vec.push_back(min + i);
+
+    return vec;
 }
 
 template <typename T>
@@ -672,7 +689,7 @@ std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for 
 }
 
 template <typename T>
-cod::array<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end) // only for numbers
+std::vector<T> cod::array<T>::find_pair_sum(size_t start, size_t end) // only for numbers
 {
     if (len == 0)
         throw ArrayEmptyException();
