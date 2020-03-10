@@ -50,7 +50,7 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
 
     for (size_t index{0}; index < vec_menu.size(); ++index)
     {
-        std::cout << std::setw(2) << index + 1 << ". " << vec_menu.at(index);
+        std::cout << std::setw(2) << std::right << index + 1 << ". " << vec_menu.at(index);
 
         if (index < vec_menu.size() - 1)
             std::cout << std::endl;

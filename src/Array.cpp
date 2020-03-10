@@ -1049,7 +1049,9 @@ void ArrayHandler<T>::find_miss_val_arr()
             return;
 
         case 2:
-            border(width_menu);
+            title();
+            header(std::string{" FIND MISSING VALUES "});
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
 
@@ -1106,20 +1108,24 @@ void ArrayHandler<T>::find_dup_val_arr()
 
             if (vec.size())
             {
-                print_message(std::string{"Duplicate Values:\n"});
-
-                std::cout << std::setw(10) << std::left << "Occurence"
+                border(width_menu);
+                std::cout << std::setw(12) << std::left << "Occurence"
                           << "Value" << std::endl;
 
-                for (auto &val : vec)
-                    std::cout << val << std::endl;
+                for (size_t i{0}; i < vec.size(); ++i)
+                    if (i < vec.size() - 1)
+                        std::cout << vec.at(i) << std::endl;
+                    else
+                        std::cout << vec.at(i);
             }
             else
                 print_message(std::string{"No duplicated value found"});
             return;
 
         case 2:
-            border(width_menu);
+            title();
+            header(std::string{" FIND DUPLICATE VALUES "});
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
 
@@ -1133,13 +1139,15 @@ void ArrayHandler<T>::find_dup_val_arr()
 
             if (vec.size())
             {
-                print_message(std::string{"Duplicate Values:\n"});
-
-                std::cout << std::setw(10) << std::left << "Occurence"
+                border(width_menu);
+                std::cout << std::setw(12) << std::left << "Occurence"
                           << "Value" << std::endl;
 
-                for (auto &val : vec)
-                    std::cout << val << std::endl;
+                for (size_t i{0}; i < vec.size(); ++i)
+                    if (i < vec.size() - 1)
+                        std::cout << vec.at(i) << std::endl;
+                    else
+                        std::cout << vec.at(i);
             }
             else
                 print_message(std::string{"No duplicated value found"});
@@ -1196,10 +1204,9 @@ void ArrayHandler<T>::find_pair_sum_arr()
             return;
 
         case 2:
-            border(width_menu);
-            animater(std::string{"Enter the sum: "});
-            sc.scan(value);
-            border(width_menu);
+            title();
+            header(std::string{" FIND A PAIR WITH SUM K "});
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
 
@@ -1208,6 +1215,10 @@ void ArrayHandler<T>::find_pair_sum_arr()
             animater(std::string{"Enter the ending position: "});
 
             sc.scan(end);
+
+            border(width_menu);
+            animater(std::string{"Enter the sum: "});
+            sc.scan(value);
 
             vec = arr.find_pair_sum(start - 1, end - 1, value);
 

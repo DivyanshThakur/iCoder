@@ -31,6 +31,9 @@ private:
     size_t size;
     size_t len;
     T DEF_VAL;
+    T MIN_VAL;
+
+    bool unique(const std::vector<T> &temp, const T &val);
 
 public:
     array();

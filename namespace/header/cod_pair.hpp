@@ -12,7 +12,7 @@ class pair
 
     friend std::ostream &operator<<(std::ostream &os, const pair &pair)
     {
-        os << std::setw(10) << std::left << pair.second() << pair.first();
+        os << std::setw(12) << std::left << pair.second() << pair.first();
         return os;
     }
 

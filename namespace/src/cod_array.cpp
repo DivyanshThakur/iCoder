@@ -6,10 +6,19 @@
 #include "../../header/ExHandler.hpp"
 
 template <typename T>
-cod::array<T>::array() : A(nullptr), size(0), len(0), DEF_VAL(cod::limits<T>::def()) {}
+bool cod::array<T>::unique(const std::vector<T> &temp, const T &val)
+{
+    for (const auto &v : temp)
+        if (v == val)
+            return false;
+    return true;
+}
 
 template <typename T>
-cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), DEF_VAL(cod::limits<T>::def())
+cod::array<T>::array() : A(nullptr), size(0), len(0), DEF_VAL(cod::limits<T>::def()), MIN_VAL(cod::limits<T>::min()) {}
+
+template <typename T>
+cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), DEF_VAL(cod::limits<T>::def()), MIN_VAL(cod::limits<T>::min())
 {
     if (size < 0)
         throw NegativeValueException();
@@ -645,18 +654,26 @@ std::vector<cod::pair<T, int>> cod::array<T>::find_duplicates(size_t start, size
             }
         }
     }
-    //     T min = this->min();
-    //     array<int> hash(max() - min + 1);
-    //     hash.len = hash.size;
-    //     hash.fill(DEF_VAL);
+    else
+    {
+        std::vector<T> dup;
 
-    //     for (; i <= end; ++i)
-    //         ++hash[A[i] - min];
+        for (int count{1}; i < end; ++i, count = 1)
+        {
+            if (unique(dup, A[i]))
+            {
+                for (size_t j{i + 1}; j <= end; ++j)
+                    if (A[i] == A[j])
+                        ++count;
 
-    //     for (i = 0; i < hash.len; ++i)
-    //         if (hash[i] > DEF_VAL)
-    //             vec.push_back(cod::pair<T, int>{min + i, hash[i]});
-
+                if (count > 1)
+                {
+                    dup.push_back(A[i]);
+                    vec.push_back(cod::pair<T, int>{A[i], count});
+                }
+            }
+        }
+    }
     return vec;
 }
 
