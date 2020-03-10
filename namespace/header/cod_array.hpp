@@ -75,6 +75,7 @@ public:
     size_t lsearch(const T &x);
     size_t bsearch(const T &x) const;
     bool isSorted() const;
+    bool hasDuplicates() const;
     void sort();
     array merge(const array &rhs);
 

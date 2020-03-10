@@ -443,6 +443,17 @@ bool cod::array<T>::isSorted() const
 }
 
 template <typename T>
+bool cod::array<T>::hasDuplicates() const
+{
+    for (size_t i{0}; i < len - 1; ++i)
+        for (size_t j{i + 1}; j < len; ++j)
+            if (A[i] == A[j])
+                return true;
+
+    return false;
+}
+
+template <typename T>
 void cod::array<T>::sort()
 {
     bool toSort = confirm_the_change(std::string{"The array is not sorted"}, std::string{"Do you want to sort?"});
@@ -694,7 +705,7 @@ std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for 
     T l = A[i];
     size_t diff = l - i;
 
-    if (this->isSorted())
+    if (this->isSorted() && !hasDuplicates())
     {
         for (; i <= end; ++i)
             if (A[i] - i != diff)

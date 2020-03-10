@@ -636,6 +636,9 @@ void ArrayHandler<T>::insert_value()
     size_t pos;
     T value;
 
+    if (arr.length() == arr.max_size())
+        throw ArrayFullException();
+
     title(); // print the title = iCoder
 
     header(std::string{" INSERT VALUE "});
