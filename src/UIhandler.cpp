@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <windows.h>
 #include <conio.h>
+#include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
 #include "../header/Constants.hpp"
@@ -130,7 +131,7 @@ void wait_message(const std::string &message)
     Sleep(1000);
 }
 
-bool press_esc()
+void press_esc()
 {
     char ch;
 
@@ -138,7 +139,8 @@ bool press_esc()
     std::cout << "Press ESC to return";
     ch = getch();
 
-    return (ch == ESC); // throw EScPressed()
+    if (ch == ESC)
+        throw EscPressed();
 }
 
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
@@ -155,7 +157,7 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
     sc.scan(c);
 
     if (c == ESC)
-        return false;
+        throw EscPressed();
 
     return (::tolower(c) == 'y');
 }

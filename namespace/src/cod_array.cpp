@@ -1,6 +1,7 @@
 #include <iostream>
-#include "../header/cod_limits.hpp"
 #include "../header/cod_array.hpp"
+#include "../header/cod_limits.hpp"
+#include "../header/cod_pair.hpp"
 #include "../../header/UIhandler.hpp"
 #include "../../header/ExHandler.hpp"
 
@@ -615,7 +616,7 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
 }
 
 template <typename T>
-std::vector<T> cod::array<T>::find_duplicates(size_t start, size_t end) // all
+std::vector<cod::pair<T, int>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
 {
     if (len == 0)
         throw ArrayEmptyException();
@@ -626,26 +627,41 @@ std::vector<T> cod::array<T>::find_duplicates(size_t start, size_t end) // all
     if (start < 0 || end >= len)
         throw InvalidInputException();
 
-    std::vector<T> vec;
+    std::vector<cod::pair<T, int>> vec;
     size_t i{start};
 
-    T min = this->min();
-    array hash(max() - min + 1);
-    hash.len = hash.size;
-    hash.fill(DEF_VAL);
+    if (this->isSorted())
+    {
+        for (int count{1}; i <= end; ++i, count = 1)
+        {
+            if (A[i] == A[i + 1])
+            {
+                while (A[i] == A[i + 1])
+                {
+                    ++count;
+                    ++i;
+                }
+                vec.push_back(cod::pair<T, int>{A[i], count});
+            }
+        }
+    }
+    //     T min = this->min();
+    //     array<int> hash(max() - min + 1);
+    //     hash.len = hash.size;
+    //     hash.fill(DEF_VAL);
 
-    for (; i <= end; ++i)
-        ++hash[A[i] - min];
+    //     for (; i <= end; ++i)
+    //         ++hash[A[i] - min];
 
-    for (i = 0; i < hash.len; ++i)
-        if (hash[i] == DEF_VAL)
-            vec.push_back(min + i);
+    //     for (i = 0; i < hash.len; ++i)
+    //         if (hash[i] > DEF_VAL)
+    //             vec.push_back(cod::pair<T, int>{min + i, hash[i]});
 
     return vec;
 }
 
 template <typename T>
-std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for string
+std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for string, double(if not sorted)
 {
     if (len == 0)
         throw ArrayEmptyException();
@@ -688,8 +704,8 @@ std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for 
     return vec;
 }
 
-template <typename T>
-std::vector<T> cod::array<T>::find_pair_sum(size_t start, size_t end) // only for numbers
+template <>
+std::vector<double> cod::array<double>::find_missing(size_t start, size_t end) // not for string, double(if not sorted)
 {
     if (len == 0)
         throw ArrayEmptyException();
@@ -699,6 +715,78 @@ std::vector<T> cod::array<T>::find_pair_sum(size_t start, size_t end) // only fo
 
     if (start < 0 || end >= len)
         throw InvalidInputException();
+
+    std::vector<double> vec;
+    size_t i{start};
+    double l = A[i];
+    size_t diff = l - i;
+
+    if (!this->isSorted())
+    {
+        border(width_menu);
+        wait_message(std::string{"Checking array..."});
+        this->sort();
+    }
+
+    for (; i <= end; ++i)
+        if (A[i] - i != diff)
+            while (diff < A[i] - i)
+            {
+                vec.push_back(i + diff);
+                ++diff;
+            }
+
+    return vec;
+}
+
+template <typename T>
+std::vector<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end, T &k) // only for numbers
+{
+    if (len == 0)
+        throw ArrayEmptyException();
+
+    if (start > end)
+        throw InvalidPositionException();
+
+    if (start < 0 || end >= len)
+        throw InvalidInputException();
+
+    std::vector<array<T>> vec;
+
+    size_t i{start}, j{end};
+
+    if (this->isSorted())
+    {
+        while (i < j)
+        {
+            if (A[i] + A[j] == k)
+            {
+                array<T> temp(3);
+                temp.push_back(A[i++]);
+                temp.push_back(A[j--]);
+                temp.push_back(k);
+                vec.push_back(temp);
+            }
+            else if (A[i] + A[j] < k)
+                ++i;
+            else
+                --j;
+        }
+    }
+    else
+    {
+        for (; i < end; ++i)
+            for (size_t j{i + 1}; j < end; ++j)
+                if (A[i] + A[j] == k)
+                {
+                    array<T> temp(3);
+                    temp.push_back(A[i++]);
+                    temp.push_back(A[j--]);
+                    temp.push_back(k);
+                    vec.push_back(temp);
+                }
+    }
+    return vec;
 }
 
 template <typename T>
@@ -842,6 +930,18 @@ template <>
 std::vector<std::string> cod::array<std::string>::find_missing(size_t start, size_t end)
 {
     return std::vector<std::string>();
+}
+
+template <>
+std::vector<cod::array<std::string>> cod::array<std::string>::find_pair_sum(size_t start, size_t end, std::string &k)
+{
+    return std::vector<cod::array<std::string>>();
+}
+
+template <>
+std::vector<cod::array<char>> cod::array<char>::find_pair_sum(size_t start, size_t end, char &k)
+{
+    return std::vector<cod::array<char>>();
 }
 
 // template class declaration

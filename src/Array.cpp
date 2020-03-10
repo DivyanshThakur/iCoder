@@ -852,33 +852,35 @@ void ArrayHandler<T>::set_opn_arr()
             set_arr = arr.Union(arrHndlr.arr);
 
             print_message(std::string{"Union!"});
-            break;
+            std::cout << std::endl
+                      << "Array: " << set_arr;
+            return;
 
         case 2: // intersection
             set_arr = arr.Intersection(arrHndlr.arr);
 
             print_message(std::string{"Intersection!"});
-            break;
+            std::cout << std::endl
+                      << "Array: " << set_arr;
+            return;
 
         case 3: // difference
             set_arr = arr.Difference(arrHndlr.arr);
 
             print_message(std::string{"Difference!"});
-            break;
+            std::cout << std::endl
+                      << "Array: " << set_arr;
+            return;
 
         case ESC:
             throw EscPressed();
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
-            continue;
+            press_esc();
+            break;
         }
-        std::cout << std::endl
-                  << "Array: " << set_arr;
-
-    } while (0);
+    } while (1);
 }
 
 template <typename T>
@@ -947,8 +949,7 @@ void ArrayHandler<T>::reverse_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
+            press_esc();
             break;
         }
 
@@ -1008,8 +1009,7 @@ void ArrayHandler<T>::shift_rotate_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
+            press_esc();
             break;
         }
 
@@ -1036,7 +1036,17 @@ void ArrayHandler<T>::find_miss_val_arr()
         {
         case 1:
             vec = arr.find_missing(0, arr.length() - 1);
-            break;
+
+            if (vec.size())
+            {
+                print_message(std::string{"Missing Values:\n"});
+
+                for (auto &val : vec)
+                    std::cout << val << " ";
+            }
+            else
+                print_message(std::string{"No missing value found"});
+            return;
 
         case 2:
             border(width_menu);
@@ -1050,29 +1060,27 @@ void ArrayHandler<T>::find_miss_val_arr()
             sc.scan(end);
 
             vec = arr.find_missing(start - 1, end - 1);
-            break;
+
+            if (vec.size())
+            {
+                print_message(std::string{"Missing Values:\n"});
+
+                for (auto &val : vec)
+                    std::cout << val << " ";
+            }
+            else
+                print_message(std::string{"No missing value found"});
+            return;
 
         case ESC:
             throw EscPressed();
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
-            continue;
+            press_esc();
+            break;
         }
-
-        if (vec.size())
-        {
-            print_message(std::string{"Missing Values:\n"});
-
-            for (auto &val : vec)
-                std::cout << val << " ";
-        }
-        else
-            print_message(std::string{"No missing value found"});
-
-    } while (0);
+    } while (1);
 }
 
 template <typename T>
@@ -1081,7 +1089,7 @@ void ArrayHandler<T>::find_dup_val_arr()
 
     int ch{0};
     size_t start, end;
-    std::vector<T> vec;
+    std::vector<cod::pair<T, int>> vec;
 
     do
     {
@@ -1094,8 +1102,21 @@ void ArrayHandler<T>::find_dup_val_arr()
         switch (ch)
         {
         case 1:
-            // vec = arr.find_duplicates(0, arr.length() - 1);
-            break;
+            vec = arr.find_duplicates(0, arr.length() - 1);
+
+            if (vec.size())
+            {
+                print_message(std::string{"Duplicate Values:\n"});
+
+                std::cout << std::setw(10) << std::left << "Occurence"
+                          << "Value" << std::endl;
+
+                for (auto &val : vec)
+                    std::cout << val << std::endl;
+            }
+            else
+                print_message(std::string{"No duplicated value found"});
+            return;
 
         case 2:
             border(width_menu);
@@ -1108,30 +1129,31 @@ void ArrayHandler<T>::find_dup_val_arr()
 
             sc.scan(end);
 
-            // vec = arr.find_duplicates(start - 1, end - 1);
-            break;
+            vec = arr.find_duplicates(start - 1, end - 1);
+
+            if (vec.size())
+            {
+                print_message(std::string{"Duplicate Values:\n"});
+
+                std::cout << std::setw(10) << std::left << "Occurence"
+                          << "Value" << std::endl;
+
+                for (auto &val : vec)
+                    std::cout << val << std::endl;
+            }
+            else
+                print_message(std::string{"No duplicated value found"});
+            return;
 
         case ESC:
             throw EscPressed();
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
-            continue;
+            press_esc();
+            break;
         }
-
-        if (vec.size())
-        {
-            print_message(std::string{"Duplicate Values:\n"});
-
-            for (auto &val : vec)
-                std::cout << val << " ";
-        }
-        else
-            print_message(std::string{"No duplicated value found"});
-
-    } while (0);
+    } while (1);
 }
 
 template <typename T>
@@ -1140,7 +1162,8 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
     int ch{0};
     size_t start, end;
-    std::vector<T> vec;
+    std::vector<cod::array<T>> vec;
+    T value;
 
     do
     {
@@ -1153,10 +1176,29 @@ void ArrayHandler<T>::find_pair_sum_arr()
         switch (ch)
         {
         case 1:
-            // vec = arr.find_pair_sum(0, arr.length() - 1);
-            break;
+            border(width_menu);
+            animater(std::string{"Enter the sum: "});
+            sc.scan(value);
+            vec = arr.find_pair_sum(0, arr.length() - 1, value);
+
+            if (vec.size())
+            {
+                print_message(std::string{"Paired Values:\n"});
+
+                for (size_t i{0}; i < vec.size(); ++i)
+                    if (i < vec.size() - 1)
+                        std::cout << vec.at(i)[0] << " + " << vec.at(i)[1] << " = " << vec.at(i)[2] << std::endl;
+                    else
+                        std::cout << vec.at(i)[0] << " + " << vec.at(i)[1] << " = " << vec.at(i)[2];
+            }
+            else
+                print_message(std::string{"No paired value found"});
+            return;
 
         case 2:
+            border(width_menu);
+            animater(std::string{"Enter the sum: "});
+            sc.scan(value);
             border(width_menu);
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
@@ -1167,30 +1209,31 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
             sc.scan(end);
 
-            // vec = arr.find_pair_sum(start - 1, end - 1);
-            break;
+            vec = arr.find_pair_sum(start - 1, end - 1, value);
+
+            if (vec.size())
+            {
+                print_message(std::string{"Paired Values:\n"});
+
+                for (size_t i{0}; i < vec.size(); ++i)
+                    if (i < vec.size() - 1)
+                        std::cout << vec.at(i)[0] << " + " << vec.at(i)[1] << " = " << vec.at(i)[2] << std::endl;
+                    else
+                        std::cout << vec.at(i)[0] << " + " << vec.at(i)[1] << " = " << vec.at(i)[2];
+            }
+            else
+                print_message(std::string{"No paired value found"});
+            return;
 
         case ESC:
             throw EscPressed();
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
-            continue;
+            press_esc();
+            break;
         }
-
-        if (vec.size())
-        {
-            print_message(std::string{"Paired Values:\n"});
-
-            for (auto &val : vec)
-                std::cout << val << " ";
-        }
-        else
-            print_message(std::string{"No paired value found"});
-
-    } while (0);
+    } while (1);
 }
 
 template <typename T>
@@ -1295,8 +1338,7 @@ void ArrayHandler<T>::average()
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
+            press_esc();
             break;
         }
 
@@ -1345,8 +1387,7 @@ void ArrayHandler<T>::sum()
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
+            press_esc();
             break;
         }
 

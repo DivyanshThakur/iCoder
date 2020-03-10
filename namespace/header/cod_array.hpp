@@ -2,6 +2,7 @@
 #define COD_ARRAY_HPP
 
 #include <iostream>
+#include "../header/cod_pair.hpp"
 #include "../../header/Constants.hpp"
 
 namespace cod
@@ -80,9 +81,9 @@ public:
     array Difference(const array &rhs);
 
     // finding values
-    std::vector<T> find_duplicates(size_t start, size_t end);
+    std::vector<cod::pair<T, int>> find_duplicates(size_t start, size_t end);
     std::vector<T> find_missing(size_t start, size_t end);
-    std::vector<T> find_pair_sum(size_t start, size_t end);
+    std::vector<array<T>> find_pair_sum(size_t start, size_t end, T &k);
 
     // basic operations
     void reverse(size_t start, size_t end);
