@@ -76,22 +76,7 @@ void ArrayHandler<T>::start()
 {
     int ch{0};
 
-    try
-    {
-        update_size();
-    }
-    catch (const EscPressed &e)
-    {
-        // do nothing
-    }
-    catch (const InvalidInputException &e)
-    {
-        std::cerr << e.what();
-    }
-    catch (const NegativeValueException &e)
-    {
-        std::cerr << e.what();
-    }
+    update_size();
 
     do
     {

@@ -3,7 +3,7 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.2
+ * VERSION - 1.4
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
@@ -21,6 +21,7 @@
 #include <conio.h>
 #include <tchar.h>
 #include <dir.h>
+#include "header/ExHandler.hpp"
 #include "header/Constants.hpp"
 #include "header/UIhandler.hpp"
 #include "header/AccountHandler.hpp"
@@ -65,10 +66,22 @@ int main()
 
         menu(main_menu_data); // display the startup menu
 
-        Scanner sc;
-        sc.scanChoice(ch); // scan user's choice
+        try
+        {
+            Scanner sc;
+            sc.scanChoice(ch); // scan user's choice
 
-        main_menu_controller(ch); // start as per user choice
+            main_menu_controller(ch); // start as per user choice
+        }
+        catch (const EscPressed &e)
+        {
+            // do nothing
+        }
+        catch (...)
+        {
+            border(width_menu);
+            std::cerr << "Unknown error occurred in Main Menu";
+        }
 
     } while (ch != 7); // the program terminates after this line
 

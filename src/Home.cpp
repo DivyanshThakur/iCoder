@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include "../header/ExHandler.hpp"
 #include "../header/Home.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
@@ -24,13 +25,27 @@ void home(const std::string &userID)
         }
 
         menu(home_data); // display the startup menu
+        try
+        {
+            Scanner sc;
+            sc.scanChoice(ch);
 
-        Scanner sc;
-        sc.scanChoice(ch);
+            home_controller(ch); // start as per user choice
+        }
+        catch (const EscPressed &e)
+        {
+            // do nothing
+        }
+        catch (const InvalidInputException &e)
+        {
+            std::cerr << e.what();
+        }
+        catch (const NegativeValueException &e)
+        {
+            std::cerr << e.what();
+        }
 
-        home_controller(ch); // start as per user choice
-
-        if (ch == 7 || (ch == ESC && signedUserID == std::string{"NULL"}))
+        if (ch == 7 || signedUserID == std::string{"NULL"})
             return;
 
     } while (ch != 8); // exit the program when ch == 8

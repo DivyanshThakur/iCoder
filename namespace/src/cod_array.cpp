@@ -781,15 +781,15 @@ std::vector<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end
 
     std::vector<array<T>> vec;
 
-    size_t i{start}, j{end};
-
     if (this->isSorted())
     {
+        size_t i{start}, j{end};
+
         while (i < j)
         {
             if (A[i] + A[j] == k)
             {
-                array<T> temp(3);
+                array temp(3);
                 temp.push_back(A[i++]);
                 temp.push_back(A[j--]);
                 temp.push_back(k);
@@ -803,13 +803,13 @@ std::vector<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end
     }
     else
     {
-        for (; i < end; ++i)
+        for (size_t i{start}; i < end; ++i)
             for (size_t j{i + 1}; j <= end; ++j)
                 if (A[i] + A[j] == k)
                 {
-                    array<T> temp(3);
-                    temp.push_back(A[i++]);
-                    temp.push_back(A[j--]);
+                    array temp(3);
+                    temp.push_back(A[i]);
+                    temp.push_back(A[j]);
                     temp.push_back(k);
                     vec.push_back(temp);
                 }

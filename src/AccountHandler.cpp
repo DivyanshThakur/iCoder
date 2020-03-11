@@ -115,8 +115,7 @@ void login()
     {
         std::cerr << e.what();
 
-        if (press_esc())
-            return;
+        press_esc();
 
         login();
     }
@@ -162,8 +161,8 @@ void create_account()
     catch (const PasswordNotMatchedException &e)
     {
         std::cerr << e.what();
-        if (press_esc())
-            return;
+
+        press_esc();
 
         create_account();
     }
@@ -181,8 +180,7 @@ void create_account()
     {
         std::cerr << e.what();
 
-        if (press_esc())
-            return;
+        press_esc();
 
         create_account();
     }

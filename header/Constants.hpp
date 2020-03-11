@@ -13,6 +13,7 @@ extern const std::string dev_name;
 extern const std::string version_info;
 extern const std::string scode_url;
 extern const std::string icoder_url;
+extern const std::string icoder_beta_url;
 extern std::string path;
 extern std::string fuser;
 extern std::string fsetting;

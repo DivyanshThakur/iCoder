@@ -6,9 +6,10 @@
 std::string signedUserID; // this will be initialized at runtime
 int sleep_time;
 const std::string dev_name{"Divyansh Singh Thakur"};
-const std::string version_info{"1.2"};
+const std::string version_info{"1.4"};
 const std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
 const std::string icoder_url{"https://github.com/DivyanshThakur/iCoder/raw/master/iCoder.exe"};
+const std::string icoder_beta_url{"https://github.com/DivyanshThakur/iCoder/raw/Development/iCoder.exe"};
 std::string path;
 std::string fuser;
 std::string fsetting;

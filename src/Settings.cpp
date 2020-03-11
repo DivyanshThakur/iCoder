@@ -117,8 +117,7 @@ void change_lsearch_type()
 
         default:
             print_message(std::string{"Invalid choice"});
-            if (press_esc())
-                return;
+            press_esc();
             break;
         }
     } while (1);
