@@ -2,6 +2,7 @@
 #define CONSTANTS_HPP
 
 #include <string>
+#include <vector>
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 
@@ -9,8 +10,13 @@
 extern std::string signedUserID; // this will be initialized at runtime
 extern int sleep_time;
 extern const std::string dev_name;
-extern std::string version_info;
-extern std::string scode_url;
+extern const std::string version_info;
+extern const std::string scode_url;
+extern const std::string icoder_url;
+extern const std::string icoder_beta_url;
+extern std::string path;
+extern std::string fuser;
+extern std::string fsetting;
 
 /** CONSTANTS **/
 
@@ -29,29 +35,43 @@ extern const std::string txtUsername;
 extern const std::string txtChar;
 extern const std::string txtString;
 
-// common menu option
-extern const std::string menu_create_size;
-extern const std::string menu_update_size;
-
 // menuhandler.h
-extern const std::string main_menu_data;
-extern const std::string settings_data;
-extern const std::string get_dataType_data;
+extern const std::vector<std::string> main_menu_data;
+extern const std::vector<std::string> settings_data;
+extern const std::vector<std::string> get_dataType_data;
+extern const std::vector<std::string> home_data;
+extern const std::vector<std::string> array_data;
 
-// THEME - LIST VIEW
-extern const std::string home_data;
-extern const std::string array_data_listView;
-
-// THEME - TITLE VIEW
-extern const std::string array_data_titleView;
-
-// THEME - GRID VIEW
+// small menu funtions
+extern const std::vector<std::string> average_data;
+extern const std::vector<std::string> sum_data;
+extern const std::vector<std::string> set_data;
+extern const std::vector<std::string> reverse_data;
+extern const std::vector<std::string> shift_rotate_data;
+extern const std::vector<std::string> lsearch_data;
+extern const std::vector<std::string> find_missing_val_data;
+extern const std::vector<std::string> find_duplicate_val_data;
+extern const std::vector<std::string> find_pair_sum_data;
 
 //accounthandler.h
-extern const std::string fuser;
-extern const std::string fsetting;
 extern const std::string username;
 extern const std::string password;
 extern const std::string RePassword;
+
+// enums
+enum Side
+{
+    LEFT,
+    RIGHT
+};
+
+enum Status
+{
+    DEFAULT,
+    EASY,
+    ADV
+};
+
+extern enum Status stats;
 
 #endif

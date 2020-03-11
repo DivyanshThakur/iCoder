@@ -20,11 +20,13 @@ void restore_saved_changes()
     {
         signedUserID = std::string{"NULL"};
         sleep_time = 25;
+        stats = DEFAULT;
 
         std::ofstream out_file(fsetting);
 
         print_to_file(out_file, std::string{"CURRENT_USER"}, signedUserID);
         print_to_file(out_file, std::string{"ANIMATION_SPEED"}, sleep_time);
+        print_to_file(out_file, std::string{"LSEARCH_STATUS"}, stats);
 
         out_file.close();
 
@@ -32,6 +34,7 @@ void restore_saved_changes()
     }
 
     std::string title;
+    int c;
 
     while (file >> title)
     {
@@ -39,9 +42,32 @@ void restore_saved_changes()
             file >> signedUserID;
         else if (title == std::string{"ANIMATION_SPEED"})
             file >> sleep_time;
+        else if (title == std::string{"LSEARCH_STATUS"})
+        {
+            file >> c;
+            update_stats(c);
+        }
     }
 
     file.close();
+}
+
+void update_stats(int c)
+{
+    switch (c)
+    {
+    case 0:
+        stats = DEFAULT;
+        break;
+
+    case 1:
+        stats = EASY;
+        break;
+
+    case 2:
+        stats = ADV;
+        break;
+    }
 }
 
 bool check_new_user()
@@ -63,8 +89,6 @@ void save_active_user(const std::string &userID)
 
 void login()
 {
-    system("cls");
-
     title(); // display the "iCoder" title
 
     header(std::string{" LOGIN "});
@@ -91,8 +115,7 @@ void login()
     {
         std::cerr << e.what();
 
-        if (press_esc())
-            return;
+        press_esc();
 
         login();
     }
@@ -110,8 +133,6 @@ void login()
 
 void create_account()
 {
-    system("cls");
-
     title(); // display the "iCoder" title
 
     header(std::string{" CREATE ACCOUNT "}); // display the header
@@ -140,8 +161,8 @@ void create_account()
     catch (const PasswordNotMatchedException &e)
     {
         std::cerr << e.what();
-        if (press_esc())
-            return;
+
+        press_esc();
 
         create_account();
     }
@@ -159,8 +180,7 @@ void create_account()
     {
         std::cerr << e.what();
 
-        if (press_esc())
-            return;
+        press_esc();
 
         create_account();
     }
@@ -173,9 +193,6 @@ void create_account()
 
 void display_users()
 {
-
-    system("cls");
-
     title(); // display "iCoder"
 
     header(" USERS ");
@@ -264,3 +281,4 @@ void print_to_file(std::ofstream &out_file, const std::string &title, const T &d
 
 template void save_to_file<std::string>(const std::string &file_name, const std::string &title, const std::string &data);
 template void save_to_file<int>(const std::string &file_name, const std::string &title, const int &data);
+template void save_to_file<Status>(const std::string &file_name, const std::string &title, const Status &data);

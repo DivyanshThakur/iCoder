@@ -71,5 +71,5 @@ const char *InvalidPositionException::what() const noexcept
 const char *OutofBoundsException::what() const noexcept
 {
     border(width_menu);
-    return "Invalid Index!";
+    return "Invalid position!";
 }

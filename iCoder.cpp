@@ -3,7 +3,7 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.2
+ * VERSION - 1.4
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
@@ -19,7 +19,9 @@
 #include <limits>
 #include <windows.h>
 #include <conio.h>
+#include <tchar.h>
 #include <dir.h>
+#include "header/ExHandler.hpp"
 #include "header/Constants.hpp"
 #include "header/UIhandler.hpp"
 #include "header/AccountHandler.hpp"
@@ -33,10 +35,12 @@ void makeDirectory();
 bool isDirectoryExists();
 void adjust_console_size();
 void about();
+void create_path();
 
 int main()
 {
     adjust_console_size(); // adjust the window size
+    create_path();         // initilize the paths
 
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         makeDirectory();      // if it doesn't exists then it will create the directory
@@ -58,16 +62,26 @@ int main()
 
     do
     {
-        system("cls"); // clear the screen each time
-
         title(); // print the title = iCoder
 
         menu(main_menu_data); // display the startup menu
 
-        Scanner sc;
-        sc.scanChoice(ch); // scan user's choice
+        try
+        {
+            Scanner sc;
+            sc.scanChoice(ch); // scan user's choice
 
-        main_menu_controller(ch); // start as per user choice
+            main_menu_controller(ch); // start as per user choice
+        }
+        catch (const EscPressed &e)
+        {
+            // do nothing
+        }
+        catch (...)
+        {
+            border(width_menu);
+            std::cerr << "Unknown error occurred in Main Menu";
+        }
 
     } while (ch != 7); // the program terminates after this line
 
@@ -119,14 +133,14 @@ void main_menu_controller(int ch)
 void makeDirectory()
 {
     // these code will create a folder in that specific destination
-    std::string dirpath{"data"};
+    std::string dirpath{path};
     mkdir(dirpath.c_str());
 }
 
 bool isDirectoryExists()
 {
     // code to check if a Directory exists or not
-    DWORD attribs = ::GetFileAttributesA("data");
+    DWORD attribs = ::GetFileAttributesA(path.c_str());
 
     if (attribs == INVALID_FILE_ATTRIBUTES)
         return false;
@@ -137,8 +151,6 @@ bool isDirectoryExists()
 void about()
 {
     char ch;
-
-    system("cls"); // clear the screen each time
 
     title(); // print the title = iCoder
 
@@ -171,4 +183,21 @@ void adjust_console_size()
     GetWindowRect(console, &r); //stores the console's current dimensions
 
     MoveWindow(console, r.left, r.top, console_width, console_height, TRUE); // 850 width, 600 height
+}
+
+void create_path()
+{
+    TCHAR szBuf[MAX_PATH] = {0};
+    int i = 0;
+
+    ::GetEnvironmentVariable(_T( "USERPROFILE" ), szBuf, MAX_PATH);
+
+    while (szBuf[i] != '\0')
+    {
+        path += szBuf[i++];
+    }
+
+    path += "\\Documents\\iCoder";
+    fuser = path + "\\users.dat";
+    fsetting = path + "\\settings.dat";
 }

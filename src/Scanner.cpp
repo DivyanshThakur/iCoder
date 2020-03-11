@@ -53,10 +53,7 @@ void Scanner::scanChoice(int &choice)
     while ((c = getch()) && !(value.size() && c == '\r'))
     {
         if (checkChar() == -1)
-        {
-            choice = ESC;
-            return;
-        }
+            throw EscPressed();
     }
 
     std::stringstream ss{value};
