@@ -6,7 +6,7 @@
 #include "../header/Scanner.hpp"
 
 void Arrays();
-bool array_type_selector(int ch);
+void array_type_selector(int ch);
 
 template <typename T>
 class ArrayHandler

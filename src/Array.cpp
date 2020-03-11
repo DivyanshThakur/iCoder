@@ -11,6 +11,7 @@
 
 void Arrays()
 {
+    Scanner sc;
     int ch{0};
 
     do
@@ -19,19 +20,14 @@ void Arrays()
 
         menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
 
-        Scanner sc;
         sc.scanChoice(ch);
 
-        if (ch == ESC || ch == 6)
-            return;
-
-        if (array_type_selector(ch)) // call the array funtion with user defined data type
-            return;
+        array_type_selector(ch); // call the array funtion with user defined data type
 
     } while (1); // always true
 }
 
-bool array_type_selector(int ch)
+void array_type_selector(int ch)
 {
     ArrayHandler<int> int_handler;
     ArrayHandler<long long> long_handler;
@@ -63,10 +59,8 @@ bool array_type_selector(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(); // program paused - getch()
-        return false;
+        press_key(); // program paused
     }
-    return true;
 }
 
 /*** TEMPLATE  CLASS FUNTIONS ARE CODED BELOW ***/
@@ -153,7 +147,7 @@ std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
     else
         menu_to_display.push_back(array_data.at(1));
 
-    for (i = 2; i < array_data.size() - 2; ++i)
+    for (i = 2; i < array_data.size(); ++i)
     {
         if (!(i == 7 && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
@@ -161,11 +155,6 @@ std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
         if (i == 7 && !show_adv_opn)
             break;
     }
-
-    i = array_data.size() - 2;
-
-    while (i < array_data.size())
-        menu_to_display.push_back(array_data.at(i++));
 
     return menu_to_display;
 }
@@ -183,19 +172,14 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
     else
         menu_to_display.push_back(array_data.at(1));
 
-    for (i = 2; i < array_data.size() - 2; ++i)
+    for (i = 2; i < array_data.size(); ++i)
     {
         if (!((i == 7 || i == 16 || i == 17) && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
-        if ((i == 7 && !show_adv_opn) || (i == 20 && show_adv_opn))
+        if (i == 7 && !show_adv_opn)
             break;
     }
-
-    i = array_data.size() - 2;
-
-    while (i < array_data.size())
-        menu_to_display.push_back(array_data.at(i++));
 
     return menu_to_display;
 }
@@ -213,19 +197,14 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
     else
         menu_to_display.push_back(array_data.at(1));
 
-    for (i = 2; i < array_data.size() - 2; ++i)
+    for (i = 2; i < array_data.size(); ++i)
     {
         if (!((i == 7 || i == 17) && show_adv_opn))
             menu_to_display.push_back(array_data.at(i));
 
-        if ((i == 7 && !show_adv_opn) || (i == 20 && show_adv_opn))
+        if (i == 7 && !show_adv_opn)
             break;
     }
-
-    i = array_data.size() - 2;
-
-    while (i < array_data.size())
-        menu_to_display.push_back(array_data.at(i++));
 
     return menu_to_display;
 }
@@ -264,13 +243,6 @@ void ArrayHandler<T>::arrays_controller(int ch)
 
     case 7: // make show_adb_opn = true at end of while loop
         break;
-
-    case 8:   // return to Home
-    case ESC: // return
-        throw Esc();
-
-    case 9: // exit the program
-        exit(0);
 
     default:
         print_message(std::string{"Invalid choice"});
@@ -370,13 +342,6 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         sum();
         break;
 
-    case 22:  // return to Home
-    case ESC: // return
-        throw Esc();
-
-    case 23: // exit the program
-        exit(0);
-
     default:
         print_message(std::string{"Invalid choice"});
         break;
@@ -460,13 +425,6 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         set_value();
         break;
 
-    case 20:  // return to Home
-    case ESC: // return
-        throw Esc();
-
-    case 19: // exit the program
-        exit(0);
-
     default:
         print_message(std::string{"Invalid choice"});
         break;
@@ -545,13 +503,6 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
     case 17: // set value
         set_value();
         break;
-
-    case 18:  // return to Home
-    case ESC: // return
-        throw Esc();
-
-    case 19: // exit the program
-        exit(0);
 
     default:
         print_message(std::string{"Invalid choice"});

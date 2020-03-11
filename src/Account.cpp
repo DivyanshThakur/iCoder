@@ -60,6 +60,8 @@ void Account::display_remember_me() const
 
     if (::tolower(c) == 'y')
         save_active_user(userID); // save the current user
+    else
+        signedUserID = "User";
 }
 
 void Account::check_account() const

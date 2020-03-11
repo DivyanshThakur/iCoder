@@ -11,6 +11,7 @@
 
 void settings()
 {
+    Scanner sc;
     int ch{0};
     do
     {
@@ -20,7 +21,6 @@ void settings()
 
         try
         {
-            Scanner sc;
             sc.scanChoice(ch);
         }
         catch (const EscPressed &e)
@@ -58,7 +58,7 @@ void settings()
         }
         catch (const OpenSettings &e)
         {
-            e.what();
+            // do nothing
         }
 
     } while (1); // true
@@ -112,9 +112,8 @@ void change_text_anime_speed()
 
 void change_lsearch_type()
 {
-
-    int ch;
     Scanner sc;
+    int ch;
 
     do
     {

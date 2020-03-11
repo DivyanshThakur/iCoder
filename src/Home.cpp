@@ -34,7 +34,8 @@ void home(const std::string &userID)
         }
         catch (const EscPressed &e)
         {
-            // do nothing
+            if (signedUserID == std::string{"NULL"})
+                return;
         }
         catch (const InvalidInputException &e)
         {
@@ -52,9 +53,6 @@ void home(const std::string &userID)
         {
             e.what();
         }
-
-        if (ch == 7 || signedUserID == std::string{"NULL"})
-            return;
 
     } while (1); // exit the program when ch == 8
 }
@@ -90,7 +88,7 @@ void home_controller(int ch)
     case 7: // sign out
         if (signedUserID != std::string{"NULL"})
             save_active_user(std::string{"NULL"});
-        return;
+        throw EscPressed();
 
     default:
         print_message(std::string{"Invalid choice"});
