@@ -78,7 +78,19 @@ void ArrayHandler<T>::start()
 
         menu(menu_screen_selector());
 
-        sc.scanChoice(ch);
+        try
+        {
+            sc.scanChoice(ch);
+        }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
+            continue;
+        }
 
         try
         {
@@ -119,10 +131,19 @@ void ArrayHandler<T>::start()
         {
             std::cerr << e.what();
         }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
+            continue;
+        }
         catch (...)
         {
             border(width_menu);
-            std::cerr << "Unknown error occured";
+            std::cerr << "Unknown error occured-Array";
         }
         if (ch == 7 && !show_adv_opn)
             show_adv_opn = true;

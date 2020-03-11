@@ -78,9 +78,6 @@ void settings_controller(char ch)
         save_to_file(fsetting, std::string{"LSEARCH_STATUS"}, stats);
         break;
 
-    case 4: //exit
-        exit(0);
-
     default:
         print_message(std::string{"Invalid choice"});
         break;
@@ -130,9 +127,6 @@ void change_lsearch_type()
         case 3:
             update_stats(ch - 1);
             return;
-
-        case ESC:
-            throw EscPressed();
 
         default:
             print_message(std::string{"Invalid choice"});
