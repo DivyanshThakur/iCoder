@@ -58,6 +58,7 @@ int main()
     else
         save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 
+    Scanner sc;
     int ch{0};
 
     do
@@ -68,7 +69,6 @@ int main()
 
         try
         {
-            Scanner sc;
             sc.scanChoice(ch); // scan user's choice
 
             main_menu_controller(ch); // start as per user choice
@@ -76,6 +76,14 @@ int main()
         catch (const EscPressed &e)
         {
             // do nothing
+        }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
         }
         catch (...)
         {
@@ -118,9 +126,6 @@ void main_menu_controller(int ch)
         break;
 
     case 7: // exit the program
-        break;
-
-    case ESC: //ESC
         break;
 
     default:

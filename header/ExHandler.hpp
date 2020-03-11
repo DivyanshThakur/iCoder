@@ -119,4 +119,16 @@ class Esc
 {
 };
 
+class Exit
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenSettings
+{
+public:
+    void what() const noexcept;
+};
+
 #endif

@@ -33,10 +33,10 @@ const std::string txtString{"String"};
 
 // menuhandler.h
 const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "About", "Settings", "Exit"};
-const std::vector<std::string> settings_data{"Change text animation speed", "Change linear search type", "Main Menu", "Exit"};
-const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String", "Home"};
-const std::vector<std::string> home_data{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)", "Exit"};
-const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum", "Home", "Exit"};
+const std::vector<std::string> settings_data{"Change text animation speed", "Change linear search type"};
+const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String"};
+const std::vector<std::string> home_data{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
+const std::vector<std::string> array_data{"Update max size", "Add max size", "Add elements", "Insert at a position", "Delete multiple elements", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
 
 // small menu funtions
 const std::vector<std::string> average_data{"Average of all elements", "Select a range"};

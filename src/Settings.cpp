@@ -18,11 +18,23 @@ void settings()
 
         menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
 
-        Scanner sc;
-        sc.scanChoice(ch);
-
-        if (ch == ESC || ch == 3) //return when ESC is pressed
+        try
+        {
+            Scanner sc;
+            sc.scanChoice(ch);
+        }
+        catch (const EscPressed &e)
+        {
             return;
+        }
+        catch (const OpenSettings &e)
+        {
+            continue;
+        }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
 
         try
         {
@@ -39,6 +51,14 @@ void settings()
         catch (const NegativeValueException &e)
         {
             std::cerr << e.what();
+        }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
         }
 
     } while (1); // true

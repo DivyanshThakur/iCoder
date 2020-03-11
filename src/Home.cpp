@@ -11,6 +11,7 @@
 
 void home(const std::string &userID)
 {
+    Scanner sc;
     int ch{0};
     int flag{1};
 
@@ -27,7 +28,6 @@ void home(const std::string &userID)
         menu(home_data); // display the startup menu
         try
         {
-            Scanner sc;
             sc.scanChoice(ch);
 
             home_controller(ch); // start as per user choice
@@ -44,13 +44,19 @@ void home(const std::string &userID)
         {
             std::cerr << e.what();
         }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
+        }
 
         if (ch == 7 || signedUserID == std::string{"NULL"})
             return;
 
-    } while (ch != 8); // exit the program when ch == 8
-
-    exit(0);
+    } while (1); // exit the program when ch == 8
 }
 
 void home_controller(int ch)
@@ -84,12 +90,6 @@ void home_controller(int ch)
     case 7: // sign out
         if (signedUserID != std::string{"NULL"})
             save_active_user(std::string{"NULL"});
-        return;
-
-    case 8: // exit the program
-        return;
-
-    case ESC:
         return;
 
     default:

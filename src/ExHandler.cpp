@@ -1,6 +1,7 @@
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Constants.hpp"
+#include "../header/Settings.hpp"
 
 const char *NegativeValueException::what() const noexcept
 {
@@ -72,4 +73,14 @@ const char *OutofBoundsException::what() const noexcept
 {
     border(width_menu);
     return "Invalid position!";
+}
+
+void Exit::what() const noexcept
+{
+    exit(0);
+}
+
+void OpenSettings::what() const noexcept
+{
+    settings();
 }

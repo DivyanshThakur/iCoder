@@ -43,6 +43,12 @@ int Scanner::checkChar(bool isPassword)
         std::cout << (isPassword ? '*' : c);
     }
 
+    // shortcut checking
+    if (c == 'q')
+        flag = 11;
+    else if (c == 's')
+        flag = 12;
+
     return flag;
 }
 
@@ -52,8 +58,17 @@ void Scanner::scanChoice(int &choice)
 
     while ((c = getch()) && !(value.size() && c == '\r'))
     {
-        if (checkChar() == -1)
+        switch (checkChar())
+        {
+        case -1:
             throw EscPressed();
+        case 11:
+            throw Exit();
+        case 12:
+            throw OpenSettings();
+        default: // do nothing
+            break;
+        }
     }
 
     std::stringstream ss{value};
