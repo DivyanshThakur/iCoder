@@ -933,7 +933,9 @@ void ArrayHandler<T>::reverse_arr()
             return;
 
         case 2:
-            border(width_menu);
+            title();
+            header(std::string{" REVERSE ARRAY "});
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
 
@@ -973,10 +975,11 @@ void ArrayHandler<T>::shift_rotate_arr()
 
         sc.scanChoice(ch);
 
+        title();
+
         switch (ch)
         {
         case 1:
-            title();
             header(std::string{" LEFT SHIFT "});
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
@@ -984,7 +987,6 @@ void ArrayHandler<T>::shift_rotate_arr()
             return;
 
         case 2:
-            title();
             header(std::string{" RIGHT SHIFT "});
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
@@ -992,7 +994,6 @@ void ArrayHandler<T>::shift_rotate_arr()
             return;
 
         case 3:
-            title();
             header(std::string{" LEFT ROTATE "});
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
@@ -1000,7 +1001,6 @@ void ArrayHandler<T>::shift_rotate_arr()
             return;
 
         case 4:
-            title();
             header(std::string{" RIGHT ROTATE "});
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);

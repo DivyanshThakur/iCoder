@@ -804,7 +804,7 @@ std::vector<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end
     else
     {
         for (; i < end; ++i)
-            for (size_t j{i + 1}; j < end; ++j)
+            for (size_t j{i + 1}; j <= end; ++j)
                 if (A[i] + A[j] == k)
                 {
                     array<T> temp(3);
