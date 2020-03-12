@@ -48,6 +48,8 @@ int Scanner::checkChar(bool isPassword)
         flag = 11;
     else if (c == 's')
         flag = 12;
+    else if (c == 'a')
+        flag = 13;
 
     return flag;
 }
@@ -66,6 +68,8 @@ void Scanner::scanChoice(int &choice)
             throw Exit();
         case 12:
             throw OpenSettings();
+        case 13:
+            throw OpenAbout();
         default: // do nothing
             break;
         }

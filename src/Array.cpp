@@ -91,6 +91,11 @@ void ArrayHandler<T>::start()
             e.what();
             continue;
         }
+        catch (const OpenAbout &e)
+        {
+            e.what();
+            continue;
+        }
 
         try
         {
@@ -136,6 +141,11 @@ void ArrayHandler<T>::start()
             e.what();
         }
         catch (const OpenSettings &e)
+        {
+            e.what();
+            continue;
+        }
+        catch (const OpenAbout &e)
         {
             e.what();
             continue;

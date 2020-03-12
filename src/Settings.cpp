@@ -35,6 +35,11 @@ void settings()
         {
             e.what();
         }
+        catch (const OpenAbout &e)
+        {
+            e.what();
+            continue;
+        }
 
         try
         {
@@ -59,6 +64,10 @@ void settings()
         catch (const OpenSettings &e)
         {
             // do nothing
+        }
+        catch (const OpenAbout &e)
+        {
+            e.what();
         }
 
     } while (1); // true

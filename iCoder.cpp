@@ -85,6 +85,10 @@ int main()
         {
             e.what();
         }
+        catch (const OpenAbout &e)
+        {
+            e.what();
+        }
         catch (...)
         {
             border(width_menu);
