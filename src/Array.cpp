@@ -150,6 +150,16 @@ void ArrayHandler<T>::start()
             e.what();
             continue;
         }
+        catch (const OpenHelp &e)
+        {
+            e.what();
+            continue;
+        }
+        catch (const OpenDownload &e)
+        {
+            e.what();
+            continue;
+        }
         catch (...)
         {
             border(width_menu);

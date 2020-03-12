@@ -44,12 +44,18 @@ int Scanner::checkChar(bool isPassword)
     }
 
     // shortcut checking
+    c = ::tolower(c);
+
     if (c == 'q')
         flag = 11;
     else if (c == 's')
         flag = 12;
     else if (c == 'a')
         flag = 13;
+    else if (c == 'h')
+        flag = 14;
+    else if (c == 'u')
+        flag = 15;
 
     return flag;
 }
@@ -70,6 +76,10 @@ void Scanner::scanChoice(int &choice)
             throw OpenSettings();
         case 13:
             throw OpenAbout();
+        case 14:
+            throw OpenHelp();
+        case 15:
+            throw OpenDownload();
         default: // do nothing
             break;
         }

@@ -57,6 +57,14 @@ void home(const std::string &userID)
         {
             e.what();
         }
+        catch (const OpenHelp &e)
+        {
+            e.what();
+        }
+        catch (const OpenDownload &e)
+        {
+            e.what();
+        }
 
     } while (1); // exit the program when ch == 8
 }

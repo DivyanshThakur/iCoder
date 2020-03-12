@@ -35,9 +35,11 @@ void about()
 void help()
 {
     print_message();
+    press_key(); // getch()
 }
 
 void download()
 {
     print_message();
+    press_key(); // getch()
 }

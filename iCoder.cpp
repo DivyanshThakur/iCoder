@@ -82,6 +82,14 @@ int main()
         {
             e.what();
         }
+        catch (const OpenHelp &e)
+        {
+            e.what();
+        }
+        catch (const OpenDownload &e)
+        {
+            e.what();
+        }
         catch (...)
         {
             border(width_menu);

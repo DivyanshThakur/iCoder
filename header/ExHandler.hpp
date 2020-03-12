@@ -137,4 +137,16 @@ public:
     void what() const noexcept;
 };
 
+class OpenHelp
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenDownload
+{
+public:
+    void what() const noexcept;
+};
+
 #endif

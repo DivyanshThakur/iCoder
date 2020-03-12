@@ -21,28 +21,16 @@ void settings()
 
         try
         {
-            sc.scanChoice(ch);
-        }
-        catch (const EscPressed &e)
-        {
-            return;
-        }
-        catch (const OpenSettings &e)
-        {
-            continue;
-        }
-        catch (const Exit &e)
-        {
-            e.what();
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what();
-            continue;
-        }
 
-        try
-        {
+            try
+            {
+                sc.scanChoice(ch);
+            }
+            catch (const EscPressed &e)
+            {
+                return;
+            }
+
             settings_controller(ch); // start as per user choice
         }
         catch (const EscPressed &e)
@@ -66,6 +54,14 @@ void settings()
             // do nothing
         }
         catch (const OpenAbout &e)
+        {
+            e.what();
+        }
+        catch (const OpenHelp &e)
+        {
+            e.what();
+        }
+        catch (const OpenDownload &e)
         {
             e.what();
         }

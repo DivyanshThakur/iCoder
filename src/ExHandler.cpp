@@ -90,3 +90,13 @@ void OpenAbout::what() const noexcept
 {
     about();
 }
+
+void OpenHelp::what() const noexcept
+{
+    help();
+}
+
+void OpenDownload::what() const noexcept
+{
+    download();
+}
