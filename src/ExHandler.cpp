@@ -2,6 +2,7 @@
 #include "../header/UIhandler.hpp"
 #include "../header/Constants.hpp"
 #include "../header/Settings.hpp"
+#include "../header/Info.hpp"
 
 const char *NegativeValueException::what() const noexcept
 {
@@ -83,4 +84,9 @@ void Exit::what() const noexcept
 void OpenSettings::what() const noexcept
 {
     settings();
+}
+
+void OpenAbout::what() const noexcept
+{
+    about();
 }

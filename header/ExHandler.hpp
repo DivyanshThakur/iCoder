@@ -131,4 +131,10 @@ public:
     void what() const noexcept;
 };
 
+class OpenAbout
+{
+public:
+    void what() const noexcept;
+};
+
 #endif

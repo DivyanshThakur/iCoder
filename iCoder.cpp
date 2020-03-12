@@ -18,7 +18,6 @@
 #include <fstream>
 #include <limits>
 #include <windows.h>
-#include <conio.h>
 #include <tchar.h>
 #include <dir.h>
 #include "header/ExHandler.hpp"
@@ -28,6 +27,7 @@
 #include "header/Home.hpp"
 #include "header/Settings.hpp"
 #include "header/Scanner.hpp"
+#include "header/Info.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(int ch);
@@ -49,8 +49,8 @@ int main()
 
     if (check_new_user()) // if there is no current user, it displays below message
     {
-        title();                                                                     // display title
-        emessage(std::string{" HINT --> Use ESC key to return to previous screen"}); // 1 time message to user
+        title();                                                            // display title
+        emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // 1 time message to user
     }
 
     if (signedUserID != std::string{"NULL"}) // checking for current signed user
@@ -151,34 +151,6 @@ bool isDirectoryExists()
         return false;
 
     return (attribs & FILE_ATTRIBUTE_DIRECTORY);
-}
-
-void about()
-{
-    char ch;
-
-    title(); // print the title = iCoder
-
-    header(std::string{" ABOUT "});
-
-    std::cout << "Developer: " << dev_name << std::endl
-              << "Version: " << version_info;
-
-    border(width_menu);
-
-    std::cout << "Source code:" << std::endl
-              << scode_url.substr(8);
-
-    border(width_menu);
-
-    std::cout << "Press i to open URL";
-
-    ch = getch();
-
-    if (::tolower(ch) == 'i') // this code will open github source code in default browser
-        system(std::string("start " + scode_url).c_str());
-    else
-        return;
 }
 
 void adjust_console_size()
