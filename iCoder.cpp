@@ -16,9 +16,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <limits>
 #include <windows.h>
-#include <tchar.h>
 #include <dir.h>
 #include "header/ExHandler.hpp"
 #include "header/Constants.hpp"
@@ -31,19 +29,14 @@
 
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(int ch);
-void makeDirectory();
 bool isDirectoryExists();
 void adjust_console_size();
-void about();
 void create_path();
 
 int main()
 {
     adjust_console_size(); // adjust the window size
     create_path();         // initilize the paths
-
-    if (!isDirectoryExists()) // checking if the directory "data" exists or not
-        makeDirectory();      // if it doesn't exists then it will create the directory
 
     restore_saved_changes(); // restore the settings that was previously changed and saved
 
@@ -95,7 +88,7 @@ int main()
             std::cerr << "Unknown error occurred in Main Menu";
         }
 
-    } while (ch != 7); // the program terminates after this line
+    } while (1); // the program terminates after this line
 
     return 0;
 }
@@ -121,15 +114,20 @@ void main_menu_controller(int ch)
         press_key(); // getch()
         break;
 
-    case 5: // details about the software
+    case 5: // help for shortcuts
+        help();
+        break;
+
+    case 6: // details about the software
         about();
         break;
 
-    case 6: // Customize the software using settings
-        settings();
+    case 7: // download section to get latest and beta versions
+        download();
         break;
 
-    case 7: // exit the program
+    case 8: // Customize the software using settings
+        settings();
         break;
 
     default:
@@ -137,13 +135,6 @@ void main_menu_controller(int ch)
         press_key(); // getch()
         break;
     }
-}
-
-void makeDirectory()
-{
-    // these code will create a folder in that specific destination
-    std::string dirpath{path};
-    mkdir(dirpath.c_str());
 }
 
 bool isDirectoryExists()
@@ -168,17 +159,18 @@ void adjust_console_size()
 
 void create_path()
 {
-    TCHAR szBuf[MAX_PATH] = {0};
-    int i = 0;
+    char *userpath = getenv("USERPROFILE");
 
-    ::GetEnvironmentVariable(_T( "USERPROFILE" ), szBuf, MAX_PATH);
-
-    while (szBuf[i] != '\0')
+    if (userpath == nullptr)
     {
-        path += szBuf[i++];
+        std::cerr << "No user path";
+        return;
     }
 
-    path += "\\Documents\\iCoder";
+    path = std::string(userpath) + "\\Documents\\iCoder";
     fuser = path + "\\users.dat";
     fsetting = path + "\\settings.dat";
+
+    if (!isDirectoryExists()) // checking if the directory "data" exists or not
+        mkdir(path.c_str());  // these code will create a folder in that specific destination
 }

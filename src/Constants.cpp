@@ -32,7 +32,7 @@ const std::string txtChar{"Char"};
 const std::string txtString{"String"};
 
 // menuhandler.h
-const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "About", "Settings", "Exit"};
+const std::vector<std::string> main_menu_data{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "Updates", "Settings"};
 const std::vector<std::string> settings_data{"Change text animation speed", "Change linear search type"};
 const std::vector<std::string> get_dataType_data{"Int", "Long", "Double", "Char", "String"};
 const std::vector<std::string> home_data{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};

@@ -31,3 +31,13 @@ void about()
     else
         return;
 }
+
+void help()
+{
+    print_message();
+}
+
+void download()
+{
+    print_message();
+}

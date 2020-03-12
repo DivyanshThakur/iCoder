@@ -2,5 +2,7 @@
 #define INFO_HPP
 
 void about();
+void help();
+void download();
 
 #endif
