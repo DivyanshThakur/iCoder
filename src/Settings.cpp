@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <sstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
@@ -15,7 +16,7 @@ void settings()
     int ch;
     do
     {
-        menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
+        menu(settings_screen_selector(), std::string{" SETTINGS "}); // display the startup menu for settings screen
 
         try
         {
@@ -78,18 +79,13 @@ void settings_controller(char ch)
 
     case 2: // change linear search type
         change_lsearch_type();
-        save_to_file(fsetting, std::string{"LSEARCH_STATUS"}, stats);
         break;
 
-    case 3: // warnings enable/disable
-        warnings();
-        break;
-
-    case 4: // welcome message enable/disable
+    case 3: // welcome message enable/disable
         welcome_message();
         break;
 
-    case 5: // delete the saved users
+    case 4: // delete the saved users
         delete_account();
         break;
 
@@ -99,6 +95,26 @@ void settings_controller(char ch)
     }
 
     press_key(); // getch()
+}
+
+std::vector<std::string> settings_screen_selector()
+{
+    // select the correct menu to display as per need
+
+    std::vector<std::string> menu_to_display;
+
+    for (size_t i{0}; i < settings_data.size(); ++i)
+    {
+
+        if (i == 2 && showWelcome)
+            menu_to_display.push_back(settings_data.at(++i));
+        else if (i == 3 && !showWelcome)
+            menu_to_display.push_back(settings_data.at(++i));
+        else
+            menu_to_display.push_back(settings_data.at(i));
+    }
+
+    return menu_to_display;
 }
 
 void change_text_anime_speed()
@@ -137,6 +153,7 @@ void change_lsearch_type()
         case 2:
         case 3:
             update_stats(ch - 1);
+            save_to_file(fsetting, std::string{"LSEARCH_STATUS"}, stats);
             return;
 
         default:
@@ -147,14 +164,14 @@ void change_lsearch_type()
     } while (1);
 }
 
-void warnings()
-{
-    print_message();
-}
-
 void welcome_message()
 {
-    print_message();
+    if (showWelcome)
+        showWelcome = false;
+    else
+        showWelcome = true;
+    save_to_file(fsetting, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
+    print_message(std::string{"Changes saved!"});
 }
 
 void delete_account()

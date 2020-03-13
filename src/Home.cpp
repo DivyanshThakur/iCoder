@@ -17,7 +17,7 @@ void home(const std::string &userID)
 
     do
     {
-        if (flag)
+        if (flag && showWelcome)
         {
             flag = 0;
             title();                                 // display the title = iCoder

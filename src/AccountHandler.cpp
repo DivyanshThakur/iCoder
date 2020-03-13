@@ -20,6 +20,7 @@ void restore_saved_changes()
     {
         signedUserID = std::string{"NULL"};
         sleep_time = 25;
+        showWelcome = true;
         stats = DEFAULT;
 
         std::ofstream out_file(fsetting);
@@ -27,6 +28,7 @@ void restore_saved_changes()
         print_to_file(out_file, std::string{"CURRENT_USER"}, signedUserID);
         print_to_file(out_file, std::string{"ANIMATION_SPEED"}, sleep_time);
         print_to_file(out_file, std::string{"LSEARCH_STATUS"}, stats);
+        print_to_file(out_file, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
 
         out_file.close();
 
@@ -47,6 +49,8 @@ void restore_saved_changes()
             file >> c;
             update_stats(c);
         }
+        else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
+            file >> showWelcome;
     }
 
     file.close();
@@ -254,25 +258,33 @@ void save_to_file(const std::string &file_name, const std::string &title, const 
     in_file.close();
     std::ofstream out_file(file_name);
     std::stringstream ss{file_str};
+    bool isSaved{false};
 
     while (ss >> file_title)
     {
         ss >> val;
 
         if (file_title == title)
-            print_to_file(out_file, file_title, data);
+        {
+            print_to_file(out_file, title, data);
+            isSaved = true;
+        }
         else
             print_to_file(out_file, file_title, val);
     }
+
+    if (!isSaved)
+        print_to_file(out_file, title, data);
 }
 
 template <typename T>
 void print_to_file(std::ofstream &out_file, const std::string &title, const T &data)
 {
-    out_file << std::setw(width_username) << std::left << title
+    out_file << std::setw(width_username * 2) << std::left << title
              << std::setw(width_username) << std::left << data << std::endl;
 }
 
 template void save_to_file<std::string>(const std::string &file_name, const std::string &title, const std::string &data);
 template void save_to_file<int>(const std::string &file_name, const std::string &title, const int &data);
+template void save_to_file<bool>(const std::string &file_name, const std::string &title, const bool &data);
 template void save_to_file<Status>(const std::string &file_name, const std::string &title, const Status &data);
