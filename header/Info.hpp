@@ -4,5 +4,6 @@
 void about();
 void help();
 void download();
+void changelog();
 
 #endif

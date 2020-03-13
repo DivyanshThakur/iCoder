@@ -41,3 +41,9 @@ void download()
     print_message();
     press_key(); // getch()
 }
+
+void changelog()
+{
+    print_message();
+    press_key();
+}

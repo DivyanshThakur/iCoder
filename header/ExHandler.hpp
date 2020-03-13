@@ -115,7 +115,7 @@ class EscPressed
 {
 };
 
-class Esc
+class ReturnHome
 {
 };
 
@@ -144,6 +144,12 @@ public:
 };
 
 class OpenDownload
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenChangelog
 {
 public:
     void what() const noexcept;

@@ -88,6 +88,10 @@ int main()
         {
             e.what();
         }
+        catch (const OpenChangelog &e)
+        {
+            e.what();
+        }
         catch (...)
         {
             border(width_menu);
@@ -128,11 +132,15 @@ void main_menu_controller(int ch)
         about();
         break;
 
-    case 7: // download section to get latest and beta versions
+    case 7: // changelog
+        changelog();
+        break;
+
+    case 8: // download section to get latest and beta versions
         download();
         break;
 
-    case 8: // Customize the software using settings
+    case 9: // Customize the software using settings
         settings();
         break;
 

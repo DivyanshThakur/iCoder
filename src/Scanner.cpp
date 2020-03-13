@@ -56,6 +56,8 @@ int Scanner::checkChar(bool isPassword)
         flag = 14;
     else if (c == 'u')
         flag = 15;
+    else if (c == 'l')
+        flag = 16;
 
     return flag;
 }
@@ -80,6 +82,8 @@ void Scanner::scanChoice(int &choice)
             throw OpenHelp();
         case 15:
             throw OpenDownload();
+        case 16:
+            throw OpenChangelog();
         default: // do nothing
             break;
         }

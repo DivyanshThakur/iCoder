@@ -100,3 +100,8 @@ void OpenDownload::what() const noexcept
 {
     download();
 }
+
+void OpenChangelog::what() const noexcept
+{
+    changelog();
+}

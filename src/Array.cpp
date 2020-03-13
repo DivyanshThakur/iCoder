@@ -76,61 +76,56 @@ void ArrayHandler<T>::start()
 
         try
         {
-            sc.scanChoice(ch);
-        }
-        catch (const Exit &e)
-        {
-            e.what();
-        }
-        catch (const OpenSettings &e)
-        {
-            e.what();
-            continue;
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what();
-            continue;
-        }
+            try
+            {
+                sc.scanChoice(ch);
+            }
+            catch (const EscPressed &e)
+            {
+                throw ReturnHome();
+            }
 
-        try
-        {
             if (show_adv_opn)
                 arrays_controller_adv(ch);
             else
                 arrays_controller(ch);
+
+            if (ch == 7 && !show_adv_opn)
+                show_adv_opn = true;
         }
         catch (const EscPressed &e)
         {
-            continue;
-        }
-        catch (const Esc &e)
-        {
-            return;
+            // do nothing
         }
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
+            press_key();
         }
         catch (const NegativeValueException &e)
         {
             std::cerr << e.what();
+            press_key();
         }
         catch (const OutofBoundsException &e)
         {
             std::cerr << e.what();
+            press_key();
         }
         catch (const ArrayFullException &e)
         {
             std::cerr << e.what();
+            press_key();
         }
         catch (const ArrayEmptyException &e)
         {
             std::cerr << e.what();
+            press_key();
         }
         catch (const InvalidPositionException &e)
         {
             std::cerr << e.what();
+            press_key();
         }
         catch (const Exit &e)
         {
@@ -139,32 +134,23 @@ void ArrayHandler<T>::start()
         catch (const OpenSettings &e)
         {
             e.what();
-            continue;
         }
         catch (const OpenAbout &e)
         {
             e.what();
-            continue;
         }
         catch (const OpenHelp &e)
         {
             e.what();
-            continue;
         }
         catch (const OpenDownload &e)
         {
             e.what();
-            continue;
         }
-        catch (...)
+        catch (const OpenChangelog &e)
         {
-            border(width_menu);
-            std::cerr << "Unknown error occured-Array";
+            e.what();
         }
-        if (ch == 7 && !show_adv_opn)
-            show_adv_opn = true;
-        else
-            press_key(); // program paused - getch()
 
     } while (1); // true
 }

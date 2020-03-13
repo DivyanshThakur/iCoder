@@ -64,6 +64,10 @@ void settings()
         {
             e.what();
         }
+        catch (const OpenChangelog &e)
+        {
+            e.what();
+        }
 
     } while (1); // true
 }

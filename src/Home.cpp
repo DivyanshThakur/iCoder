@@ -66,6 +66,14 @@ void home(const std::string &userID)
         {
             e.what();
         }
+        catch (const OpenChangelog &e)
+        {
+            e.what();
+        }
+        catch (const ReturnHome &e)
+        {
+            // to return to home screen
+        }
 
     } while (1); // exit the program when ch == 8
 }
