@@ -56,9 +56,7 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
             std::cout << std::endl;
     }
 
-    border(width_menu);
-
-    std::cout << "Your Choice: ";
+    print_message(std::string{"Your Choice: "});
 }
 
 void header(const std::string &menu_name)
@@ -118,29 +116,21 @@ void print_message(const std::string &message)
     std::cout << message;
 }
 
-void press_key()
+void press_key(const std::string &message)
 {
-    border(width_menu); // display the footer
-    std::cout << "Press a key to continue";
-    getch();
+    char ch;
+
+    print_message(message);
+    ch = getch();
+
+    if (ch == ESC)
+        throw EscPressed();
 }
 
 void wait_message(const std::string &message)
 {
     std::cout << message;
     Sleep(1000);
-}
-
-void press_esc()
-{
-    char ch;
-
-    border(width_menu); // display the border
-    std::cout << "Press ESC to return";
-    ch = getch();
-
-    if (ch == ESC)
-        throw EscPressed();
 }
 
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm)

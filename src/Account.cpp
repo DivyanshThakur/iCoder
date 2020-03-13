@@ -26,9 +26,9 @@ std::ifstream &operator>>(std::ifstream &ifs, Account &acc)
 
 void Account::input_data()
 {
-    animater(username);
-
     Scanner sc;
+
+    animater(username);
 
     userID = sc.scanUsername(); // taking username from user
 

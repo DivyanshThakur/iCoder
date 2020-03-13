@@ -52,7 +52,7 @@ int main()
         save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 
     Scanner sc;
-    int ch{0};
+    int ch;
 
     do
     {

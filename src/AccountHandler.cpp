@@ -115,7 +115,7 @@ void login()
     {
         std::cerr << e.what();
 
-        press_esc();
+        press_key("Press ESC to return");
 
         login();
     }
@@ -162,7 +162,7 @@ void create_account()
     {
         std::cerr << e.what();
 
-        press_esc();
+        press_key("Press ESC to return");
 
         create_account();
     }
@@ -180,7 +180,7 @@ void create_account()
     {
         std::cerr << e.what();
 
-        press_esc();
+        press_key("Press ESC to return");
 
         create_account();
     }

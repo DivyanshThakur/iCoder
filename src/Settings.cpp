@@ -12,7 +12,7 @@
 void settings()
 {
     Scanner sc;
-    int ch{0};
+    int ch;
     do
     {
         title(); // print the title = iCoder
@@ -93,8 +93,8 @@ void settings_controller(char ch)
 
 void change_text_anime_speed()
 {
-    int speed;
     Scanner sc;
+    int speed;
 
     title(); // print the title = iCoder
 
@@ -135,7 +135,7 @@ void change_lsearch_type()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
     } while (1);

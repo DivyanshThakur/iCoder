@@ -12,7 +12,7 @@
 void home(const std::string &userID)
 {
     Scanner sc;
-    int ch{0};
+    int ch;
     int flag{1};
 
     do

@@ -12,7 +12,7 @@
 void Arrays()
 {
     Scanner sc;
-    int ch{0};
+    int ch;
 
     do
     {
@@ -68,7 +68,7 @@ void array_type_selector(int ch)
 template <typename T>
 void ArrayHandler<T>::start()
 {
-    int ch{0};
+    int ch;
 
     update_size();
 
@@ -803,7 +803,7 @@ template <typename T>
 void ArrayHandler<T>::set_opn_arr()
 {
 
-    int ch{0};
+    int ch;
     ArrayHandler arrHndlr;
     cod::array<T> set_arr;
 
@@ -857,7 +857,7 @@ void ArrayHandler<T>::set_opn_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
     } while (1);
@@ -891,7 +891,7 @@ template <typename T>
 void ArrayHandler<T>::reverse_arr()
 {
 
-    int ch{0};
+    int ch;
     size_t start, end;
 
     do
@@ -931,7 +931,7 @@ void ArrayHandler<T>::reverse_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
 
@@ -941,7 +941,7 @@ template <typename T>
 void ArrayHandler<T>::shift_rotate_arr()
 {
 
-    int ch{0};
+    int ch;
     int n;
 
     do
@@ -989,7 +989,7 @@ void ArrayHandler<T>::shift_rotate_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
 
@@ -1000,7 +1000,7 @@ template <typename T>
 void ArrayHandler<T>::find_miss_val_arr()
 {
 
-    int ch{0};
+    int ch;
     size_t start, end;
     std::vector<T> vec;
 
@@ -1059,7 +1059,7 @@ void ArrayHandler<T>::find_miss_val_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
     } while (1);
@@ -1069,7 +1069,7 @@ template <typename T>
 void ArrayHandler<T>::find_dup_val_arr()
 {
 
-    int ch{0};
+    int ch;
     size_t start, end;
     std::vector<cod::pair<T, int>> vec;
 
@@ -1138,7 +1138,7 @@ void ArrayHandler<T>::find_dup_val_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
     } while (1);
@@ -1148,7 +1148,7 @@ template <typename T>
 void ArrayHandler<T>::find_pair_sum_arr()
 {
 
-    int ch{0};
+    int ch;
     size_t start, end;
     std::vector<cod::array<T>> vec;
     T value;
@@ -1221,7 +1221,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
     } while (1);
@@ -1288,7 +1288,7 @@ void ArrayHandler<T>::set_value()
 template <typename T>
 void ArrayHandler<T>::average()
 {
-    int ch{0};
+    int ch;
     size_t pos, n;
     double avg;
 
@@ -1329,7 +1329,7 @@ void ArrayHandler<T>::average()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
 
@@ -1339,7 +1339,7 @@ void ArrayHandler<T>::average()
 template <typename T>
 void ArrayHandler<T>::sum()
 {
-    int ch{0};
+    int ch;
     size_t pos, n;
     T sum;
 
@@ -1378,7 +1378,7 @@ void ArrayHandler<T>::sum()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_esc();
+            press_key("Press ESC to return");
             break;
         }
 
