@@ -9,6 +9,7 @@
 /*** GLOBAL VARIABLES ***/
 extern std::string signedUserID; // this will be initialized at runtime
 extern int sleep_time;
+extern bool showedOneTime;
 extern const std::string dev_name;
 extern const std::string version_info;
 extern const std::string scode_url;

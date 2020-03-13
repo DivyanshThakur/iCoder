@@ -141,7 +141,7 @@ void change_lsearch_type()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
     } while (1);

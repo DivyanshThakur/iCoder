@@ -17,15 +17,16 @@ void home(const std::string &userID)
 
     do
     {
-
         if (flag)
         {
             flag = 0;
             title();                                 // display the title = iCoder
             emessage("--> Welcome " + userID + "!"); // display the welcome message
+            showedOneTime = false;
         }
 
         menu(home_data); // display the startup menu
+
         try
         {
             sc.scanChoice(ch);

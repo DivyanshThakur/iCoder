@@ -833,7 +833,7 @@ void ArrayHandler<T>::set_opn_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
     } while (1);
@@ -902,7 +902,7 @@ void ArrayHandler<T>::reverse_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
 
@@ -956,7 +956,7 @@ void ArrayHandler<T>::shift_rotate_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
 
@@ -1023,7 +1023,7 @@ void ArrayHandler<T>::find_miss_val_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
     } while (1);
@@ -1099,7 +1099,7 @@ void ArrayHandler<T>::find_dup_val_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
     } while (1);
@@ -1179,7 +1179,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
     } while (1);
@@ -1279,7 +1279,7 @@ void ArrayHandler<T>::average()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
 
@@ -1326,7 +1326,7 @@ void ArrayHandler<T>::sum()
 
         default:
             print_message(std::string{"Invalid choice"});
-            press_key("Press ESC to return");
+            press_key();
             break;
         }
 
