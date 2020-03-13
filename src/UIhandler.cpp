@@ -147,8 +147,5 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
     char c;
     sc.scan(c);
 
-    if (c == ESC)
-        throw EscPressed();
-
     return (::tolower(c) == 'y');
 }

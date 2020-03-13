@@ -81,6 +81,18 @@ void settings_controller(char ch)
         save_to_file(fsetting, std::string{"LSEARCH_STATUS"}, stats);
         break;
 
+    case 3: // warnings enable/disable
+        warnings();
+        break;
+
+    case 4: // welcome message enable/disable
+        welcome_message();
+        break;
+
+    case 5: // delete the saved users
+        delete_account();
+        break;
+
     default:
         print_message(std::string{"Invalid choice"});
         break;
@@ -133,4 +145,19 @@ void change_lsearch_type()
             break;
         }
     } while (1);
+}
+
+void warnings()
+{
+    print_message();
+}
+
+void welcome_message()
+{
+    print_message();
+}
+
+void delete_account()
+{
+    print_message();
 }
