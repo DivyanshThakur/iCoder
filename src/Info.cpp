@@ -8,8 +8,6 @@ void about()
 {
     char ch;
 
-    title(); // print the title = iCoder
-
     header(std::string{" ABOUT "});
 
     std::cout << "Developer: " << dev_name << std::endl

@@ -16,8 +16,6 @@ void Arrays()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
 
         sc.scanChoice(ch);
@@ -74,8 +72,6 @@ void ArrayHandler<T>::start()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(menu_screen_selector());
 
         try
@@ -558,8 +554,6 @@ void ArrayHandler<T>::update_size()
 {
     int size;
 
-    title(); // print the title = iCoder
-
     header(std::string{" ARRAY SIZE "});
 
     animater(std::string{"Enter size: "});
@@ -577,8 +571,6 @@ void ArrayHandler<T>::add_elements()
 
     if (arr.length() == arr.max_size())
         throw ArrayFullException();
-
-    title(); // print the title = iCoder
 
     header(std::string{" INSERT VALUES "});
 
@@ -616,8 +608,6 @@ void ArrayHandler<T>::insert_value()
     if (arr.length() == arr.max_size())
         throw ArrayFullException();
 
-    title(); // print the title = iCoder
-
     header(std::string{" INSERT VALUE "});
 
     animater(std::string{"Enter the value: "});
@@ -638,8 +628,6 @@ void ArrayHandler<T>::remove_multiple_values()
 {
     size_t pos, n;
     cod::array<T> values;
-
-    title(); // print the title = iCoder
 
     header(std::string{" DELETE MULTIPLE VALUES "});
 
@@ -675,8 +663,6 @@ void ArrayHandler<T>::remove_value()
     size_t pos;
     T value;
 
-    title(); // print the title = iCoder
-
     header(std::string{" DELETE VALUE "});
 
     animater(std::string{"Enter the position: "});
@@ -692,8 +678,6 @@ void ArrayHandler<T>::remove_value()
 template <typename T>
 void ArrayHandler<T>::display_arr() const
 {
-    title(); // print the title = iCoder
-
     header(std::string{" DISPLAY ARRAY "});
 
     std::cout << "Max size: " << arr.max_size()
@@ -708,8 +692,6 @@ void ArrayHandler<T>::linear_search_arr()
 {
     T val;
     size_t pos;
-
-    title(); // print the title = iCoder
 
     header(std::string{" LINEAR SEARCH "});
 
@@ -752,8 +734,6 @@ void ArrayHandler<T>::binary_search_arr()
         press_key();
     }
 
-    title(); // print the title = iCoder
-
     header(std::string{" BINARY SEARCH "});
 
     animater(std::string{"Enter the value: "});
@@ -787,8 +767,6 @@ void ArrayHandler<T>::merge_arr()
     if (!arrHndlr.arr.isSorted())
         arrHndlr.sort(std::string{" MERGE "}, std::string{"Checking array 2..."});
 
-    title(); // print the title = iCoder
-
     header(std::string{" MERGE "});
 
     cod::array<T> mix_arr = arr.merge(arrHndlr.arr);
@@ -820,8 +798,6 @@ void ArrayHandler<T>::set_opn_arr()
 
     do
     {
-        title(); // print the title "iCoder"
-
         menu(set_data, std::string{" SET "});
 
         sc.scanChoice(ch);
@@ -878,8 +854,6 @@ void ArrayHandler<T>::sort_opn_arr()
 template <typename T>
 void ArrayHandler<T>::sort(const std::string &heading, const std::string &message)
 {
-    title(); // print the title = iCoder
-
     header(heading);
 
     wait_message(std::string{message});
@@ -896,8 +870,6 @@ void ArrayHandler<T>::reverse_arr()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(reverse_data, std::string{" REVERSE ARRAY "});
 
         sc.scanChoice(ch);
@@ -910,7 +882,6 @@ void ArrayHandler<T>::reverse_arr()
             return;
 
         case 2:
-            title();
             header(std::string{" REVERSE ARRAY "});
 
             animater(std::string{"Enter the starting position: "});
@@ -946,13 +917,9 @@ void ArrayHandler<T>::shift_rotate_arr()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(shift_rotate_data, std::string{" SHIFT/ROTATE ARRAY "});
 
         sc.scanChoice(ch);
-
-        title();
 
         switch (ch)
         {
@@ -1006,8 +973,6 @@ void ArrayHandler<T>::find_miss_val_arr()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(find_missing_val_data, std::string{" FIND MISSING VALUES "});
 
         sc.scanChoice(ch);
@@ -1029,7 +994,6 @@ void ArrayHandler<T>::find_miss_val_arr()
             return;
 
         case 2:
-            title();
             header(std::string{" FIND MISSING VALUES "});
 
             animater(std::string{"Enter the starting position: "});
@@ -1075,8 +1039,6 @@ void ArrayHandler<T>::find_dup_val_arr()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(find_missing_val_data, std::string{" FIND DUPLICATE VALUES "});
 
         sc.scanChoice(ch);
@@ -1103,7 +1065,6 @@ void ArrayHandler<T>::find_dup_val_arr()
             return;
 
         case 2:
-            title();
             header(std::string{" FIND DUPLICATE VALUES "});
 
             animater(std::string{"Enter the starting position: "});
@@ -1155,8 +1116,6 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(find_missing_val_data, std::string{" FIND A PAIR WITH SUM K "});
 
         sc.scanChoice(ch);
@@ -1184,7 +1143,6 @@ void ArrayHandler<T>::find_pair_sum_arr()
             return;
 
         case 2:
-            title();
             header(std::string{" FIND A PAIR WITH SUM K "});
 
             animater(std::string{"Enter the starting position: "});
@@ -1233,8 +1191,6 @@ void ArrayHandler<T>::max_min()
     T min_val = arr.min();
     T max_val = arr.max();
 
-    title(); // print the title "iCoder"
-
     header(std::string{" MAX & MIN VALUE "});
 
     std::cout << "Min Value: " << min_val << std::endl
@@ -1245,8 +1201,6 @@ template <typename T>
 void ArrayHandler<T>::get_value()
 {
     size_t pos;
-
-    title(); // print the title "iCoder"
 
     header(std::string{" GET VALUE "});
 
@@ -1264,8 +1218,6 @@ void ArrayHandler<T>::set_value()
 {
     size_t pos;
     T set_val, get_val;
-
-    title(); // print the title "iCoder"
 
     header(std::string{" SET VALUE "});
 
@@ -1294,8 +1246,6 @@ void ArrayHandler<T>::average()
 
     do
     {
-        title(); // print the title "iCoder"
-
         menu(average_data, std::string{" AVERAGE "});
 
         sc.scanChoice(ch);
@@ -1345,8 +1295,6 @@ void ArrayHandler<T>::sum()
 
     do
     {
-        title(); // print the title "iCoder"
-
         menu(sum_data, std::string{" SUM "});
 
         sc.scanChoice(ch);

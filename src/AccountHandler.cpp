@@ -89,8 +89,6 @@ void save_active_user(const std::string &userID)
 
 void login()
 {
-    title(); // display the "iCoder" title
-
     header(std::string{" LOGIN "});
 
     auto acc = std::make_unique<Account>();
@@ -133,8 +131,6 @@ void login()
 
 void create_account()
 {
-    title(); // display the "iCoder" title
-
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
     auto acc = std::make_unique<CreateAccount>(); // pointer to CreateAccount class
@@ -193,8 +189,6 @@ void create_account()
 
 void display_users()
 {
-    title(); // display "iCoder"
-
     header(" USERS ");
 
     std::ifstream file(fuser);

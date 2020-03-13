@@ -56,8 +56,6 @@ int main()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(main_menu_data); // display the startup menu
 
         try

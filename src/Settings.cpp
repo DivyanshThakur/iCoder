@@ -15,8 +15,6 @@ void settings()
     int ch;
     do
     {
-        title(); // print the title = iCoder
-
         menu(settings_data, std::string{" SETTINGS "}); // display the startup menu for settings screen
 
         try
@@ -96,8 +94,6 @@ void change_text_anime_speed()
     Scanner sc;
     int speed;
 
-    title(); // print the title = iCoder
-
     header(std::string{" CHANGE ANIMATION SPEED "});
 
     animater(std::string{"Enter the speed: "});
@@ -119,8 +115,6 @@ void change_lsearch_type()
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(lsearch_data, std::string{" CHANGE LINEAR SEARCH TYPE "});
 
         sc.scanChoice(ch);

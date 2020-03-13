@@ -61,6 +61,7 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
 
 void header(const std::string &menu_name)
 {
+    title(); // display title - "iCoder"
 
     std::cout << std::setfill('-')
               << std::setw(2) << ""

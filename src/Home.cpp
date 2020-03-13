@@ -17,12 +17,12 @@ void home(const std::string &userID)
 
     do
     {
-        title(); // print the title = iCoder
 
         if (flag)
         {
-            flag = 0;
+            title();                                 // display the title = iCoder
             emessage("--> Welcome " + userID + "!"); // display the welcome message
+            flag = 0;
         }
 
         menu(home_data); // display the startup menu
