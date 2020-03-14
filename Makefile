@@ -4,12 +4,12 @@ OBJF = obj/*.o
 CC = g++
 LFLAG = -Wall
 CFLAGS = -Wall -c
-icName = iCoder-v1.5.10.3.15-beta
+icName = iCoder-v1.5.10.3.15-beta.exe
 
 ### Build the Project
 
 all: $(OBJS) $(OBJCOD)
-	$(CC) $(LFLAG) $(OBJF) -o iCoder.exe
+	$(CC) $(LFLAG) $(OBJF) -o $(icName)
 
 ### Common program files
 
