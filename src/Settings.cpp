@@ -36,9 +36,14 @@ void settings()
         {
             // do nothing, already returned to previous screen
         }
+        catch (const ReturnHome &e)
+        {
+            return;
+        }
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
+            // press_key();
         }
         catch (const NegativeValueException &e)
         {
@@ -47,6 +52,7 @@ void settings()
         catch (const Exit &e)
         {
             e.what();
+            // press_key();
         }
         catch (const OpenSettings &e)
         {
@@ -95,7 +101,8 @@ void settings_controller(char ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        break;
+        press_key(HOME);
+        return;
     }
 
     press_key(); // getch()

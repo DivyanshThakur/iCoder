@@ -92,6 +92,8 @@ void ArrayHandler<T>::start()
 
             if (ch == 7 && !show_adv_opn)
                 show_adv_opn = true;
+            else
+                press_key(NIL);
         }
         catch (const EscPressed &e)
         {
@@ -100,32 +102,32 @@ void ArrayHandler<T>::start()
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
-            press_key();
+            press_key(NIL);
         }
         catch (const NegativeValueException &e)
         {
             std::cerr << e.what();
-            press_key();
+            press_key(NIL);
         }
         catch (const OutofBoundsException &e)
         {
             std::cerr << e.what();
-            press_key();
+            press_key(NIL);
         }
         catch (const ArrayFullException &e)
         {
             std::cerr << e.what();
-            press_key();
+            press_key(NIL);
         }
         catch (const ArrayEmptyException &e)
         {
             std::cerr << e.what();
-            press_key();
+            press_key(NIL);
         }
         catch (const InvalidPositionException &e)
         {
             std::cerr << e.what();
-            press_key();
+            press_key(NIL);
         }
         catch (const Exit &e)
         {
@@ -269,6 +271,7 @@ void ArrayHandler<T>::arrays_controller(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
+        press_key(HOME);
         break;
     }
 }
@@ -367,6 +370,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
+        press_key(HOME);
         break;
     }
 }
@@ -450,6 +454,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
+        press_key(HOME);
         break;
     }
 }
@@ -529,6 +534,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
+        press_key(HOME);
         break;
     }
 }

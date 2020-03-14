@@ -33,17 +33,17 @@ void about()
 void help()
 {
     print_message();
-    press_key(); // getch()
+    press_key(NIL); // getch()
 }
 
 void download()
 {
     print_message();
-    press_key(); // getch()
+    press_key(NIL); // getch()
 }
 
 void changelog()
 {
     print_message();
-    press_key();
+    press_key(NIL);
 }

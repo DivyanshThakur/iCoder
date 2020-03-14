@@ -5,7 +5,6 @@
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
-#include "../header/Constants.hpp"
 
 void load()
 {
@@ -120,7 +119,7 @@ void print_message(const std::string &message)
     std::cout << message;
 }
 
-void press_key(const std::string &message)
+void press_key(const ReturnTo &rt, const std::string &message)
 {
     char ch;
 
@@ -128,7 +127,17 @@ void press_key(const std::string &message)
     ch = getch();
 
     if (ch == ESC)
-        throw EscPressed();
+    {
+        switch (rt)
+        {
+        case PRE:
+            throw EscPressed();
+        case HOME:
+            throw ReturnHome();
+        case NIL:
+            break;
+        }
+    }
 }
 
 void wait_message(const std::string &message)

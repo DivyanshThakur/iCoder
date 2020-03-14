@@ -74,6 +74,13 @@ enum Status
     ADV
 };
 
+enum ReturnTo
+{
+    PRE,
+    HOME,
+    NIL
+};
+
 extern enum Status stats;
 
 #endif
