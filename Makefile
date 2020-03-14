@@ -4,6 +4,7 @@ OBJF = obj/*.o
 CC = g++
 LFLAG = -Wall
 CFLAGS = -Wall -c
+icName = iCoder-v1.5.10.3.15-beta
 
 ### Build the Project
 
@@ -65,4 +66,4 @@ obj\cod_pair.o: namespace\src\cod_pair.cpp namespace\header\cod_pair.hpp
 ### Extras
 
 clean:
-	rm -f obj/*.o iCoder
+	rm -f obj/*.o $(icName)

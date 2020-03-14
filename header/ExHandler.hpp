@@ -143,7 +143,7 @@ public:
     void what() const noexcept;
 };
 
-class OpenDownload
+class OpenUpdate
 {
 public:
     void what() const noexcept;

@@ -1,7 +1,9 @@
 #include <iostream>
 #include <conio.h>
 #include "../header/Info.hpp"
+#include "../header/Scanner.hpp"
 #include "../header/UIhandler.hpp"
+#include "../header/ExHandler.hpp"
 #include "../header/Constants.hpp"
 
 void about()
@@ -18,9 +20,7 @@ void about()
     std::cout << "Source code:" << std::endl
               << scode_url.substr(8);
 
-    border(width_menu);
-
-    std::cout << "Press i to open URL";
+    print_message(std::string{"Press i to open URL"});
 
     ch = getch();
 
@@ -36,10 +36,63 @@ void help()
     press_key(NIL); // getch()
 }
 
-void download()
+void update()
 {
-    print_message();
-    press_key(NIL); // getch()
+    Scanner sc;
+    int ch;
+
+    do
+    {
+        menu(download_data, std::string{" UPDATES "}, true, std::string{"Version: "}, version_info);
+
+        try
+        {
+            sc.scanChoice(ch);
+
+            switch (ch)
+            {
+            case 1:
+                system(std::string("start " + icoder_url).c_str());
+                return;
+            case 2:
+                system(std::string("start " + icoder_beta_url).c_str());
+                return;
+            default:
+                print_message(std::string{"Invalid choice"});
+                press_key(HOME);
+                break;
+            }
+        }
+        catch (const EscPressed &e)
+        {
+            return;
+        }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
+        }
+        catch (const OpenAbout &e)
+        {
+            e.what();
+        }
+        catch (const OpenHelp &e)
+        {
+            e.what();
+        }
+        catch (const OpenUpdate &e)
+        {
+            continue;
+        }
+        catch (const OpenChangelog &e)
+        {
+            e.what();
+        }
+
+    } while (1);
 }
 
 void changelog()

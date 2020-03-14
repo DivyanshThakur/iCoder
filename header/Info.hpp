@@ -3,7 +3,7 @@
 
 void about();
 void help();
-void download();
+void update();
 void changelog();
 
 #endif

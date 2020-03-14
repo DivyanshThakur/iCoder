@@ -145,7 +145,7 @@ void ArrayHandler<T>::start()
         {
             e.what();
         }
-        catch (const OpenDownload &e)
+        catch (const OpenUpdate &e)
         {
             e.what();
         }

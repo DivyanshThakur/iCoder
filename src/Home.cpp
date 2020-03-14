@@ -62,7 +62,7 @@ void home(const std::string &userID)
         {
             e.what();
         }
-        catch (const OpenDownload &e)
+        catch (const OpenUpdate &e)
         {
             e.what();
         }

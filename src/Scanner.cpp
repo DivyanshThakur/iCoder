@@ -81,7 +81,7 @@ void Scanner::scanChoice(int &choice)
         case 14:
             throw OpenHelp();
         case 15:
-            throw OpenDownload();
+            throw OpenUpdate();
         case 16:
             throw OpenChangelog();
         default: // do nothing

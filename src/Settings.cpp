@@ -43,16 +43,16 @@ void settings()
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
-            // press_key();
+            press_key(NIL);
         }
         catch (const NegativeValueException &e)
         {
             std::cerr << e.what();
+            press_key(NIL);
         }
         catch (const Exit &e)
         {
             e.what();
-            // press_key();
         }
         catch (const OpenSettings &e)
         {
@@ -66,7 +66,7 @@ void settings()
         {
             e.what();
         }
-        catch (const OpenDownload &e)
+        catch (const OpenUpdate &e)
         {
             e.what();
         }

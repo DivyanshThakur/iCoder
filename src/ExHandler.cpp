@@ -96,9 +96,9 @@ void OpenHelp::what() const noexcept
     help();
 }
 
-void OpenDownload::what() const noexcept
+void OpenUpdate::what() const noexcept
 {
-    download();
+    update();
 }
 
 void OpenChangelog::what() const noexcept

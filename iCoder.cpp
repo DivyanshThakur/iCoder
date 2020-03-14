@@ -3,7 +3,7 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.5.20.03.14-BETA
+ * VERSION - 1.5.20.3.15-BETA
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
@@ -69,6 +69,10 @@ int main()
         {
             // do nothing
         }
+        catch (const ReturnHome &e)
+        {
+            // do nothing
+        }
         catch (const Exit &e)
         {
             e.what();
@@ -85,7 +89,7 @@ int main()
         {
             e.what();
         }
-        catch (const OpenDownload &e)
+        catch (const OpenUpdate &e)
         {
             e.what();
         }
@@ -137,8 +141,8 @@ void main_menu_controller(int ch)
         changelog();
         break;
 
-    case 8: // download section to get latest and beta versions
-        download();
+    case 8: // update section to get latest and beta versions
+        update();
         break;
 
     case 9: // Customize the software using settings
