@@ -8,7 +8,7 @@ int sleep_time;
 bool showWelcome;
 bool showedOneTime{true};
 const std::string dev_name{"Divyansh Singh Thakur"};
-const std::string version_info{"1.4"};
+const std::string version_info{"1.5.20.03.14-BETA"};
 const std::string scode_url{"https://github.com/DivyanshThakur/iCoder"};
 const std::string icoder_url{"https://github.com/DivyanshThakur/iCoder/raw/master/iCoder.exe"};
 const std::string icoder_beta_url{"https://github.com/DivyanshThakur/iCoder/raw/Development/iCoder.exe"};
