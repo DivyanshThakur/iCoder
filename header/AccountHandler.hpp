@@ -13,7 +13,6 @@ bool check_new_user();
 void create_account();
 void save_active_user(const std::string &userID);
 std::string pass_to_asteric(const std::string &pass);
-int nextLine();
 
 template <typename T>
 void save_to_file(const std::string &file_name, const std::string &title, const T &data);

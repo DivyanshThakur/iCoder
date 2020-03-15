@@ -67,6 +67,26 @@ void show_status(const std::string &statsVal, const std::string &statsStr)
     border(width_menu);
 }
 
+std::string stats_selector()
+{
+    std::string str;
+
+    switch (stats)
+    {
+    case DEFAULT:
+        str = "DEFAULT";
+        break;
+    case EASY:
+        str = "TRANSPOSITION";
+        break;
+    case ADV:
+        str = "MOVE-TO-FRONT";
+        break;
+    }
+
+    return str;
+}
+
 void header(const std::string &menu_name)
 {
     if (showedOneTime)

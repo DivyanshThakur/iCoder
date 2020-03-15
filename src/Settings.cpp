@@ -135,6 +135,8 @@ void change_text_anime_speed()
 
     header(std::string{" CHANGE ANIMATION SPEED "});
 
+    show_status(std::to_string(sleep_time), std::string{"Current speed: "});
+
     animater(std::string{"Enter the speed: "});
 
     sc.scan(speed);
@@ -154,7 +156,7 @@ void change_lsearch_type()
 
     do
     {
-        menu(lsearch_data, std::string{" CHANGE LINEAR SEARCH TYPE "});
+        menu(lsearch_data, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector());
 
         sc.scanChoice(ch);
 

@@ -756,20 +756,7 @@ void ArrayHandler<T>::linear_search_arr()
 
     header(std::string{" LINEAR SEARCH "});
 
-    switch (stats)
-    {
-    case DEFAULT:
-        show_status(std::string{"DEFAULT"});
-        break;
-
-    case EASY:
-        show_status(std::string{"TRANSPOSITION"});
-        break;
-
-    case ADV:
-        show_status(std::string{"MOVE-TO-FRONT"});
-        break;
-    }
+    show_status(stats_selector());
 
     animater(std::string{"Enter the value: "});
     sc.scan(val);
