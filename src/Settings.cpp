@@ -93,7 +93,8 @@ void settings_controller(char ch)
 
     case 3: // welcome message enable/disable
         welcome_message();
-        break;
+        press_key(HOME);
+        return;
 
     case 4: // delete the saved users
         delete_account();
@@ -189,5 +190,6 @@ void welcome_message()
 
 void delete_account()
 {
-    print_message();
+    std::remove(fuser.c_str());
+    print_message(std::string{"All user details deleted!"});
 }

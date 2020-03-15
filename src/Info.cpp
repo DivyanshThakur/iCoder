@@ -43,7 +43,7 @@ void update()
 
     do
     {
-        menu(download_data, std::string{" UPDATES "}, true, std::string{"Version: "}, version_info);
+        menu(download_data, std::string{" UPDATES "}, true, version_info, std::string{"Version: "});
 
         try
         {
