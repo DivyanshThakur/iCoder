@@ -16,6 +16,7 @@ class ArrayHandler
     bool show_adv_opn{false};
 
     std::vector<std::string> menu_screen_selector();
+    void empty_arrays_controller(int ch);
     void arrays_controller(int ch);
     void arrays_controller_adv(int ch);
     void update_size();

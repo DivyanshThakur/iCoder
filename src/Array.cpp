@@ -85,15 +85,12 @@ void ArrayHandler<T>::start()
                 throw ReturnHome();
             }
 
-            if (show_adv_opn)
+            if (arr.length() == 0)
+                empty_arrays_controller(ch);
+            else if (show_adv_opn)
                 arrays_controller_adv(ch);
             else
                 arrays_controller(ch);
-
-            if (ch == 7 && !show_adv_opn)
-                show_adv_opn = true;
-            else
-                press_key(NIL);
         }
         catch (const EscPressed &e)
         {
@@ -172,13 +169,23 @@ std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
     else
         menu_to_display.push_back(array_data.at(1));
 
-    for (i = 2; i < array_data.size(); ++i)
+    if (arr.length() == 0)
     {
-        if (!(i == 7 && show_adv_opn))
-            menu_to_display.push_back(array_data.at(i));
+        menu_to_display.push_back(array_data.at(2));
+        menu_to_display.push_back(array_data.at(6));
+        menu_to_display.push_back(array_data.at(10));
+        menu_to_display.push_back(array_data.at(11));
+    }
+    else
+    {
+        for (i = 2; i < array_data.size(); ++i)
+        {
+            if (!(i == 7 && show_adv_opn))
+                menu_to_display.push_back(array_data.at(i));
 
-        if (i == 7 && !show_adv_opn)
-            break;
+            if (i == 7 && !show_adv_opn)
+                break;
+        }
     }
 
     return menu_to_display;
@@ -197,13 +204,23 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
     else
         menu_to_display.push_back(array_data.at(1));
 
-    for (i = 2; i < array_data.size(); ++i)
+    if (arr.length() == 0)
     {
-        if (!((i == 7 || i == 16 || i == 17) && show_adv_opn))
-            menu_to_display.push_back(array_data.at(i));
+        menu_to_display.push_back(array_data.at(2));
+        menu_to_display.push_back(array_data.at(6));
+        menu_to_display.push_back(array_data.at(10));
+        menu_to_display.push_back(array_data.at(11));
+    }
+    else
+    {
+        for (i = 2; i < array_data.size(); ++i)
+        {
+            if (!((i == 7 || i == 16 || i == 17) && show_adv_opn))
+                menu_to_display.push_back(array_data.at(i));
 
-        if (i == 7 && !show_adv_opn)
-            break;
+            if (i == 7 && !show_adv_opn)
+                break;
+        }
     }
 
     return menu_to_display;
@@ -222,19 +239,67 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
     else
         menu_to_display.push_back(array_data.at(1));
 
-    for (i = 2; i < array_data.size(); ++i)
+    if (arr.length() == 0)
     {
-        if (!((i == 7 || i == 17) && show_adv_opn))
-            menu_to_display.push_back(array_data.at(i));
+        menu_to_display.push_back(array_data.at(2));
+        menu_to_display.push_back(array_data.at(6));
+        menu_to_display.push_back(array_data.at(10));
+        menu_to_display.push_back(array_data.at(11));
+    }
+    else
+    {
+        for (i = 2; i < array_data.size(); ++i)
+        {
+            if (!((i == 7 || i == 17) && show_adv_opn))
+                menu_to_display.push_back(array_data.at(i));
 
-        if (i == 7 && !show_adv_opn)
-            break;
+            if (i == 7 && !show_adv_opn)
+                break;
+        }
     }
 
     return menu_to_display;
 }
 
 /** END OF MENU SCREEN SELECTOR TEMPLATE FUNCTIONS **/
+
+/** Empty Array Menu **/
+
+template <typename T>
+void ArrayHandler<T>::empty_arrays_controller(int ch)
+{
+
+    switch (ch)
+    {
+    case 1: // add or update size of array
+        update_size();
+        break;
+
+    case 2: // add elements after last element in array
+        add_elements();
+        break;
+
+    case 3: // display elements
+        display_arr();
+        break;
+
+    case 4: // merge
+        merge_arr();
+        break;
+
+    case 5: // set operations
+        set_opn_arr();
+        break;
+
+    default:
+        print_message(std::string{"Invalid choice"});
+        press_key(HOME);
+        return;
+    }
+    press_key();
+}
+
+/** Array Controller **/
 
 template <typename T>
 void ArrayHandler<T>::arrays_controller(int ch)
@@ -267,13 +332,15 @@ void ArrayHandler<T>::arrays_controller(int ch)
         break;
 
     case 7: // make show_adb_opn = true at end of while loop
-        break;
+        show_adv_opn = true;
+        return;
 
     default:
         print_message(std::string{"Invalid choice"});
         press_key(HOME);
-        break;
+        return;
     }
+    press_key();
 }
 
 /** ARRAYS CONTROLLER ADVANCED TEMPLATE FUNCTIONS **/
@@ -359,8 +426,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         set_value();
         break;
 
-    case 20:
-        // average value
+    case 20: // average value
         average();
         break;
 
@@ -371,8 +437,9 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
     default:
         print_message(std::string{"Invalid choice"});
         press_key(HOME);
-        break;
+        return;
     }
+    press_key();
 }
 
 template <>
@@ -455,8 +522,9 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
     default:
         print_message(std::string{"Invalid choice"});
         press_key(HOME);
-        break;
+        return;
     }
+    press_key();
 }
 
 template <>
@@ -535,8 +603,9 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
     default:
         print_message(std::string{"Invalid choice"});
         press_key(HOME);
-        break;
+        return;
     }
+    press_key();
 }
 
 /** END OF ARRAYS CONTROLLER ADVANCED TEMPLATE FUNCTIONS **/
@@ -690,19 +759,18 @@ void ArrayHandler<T>::linear_search_arr()
     switch (stats)
     {
     case DEFAULT:
-        std::cout << "Status: DEFAULT";
+        show_status(std::string{"DEFAULT"});
         break;
 
     case EASY:
-        std::cout << "Status: TRANSPOSITION";
+        show_status(std::string{"TRANSPOSITION"});
         break;
 
     case ADV:
-        std::cout << "Status: MOVE-TO-FRONT";
+        show_status(std::string{"MOVE-TO-FRONT"});
         break;
     }
 
-    border(width_menu);
     animater(std::string{"Enter the value: "});
     sc.scan(val);
     pos = arr.lsearch(val);
@@ -747,6 +815,10 @@ void ArrayHandler<T>::merge_arr()
         arrHndlr.update_size();
         arrHndlr.add_elements();
     }
+    catch (const EscPressed &e)
+    {
+        // do nothing
+    }
     catch (const ArrayFullException &e)
     {
         e.what();
@@ -781,6 +853,10 @@ void ArrayHandler<T>::set_opn_arr()
     {
         arrHndlr.update_size();
         arrHndlr.add_elements();
+    }
+    catch (const EscPressed &e)
+    {
+        // do nothing
     }
     catch (const ArrayFullException &e)
     {
@@ -834,6 +910,7 @@ void ArrayHandler<T>::set_opn_arr()
 template <typename T>
 void ArrayHandler<T>::sort_opn_arr()
 {
+
     if (arr.isSorted())
         print_message(std::string{"Array already Sorted!"});
     else
@@ -965,7 +1042,7 @@ void ArrayHandler<T>::find_miss_val_arr()
 
     do
     {
-        menu(find_missing_val_data, std::string{" FIND MISSING VALUES "});
+        menu(find_val_data, std::string{" FIND MISSING VALUES "});
 
         sc.scanChoice(ch);
 
@@ -1031,7 +1108,7 @@ void ArrayHandler<T>::find_dup_val_arr()
 
     do
     {
-        menu(find_missing_val_data, std::string{" FIND DUPLICATE VALUES "});
+        menu(find_val_data, std::string{" FIND DUPLICATE VALUES "});
 
         sc.scanChoice(ch);
 
@@ -1108,7 +1185,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
     do
     {
-        menu(find_missing_val_data, std::string{" FIND A PAIR WITH SUM K "});
+        menu(find_val_data, std::string{" FIND A PAIR WITH SUM K "});
 
         sc.scanChoice(ch);
 

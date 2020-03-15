@@ -40,11 +40,11 @@ int main()
 
     restore_saved_changes(); // restore the settings that was previously changed and saved
 
-    if (check_new_user() && showWelcome) // if there is no current user, it displays below message
+    if (check_new_user() && showWelcome) // if there is no current user & showWelcome enabled, it displays below message
     {
         title();                                                            // display title
         emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // 1 time message to user
-        showedOneTime = false;
+        showedOneTime = false;                                              // set to false to not show next time
     }
 
     if (signedUserID != std::string{"NULL"}) // checking for current signed user

@@ -47,9 +47,7 @@ const std::vector<std::string> set_data{"Union", "Intersection", "Difference"};
 const std::vector<std::string> reverse_data{"Reverse the array", "Select a range"};
 const std::vector<std::string> shift_rotate_data{"Left Shift", "Right Shift", "Left Rotation", "Right Rotation"};
 const std::vector<std::string> lsearch_data{"Default", "Transposition", "Move to front"};
-const std::vector<std::string> find_missing_val_data{"Search the array", "Select a range"};
-// const std::vector<std::string> find_duplicate_val_dataL{"d"};
-// const std::vector<std::string> find_pair_sum_data{"d"};
+const std::vector<std::string> find_val_data{"Search the array", "Select a range"};
 
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 

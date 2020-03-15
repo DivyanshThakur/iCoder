@@ -322,6 +322,9 @@ void cod::array<T>::swap(size_t i, size_t j)
 template <typename T>
 void cod::array<T>::shift(Side s, size_t n)
 {
+    if (len == 0)
+        throw ArrayEmptyException();
+
     // code to shift the elements
 
     size_t i, j;
@@ -343,6 +346,9 @@ void cod::array<T>::shift(Side s, size_t n)
 template <typename T>
 void cod::array<T>::rotate(Side s, size_t n)
 {
+    if (len == 0)
+        throw ArrayEmptyException();
+
     // code to rotate the array
 
     size_t i, j;

@@ -52,9 +52,7 @@ extern const std::vector<std::string> set_data;
 extern const std::vector<std::string> reverse_data;
 extern const std::vector<std::string> shift_rotate_data;
 extern const std::vector<std::string> lsearch_data;
-extern const std::vector<std::string> find_missing_val_data;
-// extern const std::vector<std::string> find_duplicate_val_data;
-// extern const std::vector<std::string> find_pair_sum_data;
+extern const std::vector<std::string> find_val_data;
 
 //accounthandler.h
 extern const std::string username;

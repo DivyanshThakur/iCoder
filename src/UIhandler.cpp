@@ -42,13 +42,13 @@ void title()
               << std::endl;
 }
 
-void menu(const std::vector<std::string> &vec_menu, const std::string &heading, bool showStatus, const std::string &statsStr, const std::string &statsVal)
+void menu(const std::vector<std::string> &vec_menu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
 { // show the specific menu
 
     header(heading);
 
     if (showStatus)
-        show_status(statsStr, statsVal);
+        show_status(statsVal, statsStr);
 
     for (size_t index{0}; index < vec_menu.size(); ++index)
     {
@@ -61,7 +61,7 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading, 
     print_message(std::string{"Your Choice: "});
 }
 
-void show_status(const std::string &statsStr, const std::string &statsVal)
+void show_status(const std::string &statsVal, const std::string &statsStr)
 {
     std::cout << statsStr << statsVal;
     border(width_menu);
