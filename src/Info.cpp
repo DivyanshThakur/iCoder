@@ -1,5 +1,6 @@
 #include <iostream>
 #include <conio.h>
+#include <iomanip>
 #include "../header/Info.hpp"
 #include "../header/Scanner.hpp"
 #include "../header/UIhandler.hpp"
@@ -59,7 +60,7 @@ void update()
                 return;
             default:
                 print_message(std::string{"Invalid choice"});
-                press_key(HOME);
+                press_key();
                 break;
             }
         }
@@ -97,6 +98,34 @@ void update()
 
 void changelog()
 {
-    print_message();
+    header(std::string{" CHANGELOG "});
+
+    std::cout << std::setw(3 * width_index) << std::left << "Version Info"
+              << "Description" << std::endl
+              << std::endl;
+
+    size_t i{0};
+
+    for (const auto &vInfo : log_version_data)
+    {
+        std::cout << std::setw(3 * width_index) << std::left << vInfo;
+
+        for (; i < log_vdescription_data.size(); ++i)
+        {
+            if (log_vdescription_data.at(i) == "\n")
+            {
+                ++i;
+                break;
+            }
+
+            if (i > 0 && log_vdescription_data.at(i - 1) != "\n")
+                std::cout << std::setw(3 * width_index) << "";
+
+            std::cout << "-> " << log_vdescription_data.at(i) << std::endl;
+        }
+
+        if (vInfo != std::string{"1.0"})
+            std::cout << std::endl;
+    }
     press_key(NIL);
 }

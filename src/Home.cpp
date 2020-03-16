@@ -41,10 +41,12 @@ void home(const std::string &userID)
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
+            press_key(NIL);
         }
         catch (const NegativeValueException &e)
         {
             std::cerr << e.what();
+            press_key(NIL);
         }
         catch (const Exit &e)
         {

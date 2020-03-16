@@ -53,6 +53,8 @@ extern const std::vector<std::string> reverse_data;
 extern const std::vector<std::string> shift_rotate_data;
 extern const std::vector<std::string> lsearch_data;
 extern const std::vector<std::string> find_val_data;
+extern const std::vector<std::string> log_version_data;
+extern const std::vector<std::string> log_vdescription_data;
 
 //accounthandler.h
 extern const std::string username;
