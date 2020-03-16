@@ -218,7 +218,7 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
             if (!((i == 7 || i == 16 || i == 17) && show_adv_opn))
                 menu_to_display.push_back(array_data.at(i));
 
-            if (i == 7 && !show_adv_opn)
+            if ((i == 7 && !show_adv_opn) || i == 20)
                 break;
         }
     }
@@ -253,7 +253,7 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
             if (!((i == 7 || i == 17) && show_adv_opn))
                 menu_to_display.push_back(array_data.at(i));
 
-            if (i == 7 && !show_adv_opn)
+            if ((i == 7 && !show_adv_opn) || i == 20)
                 break;
         }
     }
