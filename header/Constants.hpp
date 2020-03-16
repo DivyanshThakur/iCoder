@@ -55,6 +55,8 @@ extern const std::vector<std::string> lsearch_data;
 extern const std::vector<std::string> find_val_data;
 extern const std::vector<std::string> log_version_data;
 extern const std::vector<std::string> log_vdescription_data;
+extern const std::vector<std::string> help_char_data;
+extern const std::vector<std::string> help_desc_data;
 
 //accounthandler.h
 extern const std::string username;

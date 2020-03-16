@@ -27,14 +27,40 @@ void about()
 
     if (::tolower(ch) == 'i') // this code will open github source code in default browser
         system(std::string("start " + scode_url).c_str());
-    else
-        return;
 }
 
 void help()
 {
-    print_message();
-    press_key(NIL); // getch()
+    header(std::string{" HELP "});
+
+    std::cout << std::setw(width_index) << std::left << "Key"
+              << "   Description" << std::endl
+              << std::endl;
+
+    size_t i{0};
+
+    for (const auto &sc : help_char_data)
+    {
+        std::cout << std::setw(width_index) << std::left << sc;
+        std::cout << "-> " << help_desc_data.at(i++);
+
+        if (sc != std::string{"s"})
+            std::cout << std::endl;
+    }
+    print_message(std::string{"*Can be used only in menu screen"});
+
+    print_message(std::string{"Press i for more info"});
+
+    char ch = getch();
+
+    if (::tolower(ch) == 'i')
+        more_info();
+}
+
+void more_info()
+{
+    header(std::string{" HELP "});
+    press_key(NIL);
 }
 
 void update()
@@ -101,7 +127,7 @@ void changelog()
     header(std::string{" CHANGELOG "});
 
     std::cout << std::setw(3 * width_index) << std::left << "Version Info"
-              << "Description" << std::endl
+              << "   Description" << std::endl
               << std::endl;
 
     size_t i{0};
