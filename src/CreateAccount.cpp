@@ -10,13 +10,13 @@
 
 void CreateAccount::input_data()
 {
+    Scanner sc;
+
     Account::input_data();
 
     std::cout << std::endl;
 
     animater(RePassword);
-
-    Scanner sc;
 
     pass2 = sc.scanPassword(); // scanning password
 

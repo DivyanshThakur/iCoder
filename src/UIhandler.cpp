@@ -5,7 +5,6 @@
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
-#include "../header/Constants.hpp"
 
 void load()
 {
@@ -43,10 +42,13 @@ void title()
               << std::endl;
 }
 
-void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
+void menu(const std::vector<std::string> &vec_menu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
 { // show the specific menu
 
     header(heading);
+
+    if (showStatus)
+        show_status(statsStr, statsVal);
 
     for (size_t index{0}; index < vec_menu.size(); ++index)
     {
@@ -56,13 +58,41 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading)
             std::cout << std::endl;
     }
 
-    border(width_menu);
+    print_message(std::string{"Your Choice: "});
+}
 
-    std::cout << "Your Choice: ";
+void show_status(const std::string &statsStr, const std::string &statsVal)
+{
+    std::cout << statsStr << statsVal;
+    border(width_menu);
+}
+
+std::string stats_selector()
+{
+    std::string str;
+
+    switch (stats)
+    {
+    case DEFAULT:
+        str = "DEFAULT";
+        break;
+    case EASY:
+        str = "TRANSPOSITION";
+        break;
+    case ADV:
+        str = "MOVE-TO-FRONT";
+        break;
+    }
+
+    return str;
 }
 
 void header(const std::string &menu_name)
 {
+    if (showedOneTime)
+        title(); // display title - "iCoder"
+    else
+        showedOneTime = true;
 
     std::cout << std::setfill('-')
               << std::setw(2) << ""
@@ -118,29 +148,43 @@ void print_message(const std::string &message)
     std::cout << message;
 }
 
-void press_key()
+void press_key(const ReturnTo &rt, const std::string &message)
 {
-    border(width_menu); // display the footer
-    std::cout << "Press a key to continue";
-    getch();
+    char ch;
+
+    print_message(message);
+    ch = getch();
+
+    if (ch == ESC)
+    {
+        switch (rt)
+        {
+        case PRE:
+            throw EscPressed();
+        case HOME:
+            throw ReturnHome();
+        case NIL:
+            break;
+        }
+    }
+}
+
+bool press_i(const std::string &message)
+{
+    print_message(std::string{message});
+
+    char ch = getch();
+
+    if (::tolower(ch) == 'i')
+        return true;
+
+    return false;
 }
 
 void wait_message(const std::string &message)
 {
     std::cout << message;
     Sleep(1000);
-}
-
-void press_esc()
-{
-    char ch;
-
-    border(width_menu); // display the border
-    std::cout << "Press ESC to return";
-    ch = getch();
-
-    if (ch == ESC)
-        throw EscPressed();
 }
 
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
@@ -155,9 +199,6 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
     Scanner sc;
     char c;
     sc.scan(c);
-
-    if (c == ESC)
-        throw EscPressed();
 
     return (::tolower(c) == 'y');
 }

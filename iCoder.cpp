@@ -3,7 +3,7 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.4
+ * VERSION - 1.5.20.3.15-BETA
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
@@ -16,10 +16,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <limits>
 #include <windows.h>
-#include <conio.h>
-#include <tchar.h>
 #include <dir.h>
 #include "header/ExHandler.hpp"
 #include "header/Constants.hpp"
@@ -28,13 +25,12 @@
 #include "header/Home.hpp"
 #include "header/Settings.hpp"
 #include "header/Scanner.hpp"
+#include "header/Info.hpp"
 
 /** FUNCTION PROTOTYPES **/
 void main_menu_controller(int ch);
-void makeDirectory();
 bool isDirectoryExists();
 void adjust_console_size();
-void about();
 void create_path();
 
 int main()
@@ -42,15 +38,13 @@ int main()
     adjust_console_size(); // adjust the window size
     create_path();         // initilize the paths
 
-    if (!isDirectoryExists()) // checking if the directory "data" exists or not
-        makeDirectory();      // if it doesn't exists then it will create the directory
-
     restore_saved_changes(); // restore the settings that was previously changed and saved
 
-    if (check_new_user()) // if there is no current user, it displays below message
+    if (check_new_user() && showWelcome) // if there is no current user & showWelcome enabled, it displays below message
     {
-        title();                                                                     // display title
-        emessage(std::string{" HINT --> Use ESC key to return to previous screen"}); // 1 time message to user
+        title();                                                            // display title
+        emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // 1 time message to user
+        showedOneTime = false;                                              // set to false to not show next time
     }
 
     if (signedUserID != std::string{"NULL"}) // checking for current signed user
@@ -58,17 +52,15 @@ int main()
     else
         save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 
-    int ch{0};
+    Scanner sc;
+    int ch;
 
     do
     {
-        title(); // print the title = iCoder
-
         menu(main_menu_data); // display the startup menu
 
         try
         {
-            Scanner sc;
             sc.scanChoice(ch); // scan user's choice
 
             main_menu_controller(ch); // start as per user choice
@@ -77,13 +69,41 @@ int main()
         {
             // do nothing
         }
+        catch (const ReturnHome &e)
+        {
+            // do nothing
+        }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
+        }
+        catch (const OpenAbout &e)
+        {
+            e.what();
+        }
+        catch (const OpenHelp &e)
+        {
+            e.what();
+        }
+        catch (const OpenUpdate &e)
+        {
+            e.what();
+        }
+        catch (const OpenChangelog &e)
+        {
+            e.what();
+        }
         catch (...)
         {
             border(width_menu);
             std::cerr << "Unknown error occurred in Main Menu";
         }
 
-    } while (ch != 7); // the program terminates after this line
+    } while (1); // the program terminates after this line
 
     return 0;
 }
@@ -109,18 +129,24 @@ void main_menu_controller(int ch)
         press_key(); // getch()
         break;
 
-    case 5: // details about the software
+    case 5: // help for shortcuts
+        help();
+        break;
+
+    case 6: // details about the software
         about();
         break;
 
-    case 6: // Customize the software using settings
+    case 7: // changelog
+        changelog();
+        break;
+
+    case 8: // update section to get latest and beta versions
+        update();
+        break;
+
+    case 9: // Customize the software using settings
         settings();
-        break;
-
-    case 7: // exit the program
-        break;
-
-    case ESC: //ESC
         break;
 
     default:
@@ -128,13 +154,6 @@ void main_menu_controller(int ch)
         press_key(); // getch()
         break;
     }
-}
-
-void makeDirectory()
-{
-    // these code will create a folder in that specific destination
-    std::string dirpath{path};
-    mkdir(dirpath.c_str());
 }
 
 bool isDirectoryExists()
@@ -148,34 +167,6 @@ bool isDirectoryExists()
     return (attribs & FILE_ATTRIBUTE_DIRECTORY);
 }
 
-void about()
-{
-    char ch;
-
-    title(); // print the title = iCoder
-
-    header(std::string{" ABOUT "});
-
-    std::cout << "Developer: " << dev_name << std::endl
-              << "Version: " << version_info;
-
-    border(width_menu);
-
-    std::cout << "Source code:" << std::endl
-              << scode_url.substr(8);
-
-    border(width_menu);
-
-    std::cout << "Press i to open URL";
-
-    ch = getch();
-
-    if (::tolower(ch) == 'i') // this code will open github source code in default browser
-        system(std::string("start " + scode_url).c_str());
-    else
-        return;
-}
-
 void adjust_console_size()
 {
     HWND console = GetConsoleWindow();
@@ -187,17 +178,18 @@ void adjust_console_size()
 
 void create_path()
 {
-    TCHAR szBuf[MAX_PATH] = {0};
-    int i = 0;
+    char *userpath = getenv("USERPROFILE");
 
-    ::GetEnvironmentVariable(_T( "USERPROFILE" ), szBuf, MAX_PATH);
-
-    while (szBuf[i] != '\0')
+    if (userpath == nullptr)
     {
-        path += szBuf[i++];
+        std::cerr << "No user path";
+        return;
     }
 
-    path += "\\Documents\\iCoder";
+    path = std::string(userpath) + "\\Documents\\iCoder";
     fuser = path + "\\users.dat";
     fsetting = path + "\\settings.dat";
+
+    if (!isDirectoryExists()) // checking if the directory "data" exists or not
+        mkdir(path.c_str());  // these code will create a folder in that specific destination
 }

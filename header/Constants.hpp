@@ -9,6 +9,8 @@
 /*** GLOBAL VARIABLES ***/
 extern std::string signedUserID; // this will be initialized at runtime
 extern int sleep_time;
+extern bool showWelcome;
+extern bool showedOneTime;
 extern const std::string dev_name;
 extern const std::string version_info;
 extern const std::string scode_url;
@@ -43,15 +45,18 @@ extern const std::vector<std::string> home_data;
 extern const std::vector<std::string> array_data;
 
 // small menu funtions
+extern const std::vector<std::string> download_data;
 extern const std::vector<std::string> average_data;
 extern const std::vector<std::string> sum_data;
 extern const std::vector<std::string> set_data;
 extern const std::vector<std::string> reverse_data;
 extern const std::vector<std::string> shift_rotate_data;
 extern const std::vector<std::string> lsearch_data;
-extern const std::vector<std::string> find_missing_val_data;
-extern const std::vector<std::string> find_duplicate_val_data;
-extern const std::vector<std::string> find_pair_sum_data;
+extern const std::vector<std::string> find_val_data;
+extern const std::vector<std::string> log_version_data;
+extern const std::vector<std::string> log_vdescription_data;
+extern const std::vector<std::string> help_char_data;
+extern const std::vector<std::string> help_desc_data;
 
 //accounthandler.h
 extern const std::string username;
@@ -70,6 +75,13 @@ enum Status
     DEFAULT,
     EASY,
     ADV
+};
+
+enum ReturnTo
+{
+    PRE,
+    HOME,
+    NIL
 };
 
 extern enum Status stats;

@@ -322,7 +322,13 @@ void cod::array<T>::swap(size_t i, size_t j)
 template <typename T>
 void cod::array<T>::shift(Side s, size_t n)
 {
+    if (len == 0)
+        throw ArrayEmptyException();
+
     // code to shift the elements
+
+    if (n > len)
+        n %= len; // using rotation for any value of n,it adjusts with the array length
 
     size_t i, j;
     switch (s)
@@ -332,6 +338,7 @@ void cod::array<T>::shift(Side s, size_t n)
             A[j] = A[i];
         fill(DEF_VAL, j, i);
         break;
+
     case RIGHT:
         for (i = len - n - 1, j = len - 1; i + 1 > 0; --i, --j)
             A[j] = A[i];
@@ -343,7 +350,12 @@ void cod::array<T>::shift(Side s, size_t n)
 template <typename T>
 void cod::array<T>::rotate(Side s, size_t n)
 {
+    if (len == 0)
+        throw ArrayEmptyException();
+
     // code to rotate the array
+
+    n %= len; // using rotation for any value of n,it adjusts with the array length
 
     size_t i, j;
     array temp_arr(n);
@@ -360,6 +372,7 @@ void cod::array<T>::rotate(Side s, size_t n)
         for (i = 0; j < len; ++i, ++j)
             A[j] = temp_arr[i];
         break;
+
     case RIGHT:
         for (i = 0, j = len - 1; i < n; ++i)
             temp_arr.push_back(A[j--]);

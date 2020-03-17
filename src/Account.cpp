@@ -26,9 +26,9 @@ std::ifstream &operator>>(std::ifstream &ifs, Account &acc)
 
 void Account::input_data()
 {
-    animater(username);
-
     Scanner sc;
+
+    animater(username);
 
     userID = sc.scanUsername(); // taking username from user
 
@@ -60,6 +60,8 @@ void Account::display_remember_me() const
 
     if (::tolower(c) == 'y')
         save_active_user(userID); // save the current user
+    else
+        signedUserID = userID;
 }
 
 void Account::check_account() const

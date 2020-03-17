@@ -11,46 +11,73 @@
 
 void home(const std::string &userID)
 {
-    int ch{0};
+    Scanner sc;
+    int ch;
     int flag{1};
 
     do
     {
-        title(); // print the title = iCoder
-
-        if (flag)
+        if (flag && showWelcome)
         {
             flag = 0;
+            title();                                 // display the title = iCoder
             emessage("--> Welcome " + userID + "!"); // display the welcome message
+            showedOneTime = false;
         }
 
         menu(home_data); // display the startup menu
+
         try
         {
-            Scanner sc;
             sc.scanChoice(ch);
 
             home_controller(ch); // start as per user choice
         }
         catch (const EscPressed &e)
         {
-            // do nothing
+            if (signedUserID == std::string{"NULL"})
+                return;
         }
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
+            press_key(NIL);
         }
         catch (const NegativeValueException &e)
         {
             std::cerr << e.what();
+            press_key(NIL);
+        }
+        catch (const Exit &e)
+        {
+            e.what();
+        }
+        catch (const OpenSettings &e)
+        {
+            e.what();
+        }
+        catch (const OpenAbout &e)
+        {
+            e.what();
+        }
+        catch (const OpenHelp &e)
+        {
+            e.what();
+        }
+        catch (const OpenUpdate &e)
+        {
+            e.what();
+        }
+        catch (const OpenChangelog &e)
+        {
+            e.what();
+        }
+        catch (const ReturnHome &e)
+        {
+            // to return to home screen
         }
 
-        if (ch == 7 || signedUserID == std::string{"NULL"})
-            return;
-
-    } while (ch != 8); // exit the program when ch == 8
-
-    exit(0);
+    } while (1); // exit the program when ch == 8
 }
 
 void home_controller(int ch)
@@ -84,13 +111,7 @@ void home_controller(int ch)
     case 7: // sign out
         if (signedUserID != std::string{"NULL"})
             save_active_user(std::string{"NULL"});
-        return;
-
-    case 8: // exit the program
-        return;
-
-    case ESC:
-        return;
+        throw EscPressed();
 
     default:
         print_message(std::string{"Invalid choice"});

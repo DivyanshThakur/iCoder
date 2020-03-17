@@ -1,4 +1,4 @@
-OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\Home.o obj\Scanner.o obj\Settings.o obj\UIhandler.o
+OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\Home.o obj\Info.o obj\Scanner.o obj\Settings.o obj\UIhandler.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o
 OBJF = obj/*.o
 CC = g++
@@ -8,7 +8,7 @@ CFLAGS = -Wall -c
 ### Build the Project
 
 all: $(OBJS) $(OBJCOD)
-	$(CC) $(LFLAG) $(OBJF) -o iCoder.exe
+	$(CC) $(LFLAG) $(OBJF) -o iCoder
 
 ### Common program files
 
@@ -32,6 +32,9 @@ obj\ExHandler.o: src\ExHandler.cpp header\ExHandler.hpp
 
 obj\Home.o: src\Home.cpp header\Home.hpp
 	$(CC) $(CFLAGS) src\Home.cpp -o obj\Home.o
+
+obj\Info.o: src\Info.cpp header\Info.hpp
+	$(CC) $(CFLAGS) src\Info.cpp -o obj\Info.o
 
 obj\Scanner.o: src\Scanner.cpp header\Scanner.hpp
 	$(CC) $(CFLAGS) src\Scanner.cpp -o obj\Scanner.o

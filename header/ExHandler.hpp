@@ -115,8 +115,44 @@ class EscPressed
 {
 };
 
-class Esc
+class ReturnHome
 {
+};
+
+class Exit
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenSettings
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenAbout
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenHelp
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenUpdate
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenChangelog
+{
+public:
+    void what() const noexcept;
 };
 
 #endif
