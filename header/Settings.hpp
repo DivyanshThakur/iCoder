@@ -9,6 +9,6 @@ void change_text_anime_speed();
 void change_lsearch_type();
 void warnings();
 void welcome_message();
-void delete_account();
+void reset();
 
 #endif

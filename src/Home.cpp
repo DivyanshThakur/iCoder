@@ -109,9 +109,8 @@ void home_controller(int ch)
         break;
 
     case 7: // sign out
-        if (signedUserID != std::string{"NULL"})
-            save_active_user(std::string{"NULL"});
-        throw EscPressed();
+        sign_out();
+        break;
 
     default:
         print_message(std::string{"Invalid choice"});
@@ -119,4 +118,11 @@ void home_controller(int ch)
     }
 
     press_key(); // program paused - getch()
+}
+
+void sign_out()
+{
+    if (signedUserID != std::string{"NULL"})
+        save_active_user(std::string{"NULL"});
+    throw EscPressed();
 }

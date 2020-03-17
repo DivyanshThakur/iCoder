@@ -27,7 +27,7 @@ void help()
 {
     header(std::string{" HELP "});
 
-    std::cout << std::setw(width_index) << std::left << "Key"
+    std::cout << std::setw(width_index) << std::left << " Key"
               << "   Description" << std::endl
               << std::endl;
 
@@ -35,7 +35,7 @@ void help()
 
     for (const auto &sc : help_char_data)
     {
-        std::cout << std::setw(width_index) << std::left << sc;
+        std::cout << " " << std::setw(width_index) << std::left << sc;
         std::cout << "-> " << help_desc_data.at(i++);
 
         if (sc != std::string{"u"})
@@ -108,7 +108,7 @@ void changelog()
 {
     header(std::string{" CHANGELOG "});
 
-    std::cout << std::setw(3 * width_index) << std::left << "Version Info"
+    std::cout << std::setw(width_index + 2) << std::left << "Version"
               << "   Description" << std::endl
               << std::endl;
 
@@ -116,7 +116,7 @@ void changelog()
 
     for (const auto &vInfo : log_version_data)
     {
-        std::cout << std::setw(3 * width_index) << std::left << vInfo;
+        std::cout << std::setw(width_index + 2) << std::left << vInfo;
 
         for (; i < log_vdescription_data.size(); ++i)
         {
@@ -127,7 +127,7 @@ void changelog()
             }
 
             if (i > 0 && log_vdescription_data.at(i - 1) != "\n")
-                std::cout << std::setw(3 * width_index) << "";
+                std::cout << std::setw(width_index + 2) << "";
 
             std::cout << "-> " << log_vdescription_data.at(i) << std::endl;
         }

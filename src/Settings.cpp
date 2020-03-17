@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
 #include <sstream>
 #include <windows.h>
@@ -85,28 +84,28 @@ void settings_controller(char ch)
     {
     case 1: // change the animation speed of the menu
         change_text_anime_speed();
-        break;
+        press_key();
+        return;
 
     case 2: // change linear search type
         change_lsearch_type();
-        break;
+        press_key();
+        return;
 
     case 3: // welcome message enable/disable
         welcome_message();
-        press_key(HOME);
-        return;
+        break;
 
-    case 4: // delete the saved users
-        delete_account();
+    case 4: // reset the settings and delete users
+        reset();
         break;
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(HOME);
-        return;
+        break;
     }
 
-    press_key(); // getch()
+    press_key(HOME);
 }
 
 std::vector<std::string> settings_screen_selector()
@@ -157,7 +156,7 @@ void change_lsearch_type()
 
     do
     {
-        menu(lsearch_data, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector());
+        menu(lsearch_data, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(), std::string{"Search Type: "});
 
         sc.scanChoice(ch);
 
@@ -188,8 +187,51 @@ void welcome_message()
     print_message(std::string{"Changes saved!"});
 }
 
-void delete_account()
+void reset()
 {
-    std::remove(fuser.c_str());
-    print_message(std::string{"All user details deleted!"});
+    if (check_new_user() && check_default_settings())
+    {
+        print_message(std::string{"Already in default settings"});
+        return;
+    }
+
+    bool toProceed = confirm_the_change(std::string{"This will reset all the settings\nand delete all the user details!"});
+
+    if (toProceed)
+    {
+        std::remove(fsetting.c_str());
+        std::remove(fuser.c_str());
+
+        if (signedUserID != std::string{"NULL"})
+        {
+            header(std::string{" SETTINGS "});
+
+            std::cout << "To successfully reset the change\nClosing iCoder...";
+            press_key(NIL);
+            exit(0);
+        }
+
+        print_message(std::string{"Successfully deleted!"});
+        restore_saved_changes();
+    }
 }
+
+// void delete_account()
+// {
+
+//     if (check_new_user())
+//     {
+//         print_message(std::string{"No user in database!"});
+//         return;
+//     }
+
+//     bool toProceed = confirm_the_change(std::string{"This will permanently delete all\nthe user info from the database!"});
+//     if (toProceed)
+//     {
+//         std::remove(fuser.c_str());
+//         print_message(std::string{"Successfully deleted!"});
+
+//         if (signedUserID != std::string{"NULL"})
+//             throw SignOut();
+//     }
+// }

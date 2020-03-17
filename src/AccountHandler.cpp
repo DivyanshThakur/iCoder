@@ -77,7 +77,37 @@ void update_stats(int c)
 bool check_new_user()
 {
     std::ifstream file(fuser);
+
     if (!file)
+        return true;
+
+    file.close();
+    return false;
+}
+
+bool check_default_settings()
+{
+    std::ifstream file(fsetting);
+    std::string title, usr_signed;
+    int time, c;
+    bool wlcome;
+
+    if (!file)
+        return true;
+
+    while (file >> title)
+    {
+        if (title == std::string{"CURRENT_USER"})
+            file >> usr_signed;
+        else if (title == std::string{"ANIMATION_SPEED"})
+            file >> time;
+        else if (title == std::string{"LSEARCH_STATUS"})
+            file >> c;
+        else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
+            file >> wlcome;
+    }
+
+    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome == true && c == 0)
         return true;
 
     file.close();
