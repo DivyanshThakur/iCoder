@@ -682,6 +682,8 @@ void ArrayHandler<T>::insert_value()
 
     header(std::string{" INSERT VALUE "});
 
+    show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
+
     animater(std::string{"Enter the value: "});
 
     sc.scan(value);
@@ -702,6 +704,8 @@ void ArrayHandler<T>::remove_multiple_values()
     cod::array<T> values;
 
     header(std::string{" DELETE MULTIPLE VALUES "});
+
+    show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
     animater(std::string{"Enter the starting position: "});
 
@@ -737,6 +741,8 @@ void ArrayHandler<T>::remove_value()
 
     header(std::string{" DELETE VALUE "});
 
+    show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
+
     animater(std::string{"Enter the position: "});
 
     sc.scan(pos);
@@ -754,7 +760,7 @@ void ArrayHandler<T>::display_arr() const
 
     std::cout << "Max size: " << arr.max_size()
               << std::endl
-              << "Elements stored: " << arr.length() << std::endl
+              << "Values stored: " << arr.length() << std::endl
               << "Array: "
               << arr;
 }
@@ -767,7 +773,7 @@ void ArrayHandler<T>::linear_search_arr()
 
     header(std::string{" LINEAR SEARCH "});
 
-    show_status(std::string{"Status: "}, stats_selector());
+    show_status(std::string{"Search Type: "}, stats_selector());
 
     animater(std::string{"Enter the value: "});
     sc.scan(val);
@@ -951,6 +957,8 @@ void ArrayHandler<T>::reverse_arr()
         case 2:
             header(std::string{" REVERSE ARRAY "});
 
+            show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
 
@@ -992,6 +1000,7 @@ void ArrayHandler<T>::shift_rotate_arr()
         {
         case 1:
             header(std::string{" LEFT SHIFT "});
+            show_status(std::string{"Valid shifts: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
             arr.shift(LEFT, n);
@@ -999,6 +1008,7 @@ void ArrayHandler<T>::shift_rotate_arr()
 
         case 2:
             header(std::string{" RIGHT SHIFT "});
+            show_status(std::string{"Valid shifts: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
             arr.shift(RIGHT, n);
@@ -1006,6 +1016,7 @@ void ArrayHandler<T>::shift_rotate_arr()
 
         case 3:
             header(std::string{" LEFT ROTATE "});
+            show_status(std::string{"Valid rotations: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
             arr.rotate(LEFT, n);
@@ -1013,6 +1024,7 @@ void ArrayHandler<T>::shift_rotate_arr()
 
         case 4:
             header(std::string{" RIGHT ROTATE "});
+            show_status(std::string{"Valid rotations: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
             arr.rotate(RIGHT, n);
@@ -1062,6 +1074,8 @@ void ArrayHandler<T>::find_miss_val_arr()
 
         case 2:
             header(std::string{" FIND MISSING VALUES "});
+
+            show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
@@ -1133,6 +1147,8 @@ void ArrayHandler<T>::find_dup_val_arr()
 
         case 2:
             header(std::string{" FIND DUPLICATE VALUES "});
+
+            show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
@@ -1212,6 +1228,8 @@ void ArrayHandler<T>::find_pair_sum_arr()
         case 2:
             header(std::string{" FIND A PAIR WITH SUM K "});
 
+            show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(start);
 
@@ -1271,6 +1289,8 @@ void ArrayHandler<T>::get_value()
 
     header(std::string{" GET VALUE "});
 
+    show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
+
     animater(std::string{"Enter the position: "});
     sc.scan(pos);
 
@@ -1287,6 +1307,8 @@ void ArrayHandler<T>::set_value()
     T set_val, get_val;
 
     header(std::string{" SET VALUE "});
+
+    show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
     animater(std::string{"Enter the position: "});
     sc.scan(pos);
@@ -1326,7 +1348,9 @@ void ArrayHandler<T>::average()
             return;
 
         case 2:
-            border(width_menu);
+            header(std::string{" AVERAGE "});
+            show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(pos);
 
@@ -1374,7 +1398,9 @@ void ArrayHandler<T>::sum()
             return;
 
         case 2:
-            border(width_menu);
+            header(std::string{" SUM "});
+            show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
+
             animater(std::string{"Enter the starting position: "});
             sc.scan(pos);
 
