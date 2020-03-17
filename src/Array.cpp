@@ -296,7 +296,6 @@ void ArrayHandler<T>::empty_arrays_controller(int ch)
         press_key(HOME);
         return;
     }
-    press_key();
 }
 
 /** Array Controller **/
@@ -340,7 +339,6 @@ void ArrayHandler<T>::arrays_controller(int ch)
         press_key(HOME);
         return;
     }
-    press_key();
 }
 
 /** ARRAYS CONTROLLER ADVANCED TEMPLATE FUNCTIONS **/
@@ -439,7 +437,6 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
         press_key(HOME);
         return;
     }
-    press_key();
 }
 
 template <>
@@ -524,7 +521,6 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
         press_key(HOME);
         return;
     }
-    press_key();
 }
 
 template <>
@@ -605,7 +601,6 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
         press_key(HOME);
         return;
     }
-    press_key();
 }
 
 /** END OF ARRAYS CONTROLLER ADVANCED TEMPLATE FUNCTIONS **/
@@ -619,8 +614,8 @@ void ArrayHandler<T>::update_size()
 
     if (arr.max_size() != 0)
     {
-        std::cout << std::setw(3 * width_index) << std::left << "Current size: " << arr.max_size() << std::endl
-                  << std::setw(3 * width_index) << std::left << "Values stored:" << arr.length();
+        std::cout << "Current size: " << arr.max_size() << std::endl
+                  << "Value stored:" << arr.length();
         border(width_menu);
     }
 
@@ -642,8 +637,8 @@ void ArrayHandler<T>::add_elements()
 
     header(std::string{" INSERT VALUES "});
 
-    std::cout << std::setw(3 * width_index) << std::left << "Max size:" << arr.max_size() << std::endl
-              << std::setw(3 * width_index) << std::left << "Values stored:" << arr.length();
+    std::cout << "Maximum size:" << arr.max_size() << std::endl
+              << "Value stored:" << arr.length();
     border(width_menu);
 
     animater(std::string{"Enter size: "});
@@ -669,6 +664,9 @@ void ArrayHandler<T>::add_elements()
 
         arr.push_back(value);
     }
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -767,10 +765,12 @@ void ArrayHandler<T>::display_arr() const
 {
     header(std::string{" DISPLAY ARRAY "});
 
-    std::cout << std::setw(3 * width_index) << std::left << "Max size: " << arr.max_size() << std::endl
-              << std::setw(3 * width_index) << std::left << "Values stored: " << arr.length() << std::endl
+    std::cout << "Maximum size: " << arr.max_size() << std::endl
+              << "Value stored: " << arr.length() << std::endl
               << "Array: "
               << arr;
+
+    press_key();
 }
 
 template <typename T>
@@ -857,6 +857,8 @@ void ArrayHandler<T>::merge_arr()
               << "Array: ";
 
     std::cout << mix_arr;
+
+    press_key();
 }
 
 template <typename T>
@@ -864,6 +866,7 @@ void ArrayHandler<T>::set_opn_arr()
 {
 
     int ch;
+    bool toStop;
     ArrayHandler arrHndlr;
     cod::array<T> set_arr;
 
@@ -886,33 +889,25 @@ void ArrayHandler<T>::set_opn_arr()
     {
         menu(set_data, std::string{" SET "});
 
+        toStop = true;
         sc.scanChoice(ch);
 
         switch (ch)
         {
         case 1: // union
             set_arr = arr.Union(arrHndlr.arr);
-
             print_message(std::string{"Union!"});
-            std::cout << std::endl
-                      << "Array: " << set_arr;
-            return;
+            break;
 
         case 2: // intersection
             set_arr = arr.Intersection(arrHndlr.arr);
-
             print_message(std::string{"Intersection!"});
-            std::cout << std::endl
-                      << "Array: " << set_arr;
-            return;
+            break;
 
         case 3: // difference
             set_arr = arr.Difference(arrHndlr.arr);
-
             print_message(std::string{"Difference!"});
-            std::cout << std::endl
-                      << "Array: " << set_arr;
-            return;
+            break;
 
         case ESC:
             throw EscPressed();
@@ -920,9 +915,18 @@ void ArrayHandler<T>::set_opn_arr()
         default:
             print_message(std::string{"Invalid choice"});
             press_key();
+            toStop = false;
             break;
         }
-    } while (1);
+
+        if (toStop)
+        {
+            std::cout << std::endl
+                      << "Array: " << set_arr;
+            press_key();
+        }
+
+    } while (!toStop);
 }
 
 template <typename T>
@@ -935,10 +939,10 @@ void ArrayHandler<T>::sort_opn_arr()
     {
         this->sort();
         print_message(std::string{"Array Sorted!"});
-
-        if (press_i(std::string{"Press i to display array"}))
-            this->display_arr();
     }
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -957,22 +961,20 @@ void ArrayHandler<T>::reverse_arr()
 
     int ch;
     size_t start, end;
+    bool toStop;
 
     do
     {
         menu(reverse_data, std::string{" REVERSE ARRAY "});
 
         sc.scanChoice(ch);
+        toStop = true;
 
         switch (ch)
         {
         case 1:
             arr.reverse(0, arr.length() - 1);
-            print_message(std::string{"Array Updated!"});
-
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
-            return;
+            break;
 
         case 2:
             header(std::string{" REVERSE ARRAY "});
@@ -989,11 +991,7 @@ void ArrayHandler<T>::reverse_arr()
             sc.scan(end);
 
             arr.reverse(start - 1, end - 1);
-            print_message(std::string{"Array Updated!"});
-
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
-            return;
+            break;
 
         case ESC:
             throw EscPressed();
@@ -1001,22 +999,32 @@ void ArrayHandler<T>::reverse_arr()
         default:
             print_message(std::string{"Invalid choice"});
             press_key();
+            toStop = false;
             break;
         }
 
-    } while (1);
+        if (toStop)
+        {
+            print_message(std::string{"Array Updated!"});
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
+        }
+
+    } while (!toStop); // stops when toStop is true
 }
 template <typename T>
 void ArrayHandler<T>::shift_rotate_arr()
 {
 
-    int ch;
-    int n;
+    int ch, n;
+    bool toStop;
 
     do
     {
         menu(shift_rotate_data, std::string{" SHIFT/ROTATE ARRAY "});
 
+        toStop = true;
         sc.scanChoice(ch);
 
         switch (ch)
@@ -1027,10 +1035,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
             arr.shift(LEFT, n);
-
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
-            return;
+            break;
 
         case 2:
             header(std::string{" RIGHT SHIFT "});
@@ -1038,10 +1043,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
             arr.shift(RIGHT, n);
-
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
-            return;
+            break;
 
         case 3:
             header(std::string{" LEFT ROTATE "});
@@ -1049,10 +1051,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
             arr.rotate(LEFT, n);
-
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
-            return;
+            break;
 
         case 4:
             header(std::string{" RIGHT ROTATE "});
@@ -1060,10 +1059,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
             arr.rotate(RIGHT, n);
-
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
-            return;
+            break;
 
         case ESC:
             throw EscPressed();
@@ -1071,10 +1067,14 @@ void ArrayHandler<T>::shift_rotate_arr()
         default:
             print_message(std::string{"Invalid choice"});
             press_key();
+            toStop = false;
             break;
         }
 
-    } while (1);
+        if (toStop && press_i(std::string{"Press i to display array"}))
+            this->display_arr();
+
+    } while (!toStop);
 }
 
 template <typename T>
@@ -1082,6 +1082,7 @@ void ArrayHandler<T>::find_miss_val_arr()
 {
 
     int ch;
+    bool toStop;
     size_t start, end;
     std::vector<T> vec;
 
@@ -1089,23 +1090,14 @@ void ArrayHandler<T>::find_miss_val_arr()
     {
         menu(find_val_data, std::string{" FIND MISSING VALUES "});
 
+        toStop = true;
         sc.scanChoice(ch);
 
         switch (ch)
         {
         case 1:
             vec = arr.find_missing(0, arr.length() - 1);
-
-            if (vec.size())
-            {
-                print_message(std::string{"Missing Values:\n"});
-
-                for (auto &val : vec)
-                    std::cout << val << " ";
-            }
-            else
-                print_message(std::string{"No missing value found"});
-            return;
+            break;
 
         case 2:
             header(std::string{" FIND MISSING VALUES "});
@@ -1122,7 +1114,20 @@ void ArrayHandler<T>::find_miss_val_arr()
             sc.scan(end);
 
             vec = arr.find_missing(start - 1, end - 1);
+            break;
 
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            press_key();
+            toStop = false;
+            break;
+        }
+
+        if (toStop)
+        {
             if (vec.size())
             {
                 print_message(std::string{"Missing Values:\n"});
@@ -1132,17 +1137,12 @@ void ArrayHandler<T>::find_miss_val_arr()
             }
             else
                 print_message(std::string{"No missing value found"});
-            return;
 
-        case ESC:
-            throw EscPressed();
-
-        default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
-            break;
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
         }
-    } while (1);
+
+    } while (!toStop);
 }
 
 template <typename T>
@@ -1150,6 +1150,7 @@ void ArrayHandler<T>::find_dup_val_arr()
 {
 
     int ch;
+    bool toStop;
     size_t start, end;
     std::vector<cod::pair<T, int>> vec;
 
@@ -1157,28 +1158,14 @@ void ArrayHandler<T>::find_dup_val_arr()
     {
         menu(find_val_data, std::string{" FIND DUPLICATE VALUES "});
 
+        toStop = true;
         sc.scanChoice(ch);
 
         switch (ch)
         {
         case 1:
             vec = arr.find_duplicates(0, arr.length() - 1);
-
-            if (vec.size())
-            {
-                border(width_menu);
-                std::cout << std::setw(12) << std::left << "Occurence"
-                          << "Value" << std::endl;
-
-                for (size_t i{0}; i < vec.size(); ++i)
-                    if (i < vec.size() - 1)
-                        std::cout << vec.at(i) << std::endl;
-                    else
-                        std::cout << vec.at(i);
-            }
-            else
-                print_message(std::string{"No duplicated value found"});
-            return;
+            break;
 
         case 2:
             header(std::string{" FIND DUPLICATE VALUES "});
@@ -1195,7 +1182,20 @@ void ArrayHandler<T>::find_dup_val_arr()
             sc.scan(end);
 
             vec = arr.find_duplicates(start - 1, end - 1);
+            break;
 
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            press_key();
+            toStop = false;
+            break;
+        }
+
+        if (toStop)
+        {
             if (vec.size())
             {
                 border(width_menu);
@@ -1210,17 +1210,11 @@ void ArrayHandler<T>::find_dup_val_arr()
             }
             else
                 print_message(std::string{"No duplicated value found"});
-            return;
 
-        case ESC:
-            throw EscPressed();
-
-        default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
-            break;
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
         }
-    } while (1);
+    } while (!toStop);
 }
 
 template <typename T>
@@ -1228,6 +1222,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
 {
 
     int ch;
+    bool toStop;
     size_t start, end;
     std::vector<cod::array<T>> vec;
     T value;
@@ -1236,6 +1231,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
     {
         menu(find_val_data, std::string{" FIND A PAIR WITH SUM K "});
 
+        toStop = true;
         sc.scanChoice(ch);
 
         switch (ch)
@@ -1245,20 +1241,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
             animater(std::string{"Enter the sum: "});
             sc.scan(value);
             vec = arr.find_pair_sum(0, arr.length() - 1, value);
-
-            if (vec.size())
-            {
-                print_message(std::string{"Paired Values:\n"});
-
-                for (size_t i{0}; i < vec.size(); ++i)
-                    if (i < vec.size() - 1)
-                        std::cout << vec.at(i)[0] << " + " << vec.at(i)[1] << " = " << vec.at(i)[2] << std::endl;
-                    else
-                        std::cout << vec.at(i)[0] << " + " << vec.at(i)[1] << " = " << vec.at(i)[2];
-            }
-            else
-                print_message(std::string{"No paired value found"});
-            return;
+            break;
 
         case 2:
             header(std::string{" FIND A PAIR WITH SUM K "});
@@ -1279,7 +1262,20 @@ void ArrayHandler<T>::find_pair_sum_arr()
             sc.scan(value);
 
             vec = arr.find_pair_sum(start - 1, end - 1, value);
+            break;
 
+        case ESC:
+            throw EscPressed();
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            press_key();
+            toStop = false;
+            break;
+        }
+
+        if (toStop)
+        {
             if (vec.size())
             {
                 print_message(std::string{"Paired Values:\n"});
@@ -1292,17 +1288,11 @@ void ArrayHandler<T>::find_pair_sum_arr()
             }
             else
                 print_message(std::string{"No paired value found"});
-            return;
 
-        case ESC:
-            throw EscPressed();
-
-        default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
-            break;
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
         }
-    } while (1);
+    } while (!toStop);
 }
 
 template <typename T>
@@ -1333,6 +1323,9 @@ void ArrayHandler<T>::get_value()
 
     border(width_menu);
     std::cout << "Value: " << val;
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -1359,12 +1352,16 @@ void ArrayHandler<T>::set_value()
     border(width_menu);
     std::cout << "Old Value: " << get_val << std::endl
               << "New Value: " << set_val;
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
 void ArrayHandler<T>::average()
 {
     int ch;
+    bool toStop;
     size_t pos, n;
     double avg;
 
@@ -1372,15 +1369,14 @@ void ArrayHandler<T>::average()
     {
         menu(average_data, std::string{" AVERAGE "});
 
+        toStop = true;
         sc.scanChoice(ch);
 
         switch (ch)
         {
         case 1:
             avg = arr.average(0, arr.length());
-            print_message(std::string{"Average: "});
-            std::cout << std::fixed << std::setprecision(4) << avg;
-            return;
+            break;
 
         case 2:
             header(std::string{" AVERAGE "});
@@ -1396,9 +1392,7 @@ void ArrayHandler<T>::average()
             sc.scan(n);
 
             avg = arr.average(pos - 1, n);
-            print_message(std::string{"Average: "});
-            std::cout << std::fixed << std::setprecision(4) << avg;
-            return;
+            break;
 
         case ESC:
             throw EscPressed();
@@ -1406,16 +1400,27 @@ void ArrayHandler<T>::average()
         default:
             print_message(std::string{"Invalid choice"});
             press_key();
+            toStop = false;
             break;
         }
 
-    } while (1);
+        if (toStop)
+        {
+            print_message(std::string{"Average: "});
+            std::cout << std::fixed << std::setprecision(4) << avg;
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
+        }
+
+    } while (!toStop);
 }
 
 template <typename T>
 void ArrayHandler<T>::sum()
 {
     int ch;
+    bool toStop;
     size_t pos, n;
     T sum;
 
@@ -1423,14 +1428,14 @@ void ArrayHandler<T>::sum()
     {
         menu(sum_data, std::string{" SUM "});
 
+        toStop = true;
         sc.scanChoice(ch);
 
         switch (ch)
         {
         case 1:
             sum = arr.sum(0, arr.length());
-            print_message(std::string{"Sum: " + std::to_string(sum)});
-            return;
+            break;
 
         case 2:
             header(std::string{" SUM "});
@@ -1446,8 +1451,7 @@ void ArrayHandler<T>::sum()
             sc.scan(n);
 
             sum = arr.sum(pos - 1, n);
-            print_message(std::string{"Sum: " + std::to_string(sum)});
-            return;
+            break;
 
         case ESC:
             throw EscPressed();
@@ -1455,8 +1459,17 @@ void ArrayHandler<T>::sum()
         default:
             print_message(std::string{"Invalid choice"});
             press_key();
+            toStop = false;
             break;
         }
 
-    } while (1);
+        if (toStop)
+        {
+            print_message(std::string{"Sum: " + std::to_string(sum)});
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
+        }
+
+    } while (!toStop);
 }

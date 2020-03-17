@@ -136,7 +136,7 @@ void change_text_anime_speed()
 
     header(std::string{" CHANGE ANIMATION SPEED "});
 
-    show_status(std::to_string(sleep_time), std::string{"Current speed: "});
+    show_status(std::string{"Current speed: "}, std::to_string(sleep_time));
 
     animater(std::string{"Enter the speed: "});
 
