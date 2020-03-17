@@ -5,6 +5,5 @@ void about();
 void help();
 void update();
 void changelog();
-void more_info();
 
 #endif

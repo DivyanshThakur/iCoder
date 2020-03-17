@@ -10,7 +10,7 @@
 void load();
 void title();
 void menu(const std::vector<std::string> &vec_menu, const std::string &heading = " MENU ", bool showStatus = false, const std::string &statsVal = "Default", const std::string &statsStr = "Status: ");
-void show_status(const std::string &statsVal, const std::string &statsStr = "Status: ");
+void show_status(const std::string &statsStr, const std::string &statsVal);
 std::string stats_selector();
 void header(const std::string &menu_name);
 void border(int size);

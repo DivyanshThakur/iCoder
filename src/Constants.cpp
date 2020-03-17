@@ -50,8 +50,8 @@ const std::vector<std::string> lsearch_data{"Default", "Transposition", "Move to
 const std::vector<std::string> find_val_data{"Search the array", "Select a range"};
 const std::vector<std::string> log_version_data{"1.6", "1.4", "1.2", "1.0"};
 const std::vector<std::string> log_vdescription_data{"Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
-const std::vector<std::string> help_char_data{"Esc", "a", /* "c",*/ "h", /* "i",*/ "q", "s"};
-const std::vector<std::string> help_desc_data{"Return to last screen", "About the software", /* "Show code",*/ "Help", /* "Analyse the code",*/ "Quit", "Open settings"};
+const std::vector<std::string> help_char_data{"Esc", "a", /* "c",*/ "h", /* "i",*/ "l", "q", "s", "u"};
+const std::vector<std::string> help_desc_data{"Return to last screen", "About the software", /* "Show code",*/ "Help", /* "Analyse the code",*/ "Changelog", "Quit", "Open settings", "Get Updates"};
 
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 

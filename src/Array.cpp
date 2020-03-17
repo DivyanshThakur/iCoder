@@ -617,6 +617,13 @@ void ArrayHandler<T>::update_size()
 
     header(std::string{" ARRAY SIZE "});
 
+    if (arr.max_size() != 0)
+    {
+        std::cout << std::setw(3 * width_index) << std::left << "Current size: " << arr.max_size() << std::endl
+                  << std::setw(3 * width_index) << std::left << "Values stored:" << arr.length();
+        border(width_menu);
+    }
+
     animater(std::string{"Enter size: "});
 
     sc.scan(size);
@@ -634,6 +641,10 @@ void ArrayHandler<T>::add_elements()
         throw ArrayFullException();
 
     header(std::string{" INSERT VALUES "});
+
+    std::cout << std::setw(3 * width_index) << std::left << "Max size:" << arr.max_size() << std::endl
+              << std::setw(3 * width_index) << std::left << "Values stored:" << arr.length();
+    border(width_menu);
 
     animater(std::string{"Enter size: "});
 
@@ -756,7 +767,7 @@ void ArrayHandler<T>::linear_search_arr()
 
     header(std::string{" LINEAR SEARCH "});
 
-    show_status(stats_selector());
+    show_status(std::string{"Status: "}, stats_selector());
 
     animater(std::string{"Enter the value: "});
     sc.scan(val);

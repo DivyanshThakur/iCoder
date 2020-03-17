@@ -44,22 +44,10 @@ void help()
         std::cout << std::setw(width_index) << std::left << sc;
         std::cout << "-> " << help_desc_data.at(i++);
 
-        if (sc != std::string{"s"})
+        if (sc != std::string{"u"})
             std::cout << std::endl;
     }
     print_message(std::string{"*Can be used only in menu screen"});
-
-    print_message(std::string{"Press i for more info"});
-
-    char ch = getch();
-
-    if (::tolower(ch) == 'i')
-        more_info();
-}
-
-void more_info()
-{
-    header(std::string{" HELP "});
     press_key(NIL);
 }
 
