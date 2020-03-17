@@ -9,8 +9,6 @@
 
 void about()
 {
-    char ch;
-
     header(std::string{" ABOUT "});
 
     std::cout << "Developer: " << dev_name << std::endl
@@ -21,12 +19,8 @@ void about()
     std::cout << "Source code:" << std::endl
               << scode_url.substr(8);
 
-    print_message(std::string{"Press i to open URL"});
-
-    ch = getch();
-
-    if (::tolower(ch) == 'i') // this code will open github source code in default browser
-        system(std::string("start " + scode_url).c_str());
+    if (press_i(std::string{"Press i to open URL"}))
+        system(std::string("start " + scode_url).c_str()); // this code will open github source code in default browser
 }
 
 void help()

@@ -169,6 +169,18 @@ void press_key(const ReturnTo &rt, const std::string &message)
     }
 }
 
+bool press_i(const std::string &message)
+{
+    print_message(std::string{message});
+
+    char ch = getch();
+
+    if (::tolower(ch) == 'i')
+        return true;
+
+    return false;
+}
+
 void wait_message(const std::string &message)
 {
     std::cout << message;

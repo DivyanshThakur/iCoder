@@ -695,6 +695,9 @@ void ArrayHandler<T>::insert_value()
     sc.scan(pos);
 
     arr.insert(value, pos);
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -731,6 +734,9 @@ void ArrayHandler<T>::remove_multiple_values()
     (n == 1) ? std::cout << " value: " : std::cout << " values:" << std::endl;
 
     std::cout << values << " deleted from array";
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -751,6 +757,9 @@ void ArrayHandler<T>::remove_value()
 
     std::cout << std::endl
               << value << " is deleted from the array";
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -758,9 +767,8 @@ void ArrayHandler<T>::display_arr() const
 {
     header(std::string{" DISPLAY ARRAY "});
 
-    std::cout << "Max size: " << arr.max_size()
-              << std::endl
-              << "Values stored: " << arr.length() << std::endl
+    std::cout << std::setw(3 * width_index) << std::left << "Max size: " << arr.max_size() << std::endl
+              << std::setw(3 * width_index) << std::left << "Values stored: " << arr.length() << std::endl
               << "Array: "
               << arr;
 }
@@ -782,6 +790,9 @@ void ArrayHandler<T>::linear_search_arr()
         print_message(std::string{"Found at position "} + std::to_string(pos));
     else
         print_message(std::string{"The value doesn't exists!"});
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -807,6 +818,9 @@ void ArrayHandler<T>::binary_search_arr()
         print_message(std::string{"Found at position "} + std::to_string(pos));
     else
         print_message(std::string{"The value doesn't exists!"});
+
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
 }
 
 template <typename T>
@@ -921,6 +935,9 @@ void ArrayHandler<T>::sort_opn_arr()
     {
         this->sort();
         print_message(std::string{"Array Sorted!"});
+
+        if (press_i(std::string{"Press i to display array"}))
+            this->display_arr();
     }
 }
 
@@ -952,6 +969,9 @@ void ArrayHandler<T>::reverse_arr()
         case 1:
             arr.reverse(0, arr.length() - 1);
             print_message(std::string{"Array Updated!"});
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
             return;
 
         case 2:
@@ -970,6 +990,9 @@ void ArrayHandler<T>::reverse_arr()
 
             arr.reverse(start - 1, end - 1);
             print_message(std::string{"Array Updated!"});
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
             return;
 
         case ESC:
@@ -1004,6 +1027,9 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
             arr.shift(LEFT, n);
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
             return;
 
         case 2:
@@ -1012,6 +1038,9 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of shifts: "});
             sc.scan(n);
             arr.shift(RIGHT, n);
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
             return;
 
         case 3:
@@ -1020,6 +1049,9 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
             arr.rotate(LEFT, n);
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
             return;
 
         case 4:
@@ -1028,6 +1060,9 @@ void ArrayHandler<T>::shift_rotate_arr()
             animater(std::string{"Enter the number of rotations: "});
             sc.scan(n);
             arr.rotate(RIGHT, n);
+
+            if (press_i(std::string{"Press i to display array"}))
+                this->display_arr();
             return;
 
         case ESC:

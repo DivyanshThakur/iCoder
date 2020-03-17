@@ -19,6 +19,7 @@ void animater(const std::string &anime);
 void igetch();
 void print_message(const std::string &message = std::string{"TO BE IMPLEMENTED..."});
 void press_key(const ReturnTo &rt = PRE, const std::string &message = "Press any key to continue");
+bool press_i(const std::string &message);
 void wait_message(const std::string &message);
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm = "Do you want to proceed?");
 
