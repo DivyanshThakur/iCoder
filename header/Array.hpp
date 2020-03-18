@@ -15,6 +15,7 @@ class ArrayHandler
     Scanner sc;
     bool show_adv_opn{false};
 
+    void pressi_display();
     std::vector<std::string> menu_screen_selector();
     void empty_arrays_controller(int ch);
     void arrays_controller(int ch);

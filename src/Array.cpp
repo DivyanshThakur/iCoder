@@ -154,6 +154,13 @@ void ArrayHandler<T>::start()
     } while (1); // true
 }
 
+template <typename T>
+void ArrayHandler<T>::pressi_display()
+{
+    if (press_i(std::string{"Press i to display array"}))
+        this->display_arr();
+}
+
 /** MENU SCREEN SELECTOR TEMPLATE FUNCTIONS **/
 
 template <typename T>
@@ -615,7 +622,7 @@ void ArrayHandler<T>::update_size()
     if (arr.max_size() != 0)
     {
         std::cout << "Current size: " << arr.max_size() << std::endl
-                  << "Value stored:" << arr.length();
+                  << "Value stored: " << arr.length();
         border(width_menu);
     }
 
@@ -637,8 +644,8 @@ void ArrayHandler<T>::add_elements()
 
     header(std::string{" INSERT VALUES "});
 
-    std::cout << "Maximum size:" << arr.max_size() << std::endl
-              << "Value stored:" << arr.length();
+    std::cout << "Maximum size: " << arr.max_size() << std::endl
+              << "Value stored: " << arr.length();
     border(width_menu);
 
     animater(std::string{"Enter size: "});
@@ -665,8 +672,7 @@ void ArrayHandler<T>::add_elements()
         arr.push_back(value);
     }
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -694,8 +700,7 @@ void ArrayHandler<T>::insert_value()
 
     arr.insert(value, pos);
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -733,8 +738,7 @@ void ArrayHandler<T>::remove_multiple_values()
 
     std::cout << values << " deleted from array";
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -756,8 +760,7 @@ void ArrayHandler<T>::remove_value()
     std::cout << std::endl
               << value << " is deleted from the array";
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -791,8 +794,7 @@ void ArrayHandler<T>::linear_search_arr()
     else
         print_message(std::string{"The value doesn't exists!"});
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -819,8 +821,7 @@ void ArrayHandler<T>::binary_search_arr()
     else
         print_message(std::string{"The value doesn't exists!"});
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -941,8 +942,7 @@ void ArrayHandler<T>::sort_opn_arr()
         print_message(std::string{"Array Sorted!"});
     }
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -1007,8 +1007,7 @@ void ArrayHandler<T>::reverse_arr()
         {
             print_message(std::string{"Array Updated!"});
 
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
+            this->pressi_display();
         }
 
     } while (!toStop); // stops when toStop is true
@@ -1138,8 +1137,7 @@ void ArrayHandler<T>::find_miss_val_arr()
             else
                 print_message(std::string{"No missing value found"});
 
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
+            this->pressi_display();
         }
 
     } while (!toStop);
@@ -1211,8 +1209,7 @@ void ArrayHandler<T>::find_dup_val_arr()
             else
                 print_message(std::string{"No duplicated value found"});
 
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
+            this->pressi_display();
         }
     } while (!toStop);
 }
@@ -1289,8 +1286,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
             else
                 print_message(std::string{"No paired value found"});
 
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
+            this->pressi_display();
         }
     } while (!toStop);
 }
@@ -1324,8 +1320,7 @@ void ArrayHandler<T>::get_value()
     border(width_menu);
     std::cout << "Value: " << val;
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -1353,8 +1348,7 @@ void ArrayHandler<T>::set_value()
     std::cout << "Old Value: " << get_val << std::endl
               << "New Value: " << set_val;
 
-    if (press_i(std::string{"Press i to display array"}))
-        this->display_arr();
+    this->pressi_display();
 }
 
 template <typename T>
@@ -1409,8 +1403,7 @@ void ArrayHandler<T>::average()
             print_message(std::string{"Average: "});
             std::cout << std::fixed << std::setprecision(4) << avg;
 
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
+            this->pressi_display();
         }
 
     } while (!toStop);
@@ -1467,8 +1460,7 @@ void ArrayHandler<T>::sum()
         {
             print_message(std::string{"Sum: " + std::to_string(sum)});
 
-            if (press_i(std::string{"Press i to display array"}))
-                this->display_arr();
+            this->pressi_display();
         }
 
     } while (!toStop);
