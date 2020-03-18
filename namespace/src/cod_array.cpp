@@ -5,6 +5,92 @@
 #include "../../header/UIhandler.hpp"
 #include "../../header/ExHandler.hpp"
 
+/*** ITERATOR METHODS ***/
+
+template <typename T>
+cod::array<T>::iterator::iterator() : ptr(nullptr)
+{
+}
+
+template <typename T>
+cod::array<T>::iterator::iterator(T *ptr) : ptr(ptr)
+{
+}
+
+template <typename T>
+typename cod::array<T>::iterator &cod::array<T>::iterator::operator++()
+{
+    ++ptr;
+    return *this;
+}
+
+template <typename T>
+typename cod::array<T>::iterator cod::array<T>::iterator::operator++(int)
+{
+    auto temp(*this);
+    ++ptr;
+    return temp;
+}
+
+template <typename T>
+typename cod::array<T>::iterator &cod::array<T>::iterator::operator--()
+{
+    --ptr;
+    return *this;
+}
+
+template <typename T>
+typename cod::array<T>::iterator cod::array<T>::iterator::operator--(int)
+{
+    auto temp(*this);
+    --ptr;
+    return temp;
+}
+
+template <typename T>
+T &cod::array<T>::iterator::operator*()
+{
+    return *ptr;
+}
+
+template <typename T>
+const T &cod::array<T>::iterator::operator*() const
+{
+    return *ptr;
+}
+
+template <typename T>
+T *cod::array<T>::iterator::operator->()
+{
+    return ptr;
+}
+
+template <typename T>
+bool cod::array<T>::iterator::operator<(const iterator &rhs)
+{
+    return (ptr < rhs.ptr);
+}
+
+template <typename T>
+bool cod::array<T>::iterator::operator!=(const iterator &rhs)
+{
+    return (ptr != rhs.ptr);
+}
+
+template <typename T>
+bool cod::array<T>::iterator::operator==(const iterator &rhs)
+{
+    return (ptr == rhs.ptr);
+}
+
+template <typename T>
+T *cod::array<T>::iterator::get_ptr() const
+{
+    return ptr;
+}
+
+/*** ARRAY METHODS ***/
+
 template <typename T>
 bool cod::array<T>::unique(const std::vector<T> &temp, const T &val)
 {
@@ -54,6 +140,18 @@ cod::array<T>::array(array &&rhs)
 
         rhs.A = nullptr;
     }
+}
+
+template <typename T>
+typename cod::array<T>::iterator cod::array<T>::begin() const
+{
+    return iterator(A);
+}
+
+template <typename T>
+typename cod::array<T>::iterator cod::array<T>::end() const
+{
+    return iterator(A + len);
 }
 
 template <typename T>

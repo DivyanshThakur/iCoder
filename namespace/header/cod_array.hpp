@@ -10,15 +10,45 @@ namespace cod
 template <typename T>
 class array
 {
+
+    /*** ITERATORS ***/
+
+    // iterator - array
+    class iterator
+    {
+        T *ptr;
+
+    public:
+        iterator();
+        iterator(T *ptr);
+
+        iterator &operator++();
+        iterator operator++(int);
+        iterator &operator--();
+        iterator operator--(int);
+
+        T &operator*();
+        const T &operator*() const;
+        T *operator->();
+
+        bool operator<(const iterator &rhs);
+        bool operator!=(const iterator &rhs);
+        bool operator==(const iterator &rhs);
+
+        T *get_ptr() const;
+    };
+
+    /*** ARRAY IMPLEMENTATION ***/
+
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
         if (arr.len)
-            for (size_t i{0}; i < arr.len; ++i)
+            for (const auto &val : arr)
             {
-                if (i < arr.len - 1)
-                    std::cout << arr[i] << " ";
+                if (val != arr.at(arr.len - 1))
+                    std::cout << val << " ";
                 else
-                    std::cout << arr[i];
+                    std::cout << val;
             }
         else
             os << "No elements to display";
@@ -40,6 +70,10 @@ public:
     array(size_t size);
     array(const array &rhs);
     array(array &&rhs);
+
+    // iterator methods
+    iterator begin() const;
+    iterator end() const;
 
     T operator[](size_t x) const;
     T &operator[](size_t x);
