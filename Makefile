@@ -1,6 +1,7 @@
 OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\Home.o obj\Info.o obj\Scanner.o obj\Settings.o obj\UIhandler.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o
 OBJF = obj/*.o
+LIBS = -static-libgcc -static-libstdc++
 CC = g++
 LFLAG = -Wall
 CFLAGS = -Wall -c
@@ -8,7 +9,7 @@ CFLAGS = -Wall -c
 ### Build the Project
 
 all: $(OBJS) $(OBJCOD)
-	$(CC) $(LFLAG) $(OBJF) -o iCoder
+	$(CC) $(LFLAG) $(OBJF) $(LIBS) -o iCoder
 
 ### Common program files
 
