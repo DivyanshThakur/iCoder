@@ -5,7 +5,7 @@
 #include "../../header/UIhandler.hpp"
 #include "../../header/ExHandler.hpp"
 
-/*** ITERATOR METHODS ***/
+/*************************************************** ITERATOR METHODS ***************************************************/
 
 // Iterator -array
 template <typename T>
@@ -249,7 +249,7 @@ const T *cod::array<T>::const_iterator::get_ptr() const
     return ptr;
 }
 
-/*** ARRAY METHODS ***/
+/**************************************************** ARRAY METHODS ****************************************************/
 
 template <typename T>
 bool cod::array<T>::unique(const std::vector<T> &temp, const T &val)
@@ -283,10 +283,10 @@ cod::array<T>::array(const array &rhs)
         len = rhs.len;
         A = new T[size];
 
-        for (size_t i = 0; i < len; ++i)
-        {
-            A[i] = rhs[i];
-        }
+        size_t i{0};
+
+        for (const auto &val : rhs)
+            A[i++] = val;
     }
 }
 
@@ -372,10 +372,11 @@ cod::array<T> &cod::array<T>::operator=(const array &rhs)
         size = rhs.size;
         len = rhs.len;
         A = new T[size];
-        for (size_t i = 0; i < len; ++i)
-        {
-            A[i] = rhs[i];
-        }
+
+        size_t i{0};
+
+        for (const auto &val : rhs)
+            A[i++] = val;
     }
 
     return *this;
@@ -416,6 +417,7 @@ void cod::array<T>::insert(T &x, size_t pos)
     {
         A[i] = A[i - 1];
     }
+
     A[i] = x;
 }
 
@@ -476,7 +478,7 @@ cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
 }
 
 template <typename T>
-void cod::array<T>::push_back(T &x)
+void cod::array<T>::push_back(const T &x)
 {
     if (len >= size)
         throw ArrayFullException();
@@ -540,8 +542,10 @@ void cod::array<T>::update_size(int x)
 
     T *temp_Arr = new T[size];
 
-    for (size_t i{0}; i < len; ++i)
-        temp_Arr[i] = A[i];
+    size_t i{0};
+
+    for (const auto &val : *this)
+        temp_Arr[i++] = val;
 
     delete[] A;
     A = temp_Arr;
@@ -805,17 +809,19 @@ cod::array<T> cod::array<T>::Union(const array &rhs)
     {
         bool isNew{true};
 
-        for (size_t i{0}; i < len; ++i)
-            temp_arr.push_back(A[i]);
+        for (const auto &val : *this)
+            temp_arr.push_back(val);
 
-        for (size_t j{0}; j < rhs.len; ++j, isNew = true)
+        for (const auto &rightVal : rhs)
         {
-            for (size_t i{0}; i < len; ++i)
-                if (A[i] == rhs.A[i])
+            isNew = true;
+            for (const auto &leftVal : *this)
+            {
+                if (leftVal == rightVal)
                     isNew = false;
-
+            }
             if (isNew)
-                temp_arr.push_back(rhs.A[j]);
+                temp_arr.push_back(rightVal);
         }
     }
     return temp_arr;
@@ -845,21 +851,15 @@ cod::array<T> cod::array<T>::Intersection(const array &rhs)
     }
     else
     {
-        size_t i{0}, j{0};
-
-        while (i < len)
+        for (const auto &leftVal : *this)
         {
-            j = 0;
-
-            while (j < rhs.len)
+            for (const auto &rightVal : rhs)
             {
-                if (A[i] == rhs.A[j])
+                if (leftVal == rightVal)
                 {
-                    temp_arr.push_back(A[i++]);
+                    temp_arr.push_back(leftVal);
                     break;
                 }
-
-                ++j;
             }
         }
     }
@@ -897,22 +897,19 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
     }
     else
     {
-        size_t i{0}, j{0};
 
-        while (i < len)
+        bool isNew{true};
+
+        for (const auto &leftVal : *this)
         {
-            j = 0;
-
-            while (j < rhs.len)
+            isNew = true;
+            for (const auto &rightVal : rhs)
             {
-                if (A[i] == rhs.A[j])
-                {
-                    ++i;
-                    break;
-                }
-
-                ++j;
+                if (leftVal == rightVal)
+                    isNew = false;
             }
+            if (isNew)
+                temp_arr.push_back(leftVal);
         }
     }
     return temp_arr;

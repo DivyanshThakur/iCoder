@@ -10,7 +10,7 @@ namespace cod
 template <typename T>
 class array
 {
-    /*** ITERATORS ***/
+    /***************************************************** ITERATORS *****************************************************/
 
     // iterator - array
     class iterator
@@ -78,7 +78,7 @@ class array
         const T *get_ptr() const;
     };
 
-    /*** ARRAY IMPLEMENTATION ***/
+    /*********************************************** ARRAY IMPLEMENTATION ***********************************************/
 
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
@@ -91,7 +91,7 @@ class array
                     std::cout << val;
             }
         else
-            os << "No elements to display";
+            os << "No value to display";
 
         return os;
     }
@@ -132,7 +132,7 @@ public:
     T remove(size_t pos);
     array remove(size_t pos, size_t n);
 
-    void push_back(T &x);
+    void push_back(const T &x);
 
     // basic operations
     T front() const;
