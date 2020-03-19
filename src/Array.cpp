@@ -1301,6 +1301,8 @@ void ArrayHandler<T>::max_min()
 
     std::cout << "Min Value: " << min_val << std::endl
               << "Max Value: " << max_val;
+
+    this->pressi_display();
 }
 
 template <typename T>
