@@ -10,6 +10,76 @@ namespace cod
 template <typename T>
 class array
 {
+    /*** ITERATORS ***/
+
+    // iterator - array
+    class iterator
+    {
+        T *ptr;
+
+    public:
+        iterator();
+        iterator(T *ptr);
+
+        iterator &operator++();
+        iterator operator++(int);
+        iterator &operator--();
+        iterator operator--(int);
+
+        T *operator+(size_t i);
+        iterator &operator+=(size_t i);
+        T *operator-(size_t i);
+        iterator &operator-=(size_t i);
+
+        T &operator*();
+        T *operator->();
+
+        bool operator<(const iterator &rhs);
+        bool operator<=(const iterator &rhs);
+        bool operator>(const iterator &rhs);
+        bool operator>=(const iterator &rhs);
+
+        bool operator!=(const iterator &rhs);
+        bool operator==(const iterator &rhs);
+
+        T *get_ptr() const;
+    };
+
+    // const_iterator - array
+    class const_iterator
+    {
+        const T *ptr;
+
+    public:
+        const_iterator();
+        const_iterator(const T *ptr);
+
+        // const_iterator &operator++();
+        // const_iterator operator++(int);
+        // const_iterator &operator--();
+        // const_iterator operator--(int);
+
+        // T *operator+(size_t i);
+        // const_iterator &operator+=(size_t i);
+        // T *operator-(size_t i);
+        // const_iterator &operator-=(size_t i);
+
+        // T &operator*();
+        // T *operator->();
+
+        // bool operator<(const const_iterator &rhs);
+        // bool operator<=(const const_iterator &rhs);
+        // bool operator>(const const_iterator &rhs);
+        // bool operator>=(const const_iterator &rhs);
+
+        // bool operator!=(const const_iterator &rhs);
+        // bool operator==(const const_iterator &rhs);
+
+        // T *get_ptr() const;
+    };
+
+    /*** ARRAY IMPLEMENTATION ***/
+
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
         if (arr.len)
@@ -40,6 +110,14 @@ public:
     array(size_t size);
     array(const array &rhs);
     array(array &&rhs);
+
+    // iterator methods
+    iterator begin() const;
+    iterator end() const;
+
+    // const_iterator methods
+    const const_iterator cbegin() const;
+    const const_iterator cend() const;
 
     T operator[](size_t x) const;
     T &operator[](size_t x);
