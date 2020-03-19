@@ -139,6 +139,116 @@ cod::array<T>::const_iterator::const_iterator(const T *ptr) : ptr(ptr)
 {
 }
 
+template <typename T>
+typename cod::array<T>::const_iterator &cod::array<T>::const_iterator::operator++()
+{
+    ++ptr;
+    return *this;
+}
+
+template <typename T>
+typename cod::array<T>::const_iterator cod::array<T>::const_iterator::operator++(int)
+{
+    auto temp(*this);
+    ++ptr;
+    return temp;
+}
+
+template <typename T>
+typename cod::array<T>::const_iterator &cod::array<T>::const_iterator::operator--()
+{
+    --ptr;
+    return *this;
+}
+
+template <typename T>
+typename cod::array<T>::const_iterator cod::array<T>::const_iterator::operator--(int)
+{
+    auto temp(*this);
+    --ptr;
+    return temp;
+}
+
+template <typename T>
+const T *cod::array<T>::const_iterator::operator+(size_t i)
+{
+    return (ptr + i);
+}
+
+template <typename T>
+typename cod::array<T>::const_iterator &cod::array<T>::const_iterator::operator+=(size_t i)
+{
+    ptr += i;
+    return *this;
+}
+
+template <typename T>
+const T *cod::array<T>::const_iterator::operator-(size_t i)
+{
+    return (ptr - i);
+}
+
+template <typename T>
+typename cod::array<T>::const_iterator &cod::array<T>::const_iterator::operator-=(size_t i)
+{
+    ptr -= i;
+    return *this;
+}
+
+template <typename T>
+const T &cod::array<T>::const_iterator::operator*()
+{
+    return *ptr;
+}
+
+template <typename T>
+const T *cod::array<T>::const_iterator::operator->()
+{
+    return ptr;
+}
+
+template <typename T>
+bool cod::array<T>::const_iterator::operator<(const const_iterator &rhs)
+{
+    return (ptr < rhs.ptr);
+}
+
+template <typename T>
+bool cod::array<T>::const_iterator::operator<=(const const_iterator &rhs)
+{
+    return (ptr <= rhs.ptr);
+}
+
+template <typename T>
+bool cod::array<T>::const_iterator::operator>(const const_iterator &rhs)
+{
+    return (ptr > rhs.ptr);
+}
+
+template <typename T>
+bool cod::array<T>::const_iterator::operator>=(const const_iterator &rhs)
+{
+    return (ptr >= rhs.ptr);
+}
+
+template <typename T>
+bool cod::array<T>::const_iterator::operator!=(const const_iterator &rhs)
+{
+    return (ptr != rhs.ptr);
+}
+
+template <typename T>
+bool cod::array<T>::const_iterator::operator==(const const_iterator &rhs)
+{
+    return (ptr == rhs.ptr);
+}
+
+template <typename T>
+const T *cod::array<T>::const_iterator::get_ptr() const
+{
+    return ptr;
+}
+
 /*** ARRAY METHODS ***/
 
 template <typename T>
@@ -217,7 +327,7 @@ const typename cod::array<T>::const_iterator cod::array<T>::cend() const
 }
 
 template <typename T>
-T cod::array<T>::operator[](size_t x) const
+const T &cod::array<T>::operator[](size_t x) const
 {
     if (x < 0 || x >= len)
         throw OutofBoundsException();

@@ -54,28 +54,28 @@ class array
         const_iterator();
         const_iterator(const T *ptr);
 
-        // const_iterator &operator++();
-        // const_iterator operator++(int);
-        // const_iterator &operator--();
-        // const_iterator operator--(int);
+        const_iterator &operator++();
+        const_iterator operator++(int);
+        const_iterator &operator--();
+        const_iterator operator--(int);
 
-        // T *operator+(size_t i);
-        // const_iterator &operator+=(size_t i);
-        // T *operator-(size_t i);
-        // const_iterator &operator-=(size_t i);
+        const T *operator+(size_t i);
+        const_iterator &operator+=(size_t i);
+        const T *operator-(size_t i);
+        const_iterator &operator-=(size_t i);
 
-        // T &operator*();
-        // T *operator->();
+        const T &operator*();
+        const T *operator->();
 
-        // bool operator<(const const_iterator &rhs);
-        // bool operator<=(const const_iterator &rhs);
-        // bool operator>(const const_iterator &rhs);
-        // bool operator>=(const const_iterator &rhs);
+        bool operator<(const const_iterator &rhs);
+        bool operator<=(const const_iterator &rhs);
+        bool operator>(const const_iterator &rhs);
+        bool operator>=(const const_iterator &rhs);
 
-        // bool operator!=(const const_iterator &rhs);
-        // bool operator==(const const_iterator &rhs);
+        bool operator!=(const const_iterator &rhs);
+        bool operator==(const const_iterator &rhs);
 
-        // T *get_ptr() const;
+        const T *get_ptr() const;
     };
 
     /*** ARRAY IMPLEMENTATION ***/
@@ -119,7 +119,7 @@ public:
     const const_iterator cbegin() const;
     const const_iterator cend() const;
 
-    T operator[](size_t x) const;
+    const T &operator[](size_t x) const;
     T &operator[](size_t x);
 
     T at(size_t x) const;
