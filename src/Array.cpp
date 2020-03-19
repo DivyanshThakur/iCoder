@@ -615,7 +615,7 @@ void ArrayHandler<T>::update_size()
     if (arr.max_size() != 0)
     {
         std::cout << "Current size: " << arr.max_size() << std::endl
-                  << "Value stored:" << arr.length();
+                  << "Value stored: " << arr.length();
         border(width_menu);
     }
 
@@ -637,8 +637,8 @@ void ArrayHandler<T>::add_elements()
 
     header(std::string{" INSERT VALUES "});
 
-    std::cout << "Maximum size:" << arr.max_size() << std::endl
-              << "Value stored:" << arr.length();
+    std::cout << "Maximum size: " << arr.max_size() << std::endl
+              << "Value stored: " << arr.length();
     border(width_menu);
 
     animater(std::string{"Enter size: "});
