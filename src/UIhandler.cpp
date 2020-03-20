@@ -30,13 +30,13 @@ void title()
 
     const std::string title{"iCoder"}; // this display the title at top of screen
 
-    std::cout << std::setw(console_title_relative_width) << ""
-              << std::setw(width_title) << std::setfill('=') << ""
+    std::cout << std::setw(relativeTitleWidth) << ""
+              << std::setw(widthTitle) << std::setfill('=') << ""
               << std::setfill(' ') << std::endl
-              << std::setw(console_title_relative_width + width_title / 2 - title.size() / 2) << ""
+              << std::setw(relativeTitleWidth + widthTitle / 2 - title.size() / 2) << ""
               << title << std::endl
-              << std::setw(console_title_relative_width) << ""
-              << std::setw(width_title) << std::setfill('=') << ""
+              << std::setw(relativeTitleWidth) << ""
+              << std::setw(widthTitle) << std::setfill('=') << ""
               << std::setfill(' ')
               << std::endl
               << std::endl;
@@ -72,7 +72,7 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading, 
 void show_status(const std::string &statsStr, const std::string &statsVal)
 {
     std::cout << statsStr << statsVal;
-    border(width_menu);
+    border(widthMenu);
 }
 
 std::string stats_selector()
@@ -103,7 +103,7 @@ void header(const std::string &menu_name, bool showTitle)
     std::cout << std::setfill('-')
               << std::setw(2) << ""
               << menu_name
-              << std::setw(width_menu - (menu_name.size() + 2)) << ""
+              << std::setw(widthMenu - (menu_name.size() + 2)) << ""
               << std::setfill(' ')
               << std::endl;
 }
@@ -161,7 +161,7 @@ void animater(const std::string &anime)
 
 void print_message(const std::string &message)
 {
-    border(width_menu);
+    border(widthMenu);
 
     std::cout << message;
 }
@@ -209,7 +209,7 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
 {
     print_message(message);
 
-    border(width_menu);
+    border(widthMenu);
 
     animater(txtConfirm + std::string{" (Y/N): "});
 

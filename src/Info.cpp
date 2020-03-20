@@ -11,32 +11,32 @@ void about()
 {
     header(std::string{" ABOUT "});
 
-    std::cout << "Developer: " << dev_name << std::endl
-              << "Version: " << version_info;
+    std::cout << "Developer: " << devName << std::endl
+              << "Version: " << versionInfo;
 
-    border(width_menu);
+    border(widthMenu);
 
     std::cout << "Source code:" << std::endl
-              << scode_url.substr(8);
+              << sCodeUrl.substr(8);
 
     if (press_i(std::string{"Press i to open URL"}))
-        system(std::string("start " + scode_url).c_str()); // this code will open github source code in default browser
+        system(std::string("start " + sCodeUrl).c_str()); // this code will open github source code in default browser
 }
 
 void help()
 {
     header(std::string{" HELP "});
 
-    std::cout << std::setw(width_index) << std::left << " Key"
+    std::cout << std::setw(widthIndex) << std::left << " Key"
               << "   Description" << std::endl
               << std::endl;
 
     size_t i{0};
 
-    for (const auto &sc : help_char_data)
+    for (const auto &sc : helpCharData)
     {
-        std::cout << " " << std::setw(width_index) << std::left << sc;
-        std::cout << "-> " << help_desc_data.at(i++);
+        std::cout << " " << std::setw(widthIndex) << std::left << sc;
+        std::cout << "-> " << helpCharDesc.at(i++);
 
         if (sc != std::string{"u"})
             std::cout << std::endl;
@@ -52,7 +52,7 @@ void update()
 
     do
     {
-        menu(download_data, std::string{" UPDATES "}, true, version_info, std::string{"Version: "});
+        menu(updatesMenu, std::string{" UPDATES "}, true, versionInfo, std::string{"Version: "});
 
         try
         {
@@ -61,10 +61,10 @@ void update()
             switch (ch)
             {
             case 1:
-                system(std::string("start " + icoder_url).c_str());
+                system(std::string("start " + iCoderUrl).c_str());
                 return;
             case 2:
-                system(std::string("start " + icoder_beta_url).c_str());
+                system(std::string("start " + iCoderBetaUrl).c_str());
                 return;
             default:
                 print_message(std::string{"Invalid choice"});
@@ -116,28 +116,28 @@ void changelog()
 {
     header(std::string{" CHANGELOG "});
 
-    std::cout << std::setw(width_index + 2) << std::left << "Version"
+    std::cout << std::setw(widthIndex + 2) << std::left << "Version"
               << "   Description" << std::endl
               << std::endl;
 
     size_t i{0};
 
-    for (const auto &vInfo : log_version_data)
+    for (const auto &vInfo : logVersionData)
     {
-        std::cout << std::setw(width_index + 2) << std::left << vInfo;
+        std::cout << std::setw(widthIndex + 2) << std::left << vInfo;
 
-        for (; i < log_vdescription_data.size(); ++i)
+        for (; i < logVersionDesc.size(); ++i)
         {
-            if (log_vdescription_data.at(i) == "\n")
+            if (logVersionDesc.at(i) == "\n")
             {
                 ++i;
                 break;
             }
 
-            if (i > 0 && log_vdescription_data.at(i - 1) != "\n")
-                std::cout << std::setw(width_index + 2) << "";
+            if (i > 0 && logVersionDesc.at(i - 1) != "\n")
+                std::cout << std::setw(widthIndex + 2) << "";
 
-            std::cout << "-> " << log_vdescription_data.at(i) << std::endl;
+            std::cout << "-> " << logVersionDesc.at(i) << std::endl;
         }
 
         if (vInfo != std::string{"1.0"})

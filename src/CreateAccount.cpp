@@ -26,7 +26,7 @@ void CreateAccount::input_data()
 
 void CreateAccount::upload_account()
 {
-    std::ofstream file{fuser, std::ios::app};
+    std::ofstream file{fUser, std::ios::app};
 
     if (!file)
         throw SavingUserException();
@@ -41,14 +41,14 @@ void CreateAccount::upload_account()
         throw;
     }
 
-    file << std::setw(width_username) << std::left << userID << std::setw(width_password) << std::left << pass << std::endl;
+    file << std::setw(widthUsername) << std::left << userID << std::setw(widthPassword) << std::left << pass << std::endl;
 
     file.close();
 }
 
 void CreateAccount::isValidUser()
 {
-    std::ifstream file(fuser);
+    std::ifstream file(fUser);
 
     if (!file)
     {

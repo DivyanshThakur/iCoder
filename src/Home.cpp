@@ -25,7 +25,7 @@ void home(const std::string &userID)
             showedOneTime = false;
         }
 
-        menu(home_data); // display the startup menu
+        menu(homeMenu); // display the startup menu
 
         try
         {

@@ -109,7 +109,7 @@ std::string Scanner::scanUsername()
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(width_username));
+        isLimitExceed = (value.size() >= static_cast<unsigned int>(widthUsername));
 
         switch (checkChar())
         {
@@ -124,7 +124,7 @@ std::string Scanner::scanUsername()
             break;
 
         case 2:
-            emessage("     " + txtUsername + " exceeds " + std::to_string(width_username) + " characters!");
+            emessage("     " + txtUsername + " exceeds " + std::to_string(widthUsername) + " characters!");
             break;
         }
     }
@@ -141,7 +141,7 @@ std::string Scanner::scanPassword()
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(width_password));
+        isLimitExceed = (value.size() >= static_cast<unsigned int>(widthPassword));
 
         switch (checkChar(true))
         {
@@ -156,7 +156,7 @@ std::string Scanner::scanPassword()
             break;
 
         case 2:
-            emessage("     " + txtPassword + " exceeds " + std::to_string(width_password) + " characters!");
+            emessage("     " + txtPassword + " exceeds " + std::to_string(widthPassword) + " characters!");
             break;
         }
     }

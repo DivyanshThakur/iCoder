@@ -16,7 +16,7 @@ void Arrays()
 
     do
     {
-        menu(get_dataType_data, std::string{" SELECT DATA TYPE "});
+        menu(getDataTypeMenu, std::string{" SELECT DATA TYPE "});
 
         sc.scanChoice(ch);
 
@@ -176,34 +176,34 @@ std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
 {
     // select the correct menu to display as per need
 
-    std::vector<std::string> menu_to_display;
+    std::vector<std::string> toDisplayMenu;
     size_t i;
 
     if (arr.max_size())
-        menu_to_display.push_back(array_data.at(0));
+        toDisplayMenu.push_back(arrayMenu.at(0));
     else
-        menu_to_display.push_back(array_data.at(1));
+        toDisplayMenu.push_back(arrayMenu.at(1));
 
     if (arr.length() == 0)
     {
-        menu_to_display.push_back(array_data.at(2));
-        menu_to_display.push_back(array_data.at(6));
-        menu_to_display.push_back(array_data.at(10));
-        menu_to_display.push_back(array_data.at(11));
+        toDisplayMenu.push_back(arrayMenu.at(2));
+        toDisplayMenu.push_back(arrayMenu.at(6));
+        toDisplayMenu.push_back(arrayMenu.at(10));
+        toDisplayMenu.push_back(arrayMenu.at(11));
     }
     else
     {
-        for (i = 2; i < array_data.size(); ++i)
+        for (i = 2; i < arrayMenu.size(); ++i)
         {
             if (!(i == 7 && show_adv_opn))
-                menu_to_display.push_back(array_data.at(i));
+                toDisplayMenu.push_back(arrayMenu.at(i));
 
             if (i == 7 && !show_adv_opn)
                 break;
         }
     }
 
-    return menu_to_display;
+    return toDisplayMenu;
 }
 
 template <>
@@ -211,34 +211,34 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
 {
     // select the correct menu to display as per need
 
-    std::vector<std::string> menu_to_display;
+    std::vector<std::string> toDisplayMenu;
     size_t i;
 
     if (arr.max_size())
-        menu_to_display.push_back(array_data.at(0));
+        toDisplayMenu.push_back(arrayMenu.at(0));
     else
-        menu_to_display.push_back(array_data.at(1));
+        toDisplayMenu.push_back(arrayMenu.at(1));
 
     if (arr.length() == 0)
     {
-        menu_to_display.push_back(array_data.at(2));
-        menu_to_display.push_back(array_data.at(6));
-        menu_to_display.push_back(array_data.at(10));
-        menu_to_display.push_back(array_data.at(11));
+        toDisplayMenu.push_back(arrayMenu.at(2));
+        toDisplayMenu.push_back(arrayMenu.at(6));
+        toDisplayMenu.push_back(arrayMenu.at(10));
+        toDisplayMenu.push_back(arrayMenu.at(11));
     }
     else
     {
-        for (i = 2; i < array_data.size(); ++i)
+        for (i = 2; i < arrayMenu.size(); ++i)
         {
             if (!((i == 7 || i == 16 || i == 17) && show_adv_opn))
-                menu_to_display.push_back(array_data.at(i));
+                toDisplayMenu.push_back(arrayMenu.at(i));
 
             if ((i == 7 && !show_adv_opn) || i == 20)
                 break;
         }
     }
 
-    return menu_to_display;
+    return toDisplayMenu;
 }
 
 template <>
@@ -246,34 +246,34 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
 {
     // select the correct menu to display as per need
 
-    std::vector<std::string> menu_to_display;
+    std::vector<std::string> toDisplayMenu;
     size_t i;
 
     if (arr.max_size())
-        menu_to_display.push_back(array_data.at(0));
+        toDisplayMenu.push_back(arrayMenu.at(0));
     else
-        menu_to_display.push_back(array_data.at(1));
+        toDisplayMenu.push_back(arrayMenu.at(1));
 
     if (arr.length() == 0)
     {
-        menu_to_display.push_back(array_data.at(2));
-        menu_to_display.push_back(array_data.at(6));
-        menu_to_display.push_back(array_data.at(10));
-        menu_to_display.push_back(array_data.at(11));
+        toDisplayMenu.push_back(arrayMenu.at(2));
+        toDisplayMenu.push_back(arrayMenu.at(6));
+        toDisplayMenu.push_back(arrayMenu.at(10));
+        toDisplayMenu.push_back(arrayMenu.at(11));
     }
     else
     {
-        for (i = 2; i < array_data.size(); ++i)
+        for (i = 2; i < arrayMenu.size(); ++i)
         {
             if (!((i == 7 || i == 17) && show_adv_opn))
-                menu_to_display.push_back(array_data.at(i));
+                toDisplayMenu.push_back(arrayMenu.at(i));
 
             if ((i == 7 && !show_adv_opn) || i == 20)
                 break;
         }
     }
 
-    return menu_to_display;
+    return toDisplayMenu;
 }
 
 /** END OF MENU SCREEN SELECTOR TEMPLATE FUNCTIONS **/
@@ -631,7 +631,7 @@ void ArrayHandler<T>::update_size()
     {
         std::cout << "Current size: " << arr.max_size() << std::endl
                   << "Value stored: " << arr.length();
-        border(width_menu);
+        border(widthMenu);
     }
 
     animater(std::string{"Enter size: "});
@@ -654,7 +654,7 @@ void ArrayHandler<T>::add_elements()
 
     std::cout << "Maximum size: " << arr.max_size() << std::endl
               << "Value stored: " << arr.length();
-    border(width_menu);
+    border(widthMenu);
 
     animater(std::string{"Enter size: "});
 
@@ -738,7 +738,7 @@ void ArrayHandler<T>::remove_multiple_values()
     if (!n) // if position is invalid return to menu screen
         return;
 
-    border(width_menu);
+    border(widthMenu);
 
     std::cout << n;
 
@@ -896,7 +896,7 @@ void ArrayHandler<T>::set_opn_arr()
 
     do
     {
-        menu(set_data, std::string{" SET "});
+        menu(setMenu, std::string{" SET "});
 
         toStop = true;
         sc.scanChoice(ch);
@@ -973,7 +973,7 @@ void ArrayHandler<T>::reverse_arr()
 
     do
     {
-        menu(reverse_data, std::string{" REVERSE ARRAY "});
+        menu(reverseMenu, std::string{" REVERSE ARRAY "});
 
         sc.scanChoice(ch);
         toStop = true;
@@ -1029,7 +1029,7 @@ void ArrayHandler<T>::shift_rotate_arr()
 
     do
     {
-        menu(shift_rotate_data, std::string{" SHIFT/ROTATE ARRAY "});
+        menu(shiftRotateMenu, std::string{" SHIFT/ROTATE ARRAY "});
 
         toStop = true;
         sc.scanChoice(ch);
@@ -1095,7 +1095,7 @@ void ArrayHandler<T>::find_miss_val_arr()
 
     do
     {
-        menu(find_val_data, std::string{" FIND MISSING VALUES "});
+        menu(findValueMenu, std::string{" FIND MISSING VALUES "});
 
         toStop = true;
         sc.scanChoice(ch);
@@ -1162,7 +1162,7 @@ void ArrayHandler<T>::find_dup_val_arr()
 
     do
     {
-        menu(find_val_data, std::string{" FIND DUPLICATE VALUES "});
+        menu(findValueMenu, std::string{" FIND DUPLICATE VALUES "});
 
         toStop = true;
         sc.scanChoice(ch);
@@ -1204,7 +1204,7 @@ void ArrayHandler<T>::find_dup_val_arr()
         {
             if (vec.size())
             {
-                border(width_menu);
+                border(widthMenu);
                 std::cout << std::setw(12) << std::left << "Occurence"
                           << "Value" << std::endl;
 
@@ -1234,7 +1234,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
     do
     {
-        menu(find_val_data, std::string{" FIND A PAIR WITH SUM K "});
+        menu(findValueMenu, std::string{" FIND A PAIR WITH SUM K "});
 
         toStop = true;
         sc.scanChoice(ch);
@@ -1242,7 +1242,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
         switch (ch)
         {
         case 1:
-            border(width_menu);
+            border(widthMenu);
             animater(std::string{"Enter the sum: "});
             sc.scan(value);
             vec = arr.find_pair_sum(0, arr.length() - 1, value);
@@ -1262,7 +1262,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
             sc.scan(end);
 
-            border(width_menu);
+            border(widthMenu);
             animater(std::string{"Enter the sum: "});
             sc.scan(value);
 
@@ -1327,7 +1327,7 @@ void ArrayHandler<T>::get_value()
 
     T val = arr[pos - 1];
 
-    border(width_menu);
+    border(widthMenu);
     std::cout << "Value: " << val;
 
     this->pressi_display();
@@ -1354,7 +1354,7 @@ void ArrayHandler<T>::set_value()
     get_val = arr[pos - 1];
     arr[pos - 1] = set_val;
 
-    border(width_menu);
+    border(widthMenu);
     std::cout << "Old Value: " << get_val << std::endl
               << "New Value: " << set_val;
 
@@ -1371,7 +1371,7 @@ void ArrayHandler<T>::average()
 
     do
     {
-        menu(average_data, std::string{" AVERAGE "});
+        menu(averageMenu, std::string{" AVERAGE "});
 
         toStop = true;
         sc.scanChoice(ch);
@@ -1429,7 +1429,7 @@ void ArrayHandler<T>::sum()
 
     do
     {
-        menu(sum_data, std::string{" SUM "});
+        menu(sumMenu, std::string{" SUM "});
 
         toStop = true;
         sc.scanChoice(ch);

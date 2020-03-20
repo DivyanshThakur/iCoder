@@ -14,7 +14,7 @@
 
 void restore_saved_changes()
 {
-    std::ifstream file(fsetting);
+    std::ifstream file(fSetting);
 
     if (!file)
     {
@@ -24,7 +24,7 @@ void restore_saved_changes()
         showHint = true;
         stats = DEFAULT;
 
-        std::ofstream out_file(fsetting);
+        std::ofstream out_file(fSetting);
 
         print_to_file(out_file, std::string{"CURRENT_USER"}, signedUserID);
         print_to_file(out_file, std::string{"ANIMATION_SPEED"}, sleepTime);
@@ -80,7 +80,7 @@ void update_stats(int c)
 
 bool check_new_user()
 {
-    std::ifstream file(fuser);
+    std::ifstream file(fUser);
 
     if (!file)
         return true;
@@ -91,7 +91,7 @@ bool check_new_user()
 
 bool check_default_settings()
 {
-    std::ifstream file(fsetting);
+    std::ifstream file(fSetting);
     std::string title, usr_signed;
     int time, c;
     bool wlcome, hint;
@@ -124,7 +124,7 @@ void save_active_user(const std::string &userID)
 {
     signedUserID = userID;
 
-    save_to_file(fsetting, std::string{"CURRENT_USER"}, signedUserID);
+    save_to_file(fSetting, std::string{"CURRENT_USER"}, signedUserID);
 }
 
 void login()
@@ -141,7 +141,7 @@ void login()
 
         acc->display_remember_me(); // it will display remember me message
 
-        border(width_menu);      // display the border
+        border(widthMenu);       // display the border
         load();                  // animate loading screen
         home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
@@ -186,7 +186,7 @@ void create_account()
 
         acc->display_remember_me(); // it will display remember me message
 
-        border(width_menu);      // display the border
+        border(widthMenu);       // display the border
         load();                  // animate loading screen
         home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
@@ -231,7 +231,7 @@ void display_users()
 {
     header(" USERS ");
 
-    std::ifstream file(fuser);
+    std::ifstream file(fUser);
 
     if (!file)
     {
@@ -241,18 +241,18 @@ void display_users()
 
     auto acc = std::make_unique<Account>();
 
-    border(width_index * 3 + width_username + width_password - 1);
+    border(widthIndex * 3 + widthUsername + widthPassword - 1);
 
-    std::cout << " " << std::setw(width_index) << std::left << "INDEX"
-              << " | " << std::setw(width_username) << std::left << "USERNAME"
-              << " | " << std::setw(width_password) << std::left << "PASSWORD"
+    std::cout << " " << std::setw(widthIndex) << std::left << "INDEX"
+              << " | " << std::setw(widthUsername) << std::left << "USERNAME"
+              << " | " << std::setw(widthPassword) << std::left << "PASSWORD"
               << " |";
 
-    border(width_index * 3 + width_username + width_password - 1);
+    border(widthIndex * 3 + widthUsername + widthPassword - 1);
 
-    std::cout << std::setw(width_index + 1) << ""
-              << " | " << std::setw(width_username) << ""
-              << " | " << std::setw(width_password) << ""
+    std::cout << std::setw(widthIndex + 1) << ""
+              << " | " << std::setw(widthUsername) << ""
+              << " | " << std::setw(widthPassword) << ""
               << " |";
 
     while (file >> *acc) // taking userID and pass from file to account class
@@ -260,7 +260,7 @@ void display_users()
         std::cout << *acc; // display the id,pass to console using operator<< overloading
     }
 
-    border(width_index * 3 + width_username + width_password - 1);
+    border(widthIndex * 3 + widthUsername + widthPassword - 1);
 
     file.close();
 }
@@ -316,8 +316,8 @@ void save_to_file(const std::string &file_name, const std::string &title, const 
 template <typename T>
 void print_to_file(std::ofstream &out_file, const std::string &title, const T &data)
 {
-    out_file << std::setw(width_username * 2) << std::left << title
-             << std::setw(width_username) << std::left << data << std::endl;
+    out_file << std::setw(widthUsername * 2) << std::left << title
+             << std::setw(widthUsername) << std::left << data << std::endl;
 }
 
 template void save_to_file<std::string>(const std::string &file_name, const std::string &title, const std::string &data);

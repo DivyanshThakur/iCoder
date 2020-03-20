@@ -11,9 +11,9 @@
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
     os << std::endl
-       << " " << std::setw(width_index) << std::left << ++acc.index
-       << " | " << std::setw(width_username) << std::left << acc.userID
-       << " | " << std::setw(width_password) << std::left << pass_to_asteric(acc.pass)
+       << " " << std::setw(widthIndex) << std::left << ++acc.index
+       << " | " << std::setw(widthUsername) << std::left << acc.userID
+       << " | " << std::setw(widthPassword) << std::left << pass_to_asteric(acc.pass)
        << " |";
     return os;
 }
@@ -47,7 +47,7 @@ void Account::display_remember_me() const
 {
     Scanner sc;
 
-    border(width_menu);
+    border(widthMenu);
 
     animater(std::string{"Remember me? (Y/N): "});
 
@@ -66,7 +66,7 @@ void Account::display_remember_me() const
 
 void Account::check_account() const
 {
-    std::ifstream file(fuser);
+    std::ifstream file(fUser);
     std::string fusername, fpassword;
 
     if (!file)

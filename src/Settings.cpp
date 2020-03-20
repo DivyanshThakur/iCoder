@@ -156,7 +156,7 @@ std::vector<std::string> settings_screen_selector()
 
     std::vector<std::string> menu_to_display;
 
-    for (size_t i{0}; i < settings_data.size(); ++i)
+    for (size_t i{0}; i < settingsMenu.size(); ++i)
     {
 
         std::string selector;
@@ -166,7 +166,7 @@ std::vector<std::string> settings_screen_selector()
         else if (i == 3)
             selector = (showHint ? std::string{"Disable "} : std::string{"Enable "});
 
-        menu_to_display.push_back(selector + settings_data.at(i));
+        menu_to_display.push_back(selector + settingsMenu.at(i));
     }
 
     return menu_to_display;
@@ -190,7 +190,7 @@ void change_text_anime_speed()
 
     sleepTime = speed;
 
-    save_to_file(fsetting, std::string{"ANIMATION_SPEED"}, speed);
+    save_to_file(fSetting, std::string{"ANIMATION_SPEED"}, speed);
 }
 
 void change_lsearch_type()
@@ -200,7 +200,7 @@ void change_lsearch_type()
 
     do
     {
-        menu(lsearch_data, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(), std::string{"Search Type: "});
+        menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(), std::string{"Search Type: "});
 
         sc.scanChoice(ch);
 
@@ -210,7 +210,7 @@ void change_lsearch_type()
         case 2:
         case 3:
             update_stats(ch - 1);
-            save_to_file(fsetting, std::string{"LSEARCH_STATUS"}, stats);
+            save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, stats);
             return;
 
         default:
@@ -228,7 +228,7 @@ void welcome_message()
     else
         showWelcome = true;
 
-    save_to_file(fsetting, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
+    save_to_file(fSetting, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
     print_message(std::string{"Changes saved!"});
 }
 
@@ -239,7 +239,7 @@ void hint_message()
     else
         showHint = true;
 
-    save_to_file(fsetting, std::string{"SHOW_HINT"}, showHint);
+    save_to_file(fSetting, std::string{"SHOW_HINT"}, showHint);
     print_message(std::string{"Changes saved!"});
 }
 
@@ -255,8 +255,8 @@ void reset()
 
     if (toProceed)
     {
-        std::remove(fsetting.c_str());
-        std::remove(fuser.c_str());
+        std::remove(fSetting.c_str());
+        std::remove(fUser.c_str());
 
         if (signedUserID != std::string{"NULL"})
         {
@@ -284,7 +284,7 @@ void reset()
 //     bool toProceed = confirm_the_change(std::string{"This will permanently delete all\nthe user info from the database!"});
 //     if (toProceed)
 //     {
-//         std::remove(fuser.c_str());
+//         std::remove(fUser.c_str());
 //         print_message(std::string{"Successfully deleted!"});
 
 //         if (signedUserID != std::string{"NULL"})

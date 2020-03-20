@@ -57,7 +57,7 @@ int main()
 
     do
     {
-        menu(main_menu_data); // display the startup menu
+        menu(mainMenu); // display the startup menu
 
         try
         {
@@ -107,7 +107,7 @@ int main()
         }
         catch (...)
         {
-            border(width_menu);
+            border(widthMenu);
             std::cerr << "Unknown error occurred in Main Menu";
             press_key(NIL);
         }
@@ -182,7 +182,7 @@ void adjust_console_size()
     RECT r;
     GetWindowRect(console, &r); //stores the console's current dimensions
 
-    MoveWindow(console, r.left, r.top, console_width, console_height, TRUE); // 850 width, 600 height
+    MoveWindow(console, r.left, r.top, consoleWidth, consoleHeight, TRUE); // 850 width, 600 height
 }
 
 void create_path()
@@ -196,8 +196,8 @@ void create_path()
     }
 
     path = std::string(userpath) + "\\Documents\\iCoder";
-    fuser = path + "\\users.dat";
-    fsetting = path + "\\settings.dat";
+    fUser = path + "\\users.dat";
+    fSetting = path + "\\settings.dat";
 
     if (!isDirectoryExists()) // checking if the directory "data" exists or not
         mkdir(path.c_str());  // these code will create a folder in that specific destination

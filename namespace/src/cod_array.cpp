@@ -1031,7 +1031,7 @@ std::vector<double> cod::array<double>::find_missing(size_t start, size_t end) /
 
     if (!this->isSorted())
     {
-        border(width_menu);
+        border(widthMenu);
         wait_message(std::string{"Checking array..."});
         this->sort();
     }
