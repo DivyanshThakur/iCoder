@@ -150,6 +150,14 @@ void ArrayHandler<T>::start()
         {
             e.what();
         }
+        catch (const OpenHintSetting &e)
+        {
+            e.what();
+        }
+        catch (const OpenLsearchSetting &e)
+        {
+            e.what();
+        }
 
     } while (1); // true
 }

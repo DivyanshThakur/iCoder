@@ -155,4 +155,16 @@ public:
     void what() const noexcept;
 };
 
+class OpenHintSetting
+{
+public:
+    void what() const noexcept;
+};
+
+class OpenLsearchSetting
+{
+public:
+    void what() const noexcept;
+};
+
 #endif

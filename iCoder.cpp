@@ -3,7 +3,7 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.7.20.3.19-BETA
+ * VERSION - 1.7.20.3.20-BETA
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
@@ -97,10 +97,19 @@ int main()
         {
             e.what();
         }
+        catch (const OpenHintSetting &e)
+        {
+            e.what();
+        }
+        catch (const OpenLsearchSetting &e)
+        {
+            e.what();
+        }
         catch (...)
         {
             border(width_menu);
             std::cerr << "Unknown error occurred in Main Menu";
+            press_key(NIL);
         }
 
     } while (1); // the program terminates after this line

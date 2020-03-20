@@ -19,16 +19,18 @@ void restore_saved_changes()
     if (!file)
     {
         signedUserID = std::string{"NULL"};
-        sleep_time = 25;
+        sleepTime = 25;
         showWelcome = true;
+        showHint = true;
         stats = DEFAULT;
 
         std::ofstream out_file(fsetting);
 
         print_to_file(out_file, std::string{"CURRENT_USER"}, signedUserID);
-        print_to_file(out_file, std::string{"ANIMATION_SPEED"}, sleep_time);
+        print_to_file(out_file, std::string{"ANIMATION_SPEED"}, sleepTime);
         print_to_file(out_file, std::string{"LSEARCH_STATUS"}, stats);
         print_to_file(out_file, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
+        print_to_file(out_file, std::string{"SHOW_HINT"}, showHint);
 
         out_file.close();
 
@@ -43,7 +45,7 @@ void restore_saved_changes()
         if (title == std::string{"CURRENT_USER"})
             file >> signedUserID;
         else if (title == std::string{"ANIMATION_SPEED"})
-            file >> sleep_time;
+            file >> sleepTime;
         else if (title == std::string{"LSEARCH_STATUS"})
         {
             file >> c;
@@ -51,6 +53,8 @@ void restore_saved_changes()
         }
         else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
             file >> showWelcome;
+        else if (title == std::string{"SHOW_HINT"})
+            file >> showHint;
     }
 
     file.close();
@@ -90,7 +94,7 @@ bool check_default_settings()
     std::ifstream file(fsetting);
     std::string title, usr_signed;
     int time, c;
-    bool wlcome;
+    bool wlcome, hint;
 
     if (!file)
         return true;
@@ -105,9 +109,11 @@ bool check_default_settings()
             file >> c;
         else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
             file >> wlcome;
+        else if (title == std::string{"SHOW_HINT"})
+            file >> hint;
     }
 
-    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome == true && c == 0)
+    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome == true && hint == true && c == 0)
         return true;
 
     file.close();

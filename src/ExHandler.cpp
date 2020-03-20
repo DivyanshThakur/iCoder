@@ -1,3 +1,5 @@
+#include <iostream>
+#include <windows.h>
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Constants.hpp"
@@ -104,4 +106,21 @@ void OpenUpdate::what() const noexcept
 void OpenChangelog::what() const noexcept
 {
     changelog();
+}
+
+void OpenHintSetting::what() const noexcept
+{
+    std::string message{"4. "};
+    message += (showHint ? std::string{"Disable "} : std::string{"Enable "});
+    message += settings_data.at(3);
+
+    show_me_first(message, 4);
+}
+
+void OpenLsearchSetting::what() const noexcept
+{
+    std::string message{"2. "};
+    message += settings_data.at(1);
+
+    show_me_first(message, 2);
 }

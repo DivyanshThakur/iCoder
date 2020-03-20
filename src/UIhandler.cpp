@@ -45,7 +45,15 @@ void title()
 void menu(const std::vector<std::string> &vec_menu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
 { // show the specific menu
 
-    header(heading);
+    if (showedOneTime)
+        title(); // display title - "iCoder"
+    else
+        showedOneTime = true;
+
+    if (showHint) // display hint in every screen
+        show_hint();
+
+    header(heading, false);
 
     if (showStatus)
         show_status(statsStr, statsVal);
@@ -87,12 +95,10 @@ std::string stats_selector()
     return str;
 }
 
-void header(const std::string &menu_name)
+void header(const std::string &menu_name, bool showTitle)
 {
-    if (showedOneTime)
-        title(); // display title - "iCoder"
-    else
-        showedOneTime = true;
+    if (showTitle)
+        title();
 
     std::cout << std::setfill('-')
               << std::setw(2) << ""
@@ -100,6 +106,18 @@ void header(const std::string &menu_name)
               << std::setw(width_menu - (menu_name.size() + 2)) << ""
               << std::setfill(' ')
               << std::endl;
+}
+
+void show_hint()
+{
+    header(std::string{" HINT "}, false);
+
+    std::cout << std::setw(6) << std::left << "'Esc'"
+              << "Last Screen" << std::endl
+              << std::setw(6) << std::left << "'h'"
+              << "Help screen" << std::endl
+              << std::setw(6) << std::left << "'d'"
+              << "Disable this hint" << std::endl;
 }
 
 void border(int size)
@@ -120,7 +138,7 @@ void emessage(const std::string &message)
     for (size_t i{0}; i < message.size(); ++i)
     {
         std::cout << "\b \b";
-        Sleep(sleep_time);
+        Sleep(sleepTime);
     }
 }
 
@@ -137,7 +155,7 @@ void animater(const std::string &anime)
     for (const auto &c : anime)
     {
         std::cout << c;
-        Sleep(sleep_time);
+        Sleep(sleepTime);
     }
 }
 

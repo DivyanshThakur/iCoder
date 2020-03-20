@@ -9,6 +9,37 @@
 #include "../header/UIhandler.hpp"
 #include "../header/Scanner.hpp"
 
+void show_me_first(const std::string &message, int repeatFor)
+{
+    title();
+
+    if (showHint) // display hint in every screen
+        show_hint();
+
+    header(std::string{" SETTINGS "}, false);
+
+    while (repeatFor--)
+    {
+        std::cout << message;
+        Sleep(600);
+
+        if (repeatFor == 0)
+            break;
+
+        size_t i{0};
+        while (i < message.size())
+        {
+            std::cout << "\b \b";
+            ++i;
+        }
+
+        std::cout << std::endl;
+    }
+    Sleep(200);
+
+    settings();
+}
+
 void settings()
 {
     Scanner sc;
@@ -73,13 +104,20 @@ void settings()
         {
             e.what();
         }
+        catch (const OpenHintSetting &e)
+        {
+            // do nothing
+        }
+        catch (const OpenLsearchSetting &e)
+        {
+            // do nothing
+        }
 
     } while (1); // true
 }
 
 void settings_controller(char ch)
 {
-
     switch (ch)
     {
     case 1: // change the animation speed of the menu
@@ -96,7 +134,11 @@ void settings_controller(char ch)
         welcome_message();
         break;
 
-    case 4: // reset the settings and delete users
+    case 4: // hint message enable/disable
+        hint_message();
+        break;
+
+    case 5: // reset the settings and delete users
         reset();
         break;
 
@@ -117,12 +159,14 @@ std::vector<std::string> settings_screen_selector()
     for (size_t i{0}; i < settings_data.size(); ++i)
     {
 
-        if (i == 2 && showWelcome)
-            menu_to_display.push_back(settings_data.at(++i));
-        else if (i == 3 && !showWelcome)
-            menu_to_display.push_back(settings_data.at(++i));
-        else
-            menu_to_display.push_back(settings_data.at(i));
+        std::string selector;
+
+        if (i == 2)
+            selector = (showWelcome ? std::string{"Disable "} : std::string{"Enable "});
+        else if (i == 3)
+            selector = (showHint ? std::string{"Disable "} : std::string{"Enable "});
+
+        menu_to_display.push_back(selector + settings_data.at(i));
     }
 
     return menu_to_display;
@@ -135,7 +179,7 @@ void change_text_anime_speed()
 
     header(std::string{" CHANGE ANIMATION SPEED "});
 
-    show_status(std::string{"Current speed: "}, std::to_string(sleep_time));
+    show_status(std::string{"Current speed: "}, std::to_string(sleepTime));
 
     animater(std::string{"Enter the speed: "});
 
@@ -144,7 +188,7 @@ void change_text_anime_speed()
     if (speed < 0)
         throw NegativeValueException();
 
-    sleep_time = speed;
+    sleepTime = speed;
 
     save_to_file(fsetting, std::string{"ANIMATION_SPEED"}, speed);
 }
@@ -183,7 +227,19 @@ void welcome_message()
         showWelcome = false;
     else
         showWelcome = true;
+
     save_to_file(fsetting, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
+    print_message(std::string{"Changes saved!"});
+}
+
+void hint_message()
+{
+    if (showHint)
+        showHint = false;
+    else
+        showHint = true;
+
+    save_to_file(fsetting, std::string{"SHOW_HINT"}, showHint);
     print_message(std::string{"Changes saved!"});
 }
 
