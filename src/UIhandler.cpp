@@ -42,7 +42,7 @@ void title()
               << std::endl;
 }
 
-void menu(const std::vector<std::string> &vec_menu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
+void menu(const std::vector<std::string> &vecMenu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
 { // show the specific menu
 
     if (showedOneTime)
@@ -58,11 +58,11 @@ void menu(const std::vector<std::string> &vec_menu, const std::string &heading, 
     if (showStatus)
         show_status(statsStr, statsVal);
 
-    for (size_t index{0}; index < vec_menu.size(); ++index)
+    for (size_t index{0}; index < vecMenu.size(); ++index)
     {
-        std::cout << std::setw(2) << std::right << index + 1 << ". " << vec_menu.at(index);
+        std::cout << std::setw(2) << std::right << index + 1 << ". " << vecMenu.at(index);
 
-        if (index < vec_menu.size() - 1)
+        if (index < vecMenu.size() - 1)
             std::cout << std::endl;
     }
 
@@ -95,15 +95,15 @@ std::string stats_selector()
     return str;
 }
 
-void header(const std::string &menu_name, bool showTitle)
+void header(const std::string &menuTitle, bool showTitle)
 {
     if (showTitle)
         title();
 
     std::cout << std::setfill('-')
               << std::setw(2) << ""
-              << menu_name
-              << std::setw(widthMenu - (menu_name.size() + 2)) << ""
+              << menuTitle
+              << std::setw(widthMenu - (menuTitle.size() + 2)) << ""
               << std::setfill(' ')
               << std::endl;
 }

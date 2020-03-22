@@ -60,8 +60,6 @@ int Scanner::checkChar(bool isPassword)
         flag = 16;
     else if (c == 'd')
         flag = 17;
-    else if (c == 't')
-        flag = 18;
 
     return flag;
 }
@@ -90,8 +88,6 @@ void Scanner::scanChoice(int &choice)
             throw OpenChangelog();
         case 17:
             throw OpenHintSetting();
-        case 18:
-            throw OpenLsearchSetting();
         default: // do nothing
             break;
         }

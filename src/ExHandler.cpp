@@ -116,11 +116,3 @@ void OpenHintSetting::what() const noexcept
 
     show_me_first(message, 4);
 }
-
-void OpenLsearchSetting::what() const noexcept
-{
-    std::string message{"2. "};
-    message += settingsMenu.at(1);
-
-    show_me_first(message, 2);
-}

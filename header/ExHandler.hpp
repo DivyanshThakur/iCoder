@@ -161,10 +161,4 @@ public:
     void what() const noexcept;
 };
 
-class OpenLsearchSetting
-{
-public:
-    void what() const noexcept;
-};
-
 #endif

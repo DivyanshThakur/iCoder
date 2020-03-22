@@ -76,10 +76,6 @@ void home(const std::string &userID)
         {
             e.what();
         }
-        catch (const OpenLsearchSetting &e)
-        {
-            e.what();
-        }
         catch (const ReturnHome &e)
         {
             // to return to home screen

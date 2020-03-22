@@ -24,15 +24,15 @@ void restore_saved_changes()
         showHint = true;
         stats = DEFAULT;
 
-        std::ofstream out_file(fSetting);
+        std::ofstream outFile(fSetting);
 
-        print_to_file(out_file, std::string{"CURRENT_USER"}, signedUserID);
-        print_to_file(out_file, std::string{"ANIMATION_SPEED"}, sleepTime);
-        print_to_file(out_file, std::string{"LSEARCH_STATUS"}, stats);
-        print_to_file(out_file, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
-        print_to_file(out_file, std::string{"SHOW_HINT"}, showHint);
+        print_to_file(outFile, std::string{"CURRENT_USER"}, signedUserID);
+        print_to_file(outFile, std::string{"ANIMATION_SPEED"}, sleepTime);
+        print_to_file(outFile, std::string{"LSEARCH_STATUS"}, stats);
+        print_to_file(outFile, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
+        print_to_file(outFile, std::string{"SHOW_HINT"}, showHint);
 
-        out_file.close();
+        outFile.close();
 
         return;
     }
@@ -274,9 +274,9 @@ std::string pass_to_asteric(const std::string &pass)
 }
 
 template <typename T>
-void save_to_file(const std::string &file_name, const std::string &title, const T &data)
+void save_to_file(const std::string &fileName, const std::string &title, const T &data)
 {
-    std::ifstream in_file(file_name);
+    std::ifstream in_file(fileName);
 
     std::string file_str, file_title, line, val;
 
@@ -292,7 +292,7 @@ void save_to_file(const std::string &file_name, const std::string &title, const 
     }
 
     in_file.close();
-    std::ofstream out_file(file_name);
+    std::ofstream outFile(fileName);
     std::stringstream ss{file_str};
     bool isSaved{false};
 
@@ -302,25 +302,25 @@ void save_to_file(const std::string &file_name, const std::string &title, const 
 
         if (file_title == title)
         {
-            print_to_file(out_file, title, data);
+            print_to_file(outFile, title, data);
             isSaved = true;
         }
         else
-            print_to_file(out_file, file_title, val);
+            print_to_file(outFile, file_title, val);
     }
 
     if (!isSaved)
-        print_to_file(out_file, title, data);
+        print_to_file(outFile, title, data);
 }
 
 template <typename T>
-void print_to_file(std::ofstream &out_file, const std::string &title, const T &data)
+void print_to_file(std::ofstream &outFile, const std::string &title, const T &data)
 {
-    out_file << std::setw(widthUsername * 2) << std::left << title
-             << std::setw(widthUsername) << std::left << data << std::endl;
+    outFile << std::setw(widthUsername * 2) << std::left << title
+            << std::setw(widthUsername) << std::left << data << std::endl;
 }
 
-template void save_to_file<std::string>(const std::string &file_name, const std::string &title, const std::string &data);
-template void save_to_file<int>(const std::string &file_name, const std::string &title, const int &data);
-template void save_to_file<bool>(const std::string &file_name, const std::string &title, const bool &data);
-template void save_to_file<Status>(const std::string &file_name, const std::string &title, const Status &data);
+template void save_to_file<std::string>(const std::string &fileName, const std::string &title, const std::string &data);
+template void save_to_file<int>(const std::string &fileName, const std::string &title, const int &data);
+template void save_to_file<bool>(const std::string &fileName, const std::string &title, const bool &data);
+template void save_to_file<Status>(const std::string &fileName, const std::string &title, const Status &data);

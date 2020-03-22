@@ -101,10 +101,6 @@ int main()
         {
             e.what();
         }
-        catch (const OpenLsearchSetting &e)
-        {
-            e.what();
-        }
         catch (...)
         {
             border(widthMenu);

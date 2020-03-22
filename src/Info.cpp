@@ -104,10 +104,6 @@ void update()
         {
             e.what();
         }
-        catch (const OpenLsearchSetting &e)
-        {
-            e.what();
-        }
 
     } while (1);
 }
