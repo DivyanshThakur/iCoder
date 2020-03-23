@@ -183,7 +183,7 @@ void Scanner::scan(T &data, bool isLast)
             else if (value.size()) // will break only when the string has minimum 1 element
                 break;
 
-            if (count == 5)
+            if (count == 3)
                 emessage(std::string{"     Press Enter to submit data"});
         }
 

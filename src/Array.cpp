@@ -184,8 +184,6 @@ std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
     {
         toDisplayMenu.push_back(arrayMenu.at(2));
         toDisplayMenu.push_back(arrayMenu.at(6));
-        toDisplayMenu.push_back(arrayMenu.at(10));
-        toDisplayMenu.push_back(arrayMenu.at(11));
     }
     else
     {
@@ -219,8 +217,6 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
     {
         toDisplayMenu.push_back(arrayMenu.at(2));
         toDisplayMenu.push_back(arrayMenu.at(6));
-        toDisplayMenu.push_back(arrayMenu.at(10));
-        toDisplayMenu.push_back(arrayMenu.at(11));
     }
     else
     {
@@ -254,8 +250,6 @@ std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
     {
         toDisplayMenu.push_back(arrayMenu.at(2));
         toDisplayMenu.push_back(arrayMenu.at(6));
-        toDisplayMenu.push_back(arrayMenu.at(10));
-        toDisplayMenu.push_back(arrayMenu.at(11));
     }
     else
     {
@@ -292,14 +286,6 @@ void ArrayHandler<T>::empty_arrays_controller(int ch)
 
     case 3: // display elements
         display_arr();
-        break;
-
-    case 4: // merge
-        merge_arr();
-        break;
-
-    case 5: // set operations
-        set_opn_arr();
         break;
 
     default:
@@ -630,7 +616,7 @@ void ArrayHandler<T>::update_size()
         border(widthMenu);
     }
 
-    animater(std::string{"Enter size: "});
+    animater(std::string{"Enter max size: "});
 
     sc.scan(size);
     arr.update_size(size);
@@ -646,7 +632,7 @@ void ArrayHandler<T>::add_elements()
     if (arr.length() == arr.max_size())
         throw ArrayFullException();
 
-    header(std::string{" INSERT VALUES "});
+    header(std::string{" ADD VALUES "});
 
     std::cout << "Maximum size: " << arr.max_size() << std::endl
               << "Value stored: " << arr.length();

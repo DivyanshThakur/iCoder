@@ -108,10 +108,6 @@ void settings()
         {
             // do nothing
         }
-        catch (const OpenLsearchSetting &e)
-        {
-            // do nothing
-        }
 
     } while (1); // true
 }
