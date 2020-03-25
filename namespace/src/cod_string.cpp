@@ -31,6 +31,24 @@ cod::string::string(string &&source) : str(nullptr)
     source.str = nullptr;
 }
 
+cod::string &cod::string::operator=(const string &source)
+{
+    delete[] str;
+
+    str = new char[strlen(source.str) + 1];
+    strcpy(str, source.str);
+
+    return *this;
+}
+
+cod::string &cod::string::operator=(string &&source)
+{
+    strcpy(str, source.str);
+    source.str = nullptr;
+
+    return *this;
+}
+
 cod::string::~string()
 {
     delete[] str;

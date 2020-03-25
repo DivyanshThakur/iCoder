@@ -75,9 +75,6 @@ public:
     std::string username();
     std::string password();
 
-    // template <typename T>
-    // void scanner(T &data, bool isLast = true);
-
     void reset(); // reset the values of scan class
 };
 } // namespace cod
