@@ -6,12 +6,12 @@
 #include "../header/UIhandler.hpp"
 #include "../header/AccountHandler.hpp"
 #include "../header/Array.hpp"
-#include "../header/Scanner.hpp"
+#include "../namespace/header/cod_scan.hpp"
 #include "../namespace/header/cod_array.hpp"
 
 void home(const std::string &userID)
 {
-    Scanner sc;
+    cod::scan sc;
     int ch;
     int flag{1};
 
@@ -29,7 +29,7 @@ void home(const std::string &userID)
 
         try
         {
-            sc.scanChoice(ch);
+            sc.choice(ch);
 
             home_controller(ch); // start as per user choice
         }

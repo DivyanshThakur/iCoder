@@ -2,7 +2,7 @@
 #include <conio.h>
 #include <iomanip>
 #include "../header/Info.hpp"
-#include "../header/Scanner.hpp"
+#include "../namespace/header/cod_scan.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/Constants.hpp"
@@ -47,7 +47,7 @@ void help()
 
 void update()
 {
-    Scanner sc;
+    cod::scan sc;
     int ch;
 
     do
@@ -56,7 +56,7 @@ void update()
 
         try
         {
-            sc.scanChoice(ch);
+            sc.choice(ch);
 
             switch (ch)
             {

@@ -7,7 +7,7 @@
 #include "../header/Constants.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
-#include "../header/Scanner.hpp"
+#include "../namespace/header/cod_scan.hpp"
 
 void show_me_first(const std::string &message, int repeatFor)
 {
@@ -42,7 +42,7 @@ void show_me_first(const std::string &message, int repeatFor)
 
 void settings()
 {
-    Scanner sc;
+    cod::scan sc;
     int ch;
     do
     {
@@ -53,7 +53,7 @@ void settings()
 
             try
             {
-                sc.scanChoice(ch);
+                sc.choice(ch);
             }
             catch (const EscPressed &e)
             {
@@ -170,7 +170,7 @@ std::vector<std::string> settings_screen_selector()
 
 void change_text_anime_speed()
 {
-    Scanner sc;
+    cod::scan sc;
     int speed;
 
     header(std::string{" CHANGE ANIMATION SPEED "});
@@ -179,7 +179,8 @@ void change_text_anime_speed()
 
     animater(std::string{"Enter the speed: "});
 
-    sc.scan(speed);
+    // sc.scan(speed);
+    sc >> speed;
 
     if (speed < 0)
         throw NegativeValueException();
@@ -191,14 +192,14 @@ void change_text_anime_speed()
 
 void change_lsearch_type()
 {
-    Scanner sc;
+    cod::scan sc;
     int ch;
 
     do
     {
         menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(), std::string{"Search Type: "});
 
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {

@@ -4,21 +4,20 @@
 #include <windows.h>
 #include "../header/Array.hpp"
 #include "../namespace/header/cod_array.hpp"
-#include "../header/Scanner.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Constants.hpp"
 
 void Arrays()
 {
-    Scanner sc;
+    cod::scan sc;
     int ch;
 
     do
     {
         menu(getDataTypeMenu, std::string{" SELECT DATA TYPE "});
 
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         array_type_selector(ch); // call the array funtion with user defined data type
 
@@ -78,7 +77,7 @@ void ArrayHandler<T>::start()
         {
             try
             {
-                sc.scanChoice(ch);
+                sc.choice(ch);
             }
             catch (const EscPressed &e)
             {
@@ -618,7 +617,7 @@ void ArrayHandler<T>::update_size()
 
     animater(std::string{"Enter max size: "});
 
-    sc.scan(size);
+    sc >> size;
     arr.update_size(size);
 }
 
@@ -626,7 +625,7 @@ template <typename T>
 void ArrayHandler<T>::add_elements()
 {
     int len;
-    bool isLast;
+    // bool isLast{false};
     T value;
 
     if (arr.length() == arr.max_size())
@@ -640,7 +639,7 @@ void ArrayHandler<T>::add_elements()
 
     animater(std::string{"Enter size: "});
 
-    sc.scan(len);
+    sc >> len;
 
     if (len < 0)
         throw NegativeValueException();
@@ -649,15 +648,10 @@ void ArrayHandler<T>::add_elements()
 
     for (int i{0}; i < len; ++i)
     {
-        if (isLast && arr.length() == arr.max_size())
+        if (arr.length() == arr.max_size())
             throw ArrayFullException();
 
-        if (arr.length() + 1 == arr.max_size())
-            isLast = true;
-        else
-            isLast = (i == len - 1);
-
-        sc.scan(value, isLast);
+        sc >> ((i == len - 1) || (arr.length() + 1 == arr.max_size())) >> value;
 
         arr.push_back(value);
     }
@@ -680,13 +674,13 @@ void ArrayHandler<T>::insert_value()
 
     animater(std::string{"Enter the value: "});
 
-    sc.scan(value);
+    sc >> value;
 
     std::cout << std::endl;
 
     animater(std::string{"Enter the position: "});
 
-    sc.scan(pos);
+    sc >> pos;
 
     arr.insert(value, pos);
 
@@ -705,13 +699,13 @@ void ArrayHandler<T>::remove_multiple_values()
 
     animater(std::string{"Enter the starting position: "});
 
-    sc.scan(pos);
+    sc >> pos;
 
     std::cout << std::endl;
 
     animater(std::string{"Enter the number of elements: "});
 
-    sc.scan(n);
+    sc >> n;
 
     values = arr.remove(pos, n);
 
@@ -743,7 +737,7 @@ void ArrayHandler<T>::remove_value()
 
     animater(std::string{"Enter the position: "});
 
-    sc.scan(pos);
+    sc >> pos;
 
     value = arr.remove(pos);
 
@@ -777,8 +771,11 @@ void ArrayHandler<T>::linear_search_arr()
     show_status(std::string{"Search Type: "}, stats_selector());
 
     animater(std::string{"Enter the value: "});
-    sc.scan(val);
+
+    sc >> val;
+
     pos = arr.lsearch(val);
+
     if (pos)
         print_message(std::string{"Found at position "} + std::to_string(pos));
     else
@@ -804,8 +801,11 @@ void ArrayHandler<T>::binary_search_arr()
     header(std::string{" BINARY SEARCH "});
 
     animater(std::string{"Enter the value: "});
-    sc.scan(val);
+
+    sc >> val;
+
     pos = arr.bsearch(val);
+
     if (pos)
         print_message(std::string{"Found at position "} + std::to_string(pos));
     else
@@ -881,7 +881,8 @@ void ArrayHandler<T>::set_opn_arr()
         menu(setMenu, std::string{" SET "});
 
         toStop = true;
-        sc.scanChoice(ch);
+        // sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {
@@ -957,7 +958,7 @@ void ArrayHandler<T>::reverse_arr()
     {
         menu(reverseMenu, std::string{" REVERSE ARRAY "});
 
-        sc.scanChoice(ch);
+        sc.choice(ch);
         toStop = true;
 
         switch (ch)
@@ -972,13 +973,14 @@ void ArrayHandler<T>::reverse_arr()
             show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
-            sc.scan(start);
+
+            sc >> start;
 
             std::cout << std::endl;
 
             animater(std::string{"Enter the ending position: "});
 
-            sc.scan(end);
+            sc >> end;
 
             arr.reverse(start - 1, end - 1);
             break;
@@ -1014,7 +1016,7 @@ void ArrayHandler<T>::shift_rotate_arr()
         menu(shiftRotateMenu, std::string{" SHIFT/ROTATE ARRAY "});
 
         toStop = true;
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {
@@ -1022,7 +1024,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             header(std::string{" LEFT SHIFT "});
             show_status(std::string{"Valid shifts: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of shifts: "});
-            sc.scan(n);
+            sc >> n;
             arr.shift(LEFT, n);
             break;
 
@@ -1030,7 +1032,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             header(std::string{" RIGHT SHIFT "});
             show_status(std::string{"Valid shifts: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of shifts: "});
-            sc.scan(n);
+            sc >> n;
             arr.shift(RIGHT, n);
             break;
 
@@ -1038,7 +1040,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             header(std::string{" LEFT ROTATE "});
             show_status(std::string{"Valid rotations: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of rotations: "});
-            sc.scan(n);
+            sc >> n;
             arr.rotate(LEFT, n);
             break;
 
@@ -1046,7 +1048,7 @@ void ArrayHandler<T>::shift_rotate_arr()
             header(std::string{" RIGHT ROTATE "});
             show_status(std::string{"Valid rotations: 1-"}, std::to_string(arr.length()));
             animater(std::string{"Enter the number of rotations: "});
-            sc.scan(n);
+            sc >> n;
             arr.rotate(RIGHT, n);
             break;
 
@@ -1080,7 +1082,7 @@ void ArrayHandler<T>::find_miss_val_arr()
         menu(findValueMenu, std::string{" FIND MISSING VALUES "});
 
         toStop = true;
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {
@@ -1094,13 +1096,14 @@ void ArrayHandler<T>::find_miss_val_arr()
             show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
-            sc.scan(start);
+
+            sc >> start;
 
             std::cout << std::endl;
 
             animater(std::string{"Enter the ending position: "});
 
-            sc.scan(end);
+            sc >> end;
 
             vec = arr.find_missing(start - 1, end - 1);
             break;
@@ -1147,7 +1150,7 @@ void ArrayHandler<T>::find_dup_val_arr()
         menu(findValueMenu, std::string{" FIND DUPLICATE VALUES "});
 
         toStop = true;
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {
@@ -1161,14 +1164,14 @@ void ArrayHandler<T>::find_dup_val_arr()
             show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
-            sc.scan(start);
+
+            sc >> start;
 
             std::cout << std::endl;
 
             animater(std::string{"Enter the ending position: "});
 
-            sc.scan(end);
-
+            sc >> end;
             vec = arr.find_duplicates(start - 1, end - 1);
             break;
 
@@ -1219,14 +1222,15 @@ void ArrayHandler<T>::find_pair_sum_arr()
         menu(findValueMenu, std::string{" FIND A PAIR WITH SUM K "});
 
         toStop = true;
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {
         case 1:
             border(widthMenu);
             animater(std::string{"Enter the sum: "});
-            sc.scan(value);
+
+            sc >> value;
             vec = arr.find_pair_sum(0, arr.length() - 1, value);
             break;
 
@@ -1236,17 +1240,19 @@ void ArrayHandler<T>::find_pair_sum_arr()
             show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
-            sc.scan(start);
+
+            sc >> start;
 
             std::cout << std::endl;
 
             animater(std::string{"Enter the ending position: "});
 
-            sc.scan(end);
+            sc >> end;
 
             border(widthMenu);
             animater(std::string{"Enter the sum: "});
-            sc.scan(value);
+
+            sc >> value;
 
             vec = arr.find_pair_sum(start - 1, end - 1, value);
             break;
@@ -1305,7 +1311,8 @@ void ArrayHandler<T>::get_value()
     show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
     animater(std::string{"Enter the position: "});
-    sc.scan(pos);
+
+    sc >> pos;
 
     T val = arr[pos - 1];
 
@@ -1326,12 +1333,14 @@ void ArrayHandler<T>::set_value()
     show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
     animater(std::string{"Enter the position: "});
-    sc.scan(pos);
+
+    sc >> pos;
 
     std::cout << std::endl;
 
     animater(std::string{"Enter the value: "});
-    sc.scan(set_val);
+
+    sc >> set_val;
 
     get_val = arr[pos - 1];
     arr[pos - 1] = set_val;
@@ -1356,7 +1365,7 @@ void ArrayHandler<T>::average()
         menu(averageMenu, std::string{" AVERAGE "});
 
         toStop = true;
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {
@@ -1369,13 +1378,14 @@ void ArrayHandler<T>::average()
             show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
-            sc.scan(pos);
+
+            sc >> pos;
 
             std::cout << std::endl;
 
             animater(std::string{"Enter the number of elements: "});
 
-            sc.scan(n);
+            sc >> n;
 
             avg = arr.average(pos - 1, n);
             break;
@@ -1414,7 +1424,7 @@ void ArrayHandler<T>::sum()
         menu(sumMenu, std::string{" SUM "});
 
         toStop = true;
-        sc.scanChoice(ch);
+        sc.choice(ch);
 
         switch (ch)
         {
@@ -1427,13 +1437,13 @@ void ArrayHandler<T>::sum()
             show_status(std::string{"Valid position: 1-"}, std::to_string(arr.length()));
 
             animater(std::string{"Enter the starting position: "});
-            sc.scan(pos);
+            sc >> pos;
 
             std::cout << std::endl;
 
             animater(std::string{"Enter the number of elements: "});
 
-            sc.scan(n);
+            sc >> n;
 
             sum = arr.sum(pos - 1, n);
             break;

@@ -6,7 +6,7 @@
 #include "../header/UIhandler.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/AccountHandler.hpp"
-#include "../header/Scanner.hpp"
+#include "../namespace/header/cod_scan.hpp"
 
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
@@ -26,18 +26,18 @@ std::ifstream &operator>>(std::ifstream &ifs, Account &acc)
 
 void Account::input_data()
 {
-    Scanner sc;
+    cod::scan sc;
 
     animater(username);
 
-    userID = sc.scanUsername(); // taking username from user
+    userID = sc.username(); // taking username from user
 
     if (userID == "")
         throw EscPressed();
 
     animater(password);
 
-    pass = sc.scanPassword(); // scanning password
+    pass = sc.password(); // scanning password
 
     if (pass == "")
         throw EscPressed();
@@ -45,7 +45,7 @@ void Account::input_data()
 
 void Account::display_remember_me() const
 {
-    Scanner sc;
+    cod::scan sc;
 
     border(widthMenu);
 
@@ -53,7 +53,8 @@ void Account::display_remember_me() const
 
     // scanning character
     char c;
-    sc.scan(c);
+    // sc.scan(c);
+    sc >> c;
 
     if (c == ESC)
         throw EscPressed();

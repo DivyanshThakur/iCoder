@@ -4,7 +4,7 @@
 #include <conio.h>
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
-#include "../header/Scanner.hpp"
+#include "../namespace/header/cod_scan.hpp"
 
 void load()
 {
@@ -214,9 +214,10 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
     animater(txtConfirm + std::string{" (Y/N): "});
 
     // scanning character
-    Scanner sc;
+    cod::scan sc;
     char c;
-    sc.scan(c);
+
+    sc >> c;
 
     return (::tolower(c) == 'y');
 }

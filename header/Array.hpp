@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "../namespace/header/cod_array.hpp"
-#include "../header/Scanner.hpp"
+#include "../namespace/header/cod_scan.hpp"
 
 void Arrays();
 void array_type_selector(int ch);
@@ -12,7 +12,7 @@ template <typename T>
 class ArrayHandler
 {
     cod::array<T> arr;
-    Scanner sc;
+    cod::scan sc;
     bool show_adv_opn{false};
 
     void pressi_display();

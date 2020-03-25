@@ -6,11 +6,11 @@
 #include "../header/Constants.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
-#include "../header/Scanner.hpp"
+#include "../namespace/header/cod_scan.hpp"
 
 void CreateAccount::input_data()
 {
-    Scanner sc;
+    cod::scan sc;
 
     Account::input_data();
 
@@ -18,7 +18,7 @@ void CreateAccount::input_data()
 
     animater(RePassword);
 
-    pass2 = sc.scanPassword(); // scanning password
+    pass2 = sc.password(); // scanning password
 
     if (pass2 == "")
         throw EscPressed();

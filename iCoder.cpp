@@ -18,13 +18,13 @@
 #include <fstream>
 #include <windows.h>
 #include <dir.h>
+#include "namespace/header/cod_scan.hpp"
 #include "header/ExHandler.hpp"
 #include "header/Constants.hpp"
 #include "header/UIhandler.hpp"
 #include "header/AccountHandler.hpp"
 #include "header/Home.hpp"
 #include "header/Settings.hpp"
-#include "header/Scanner.hpp"
 #include "header/Info.hpp"
 
 /** FUNCTION PROTOTYPES **/
@@ -52,7 +52,7 @@ int main()
     else
         save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 
-    Scanner sc;
+    cod::scan sc;
     int ch;
 
     do
@@ -61,7 +61,7 @@ int main()
 
         try
         {
-            sc.scanChoice(ch); // scan user's choice
+            sc.choice(ch); // scan user's choice
 
             main_menu_controller(ch); // start as per user choice
         }

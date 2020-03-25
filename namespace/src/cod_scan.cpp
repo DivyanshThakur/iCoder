@@ -1,25 +1,21 @@
 #include <iostream>
-#include <sstream>
-#include <conio.h>
-#include "../header/Scanner.hpp"
-#include "../header/Constants.hpp"
-#include "../header/UIhandler.hpp"
-#include "../header/ExHandler.hpp"
-#include "../namespace/header/cod_limits.hpp"
+#include "../header/cod_scan.hpp"
+#include "../header/cod_limits.hpp"
+#include "../../header/Constants.hpp"
 
-Scanner::Scanner() : isLimitExceed{false} {}
+cod::scan::scan() : isLast{true}, isLimitExceed{false} {}
 
-void Scanner::print(const std::string &s) const
+void cod::scan::print(const std::string &s) const
 {
     (s != "") ? std::cout << s : std::cout << std::endl;
 }
 
-int Scanner::checkChar(bool isPassword)
+int cod::scan::checkChar(bool isPassword)
 {
     int flag{0};
 
     if (c == ESC)
-        flag = -1; // -1 means that user has pressed ESC, stop the scanner and return to startup menu
+        flag = -1; // -1 means that user has pressed ESC, stop the scan and return to startup menu
 
     else if (c == ' ')
     {
@@ -64,7 +60,7 @@ int Scanner::checkChar(bool isPassword)
     return flag;
 }
 
-void Scanner::scanChoice(int &choice)
+void cod::scan::choice(int &choice)
 {
     reset();
 
@@ -99,7 +95,7 @@ void Scanner::scanChoice(int &choice)
         choice = cod::limits<int>::min();
 }
 
-std::string Scanner::scanUsername()
+std::string cod::scan::username()
 {
     reset();
 
@@ -131,7 +127,7 @@ std::string Scanner::scanUsername()
     return value;
 }
 
-std::string Scanner::scanPassword()
+std::string cod::scan::password()
 {
     reset();
 
@@ -159,55 +155,54 @@ std::string Scanner::scanPassword()
     return value;
 }
 
-void Scanner::reset()
+void cod::scan::reset()
 {
-    c = '\0';
     value.clear();
     isLimitExceed = false;
 }
 
 /** TEMPLATE FUNCTIONS **/
 
-template <typename T>
-void Scanner::scan(T &data, bool isLast)
-{
-    reset();
-    int count{0};
+// template <typename T>
+// void cod::scan::scanner(T &data, bool isLast)
+// {
+//     reset();
+//     int count{0};
 
-    while ((c = getch()) && !(value.size() && c == '\r'))
-    {
-        if (c == ' ')
-        {
-            if (isLast)
-                ++count;
-            else if (value.size()) // will break only when the string has minimum 1 element
-                break;
+//     while ((c = getch()) && !(value.size() && c == '\r'))
+//     {
+//         if (c == ' ')
+//         {
+//             if (isLast)
+//                 ++count;
+//             else if (value.size()) // will break only when the string has minimum 1 element
+//                 break;
 
-            if (count == 3)
-                emessage(std::string{"     Press Enter to submit data"});
-        }
+//             if (count == 3)
+//                 emessage(std::string{"     Press Enter to submit data"});
+//         }
 
-        if (checkChar() == -1)
-            throw EscPressed();
-    }
+//         if (checkChar() == -1)
+//             throw EscPressed();
+//     }
 
-    if (!isLast)
-    {
-        if (c == '\r')
-            print();
-        else if (c == ' ')
-            print(" ");
-    }
+//     if (!isLast)
+//     {
+//         if (c == '\r')
+//             print();
+//         else if (c == ' ')
+//             print(" ");
+//     }
 
-    std::stringstream ss{value};
+//     std::stringstream ss{value};
 
-    if (!(ss >> data))
-        throw InvalidInputException();
-}
+//     if (!(ss >> data))
+//         throw InvalidInputException();
+// }
 
-template void Scanner::scan<int>(int &choice, bool isLast);
-template void Scanner::scan<size_t>(size_t &choice, bool isLast);
-template void Scanner::scan<long long>(long long &choice, bool isLast);
-template void Scanner::scan<double>(double &choice, bool isLast);
-template void Scanner::scan<char>(char &choice, bool isLast);
-template void Scanner::scan<std::string>(std::string &choice, bool isLast);
+// template void cod::scan::scanner<int>(int &choice, bool isLast);
+// template void cod::scan::scanner<size_t>(size_t &choice, bool isLast);
+// template void cod::scan::scanner<long long>(long long &choice, bool isLast);
+// template void cod::scan::scanner<double>(double &choice, bool isLast);
+// template void cod::scan::scanner<char>(char &choice, bool isLast);
+// template void cod::scan::scanner<std::string>(std::string &choice, bool isLast);
