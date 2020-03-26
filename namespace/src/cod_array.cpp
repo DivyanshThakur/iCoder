@@ -260,16 +260,17 @@ bool cod::array<T>::unique(const std::vector<T> &temp, const T &val)
     return true;
 }
 
+// constructors
 template <typename T>
-cod::array<T>::array() : A(nullptr), size(0), len(0), DEF_VAL(cod::limits<T>::def()), MIN_VAL(cod::limits<T>::min()) {}
+cod::array<T>::array() : A(nullptr), _max_size(0), _size(0), DEF_VAL(cod::limits<T>::def()), MIN_VAL(cod::limits<T>::min()) {}
 
 template <typename T>
-cod::array<T>::array(size_t size) : A(nullptr), size(size), len(0), DEF_VAL(cod::limits<T>::def()), MIN_VAL(cod::limits<T>::min())
+cod::array<T>::array(size_t _max_size) : A(nullptr), _max_size(_max_size), _size(0), DEF_VAL(cod::limits<T>::def()), MIN_VAL(cod::limits<T>::min())
 {
-    if (size < 0)
+    if (_max_size < 0)
         throw NegativeValueException();
     else
-        A = new T[size];
+        A = new T[_max_size];
 }
 
 template <typename T>
@@ -279,9 +280,9 @@ cod::array<T>::array(const array &rhs)
     {
         clear();
 
-        size = rhs.size;
-        len = rhs.len;
-        A = new T[size];
+        _max_size = rhs._max_size;
+        _size = rhs._size;
+        A = new T[_max_size];
 
         size_t i{0};
 
@@ -302,66 +303,7 @@ cod::array<T>::array(array &&rhs)
     }
 }
 
-template <typename T>
-typename cod::array<T>::iterator cod::array<T>::begin() const
-{
-    return iterator(A);
-}
-
-template <typename T>
-typename cod::array<T>::iterator cod::array<T>::end() const
-{
-    return iterator(A + len);
-}
-
-template <typename T>
-const typename cod::array<T>::const_iterator cod::array<T>::cbegin() const
-{
-    return const_iterator(A);
-}
-
-template <typename T>
-const typename cod::array<T>::const_iterator cod::array<T>::cend() const
-{
-    return const_iterator(A + len);
-}
-
-template <typename T>
-const T &cod::array<T>::operator[](size_t x) const
-{
-    if (x < 0 || x >= len)
-        throw OutofBoundsException();
-
-    return A[x];
-}
-
-template <typename T>
-T &cod::array<T>::operator[](size_t x)
-{
-    if (x < 0 || x >= len)
-        throw OutofBoundsException();
-
-    return A[x];
-}
-
-template <typename T>
-T cod::array<T>::at(size_t x) const
-{
-    if (x < 0 || x >= len)
-        throw OutofBoundsException();
-
-    return A[x];
-}
-
-template <typename T>
-T &cod::array<T>::at(size_t x)
-{
-    if (x < 0 || x >= len)
-        throw OutofBoundsException();
-
-    return A[x];
-}
-
+// asignment operators
 template <typename T>
 cod::array<T> &cod::array<T>::operator=(const array &rhs)
 {
@@ -369,9 +311,9 @@ cod::array<T> &cod::array<T>::operator=(const array &rhs)
     {
         clear();
 
-        size = rhs.size;
-        len = rhs.len;
-        A = new T[size];
+        _max_size = rhs._max_size;
+        _size = rhs._size;
+        A = new T[_max_size];
 
         size_t i{0};
 
@@ -390,130 +332,56 @@ cod::array<T> &cod::array<T>::operator=(array &&rhs)
         clear();
 
         A = rhs.A;
-        size = rhs.size;
-        len = rhs.len;
+        _max_size = rhs._max_size;
+        _size = rhs._size;
 
         rhs.A = nullptr;
     }
     return *this;
 }
 
+// iterators
 template <typename T>
-void cod::array<T>::insert(T &x, size_t pos)
+typename cod::array<T>::iterator cod::array<T>::begin() const
 {
-
-    if (len >= size)
-        throw ArrayFullException();
-
-    if (len == 0)
-        throw ArrayEmptyException();
-
-    if (pos > len || pos <= 0)
-        throw InvalidPositionException();
-
-    size_t i;
-
-    for (i = len++; i >= pos; --i)
-    {
-        A[i] = A[i - 1];
-    }
-
-    A[i] = x;
+    return iterator(A);
 }
 
 template <typename T>
-T cod::array<T>::remove(size_t pos)
+typename cod::array<T>::iterator cod::array<T>::end() const
 {
-    T value;
-
-    if (len == 0)
-        throw ArrayEmptyException();
-
-    if (pos > len || pos <= 0)
-        throw InvalidPositionException();
-
-    size_t i = pos - 1;
-
-    value = A[i];
-
-    --len;
-
-    while (i < len)
-    {
-        A[i] = A[i + 1];
-        ++i;
-    }
-
-    return value;
+    return iterator(A + _size);
 }
 
 template <typename T>
-cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
+const typename cod::array<T>::const_iterator cod::array<T>::cbegin() const
 {
-    array values(n);
-
-    if (len == 0)
-        throw ArrayEmptyException();
-
-    if (pos > len || pos <= 0)
-        throw InvalidPositionException();
-
-    if (n < 0)
-        throw NegativeValueException();
-
-    size_t i, j;
-    i = pos - 1;
-    for (j = 0; j < n; ++j, ++i)
-    {
-        if (pos + j > len)
-            break;
-        values.push_back(A[i]);
-    }
-    for (i = pos - 1; i + n < len; ++i)
-        A[i] = A[i + n];
-
-    len -= values.length();
-
-    return values;
+    return const_iterator(A);
 }
 
 template <typename T>
-void cod::array<T>::push_back(const T &x)
+const typename cod::array<T>::const_iterator cod::array<T>::cend() const
 {
-    if (len >= size)
-        throw ArrayFullException();
-
-    A[len++] = x;
+    return const_iterator(A + _size);
 }
 
+// capacity
 template <typename T>
-T cod::array<T>::front() const
+size_t cod::array<T>::size() const
 {
-    if (len == 0)
-        throw ArrayEmptyException();
-
-    return A[0];
-}
-
-template <typename T>
-T cod::array<T>::back() const
-{
-    if (len == 0)
-        throw ArrayEmptyException();
-
-    return A[len - 1];
+    return _size;
 }
 
 template <typename T>
 size_t cod::array<T>::max_size() const
 {
-    return size;
+    return _max_size;
 }
 
 template <typename T>
-size_t cod::array<T>::length() const
+bool cod::array<T>::empty() const
 {
-    return len;
+    return (_size > 0);
 }
 
 template <typename T>
@@ -522,25 +390,25 @@ void cod::array<T>::update_size(int x)
     if (x < 0)
         throw NegativeValueException();
 
-    if (static_cast<int>(size) == x)
+    if (static_cast<int>(_max_size) == x)
         return;
 
-    if (x < static_cast<int>(len))
+    if (x < static_cast<int>(_size))
     {
         bool in;
 
-        in = confirm_the_change(std::string{"Entered size is less than actual\nSome elements might get deleted!"});
+        in = confirm_the_change(std::string{"Entered _max_size is less than actual\nSome elements might get deleted!"});
 
         if (!in)
             return;
     }
 
-    size = x;
+    _max_size = x;
 
-    if (len > size)
-        len = size;
+    if (_size > _max_size)
+        _size = _max_size;
 
-    T *temp_Arr = new T[size];
+    T *temp_Arr = new T[_max_size];
 
     size_t i{0};
 
@@ -552,9 +420,104 @@ void cod::array<T>::update_size(int x)
 }
 
 template <typename T>
+void cod::array<T>::clear()
+{
+    delete[] A;
+    _max_size = _size = 0;
+}
+
+// element access
+template <typename T>
+T &cod::array<T>::operator[](size_t x)
+{
+    if (x < 0 || x >= _size)
+        throw OutofBoundsException();
+
+    return A[x];
+}
+
+template <typename T>
+const T &cod::array<T>::operator[](size_t x) const
+{
+    if (x < 0 || x >= _size)
+        throw OutofBoundsException();
+
+    return A[x];
+}
+
+template <typename T>
+T &cod::array<T>::at(size_t x)
+{
+    if (x < 0 || x >= _size)
+        throw OutofBoundsException();
+
+    return A[x];
+}
+
+template <typename T>
+const T &cod::array<T>::at(size_t x) const
+{
+    if (x < 0 || x >= _size)
+        throw OutofBoundsException();
+
+    return A[x];
+}
+
+template <typename T>
+T &cod::array<T>::front()
+{
+    if (_size == 0)
+        throw ArrayEmptyException();
+
+    return A[0];
+}
+
+template <typename T>
+const T &cod::array<T>::front() const
+{
+    if (_size == 0)
+        throw ArrayEmptyException();
+
+    return A[0];
+}
+
+template <typename T>
+T &cod::array<T>::back()
+{
+    if (_size == 0)
+        throw ArrayEmptyException();
+
+    return A[_size - 1];
+}
+
+template <typename T>
+const T &cod::array<T>::back() const
+{
+    if (_size == 0)
+        throw ArrayEmptyException();
+
+    return A[_size - 1];
+}
+
+template <typename T>
+T *cod::array<T>::data()
+{
+
+    return A;
+}
+
+template <typename T>
+const T *cod::array<T>::data() const
+{
+
+    return A;
+}
+
+// modifiers
+template <typename T>
 void cod::array<T>::fill(const T &x)
 {
-    fill(x, 0, len);
+    fill(x, 0, _size);
 }
 
 template <typename T>
@@ -562,19 +525,6 @@ void cod::array<T>::fill(const T &x, size_t start, size_t end)
 {
     for (size_t i{start}; i < end; ++i)
         A[i] = x;
-}
-
-template <typename T>
-bool cod::array<T>::empty() const
-{
-    return (len > 0);
-}
-
-template <typename T>
-void cod::array<T>::clear()
-{
-    delete[] A;
-    size = len = 0;
 }
 
 template <typename T>
@@ -594,27 +544,195 @@ void cod::array<T>::swap(size_t i, size_t j)
 }
 
 template <typename T>
+void cod::array<T>::insert(T &x, size_t pos)
+{
+
+    if (_size >= _max_size)
+        throw ArrayFullException();
+
+    if (_size == 0)
+        throw ArrayEmptyException();
+
+    if (pos > _size || pos <= 0)
+        throw InvalidPositionException();
+
+    size_t i;
+
+    for (i = _size++; i >= pos; --i)
+    {
+        A[i] = A[i - 1];
+    }
+
+    A[i] = x;
+}
+
+template <typename T>
+T cod::array<T>::remove(size_t pos)
+{
+    T value;
+
+    if (_size == 0)
+        throw ArrayEmptyException();
+
+    if (pos > _size || pos <= 0)
+        throw InvalidPositionException();
+
+    size_t i = pos - 1;
+
+    value = A[i];
+
+    --_size;
+
+    while (i < _size)
+    {
+        A[i] = A[i + 1];
+        ++i;
+    }
+
+    return value;
+}
+
+template <typename T>
+cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
+{
+    array values(n);
+
+    if (_size == 0)
+        throw ArrayEmptyException();
+
+    if (pos > _size || pos <= 0)
+        throw InvalidPositionException();
+
+    if (n < 0)
+        throw NegativeValueException();
+
+    size_t i, j;
+    i = pos - 1;
+    for (j = 0; j < n; ++j, ++i)
+    {
+        if (pos + j > _size)
+            break;
+        values.push_back(A[i]);
+    }
+    for (i = pos - 1; i + n < _size; ++i)
+        A[i] = A[i + n];
+
+    _size -= values.size();
+
+    return values;
+}
+
+template <typename T>
+void cod::array<T>::push_back(const T &x)
+{
+    if (_size >= _max_size)
+        throw ArrayFullException();
+
+    A[_size++] = x;
+}
+
+// relational operators
+template <typename T>
+bool cod::array<T>::operator==(const array &rhs)
+{
+    if (_size != rhs._size)
+        return false;
+
+    for (size_t i{0}; i < _size; ++i)
+        if (A[i] != rhs.A[i])
+            return false;
+
+    return true;
+}
+
+template <typename T>
+bool cod::array<T>::operator!=(const array &rhs)
+{
+    if (_size != rhs._size)
+        return true;
+
+    for (size_t i{0}; i < _size; ++i)
+        if (A[i] != rhs.A[i])
+            return true;
+
+    return false;
+}
+
+template <typename T>
+bool cod::array<T>::operator<(const array &rhs)
+{
+    if (_size != rhs._size)
+        return false;
+
+    for (size_t i{0}; i < _size; ++i)
+        if (A[i] >= rhs.A[i])
+            return false;
+
+    return true;
+}
+
+template <typename T>
+bool cod::array<T>::operator<=(const array &rhs)
+{
+    if (_size != rhs._size)
+        return false;
+
+    for (size_t i{0}; i < _size; ++i)
+        if (A[i] > rhs.A[i])
+            return false;
+
+    return true;
+}
+
+template <typename T>
+bool cod::array<T>::operator>(const array &rhs)
+{
+    if (_size != rhs._size)
+        return false;
+
+    for (size_t i{0}; i < _size; ++i)
+        if (A[i] <= rhs.A[i])
+            return false;
+
+    return true;
+}
+
+template <typename T>
+bool cod::array<T>::operator>=(const array &rhs)
+{
+    if (_size != rhs._size)
+        return false;
+
+    for (size_t i{0}; i < _size; ++i)
+        if (A[i] < rhs.A[i])
+            return false;
+
+    return true;
+}
+
+// shift & roate functions
+template <typename T>
 void cod::array<T>::shift(Side s, size_t n)
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     // code to shift the elements
 
-    if (n > len)
-        n %= len; // using rotation for any value of n,it adjusts with the array length
+    if (n > _size)
+        n %= _size; // using rotation for any value of n,it adjusts with the array size
 
     size_t i, j;
     switch (s)
     {
     case LEFT:
-        for (i = n, j = 0; i < len; ++i, ++j)
+        for (i = n, j = 0; i < _size; ++i, ++j)
             A[j] = A[i];
         fill(DEF_VAL, j, i);
         break;
 
     case RIGHT:
-        for (i = len - n - 1, j = len - 1; i + 1 > 0; --i, --j)
+        for (i = _size - n - 1, j = _size - 1; i + 1 > 0; --i, --j)
             A[j] = A[i];
         fill(DEF_VAL, i + 1, j + 1);
         break;
@@ -624,12 +742,12 @@ void cod::array<T>::shift(Side s, size_t n)
 template <typename T>
 void cod::array<T>::rotate(Side s, size_t n)
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     // code to rotate the array
 
-    n %= len; // using rotation for any value of n,it adjusts with the array length
+    n %= _size; // using rotation for any value of n,it adjusts with the array size
 
     size_t i, j;
     array temp_arr(n);
@@ -640,21 +758,21 @@ void cod::array<T>::rotate(Side s, size_t n)
         for (i = 0; i < n; ++i)
             temp_arr.push_back(A[i]);
 
-        for (i = n, j = 0; i < len; ++i, ++j)
+        for (i = n, j = 0; i < _size; ++i, ++j)
             A[j] = A[i];
 
-        for (i = 0; j < len; ++i, ++j)
+        for (i = 0; j < _size; ++i, ++j)
             A[j] = temp_arr[i];
         break;
 
     case RIGHT:
-        for (i = 0, j = len - 1; i < n; ++i)
+        for (i = 0, j = _size - 1; i < n; ++i)
             temp_arr.push_back(A[j--]);
 
-        for (i = len - n - 1, j = len - 1; i + 1 > 0; --i, --j)
+        for (i = _size - n - 1, j = _size - 1; i + 1 > 0; --i, --j)
             A[j] = A[i];
 
-        for (i = 0; j < len; ++i, --j)
+        for (i = 0; j < _size; ++i, --j)
             A[j] = temp_arr[i];
         break;
     }
@@ -664,7 +782,7 @@ template <typename T>
 size_t cod::array<T>::lsearch(const T &x)
 {
     size_t i{0};
-    for (; i < len; ++i)
+    for (; i < _size; ++i)
         if (A[i] == x)
         {
             switch (stats)
@@ -689,7 +807,7 @@ size_t cod::array<T>::lsearch(const T &x)
             break;
         }
 
-    if (i == len)
+    if (i == _size)
         i = 0;
 
     return i;
@@ -701,7 +819,7 @@ size_t cod::array<T>::bsearch(const T &x) const
     int l, h, mid;
 
     l = 0;
-    h = static_cast<int>(len) - 1;
+    h = static_cast<int>(_size) - 1;
 
     while (l <= h)
     {
@@ -722,7 +840,7 @@ size_t cod::array<T>::bsearch(const T &x) const
 template <typename T>
 bool cod::array<T>::isSorted() const
 {
-    for (size_t i{1}; i < len; ++i)
+    for (size_t i{1}; i < _size; ++i)
         if (A[i - 1] > A[i])
             return false;
 
@@ -732,8 +850,8 @@ bool cod::array<T>::isSorted() const
 template <typename T>
 bool cod::array<T>::hasDuplicates() const
 {
-    for (size_t i{0}; i < len - 1; ++i)
-        for (size_t j{i + 1}; j < len; ++j)
+    for (size_t i{0}; i < _size - 1; ++i)
+        for (size_t j{i + 1}; j < _size; ++j)
             if (A[i] == A[j])
                 return true;
 
@@ -747,8 +865,8 @@ void cod::array<T>::sort()
     if (!toSort)
         throw EscPressed();
 
-    for (size_t i{0}; i < len; ++i)
-        for (size_t j{i + 1}; j < len; ++j)
+    for (size_t i{0}; i < _size; ++i)
+        for (size_t j{i + 1}; j < _size; ++j)
             if (A[i] > A[j])
                 swap(i, j);
 }
@@ -756,11 +874,11 @@ void cod::array<T>::sort()
 template <typename T>
 cod::array<T> cod::array<T>::merge(const array &rhs)
 {
-    array mix_arr(len + rhs.len);
+    array mix_arr(_size + rhs._size);
 
     size_t i{0}, j{0};
 
-    while (i < len && j < rhs.len)
+    while (i < _size && j < rhs._size)
     {
         if (A[i] < rhs[j])
             mix_arr.push_back(A[i++]);
@@ -768,25 +886,26 @@ cod::array<T> cod::array<T>::merge(const array &rhs)
             mix_arr.push_back(rhs.A[j++]);
     }
 
-    while (i < len)
+    while (i < _size)
         mix_arr.push_back(A[i++]);
 
-    while (j < rhs.len)
+    while (j < rhs._size)
         mix_arr.push_back(rhs.A[j++]);
 
     return mix_arr;
 }
 
+// sets
 template <typename T>
 cod::array<T> cod::array<T>::Union(const array &rhs)
 {
-    array temp_arr(len + rhs.len);
+    array temp_arr(_size + rhs._size);
 
     if (this->isSorted() && rhs.isSorted())
     {
         size_t i{0}, j{0};
 
-        while (i < len && j < rhs.len)
+        while (i < _size && j < rhs._size)
         {
             if (A[i] < rhs.A[j])
                 temp_arr.push_back(A[i++]);
@@ -799,10 +918,10 @@ cod::array<T> cod::array<T>::Union(const array &rhs)
             }
         }
 
-        while (i < len)
+        while (i < _size)
             temp_arr.push_back(A[i++]);
 
-        while (j < rhs.len)
+        while (j < rhs._size)
             temp_arr.push_back(rhs.A[j++]);
     }
     else
@@ -830,13 +949,13 @@ cod::array<T> cod::array<T>::Union(const array &rhs)
 template <typename T>
 cod::array<T> cod::array<T>::Intersection(const array &rhs)
 {
-    array temp_arr(len + rhs.len);
+    array temp_arr(_size + rhs._size);
 
     if (this->isSorted() && rhs.isSorted())
     {
         size_t i{0}, j{0};
 
-        while (i < len && j < rhs.len)
+        while (i < _size && j < rhs._size)
         {
             if (A[i] < rhs.A[j])
                 ++i;
@@ -870,13 +989,13 @@ cod::array<T> cod::array<T>::Intersection(const array &rhs)
 template <typename T>
 cod::array<T> cod::array<T>::Difference(const array &rhs)
 {
-    array temp_arr(len + rhs.len);
+    array temp_arr(_size + rhs._size);
 
     if (this->isSorted() && rhs.isSorted())
     {
         size_t i{0}, j{0};
 
-        while (i < len && j < rhs.len)
+        while (i < _size && j < rhs._size)
         {
             if (A[i] < rhs.A[j])
                 temp_arr.push_back(A[i++]);
@@ -889,10 +1008,10 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
             }
         }
 
-        while (i < len)
+        while (i < _size)
             temp_arr.push_back(A[i++]);
 
-        while (j < rhs.len)
+        while (j < rhs._size)
             temp_arr.push_back(rhs.A[j++]);
     }
     else
@@ -915,16 +1034,17 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
     return temp_arr;
 }
 
+// finding values
 template <typename T>
 std::vector<cod::pair<T, int>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     if (start > end)
         throw InvalidPositionException();
 
-    if (start < 0 || end >= len)
+    if (start < 0 || end >= _size)
         throw InvalidInputException();
 
     std::vector<cod::pair<T, int>> vec;
@@ -971,13 +1091,13 @@ std::vector<cod::pair<T, int>> cod::array<T>::find_duplicates(size_t start, size
 template <typename T>
 std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for string, double(if not sorted)
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     if (start > end)
         throw InvalidPositionException();
 
-    if (start < 0 || end >= len)
+    if (start < 0 || end >= _size)
         throw InvalidInputException();
 
     std::vector<T> vec;
@@ -999,13 +1119,13 @@ std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for 
     {
         T min = this->min();
         array hash(max() - min + 1);
-        hash.len = hash.size;
+        hash._size = hash._max_size;
         hash.fill(DEF_VAL);
 
         for (; i <= end; ++i)
             ++hash[A[i] - min];
 
-        for (i = 0; i < hash.len; ++i)
+        for (i = 0; i < hash._size; ++i)
             if (hash[i] == DEF_VAL)
                 vec.push_back(min + i);
     }
@@ -1015,13 +1135,13 @@ std::vector<T> cod::array<T>::find_missing(size_t start, size_t end) // not for 
 template <>
 std::vector<double> cod::array<double>::find_missing(size_t start, size_t end) // not for string, double(if not sorted)
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     if (start > end)
         throw InvalidPositionException();
 
-    if (start < 0 || end >= len)
+    if (start < 0 || end >= _size)
         throw InvalidInputException();
 
     std::vector<double> vec;
@@ -1050,13 +1170,13 @@ std::vector<double> cod::array<double>::find_missing(size_t start, size_t end) /
 template <typename T>
 std::vector<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end, T &k) // only for numbers
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     if (start > end)
         throw InvalidPositionException();
 
-    if (start < 0 || end >= len)
+    if (start < 0 || end >= _size)
         throw InvalidInputException();
 
     std::vector<array<T>> vec;
@@ -1097,18 +1217,19 @@ std::vector<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end
     return vec;
 }
 
+// basic operations
 template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
 {
     size_t i = start, j = end;
 
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     if (start > end)
         throw InvalidPositionException();
 
-    if (start < 0 || end >= len)
+    if (start < 0 || end >= _size)
         throw InvalidInputException();
 
     while (i < j)
@@ -1118,10 +1239,10 @@ void cod::array<T>::reverse(size_t start, size_t end) // start and end are the f
 template <typename T>
 double cod::array<T>::average(size_t start, int n) const
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
-    if (start >= len || start < 0)
+    if (start >= _size || start < 0)
         throw InvalidPositionException();
 
     if (n < 0)
@@ -1132,7 +1253,7 @@ double cod::array<T>::average(size_t start, int n) const
 
     for (i = 0; i < n; ++i)
     {
-        if (start == len)
+        if (start == _size)
             break;
         avg += A[start++];
     }
@@ -1143,10 +1264,10 @@ double cod::array<T>::average(size_t start, int n) const
 template <typename T>
 T cod::array<T>::sum(size_t start, int n) const
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
-    if (start >= len || start < 0)
+    if (start >= _size || start < 0)
         throw InvalidPositionException();
 
     if (n < 0)
@@ -1157,7 +1278,7 @@ T cod::array<T>::sum(size_t start, int n) const
 
     for (i = 0; i < n; ++i)
     {
-        if (start == len)
+        if (start == _size)
             break;
         sum += A[start++];
     }
@@ -1167,14 +1288,14 @@ T cod::array<T>::sum(size_t start, int n) const
 template <typename T>
 T cod::array<T>::min() const
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     T min;
 
     min = A[0];
 
-    for (size_t i{1}; i < len; ++i)
+    for (size_t i{1}; i < _size; ++i)
     {
         if (min > A[i])
             min = A[i];
@@ -1186,14 +1307,14 @@ T cod::array<T>::min() const
 template <typename T>
 T cod::array<T>::max() const
 {
-    if (len == 0)
+    if (_size == 0)
         throw ArrayEmptyException();
 
     T max;
 
     max = A[0];
 
-    for (size_t i{1}; i < len; ++i)
+    for (size_t i{1}; i < _size; ++i)
     {
         if (max < A[i])
             max = A[i];
@@ -1206,7 +1327,7 @@ template <typename T>
 cod::array<T>::~array()
 {
     delete[] A;
-    size = len = 0;
+    _max_size = _size = 0;
 }
 
 // useless types in funcitons
