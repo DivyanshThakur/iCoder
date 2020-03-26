@@ -1,13 +1,17 @@
-#include <iostream>
 #include "../header/cod_array.hpp"
 #include "../header/cod_limits.hpp"
 #include "../header/cod_pair.hpp"
 #include "../../header/UIhandler.hpp"
 #include "../../header/ExHandler.hpp"
 
-/*************************************************** ITERATOR METHODS ***************************************************/
+/************************************************************************************************************************
+ * 
+ *                                                    ITERATOR METHODS                                                  
+ * 
+ ***********************************************************************************************************************/
 
-// Iterator -array
+/****************************************************** ITERATOR *******************************************************/
+
 template <typename T>
 cod::array<T>::iterator::iterator() : ptr(nullptr)
 {
@@ -128,7 +132,8 @@ T *cod::array<T>::iterator::get_ptr() const
     return ptr;
 }
 
-// const_iterator -array
+/*************************************************** CONST ITERATOR ****************************************************/
+
 template <typename T>
 cod::array<T>::const_iterator::const_iterator() : ptr(nullptr)
 {
@@ -249,7 +254,11 @@ const T *cod::array<T>::const_iterator::get_ptr() const
     return ptr;
 }
 
-/**************************************************** ARRAY METHODS ****************************************************/
+/************************************************************************************************************************
+ * 
+ *                                                     ARRAY METHODS                                                  
+ * 
+ ***********************************************************************************************************************/
 
 template <typename T>
 bool cod::array<T>::unique(const std::vector<T> &temp, const T &val)
@@ -260,7 +269,8 @@ bool cod::array<T>::unique(const std::vector<T> &temp, const T &val)
     return true;
 }
 
-// constructors
+/***************************************************** CONSTRUCTOR *****************************************************/
+
 template <typename T>
 cod::array<T>::array() : A(nullptr), _max_size(0), _size(0), DEF_VAL(cod::limits<T>::def()), MIN_VAL(cod::limits<T>::min()) {}
 
@@ -303,7 +313,20 @@ cod::array<T>::array(array &&rhs)
     }
 }
 
-// asignment operators
+template <typename T>
+cod::array<T>::array(const std::initializer_list<T> &list)
+{
+    _size = _max_size = list.size();
+    A = new T[_max_size];
+
+    size_t i{0};
+
+    for (const auto &val : list)
+        A[i++] = val;
+}
+
+/************************************************* ASSIGNMENT OPERATOR *************************************************/
+
 template <typename T>
 cod::array<T> &cod::array<T>::operator=(const array &rhs)
 {
@@ -340,7 +363,8 @@ cod::array<T> &cod::array<T>::operator=(array &&rhs)
     return *this;
 }
 
-// iterators
+/*************************************************** ARRAY ITERATOR ****************************************************/
+
 template <typename T>
 typename cod::array<T>::iterator cod::array<T>::begin() const
 {
@@ -365,7 +389,8 @@ const typename cod::array<T>::const_iterator cod::array<T>::cend() const
     return const_iterator(A + _size);
 }
 
-// capacity
+/****************************************************** CAPACITY *******************************************************/
+
 template <typename T>
 size_t cod::array<T>::size() const
 {
@@ -426,7 +451,8 @@ void cod::array<T>::clear()
     _max_size = _size = 0;
 }
 
-// element access
+/*************************************************** ELEMENT ACCESS ****************************************************/
+
 template <typename T>
 T &cod::array<T>::operator[](size_t x)
 {
@@ -513,7 +539,8 @@ const T *cod::array<T>::data() const
     return A;
 }
 
-// modifiers
+/****************************************************** MODIFIERS ******************************************************/
+
 template <typename T>
 void cod::array<T>::fill(const T &x)
 {
@@ -631,7 +658,8 @@ void cod::array<T>::push_back(const T &x)
     A[_size++] = x;
 }
 
-// relational operators
+/************************************************ RELATIONAL OPERATORS *************************************************/
+
 template <typename T>
 bool cod::array<T>::operator==(const array &rhs)
 {
@@ -710,7 +738,8 @@ bool cod::array<T>::operator>=(const array &rhs)
     return true;
 }
 
-// shift & roate functions
+/************************************************** SHIFT/ROTATE *******************************************************/
+
 template <typename T>
 void cod::array<T>::shift(Side s, size_t n)
 {
@@ -895,7 +924,8 @@ cod::array<T> cod::array<T>::merge(const array &rhs)
     return mix_arr;
 }
 
-// sets
+/******************************************************** SET **********************************************************/
+
 template <typename T>
 cod::array<T> cod::array<T>::Union(const array &rhs)
 {
@@ -1034,7 +1064,8 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
     return temp_arr;
 }
 
-// finding values
+/**************************************************** FIND VALUES ******************************************************/
+
 template <typename T>
 std::vector<cod::pair<T, int>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
 {
@@ -1217,7 +1248,8 @@ std::vector<cod::array<T>> cod::array<T>::find_pair_sum(size_t start, size_t end
     return vec;
 }
 
-// basic operations
+/************************************************** BASIC OPERATION ****************************************************/
+
 template <typename T>
 void cod::array<T>::reverse(size_t start, size_t end) // start and end are the first and last elements of array
 {
@@ -1330,7 +1362,8 @@ cod::array<T>::~array()
     _max_size = _size = 0;
 }
 
-// useless types in funcitons
+/************************************************* USELESS DATA TYPES **************************************************/
+
 template <>
 double cod::array<char>::average(size_t start, int n) const
 {
@@ -1373,7 +1406,8 @@ std::vector<cod::array<char>> cod::array<char>::find_pair_sum(size_t start, size
     return std::vector<cod::array<char>>();
 }
 
-// template class declaration
+/********************************************** TEMPLATE DECLARATION ***************************************************/
+
 template class cod::array<int>;
 template class cod::array<long long>;
 template class cod::array<double>;

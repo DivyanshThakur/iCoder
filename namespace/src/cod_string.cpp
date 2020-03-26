@@ -31,6 +31,10 @@ cod::string::string(string &&source) : str(nullptr)
     source.str = nullptr;
 }
 
+cod::string::string(const std::initializer_list<char> &list)
+{
+}
+
 cod::string &cod::string::operator=(const string &source)
 {
     delete[] str;

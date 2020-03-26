@@ -29,10 +29,11 @@ class string
     char *str;
 
 public:
-    string();
-    string(const char *s);
-    string(const string &source);
-    string(string &&source);
+    string();                                        // no-args
+    string(const char *s);                           // paramaterized
+    string(const string &source);                    // copy
+    string(string &&source);                         //move
+    string(const std::initializer_list<char> &list); // initializer list
 
     string &operator=(const string &s);
     string &operator=(string &&s);
