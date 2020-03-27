@@ -1,11 +1,13 @@
 #include <cstring>
 #include "../header/cod_string.hpp"
+#include "../header/cod_limits.hpp"
+#include "../header/cod_algorithm.hpp"
 
 cod::string::string() : string(nullptr)
 {
 }
 
-cod::string::string(const char *s) : str(nullptr)
+cod::string::string(const char *s) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
 {
     if (s == nullptr)
     {
@@ -14,41 +16,71 @@ cod::string::string(const char *s) : str(nullptr)
     }
     else
     {
-        str = new char[strlen(s) + 1];
+        _size = strlen(s) + 1;
+        str = new char[_size];
         strcpy(str, s);
     }
 }
 
-cod::string::string(const string &source) : str(nullptr)
+cod::string::string(const string &rhs) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
 {
-    str = new char[strlen(source.str) + 1];
-    strcpy(str, source.str);
+    _size = strlen(rhs.str) + 1;
+    str = new char[_size];
+    strcpy(str, rhs.str);
 }
 
-cod::string::string(string &&source) : str(nullptr)
+cod::string::string(string &&rhs) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
 {
-    str = source.str;
-    source.str = nullptr;
+    str = rhs.str;
+    _size = rhs._size;
+    rhs.str = nullptr;
 }
 
-cod::string::string(const std::initializer_list<char> &list)
+cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
 {
+    _size = list.size() + 1;
+    str = new char[_size];
+
+    size_t i{0};
+
+    for (const auto &c : list)
+        str[i++] = c;
+
+    str[i] = '\0';
 }
 
-cod::string &cod::string::operator=(const string &source)
+cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
+{
+    if (len == npos)
+        _size = rhs._size - pos;
+    else
+        _size = cod::min(rhs._size, len + 1);
+
+    str = new char[_size];
+
+    size_t i{0};
+
+    for (; i < _size - 1; ++i)
+    {
+        str[i] = rhs.str[pos + i];
+    }
+    str[i] = '\0';
+}
+
+cod::string &cod::string::operator=(const string &rhs)
 {
     delete[] str;
 
-    str = new char[strlen(source.str) + 1];
-    strcpy(str, source.str);
+    str = new char[strlen(rhs.str) + 1];
+    strcpy(str, rhs.str);
 
     return *this;
 }
 
-cod::string &cod::string::operator=(string &&source)
+cod::string &cod::string::operator=(string &&rhs)
 {
-    strcpy(str, source.str);
-    source.str = nullptr;
+    strcpy(str, rhs.str);
+    rhs.str = nullptr;
 
     return *this;
 }
