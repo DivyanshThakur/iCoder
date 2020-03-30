@@ -40,7 +40,7 @@ public:
     string(string &&rhs);                                     // move
     string(const std::initializer_list<char> &list);          // initializer list
     string(const string &rhs, size_t pos, size_t len = npos); // substring
-    // string(const iterator &first, const iterator &last);      // range
+    // string(const iterator &first, const iterator &last);   // range
 
     /************************************************* ASSIGNMENT OPERATOR ***********************************************/
     string &operator=(const string &rhs);                       // copy

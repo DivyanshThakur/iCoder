@@ -636,7 +636,7 @@ void ArrayHandler<T>::add_elements()
               << "Value stored: " << arr.size();
     border(widthMenu);
 
-    animater(std::string{"Enter size: "});
+    animater(std::string{"Enter no of values: "});
 
     sc >> size;
 
@@ -650,6 +650,7 @@ void ArrayHandler<T>::add_elements()
         if (arr.size() == arr.max_size())
             throw ArrayFullException();
 
+        std::cout << static_cast<char>(175) << " ";
         sc >> ((i == size - 1) || (arr.size() + 1 == arr.max_size())) >> value;
 
         arr.push_back(value);
