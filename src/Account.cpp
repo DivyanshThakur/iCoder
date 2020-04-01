@@ -38,15 +38,9 @@ void Account::input_data()
 
     userID = sc.username(); // taking username from user
 
-    if (userID == "")
-        throw EscPressed();
-
     animater(password);
 
     pass = sc.password(); // scanning password
-
-    if (pass == "")
-        throw EscPressed();
 }
 
 void Account::display_remember_me() const
@@ -61,9 +55,6 @@ void Account::display_remember_me() const
     char c;
 
     sc >> c;
-
-    if (c == ESC)
-        throw EscPressed();
 
     if (::tolower(c) == 'y')
         save_active_user(userID); // save the current user

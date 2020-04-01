@@ -106,7 +106,7 @@ std::string cod::scan::username()
         switch (checkChar())
         {
         case -1:
-            return std::string{""};
+            throw EscPressed();
 
         case 0:
             break;
@@ -138,7 +138,7 @@ std::string cod::scan::password()
         switch (checkChar(true))
         {
         case -1:
-            return std::string{""};
+            throw EscPressed();
 
         case 0:
             break;

@@ -20,9 +20,6 @@ void CreateAccount::input_data()
     animater(RePassword);
 
     pass2 = sc.password(); // scanning password
-
-    if (pass2 == "")
-        throw EscPressed();
 }
 
 void CreateAccount::upload_account()
