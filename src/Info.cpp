@@ -28,8 +28,8 @@ void help()
     header(std::string{" HELP "});
 
     std::cout << std::setw(widthIndex) << std::left << " Key"
-              << "   Description" << std::endl
-              << std::endl;
+              << "    Description";
+    border(widthMenu);
 
     size_t i{0};
 
@@ -113,8 +113,8 @@ void changelog()
     header(std::string{" CHANGELOG "});
 
     std::cout << std::setw(widthIndex + 2) << std::left << "Version"
-              << "   Description" << std::endl
-              << std::endl;
+              << "    Description";
+    border(widthMenu);
 
     size_t i{0};
 
@@ -133,11 +133,12 @@ void changelog()
             if (i > 0 && logVersionDesc.at(i - 1) != "\n")
                 std::cout << std::setw(widthIndex + 2) << "";
 
-            std::cout << "-> " << logVersionDesc.at(i) << std::endl;
-        }
+            std::cout << "-> " << logVersionDesc.at(i);
 
-        if (vInfo != std::string{"1.0"})
-            std::cout << std::endl;
+            if (vInfo != std::string{"1.0"})
+                std::cout << std::endl
+                          << std::endl;
+        }
     }
     press_key(NIL);
 }

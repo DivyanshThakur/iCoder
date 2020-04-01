@@ -112,12 +112,13 @@ void show_hint()
 {
     header(std::string{" HINT "}, false);
 
-    std::cout << std::setw(6) << std::left << " Esc "
+    std::cout << std::setw(8) << std::left << " Esc "
               << "Last Screen" << std::endl
-              << std::setw(6) << std::left << " h "
+              << std::setw(8) << std::left << " h "
               << "Help screen" << std::endl
-              << std::setw(6) << std::left << " d "
-              << "Disable this hint" << std::endl;
+              << std::setw(8) << std::left << " d "
+              << "Disable this hint" << std::endl
+              << std::endl;
 }
 
 void border(int size)

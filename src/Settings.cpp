@@ -21,7 +21,7 @@ void show_me_first(const std::string &message, int repeatFor)
     while (repeatFor--)
     {
         std::cout << message;
-        Sleep(600);
+        Sleep(500);
 
         if (repeatFor == 0)
             break;
@@ -35,7 +35,6 @@ void show_me_first(const std::string &message, int repeatFor)
 
         std::cout << std::endl;
     }
-    Sleep(200);
 
     settings();
 }

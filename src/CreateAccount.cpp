@@ -7,6 +7,7 @@
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
+#include "../header/Security.hpp"
 
 void CreateAccount::input_data()
 {
@@ -27,6 +28,7 @@ void CreateAccount::input_data()
 void CreateAccount::upload_account()
 {
     std::ofstream file{fUser, std::ios::app};
+    Encrypter ec;
 
     if (!file)
         throw SavingUserException();
@@ -41,7 +43,7 @@ void CreateAccount::upload_account()
         throw;
     }
 
-    file << std::setw(widthUsername) << std::left << userID << std::setw(widthPassword) << std::left << pass << std::endl;
+    file << std::setw(widthUsername) << std::left << userID << std::setw(widthPassword) << std::left << ec.encrypt(pass) << std::endl;
 
     file.close();
 }

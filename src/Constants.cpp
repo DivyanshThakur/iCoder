@@ -1,4 +1,5 @@
 #include "../header/Constants.hpp"
+#include "../namespace/header/cod_array.hpp"
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 

@@ -7,6 +7,7 @@
 #include "../header/ExHandler.hpp"
 #include "../header/AccountHandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
+#include "../header/Security.hpp"
 
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
@@ -20,7 +21,12 @@ std::ostream &operator<<(std::ostream &os, Account &acc)
 
 std::ifstream &operator>>(std::ifstream &ifs, Account &acc)
 {
-    ifs >> acc.userID >> acc.pass;
+    std::string key;
+    Decrypter dc;
+
+    ifs >> acc.userID >> key;
+    acc.pass = dc.decrypt(key);
+
     return ifs;
 }
 
@@ -53,7 +59,7 @@ void Account::display_remember_me() const
 
     // scanning character
     char c;
-    // sc.scan(c);
+
     sc >> c;
 
     if (c == ESC)
@@ -69,13 +75,14 @@ void Account::check_account() const
 {
     std::ifstream file(fUser);
     std::string fusername, fpassword;
+    Decrypter dc;
 
     if (!file)
         throw FileNotOpenedException();
 
     while (file >> fusername && file >> fpassword)
     {
-        if (userID == fusername && pass == fpassword)
+        if (userID == fusername && pass == dc.decrypt(fpassword))
         {
             file.close();
             return;

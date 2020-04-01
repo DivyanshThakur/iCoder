@@ -1,4 +1,4 @@
-OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\Home.o obj\Info.o obj\Settings.o obj\UIhandler.o
+OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\Home.o obj\Info.o obj\Security.o obj\Settings.o obj\UIhandler.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
 OBJF = obj/*.o
 LIBS = -static
@@ -36,6 +36,9 @@ obj\Home.o: src\Home.cpp header\Home.hpp
 
 obj\Info.o: src\Info.cpp header\Info.hpp
 	$(CC) $(CFLAGS) src\Info.cpp -o obj\Info.o
+
+obj\Security.o: src\Security.cpp header\Security.hpp
+	$(CC) $(CFLAGS) src\Security.cpp -o obj\Security.o
 
 obj\Array.o: src\Array.cpp header\Array.hpp
 	$(CC) $(CFLAGS) src\Array.cpp -o obj\Array.o
