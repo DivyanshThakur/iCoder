@@ -10,7 +10,7 @@ bool showWelcome{true};
 bool showHint{true};
 bool showedOneTime{true};
 const std::string devName{"Divyansh Singh Thakur"};
-const std::string versionInfo{"1.7.20.3.25-beta"};
+const std::string versionInfo{"1.7.20.4.1-beta"};
 const std::string sCodeUrl{"https://github.com/DivyanshThakur/iCoder"};
 const std::string iCoderUrl{"https://github.com/DivyanshThakur/iCoder/raw/master/iCoder.exe"};
 const std::string iCoderBetaUrl{"https://github.com/DivyanshThakur/iCoder/raw/Development/iCoder.exe"};
