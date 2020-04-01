@@ -45,14 +45,14 @@ cod::string::string(size_t n, char c) : str(nullptr), _size(0), _max_size(cod::l
 
 cod::string::string(const string &rhs) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
 {
-    _size = rhs._size;
+    _size = rhs.size() + 1;
     str = new char[_size];
     strcpy(str, rhs.str);
 }
 
 cod::string::string(string &&rhs) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
 {
-    _size = rhs._size;
+    _size = rhs.size() + 1;
     str = rhs.str;
     rhs.str = nullptr;
 }
@@ -73,9 +73,9 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _si
 cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _size(0), _max_size(cod::limits<size_t>::max())
 {
     if (len == npos)
-        _size = rhs._size - pos;
+        _size = rhs.size() - pos + 1;
     else
-        _size = cod::min(rhs._size, len + 1);
+        _size = cod::min(rhs.size(), len) + 1;
 
     str = new char[_size];
 
@@ -85,6 +85,7 @@ cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _
     {
         str[i] = rhs.str[pos + i];
     }
+
     str[i] = '\0';
 }
 
@@ -92,63 +93,91 @@ cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _
 
 cod::string &cod::string::operator=(const string &rhs)
 {
-    // delete[] str;
+    if (_size < rhs._size)
+    {
+        delete[] str;
+        _size = rhs._size;
+        str = new char[_size];
 
-    // _size = rhs._size;
-
-    // str = new char[_size];
-    // strcpy(str, rhs.str);
+        strcpy(str, rhs.str);
+    }
+    else
+    {
+        memcpy(str, rhs.str, rhs.size() + 1);
+    }
 
     return *this;
 }
 
 cod::string &cod::string::operator=(string &&rhs)
 {
-    // delete[] str;
-    // _size = rhs._size;
+    delete[] str;
+    _size = rhs._size;
 
-    // str = rhs.str;
-    // rhs.str = nullptr;
+    str = rhs.str;
+    rhs.str = nullptr;
 
     return *this;
 }
 
 cod::string &cod::string::operator=(const char *s)
 {
-    // delete[] str;
-    // _size = strlen(s) + 1;
-    // str = new char[_size];
+    size_t rhsSize = strlen(s) + 1;
 
-    // strcpy(str, s);
+    if (_size < rhsSize)
+    {
+        delete[] str;
+
+        if (2 * _size > rhsSize + 1)
+            _size = 2 * _size - 1;
+        else
+            _size = rhsSize;
+
+        str = new char[_size];
+        strcpy(str, s);
+    }
+    else
+    {
+        memcpy(str, s, rhsSize);
+    }
 
     return *this;
 }
 
 cod::string &cod::string::operator=(char c)
 {
-    // delete[] str;
+    if (_size < 2)
+    {
+        delete[] str;
 
-    // _size = 2;
-    // str = new char[_size];
-    // str[0] = c;
-    // str[1] = '\0';
+        _size = 2;
+        str = new char[_size];
+    }
+
+    str[0] = c;
+    str[1] = '\0';
 
     return *this;
 }
 
 cod::string &cod::string::operator=(const std::initializer_list<char> &list)
 {
-    // delete[] str;
+    size_t rhsSize = list.size() + 1;
 
-    // _size = list.size() + 1;
-    // str = new char[_size];
+    if (_size < rhsSize)
+    {
+        delete[] str;
 
-    // size_t i{0};
+        _size = rhsSize;
+        str = new char[_size];
+    }
 
-    // for (const auto &c : list)
-    //     str[i++] = c;
+    size_t i{0};
 
-    // str[i] = '\0';
+    for (const auto &c : list)
+        str[i++] = c;
+
+    str[i] = '\0';
 
     return *this;
 }
