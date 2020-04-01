@@ -11,6 +11,7 @@
 #include "../header/ExHandler.hpp"
 #include "../header/Home.hpp"
 #include "../header/CreateAccount.hpp"
+#include "../header/Security.hpp"
 
 void restore_saved_changes()
 {
