@@ -8,33 +8,20 @@
 #include "../header/UIhandler.hpp"
 #include "../header/Constants.hpp"
 
-#include "../namespace/header/cod_string.hpp"
-
 void Arrays()
 {
+    cod::scan sc;
+    int ch;
 
-    cod::string s1{"divyansh"};
+    do
+    {
+        menu(getDataTypeMenu, std::string{" SELECT DATA TYPE "});
 
-    s1.resize(20);
+        sc.choice(ch);
 
-    std::cout << s1 << std::endl
-              << s1.size() << std::endl
-              << s1.capacity();
+        array_type_selector(ch); // call the array funtion with user defined data type
 
-    getch();
-
-    //     cod::scan sc;
-    //     int ch;
-
-    //     do
-    //     {
-    //         menu(getDataTypeMenu, std::string{" SELECT DATA TYPE "});
-
-    //         sc.choice(ch);
-
-    //         array_type_selector(ch); // call the array funtion with user defined data type
-
-    //     } while (1); // always true
+    } while (1); // always true
 }
 
 void array_type_selector(int ch)

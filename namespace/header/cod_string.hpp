@@ -26,6 +26,7 @@ class string
     }
 
     void capacity_selecter();
+    void capacity_updater(size_t n);
 
     char *str;
     size_t _size, _capacity, _max_size;

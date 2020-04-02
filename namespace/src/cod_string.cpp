@@ -13,6 +13,16 @@ void cod::string::capacity_selecter()
         _capacity = 30;
 }
 
+void cod::string::capacity_updater(size_t n)
+{
+    if (_capacity <= 15 && n <= _capacity)
+        _capacity = 15;
+    else if (_size * 2 > n)
+        _capacity = _size * 2;
+    else
+        _capacity = n;
+}
+
 cod::string::string() : string(nullptr)
 {
 }
@@ -235,30 +245,34 @@ size_t cod::string::max_size() const
 
 void cod::string::resize(size_t n, char c)
 {
-    // if (n > _capacity)
-    // {
-    //     string temp(*this);
+    if (n > _capacity)
+    {
+        string temp(*this);
 
-    //     delete[] str;
+        delete[] str;
 
-    //     _capacity = n;
+        this->capacity_updater(n);
 
-    //     this->capacity_selecter();
+        str = new char[_capacity + 1];
 
-    //     str = new char[_capacity + 1];
+        strcpy(str, temp.str);
+        _size = n;
 
-    //     strncpy(str, temp.str, temp.size());
+        if (c != '\0')
+        {
+            for (size_t i = temp._size; i < _size; i++)
+                str[i] = c;
 
-    //     for (size_t i = temp.size(); i < _size; i++)
-    //         str[i] = c;
+            str[_size] = '\0';
+        }
+    }
+    else
+    {
+        if (n < _size)
+            str[n] = '\0';
 
-    //     str[_size] = '\0';
-    // }
-    // else
-    // {
-    //     _size = n;
-    //     str[n] = '\0';
-    // }
+        _size = n;
+    }
 }
 
 size_t cod::string::capacity() const
@@ -269,17 +283,18 @@ size_t cod::string::capacity() const
 void cod::string::reserve(size_t n)
 {
 
-    // if (n > _capacity)
-    // {
-    //     string temp(*this);
+    if (n > _capacity)
+    {
+        string temp(*this);
 
-    //     delete[] str;
+        delete[] str;
 
-    //     _capacity = n;
-    //     str = new char[_capacity + 1];
+        _capacity = n;
+        str = new char[_capacity + 1];
 
-    //     strcpy(str, temp.str);
-    // }
+        _size = temp._size;
+        strcpy(str, temp.str);
+    }
 }
 
 void cod::string::clear()
@@ -300,6 +315,4 @@ bool cod::string::empty() const
 cod::string::~string()
 {
     delete[] str;
-    _size = 0;
-    _capacity = 0;
 }
