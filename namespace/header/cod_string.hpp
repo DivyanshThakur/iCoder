@@ -25,8 +25,10 @@ class string
         return sc;
     }
 
+    void capacity_selecter();
+
     char *str;
-    size_t _size, _max_size;
+    size_t _size, _capacity, _max_size;
 
 public:
     static constexpr size_t npos = -1;
@@ -58,10 +60,14 @@ public:
     /****************************************************** CAPACITY *******************************************************/
     size_t size() const;
     size_t length() const;
-    // size_t max_size() const;
-    // bool empty() const;
+    size_t max_size() const;
+    void resize(size_t n, char c = '\0');
+    size_t capacity() const;
+    void reserve(size_t n = 0);
+
+    void clear();
+    bool empty() const;
     // void update_size(int x);
-    // void clear();
 
     ~string();
 };
