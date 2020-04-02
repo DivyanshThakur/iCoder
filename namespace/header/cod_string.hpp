@@ -8,9 +8,18 @@ namespace cod
 {
 class string
 {
+    /*************************************** NON MEMBER FUNCTION OVERLOADS **********************************************/
+
     friend std::ostream &operator<<(std::ostream &os, const string &obj)
     {
-        os << obj.str;
+        // for (auto const &c : obj)
+        // {
+        //     os << c;
+        // }
+        for (size_t i{0}; i < obj._size; i++)
+        {
+            os << obj.at(i);
+        }
         return os;
     }
 
@@ -25,8 +34,10 @@ class string
         return sc;
     }
 
+private:
     void capacity_selecter();
     void capacity_updater(size_t n);
+    void cpy(const char *rhs, size_t len = npos);
 
     char *str;
     size_t _size, _capacity, _max_size;
@@ -34,7 +45,7 @@ class string
 public:
     static constexpr size_t npos = -1;
 
-    /*************************************************** CONSTRUCTOR *****************************************************/
+    /*************************************************** CONSTRUCTOR ***************************************************/
     string();                                                 // no-args
     string(const char *s);                                    // from c-string
     string(const char *s, size_t n);                          // from buffer
@@ -45,30 +56,43 @@ public:
     string(const string &rhs, size_t pos, size_t len = npos); // substring
     // string(const iterator &first, const iterator &last);   // range
 
-    /************************************************* ASSIGNMENT OPERATOR ***********************************************/
+    /************************************************* ASSIGNMENT OPERATOR *********************************************/
     string &operator=(const string &rhs);                       // copy
     string &operator=(string &&rhs);                            // move
     string &operator=(const char *s);                           // c-string
     string &operator=(char c);                                  // character
     string &operator=(const std::initializer_list<char> &list); // initializer list
 
-    /*************************************************** STRING ITERATOR **************************************************/
+    /*************************************************** STRING ITERATOR ***********************************************/
     // iterator begin() const;
     // iterator end() const;
     // const const_iterator cbegin() const;
     // const const_iterator cend() const;
 
-    /****************************************************** CAPACITY *******************************************************/
+    /****************************************************** CAPACITY ***************************************************/
     size_t size() const;
     size_t length() const;
     size_t max_size() const;
     void resize(size_t n, char c = '\0');
     size_t capacity() const;
     void reserve(size_t n = 0);
-
     void clear();
     bool empty() const;
-    // void update_size(int x);
+    void shrink_to_fit();
+
+    /**************************************************** ELEMENT ACCESS ************************************************/
+    char &operator[](size_t pos);
+    const char &operator[](size_t pos) const;
+    char &at(size_t pos);
+    const char &at(size_t pos) const;
+    char &back();
+    const char &back() const;
+    char &front();
+    const char &front() const;
+
+    /******************************************************* MODIFIERS **************************************************/
+
+    /*************************************************** STRING OPERATIONS **********************************************/
 
     ~string();
 };

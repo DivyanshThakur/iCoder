@@ -454,39 +454,33 @@ void cod::array<T>::clear()
 /*************************************************** ELEMENT ACCESS ****************************************************/
 
 template <typename T>
-T &cod::array<T>::operator[](size_t x)
+T &cod::array<T>::operator[](size_t pos)
 {
-    if (x < 0 || x >= _size)
-        throw OutofBoundsException();
-
-    return A[x];
+    return A[pos];
 }
 
 template <typename T>
-const T &cod::array<T>::operator[](size_t x) const
+const T &cod::array<T>::operator[](size_t pos) const
 {
-    if (x < 0 || x >= _size)
-        throw OutofBoundsException();
-
-    return A[x];
+    return A[pos];
 }
 
 template <typename T>
-T &cod::array<T>::at(size_t x)
+T &cod::array<T>::at(size_t pos)
 {
-    if (x < 0 || x >= _size)
+    if (pos < 0 || pos >= _size)
         throw OutofBoundsException();
 
-    return A[x];
+    return A[pos];
 }
 
 template <typename T>
-const T &cod::array<T>::at(size_t x) const
+const T &cod::array<T>::at(size_t pos) const
 {
-    if (x < 0 || x >= _size)
+    if (pos < 0 || pos >= _size)
         throw OutofBoundsException();
 
-    return A[x];
+    return A[pos];
 }
 
 template <typename T>

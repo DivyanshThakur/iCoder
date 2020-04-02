@@ -142,10 +142,10 @@ public:
     void clear();
 
     /*************************************************** ELEMENT ACCESS ****************************************************/
-    T &operator[](size_t x);
-    const T &operator[](size_t x) const;
-    T &at(size_t x);
-    const T &at(size_t x) const;
+    T &operator[](size_t pos);
+    const T &operator[](size_t pos) const;
+    T &at(size_t pos);
+    const T &at(size_t pos) const;
     T &front();
     const T &front() const;
     T &back();

@@ -3,8 +3,6 @@
 #include "../header/cod_limits.hpp"
 #include "../header/cod_algorithm.hpp"
 
-/*************************************************** CONSTRUCTOR *********************************************************/
-
 void cod::string::capacity_selecter()
 {
     if (_capacity <= 15)
@@ -23,6 +21,20 @@ void cod::string::capacity_updater(size_t n)
         _capacity = n;
 }
 
+void cod::string::cpy(const char *rhs, size_t len)
+{
+    if (len == npos)
+    {
+        strcpy(str, rhs);
+    }
+    else
+    {
+        strncpy(str, rhs, len);
+        str[len] = '\0';
+    }
+}
+
+/*************************************************** CONSTRUCTOR ********************************************************/
 cod::string::string() : string(nullptr)
 {
 }
@@ -43,7 +55,7 @@ cod::string::string(const char *s) : str(nullptr), _size(0), _capacity(0), _max_
         this->capacity_selecter();
 
         str = new char[_capacity + 1];
-        strcpy(str, s);
+        this->cpy(s);
     }
 }
 
@@ -54,8 +66,7 @@ cod::string::string(const char *s, size_t n) : str(nullptr), _size(0), _capacity
     this->capacity_selecter();
 
     str = new char[_capacity + 1];
-    strncpy(str, s, n);
-    str[n] = '\0';
+    this->cpy(s, n);
 }
 
 cod::string::string(size_t n, char c) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
@@ -79,8 +90,7 @@ cod::string::string(const string &rhs) : str(nullptr), _size(0), _capacity(0), _
     this->capacity_selecter();
 
     str = new char[_capacity + 1];
-
-    strcpy(str, rhs.str);
+    this->cpy(rhs.str, rhs._size);
 }
 
 cod::string::string(string &&rhs) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
@@ -148,7 +158,7 @@ cod::string &cod::string::operator=(const string &rhs)
     }
 
     _size = rhs._size;
-    strcpy(str, rhs.str);
+    this->cpy(rhs.str, rhs._size);
 
     return *this;
 }
@@ -182,7 +192,7 @@ cod::string &cod::string::operator=(const char *s)
     }
 
     _size = rhsSize;
-    strcpy(str, s);
+    this->cpy(s);
 
     return *this;
 }
@@ -255,7 +265,7 @@ void cod::string::resize(size_t n, char c)
 
         str = new char[_capacity + 1];
 
-        strcpy(str, temp.str);
+        this->cpy(temp.str);
         _size = n;
 
         if (c != '\0')
@@ -293,7 +303,7 @@ void cod::string::reserve(size_t n)
         str = new char[_capacity + 1];
 
         _size = temp._size;
-        strcpy(str, temp.str);
+        this->cpy(temp.str);
     }
 }
 
@@ -311,6 +321,48 @@ bool cod::string::empty() const
 {
     return (_size == 0);
 }
+
+void cod::string::shrink_to_fit()
+{
+    string temp(*this);
+
+    delete[] str;
+
+    _capacity = _size;
+    str = new char[_capacity + 1];
+    this->cpy(temp.str);
+}
+
+/***************************************************** ELEMENT ACCESS ***************************************************/
+char &cod::string::operator[](size_t pos)
+{
+    return str[pos];
+}
+
+const char &cod::string::operator[](size_t pos) const
+{
+    return str[pos];
+}
+
+char &cod::string::at(size_t pos)
+{
+    if (pos < 0 || pos >= _size)
+        throw OutofBoundsException();
+
+    return str[pos];
+}
+
+const char &cod::string::at(size_t pos) const
+{
+    if (pos < 0 || pos >= _size)
+        throw OutofBoundsException();
+
+    return str[pos];
+}
+
+/******************************************************* MODIFIERS ******************************************************/
+
+/**************************************************** STRING OPERATIONS *************************************************/
 
 cod::string::~string()
 {
