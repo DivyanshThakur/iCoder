@@ -1,13 +1,12 @@
 #include <iostream>
-#include <memory>
 #include "../header/ExHandler.hpp"
 #include "../header/Home.hpp"
 #include "../header/Constants.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/AccountHandler.hpp"
 #include "../header/Array.hpp"
+#include "../header/String.hpp"
 #include "../namespace/header/cod_scan.hpp"
-#include "../namespace/header/cod_array.hpp"
 
 void home(const std::string &userID)
 {
@@ -92,8 +91,8 @@ void home_controller(int ch)
         Arrays();
         return;
 
-    case 2:              // strings
-        print_message(); // default is ~ to be Implemented
+    case 2: // strings
+        String();
         break;
 
     case 3: // matrices

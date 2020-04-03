@@ -25,14 +25,20 @@ class string
 
     friend cod::scan &operator>>(cod::scan &sc, string &obj)
     {
-        char *buff = new char[obj._max_size];
+        char *buff = new char[1'02'400]; // 100 mb
         sc >> buff;
 
-        obj = string(buff);
+        string s = buff;
+        std::cout << "[size: " << s.size() << "], [ capacity: " << s.capacity() << "]\n";
+        obj = s;
 
         delete[] buff;
         return sc;
     }
+
+    // cod::scan &getline(cod::scan &sc, string &obj)
+    // {
+    // }
 
 private:
     void capacity_selecter();
