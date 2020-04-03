@@ -21,6 +21,19 @@ void cod::string::capacity_updater(size_t n)
         _capacity = n;
 }
 
+void cod::string::cat(const char *rhs, size_t len)
+{
+    if (len == npos)
+    {
+        strcat(str, rhs);
+    }
+    else
+    {
+        strncat(str, rhs, len);
+        str[_size] = '\0';
+    }
+}
+
 void cod::string::cpy(const char *rhs, size_t len)
 {
     if (len == npos)
@@ -360,7 +373,235 @@ const char &cod::string::at(size_t pos) const
     return str[pos];
 }
 
+char &cod::string::back()
+{
+    return str[_size - 1];
+}
+
+const char &cod::string::back() const
+{
+    return str[_size - 1];
+}
+
+char &cod::string::front()
+{
+    return str[0];
+}
+
+const char &cod::string::front() const
+{
+    return str[0];
+}
+
 /******************************************************* MODIFIERS ******************************************************/
+cod::string &cod::string::operator+=(const string &rhs)
+{
+    if (rhs._size > (_capacity - _size))
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(rhs._size + _size);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+
+    _size += rhs._size;
+    this->cat(rhs.str, rhs._size);
+
+    return *this;
+}
+
+cod::string &cod::string::operator+=(const char *s)
+{
+    size_t rhsSize = strlen(s);
+
+    if (rhsSize > (_capacity - _size))
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(rhsSize + _size);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+
+    _size += rhsSize;
+    this->cat(s);
+
+    return *this;
+}
+
+cod::string &cod::string::operator+=(char c)
+{
+    if (1 > (_capacity - _size))
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(_size + 1);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+
+    str[_size++] = c;
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::operator+=(const std::initializer_list<char> &list)
+{
+    size_t rhsSize = list.size();
+
+    if (rhsSize > (_capacity - _size))
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(_size + rhsSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+
+    for (const auto &c : list)
+    {
+        str[_size++] = c;
+    }
+
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::append(const string &rhs)
+{
+    return (*this += rhs);
+}
+
+cod::string &cod::string::append(const string &rhs, size_t pos, size_t len)
+{
+    size_t refSize;
+
+    if (len == npos)
+        refSize = rhs._size - pos;
+    else
+        refSize = cod::min(rhs._size, len);
+
+    if (refSize > (_capacity - _size))
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(_size + refSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+
+    for (size_t i{0}; i < refSize; i++)
+    {
+        str[_size++] = rhs.str[pos + i];
+    }
+
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::append(const char *s)
+{
+    return (*this += s);
+}
+
+cod::string &cod::string::append(const char *s, size_t n)
+{
+    if (n > (_capacity - _size))
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(n + _size);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+    _size += n;
+    this->cat(s, n);
+
+    return *this;
+}
+
+cod::string &cod::string::append(size_t n, char c)
+{
+
+    if (n > (_capacity - _size))
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(n + _size);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+
+    for (size_t i{0}; i < n; i++)
+    {
+        str[_size++] = c;
+    }
+
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::append(const std::initializer_list<char> &list)
+{
+    return (*this += list);
+}
+
+void cod::string::push_back(char c)
+{
+
+    if (_capacity - _size < 1)
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        _capacity *= 2;
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str);
+    }
+
+    str[_size++] = c;
+}
+
+void cod::string::pop_back()
+{
+    str[--_size] = '\0';
+}
 
 /**************************************************** STRING OPERATIONS *************************************************/
 

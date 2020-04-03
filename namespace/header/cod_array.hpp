@@ -17,7 +17,7 @@ class array
  * 
  ***********************************************************************************************************************/
 
-    /****************************************************** ITERATOR *******************************************************/
+    /****************************************************** ITERATOR ***************************************************/
 
     class iterator
     {
@@ -51,7 +51,7 @@ class array
         T *get_ptr() const;
     };
 
-    /*************************************************** CONST ITERATOR ****************************************************/
+    /*************************************************** CONST ITERATOR *************************************************/
 
     class const_iterator
     {
@@ -117,31 +117,31 @@ private:
     bool unique(const std::vector<T> &temp, const T &val);
 
 public:
-    /***************************************************** CONSTRUCTOR *****************************************************/
+    /***************************************************** CONSTRUCTOR **************************************************/
     array();                                     // no-args
     array(size_t _max_size);                     // paramaterized
     array(const array &rhs);                     // copy
     array(array &&rhs);                          //move
     array(const std::initializer_list<T> &list); // initializer list
 
-    /************************************************* ASSIGNMENT OPERATOR *************************************************/
+    /************************************************* ASSIGNMENT OPERATOR **********************************************/
     array &operator=(const array &rhs);
     array &operator=(array &&rhs);
 
-    /*************************************************** ARRAY ITERATOR ****************************************************/
+    /*************************************************** ARRAY ITERATOR *************************************************/
     iterator begin() const;
     iterator end() const;
     const const_iterator cbegin() const;
     const const_iterator cend() const;
 
-    /****************************************************** CAPACITY *******************************************************/
+    /****************************************************** CAPACITY ****************************************************/
     size_t size() const;
     size_t max_size() const;
     bool empty() const;
     void update_size(int x);
     void clear();
 
-    /*************************************************** ELEMENT ACCESS ****************************************************/
+    /*************************************************** ELEMENT ACCESS *************************************************/
     T &operator[](size_t pos);
     const T &operator[](size_t pos) const;
     T &at(size_t pos);
@@ -153,7 +153,7 @@ public:
     T *data();
     const T *data() const;
 
-    /****************************************************** MODIFIERS ******************************************************/
+    /****************************************************** MODIFIERS ***************************************************/
     void fill(const T &x);
     void fill(const T &x, size_t start, size_t end);
     void swap(array &rhs);
@@ -163,7 +163,7 @@ public:
     array remove(size_t pos, size_t n);
     void push_back(const T &x);
 
-    /************************************************ RELATIONAL OPERATORS *************************************************/
+    /************************************************ RELATIONAL OPERATORS **********************************************/
     bool operator==(const array &rhs);
     bool operator!=(const array &rhs);
     bool operator<(const array &rhs);
@@ -171,7 +171,7 @@ public:
     bool operator>(const array &rhs);
     bool operator>=(const array &rhs);
 
-    /************************************************** SHIFT/ROTATE *******************************************************/
+    /************************************************** SHIFT/ROTATE ****************************************************/
     void shift(Side s, size_t n);
     void rotate(Side s, size_t n);
     size_t lsearch(const T &x);
@@ -181,17 +181,17 @@ public:
     void sort();
     array merge(const array &rhs);
 
-    /******************************************************** SET **********************************************************/
+    /******************************************************** SET *******************************************************/
     array Union(const array &rhs);
     array Intersection(const array &rhs);
     array Difference(const array &rhs);
 
-    /**************************************************** FIND VALUES ******************************************************/
+    /**************************************************** FIND VALUES ***************************************************/
     std::vector<cod::pair<T, int>> find_duplicates(size_t start, size_t end);
     std::vector<T> find_missing(size_t start, size_t end);
     std::vector<array<T>> find_pair_sum(size_t start, size_t end, T &k);
 
-    /************************************************** BASIC OPERATION ****************************************************/
+    /************************************************** BASIC OPERATION *************************************************/
     void reverse(size_t start, size_t end);
     double average(size_t start, int n) const;
     T sum(size_t start, int n) const;

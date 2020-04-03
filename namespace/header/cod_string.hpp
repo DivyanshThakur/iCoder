@@ -37,6 +37,7 @@ class string
 private:
     void capacity_selecter();
     void capacity_updater(size_t n);
+    void cat(const char *rhs, size_t len = npos);
     void cpy(const char *rhs, size_t len = npos);
 
     char *str;
@@ -91,6 +92,21 @@ public:
     const char &front() const;
 
     /******************************************************* MODIFIERS **************************************************/
+    string &operator+=(const string &rhs);                       // string
+    string &operator+=(const char *s);                           // c-string
+    string &operator+=(char c);                                  // character
+    string &operator+=(const std::initializer_list<char> &list); // initilizer list
+
+    string &append(const string &rhs);                                // string
+    string &append(const string &rhs, size_t pos, size_t len = npos); // substring
+    string &append(const char *s);                                    // c-string
+    string &append(const char *s, size_t n);                          // buffer
+    string &append(size_t n, char c);                                 // fill
+    string &append(const std::initializer_list<char> &list);          // initializer list
+    // string &append(const iterator &first, const iterator &last); // range
+
+    void push_back(char c);
+    void pop_back();
 
     /*************************************************** STRING OPERATIONS **********************************************/
 
