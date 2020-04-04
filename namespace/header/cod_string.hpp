@@ -112,6 +112,30 @@ public:
     // string &append(const iterator &first, const iterator &last); // range
 
     void push_back(char c);
+
+    string &assign(const string &rhs);                                // string
+    string &assign(const string &rhs, size_t pos, size_t len = npos); // substring
+    string &assign(string &&rhs);                                     // move
+    string &assign(const char *s);                                    // c-string
+    string &assign(const char *s, size_t n);                          // buffer
+    string &assign(size_t n, char c);                                 // fill
+    string &assign(const std::initializer_list<char> &list);          // initializer list
+    // string &assign(const iterator &first, const iterator &last); // range
+
+    string &insert(size_t pos, const string &rhs);                                      // string
+    string &insert(size_t pos, const string &rhs, size_t subpos, size_t sublen = npos); // substring
+    string &insert(size_t pos, const char *s);                                          // c-string
+    string &insert(size_t pos, const char *s, size_t n);                                // buffer
+    string &insert(size_t pos, size_t n, char c);                                       // fill
+    // iterator insert(const_iterator p, size_t n, char c); // fill iterator
+    // iterator insert(const_iterator p, char c);// single character
+    // iterator insert(iterator p, InputIterator first, InputIterator last); // range
+    // string &insert(const_iterator p, initializer_list<char> il);// initializer list
+
+    string &erase(size_t pos = 0, size_t len = npos); // sequence
+    // iterator erase(const_iterator p);                          // character
+    // iterator erase(const_iterator first, const_iterator last); // range
+
     void pop_back();
 
     /*************************************************** STRING OPERATIONS **********************************************/

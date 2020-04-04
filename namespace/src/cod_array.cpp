@@ -602,7 +602,7 @@ T cod::array<T>::remove(size_t pos)
 
     value = A[i];
 
-    --_size;
+    _size--;
 
     while (i < _size)
     {
@@ -628,13 +628,14 @@ cod::array<T> cod::array<T>::remove(size_t pos, size_t n)
         throw NegativeValueException();
 
     size_t i, j;
-    i = pos - 1;
-    for (j = 0; j < n; ++j, ++i)
+
+    for (i = pos - 1, j = 0; j < n; ++j, ++i)
     {
         if (pos + j > _size)
             break;
         values.push_back(A[i]);
     }
+
     for (i = pos - 1; i + n < _size; ++i)
         A[i] = A[i + n];
 

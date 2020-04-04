@@ -132,12 +132,7 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _si
 
 cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
 {
-    size_t refSize;
-
-    if (len == npos)
-        refSize = rhs.size() - pos;
-    else
-        refSize = cod::min(rhs.size(), len);
+    size_t refSize = (len == npos) ? (rhs._size - pos) : (cod::min(rhs._size - pos, len));
 
     _size = _capacity = refSize;
 
@@ -493,12 +488,7 @@ cod::string &cod::string::append(const string &rhs)
 
 cod::string &cod::string::append(const string &rhs, size_t pos, size_t len)
 {
-    size_t refSize;
-
-    if (len == npos)
-        refSize = rhs._size - pos;
-    else
-        refSize = cod::min(rhs._size, len);
+    size_t refSize = (len == npos) ? (rhs._size - pos) : (cod::min(rhs._size - pos, len));
 
     if (refSize > (_capacity - _size))
     {
@@ -596,6 +586,378 @@ void cod::string::push_back(char c)
     }
 
     str[_size++] = c;
+}
+
+cod::string &cod::string::assign(const string &rhs)
+{
+    return (*this = rhs);
+}
+
+cod::string &cod::string::assign(const string &rhs, size_t pos, size_t len)
+{
+    size_t refSize = (len == npos) ? (rhs._size - pos) : (cod::min(rhs._size - pos, len));
+
+    if (refSize > _capacity)
+    {
+        _size = _capacity = refSize;
+
+        this->capacity_selecter();
+
+        delete[] str;
+        str = new char[_capacity + 1];
+    }
+
+    size_t i{0};
+
+    for (; i < refSize; ++i)
+    {
+        str[i] = rhs.str[pos + i];
+    }
+
+    str[i] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::assign(string &&rhs)
+{
+    delete[] str;
+
+    _capacity = rhs._capacity;
+    _size = rhs._size;
+
+    str = rhs.str;
+    rhs.str = nullptr;
+
+    return *this;
+}
+
+cod::string &cod::string::assign(const char *s)
+{
+    return (*this = s);
+}
+
+cod::string &cod::string::assign(const char *s, size_t n)
+{
+    if (n > _capacity)
+    {
+        delete[] str;
+
+        _size = _capacity = n;
+
+        this->capacity_selecter();
+
+        str = new char[_capacity + 1];
+    }
+
+    this->cpy(s, n);
+
+    return *this;
+}
+
+cod::string &cod::string::assign(size_t n, char c)
+{
+    if (n > _capacity)
+    {
+        delete[] str;
+        _size = _capacity = n;
+
+        this->capacity_selecter();
+
+        str = new char[_capacity + 1];
+    }
+
+    for (size_t i{0}; i < n; ++i)
+        str[i] = c;
+
+    str[n] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::assign(const std::initializer_list<char> &list)
+{
+    return (*this = list);
+}
+
+cod::string &cod::string::insert(size_t pos, const string &rhs)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t newSize = _size + rhs._size;
+
+    if (newSize > _capacity)
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str, pos);
+
+        this->cat(rhs.str);
+
+        for (size_t i{0}; pos + i < temp._size; i++)
+        {
+            str[pos + rhs._size + i] = temp.str[pos + i];
+        }
+    }
+    else
+    {
+        string remainingValues(*this, pos);
+
+        size_t i{0};
+
+        for (; i < rhs._size; i++)
+        {
+            str[pos + i] = rhs.str[i];
+        }
+
+        for (i = 0; i < remainingValues._size; i++)
+        {
+            str[pos + rhs._size + i] = remainingValues.str[i];
+        }
+    }
+
+    _size = newSize;
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::insert(size_t pos, const string &rhs, size_t subpos, size_t sublen)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t refSize = (sublen == npos) ? (rhs._size - subpos) : (cod::min(rhs._size - subpos, sublen));
+
+    size_t newSize = _size + refSize;
+
+    if (newSize > _capacity)
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str, pos);
+
+        size_t i{0};
+
+        for (; i < refSize; ++i)
+        {
+            str[pos + i] = rhs.str[subpos + i];
+        }
+
+        for (i = 0; pos + i < temp._size; ++i)
+        {
+            str[pos + refSize + i] = temp.str[pos + i];
+        }
+    }
+    else
+    {
+        string remainingValues(*this, pos);
+
+        size_t i{0};
+
+        for (; i < refSize; ++i)
+        {
+            str[pos + i] = rhs.str[subpos + i];
+        }
+
+        for (i = 0; i < remainingValues._size; i++)
+        {
+            str[pos + refSize + i] = remainingValues.str[i];
+        }
+    }
+
+    _size = newSize;
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::insert(size_t pos, const char *s)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t strSize = strlen(s);
+    size_t newSize = _size + strSize;
+
+    if (newSize > _capacity)
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str, pos);
+
+        this->cat(s);
+
+        for (size_t i{0}; pos + i < temp._size; i++)
+        {
+            str[pos + strSize + i] = temp.str[pos + i];
+        }
+    }
+    else
+    {
+        string remainingValues(*this, pos);
+
+        size_t i{0};
+
+        for (; i < strSize; i++)
+        {
+            str[pos + i] = s[i];
+        }
+
+        for (i = 0; i < remainingValues._size; i++)
+        {
+            str[pos + strSize + i] = remainingValues.str[i];
+        }
+    }
+
+    _size = newSize;
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::insert(size_t pos, const char *s, size_t n)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t newSize = _size + n;
+
+    if (newSize > _capacity)
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str, pos);
+
+        _size = pos + n; // temporary changing size for concat
+        this->cat(s, n);
+
+        for (size_t i{0}; pos + i < temp._size; i++)
+        {
+            str[_size + i] = temp.str[pos + i];
+        }
+    }
+    else
+    {
+        string remainingValues(*this, pos);
+
+        size_t i{0};
+
+        for (; i < n; i++)
+        {
+            str[pos + i] = s[i];
+        }
+
+        for (i = 0; i < remainingValues._size; i++)
+        {
+            str[pos + n + i] = remainingValues.str[i];
+        }
+    }
+
+    _size = newSize;
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::insert(size_t pos, size_t n, char c)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t newSize = _size + n;
+
+    if (newSize > _capacity)
+    {
+        string temp(*this);
+
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp.str, pos);
+
+        size_t i{0};
+
+        for (; i < n; i++)
+        {
+            str[pos + i] = c;
+        }
+
+        for (i = 0; pos + i < temp._size; i++)
+        {
+            str[pos + n + i] = temp.str[pos + i];
+        }
+    }
+    else
+    {
+        string remainingValues(*this, pos);
+
+        size_t i{0};
+
+        for (; i < n; i++)
+        {
+            str[pos + i] = c;
+        }
+
+        for (i = 0; i < remainingValues._size; i++)
+        {
+            str[pos + n + i] = remainingValues.str[i];
+        }
+    }
+
+    _size = newSize;
+    str[_size] = '\0';
+
+    return *this;
+}
+
+cod::string &cod::string::erase(size_t pos, size_t len)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t i{pos};
+
+    for (; i < pos + len; i++)
+    {
+        if (i + len == _size)
+            break;
+
+        str[i] = str[i + len];
+    }
+
+    _size = i;
+    str[_size] = '\0';
+
+    return *this;
 }
 
 void cod::string::pop_back()
