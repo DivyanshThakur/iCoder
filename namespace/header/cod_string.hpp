@@ -2,7 +2,6 @@
 #define COD_STRING_HPP
 
 #include <iostream>
-#include <cstring>
 #include "cod_scan.hpp"
 
 namespace cod
@@ -164,178 +163,58 @@ class string
 
     friend bool operator<(const char *lhs, const string &rhs)
     {
-        size_t lSize = strlen(lhs);
-        if (lSize > rhs._size)
-            return false;
-
-        bool isMin{false};
-
-        for (size_t i{0}; i < lSize; i++)
-        {
-            if (lhs[i] > rhs.str[i])
-                return false;
-
-            if (lhs[i] < rhs.str[i])
-                isMin = true;
-        }
-        return (isMin);
+        return (rhs.compare(lhs) < 0);
     }
 
     friend bool operator<(const string &lhs, const char *rhs)
     {
-        if (lhs._size > strlen(rhs))
-            return false;
-
-        bool isMin{false};
-
-        for (size_t i{0}; i < lhs._size; i++)
-        {
-            if (lhs.str[i] > rhs[i])
-                return false;
-
-            if (lhs.str[i] < rhs[i])
-                isMin = true;
-        }
-        return (isMin);
+        return (lhs.compare(rhs) < 0);
     }
 
     friend bool operator<=(const string &lhs, const string &rhs)
     {
-        if (lhs._size > rhs._size)
-            return false;
-
-        for (size_t i{0}; i < lhs._size; i++)
-        {
-            if (lhs.str[i] > rhs.str[i])
-                return false;
-        }
-        return true;
+        return (lhs.compare(rhs) <= 0);
     }
 
     friend bool operator<=(const char *lhs, const string &rhs)
     {
-        size_t lSize = strlen(lhs);
-        if (lSize > rhs._size)
-            return false;
-
-        for (size_t i{0}; i < lSize; i++)
-        {
-            if (lhs[i] > rhs.str[i])
-                return false;
-        }
-        return true;
+        return (rhs.compare(lhs) <= 0);
     }
 
     friend bool operator<=(const string &lhs, const char *rhs)
     {
-        if (lhs._size > strlen(rhs))
-            return false;
-
-        for (size_t i{0}; i < lhs._size; i++)
-        {
-            if (lhs.str[i] > rhs[i])
-                return false;
-        }
-        return true;
+        return (lhs.compare(rhs) <= 0);
     }
 
     friend bool operator>(const string &lhs, const string &rhs)
     {
-        if (lhs._size < rhs._size)
-            return false;
-
-        bool isMax{false};
-
-        for (size_t i{0}; i < rhs._size; i++)
-        {
-            if (lhs.str[i] < rhs.str[i])
-                return false;
-
-            if (lhs.str[i] > rhs.str[i])
-                isMax = true;
-        }
-        return (isMax);
+        return (lhs.compare(rhs) > 0);
     }
 
     friend bool operator>(const char *lhs, const string &rhs)
     {
 
-        if (strlen(lhs) < rhs._size)
-            return false;
-
-        bool isMax{false};
-
-        for (size_t i{0}; i < rhs._size; i++)
-        {
-            if (lhs[i] < rhs.str[i])
-                return false;
-
-            if (lhs[i] > rhs.str[i])
-                isMax = true;
-        }
-        return (isMax);
+        return (rhs.compare(lhs) > 0);
     }
 
     friend bool operator>(const string &lhs, const char *rhs)
     {
-        size_t rSize = strlen(rhs);
-
-        if (lhs._size < rSize)
-            return false;
-
-        bool isMax{false};
-
-        for (size_t i{0}; i < rSize; i++)
-        {
-            if (lhs.str[i] < rhs[i])
-                return false;
-
-            if (lhs.str[i] > rhs[i])
-                isMax = true;
-        }
-        return (isMax);
+        return (lhs.compare(rhs) > 0);
     }
 
     friend bool operator>=(const string &lhs, const string &rhs)
     {
-        if (lhs._size < rhs._size)
-            return false;
-
-        for (size_t i{0}; i < rhs._size; i++)
-        {
-            if (lhs.str[i] < rhs.str[i])
-                return false;
-        }
-        return true;
+        return (lhs.compare(rhs) >= 0);
     }
 
     friend bool operator>=(const char *lhs, const string &rhs)
     {
-        if (strlen(lhs) < rhs._size)
-            return false;
-
-        for (size_t i{0}; i < rhs._size; i++)
-        {
-            if (lhs[i] < rhs.str[i])
-                return false;
-        }
-        return true;
+        return (rhs.compare(lhs) >= 0);
     }
 
     friend bool operator>=(const string &lhs, const char *rhs)
     {
-
-        size_t rSize = strlen(rhs);
-
-        if (lhs._size < rSize)
-            return false;
-
-        for (size_t i{0}; i < rSize; i++)
-        {
-            if (lhs.str[i] < rhs[i])
-                return false;
-        }
-        return true;
+        return (lhs.compare(rhs) >= 0);
     }
 
 private:
