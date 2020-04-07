@@ -2,6 +2,7 @@
 #define COD_STRING_HPP
 
 #include <iostream>
+#include <cstring>
 #include "cod_scan.hpp"
 
 namespace cod
@@ -9,6 +10,11 @@ namespace cod
 class string
 {
     /*************************************** NON MEMBER FUNCTION OVERLOADS **********************************************/
+
+    friend void swap(string &lhs, string &rhs)
+    {
+        lhs.swap(rhs);
+    }
 
     friend std::ostream &operator<<(std::ostream &os, const string &obj)
     {
@@ -25,7 +31,7 @@ class string
 
     friend cod::scan &operator>>(cod::scan &sc, string &obj)
     {
-        char *buff = new char[1'02'400]; // 100 mb
+        char *buff = new char[1'02'400]; // 100 MB
         sc >> buff;
 
         string s = buff;
@@ -38,7 +44,299 @@ class string
 
     // cod::scan &getline(cod::scan &sc, string &obj)
     // {
+    // needed to allow space to accept as sring in scanner
     // }
+
+    friend string operator+(const string &lhs, const string &rhs) //  string
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+    friend string operator+(string &&lhs, string &&rhs)
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend string operator+(string &&lhs, const string &rhs)
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend string operator+(const string &lhs, string &&rhs)
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend string operator+(const string &lhs, const char *rhs) // c-string
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+    friend string operator+(string &&lhs, const char *rhs)
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend string operator+(const char *lhs, const string &rhs)
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend string operator+(const char *lhs, string &&rhs)
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+    friend string operator+(const string &lhs, char rhs) // character
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+    friend string operator+(string &&lhs, char rhs)
+    {
+        string temp(lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend string operator+(char lhs, const string &rhs)
+    {
+        string temp(1, lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend string operator+(char lhs, string &&rhs)
+    {
+        string temp(1, lhs);
+        temp += rhs;
+        return temp;
+    }
+
+    friend bool operator==(const string &lhs, const string &rhs)
+    {
+        return (lhs.compare(rhs) == 0);
+    }
+
+    friend bool operator==(const char *lhs, const string &rhs)
+    {
+        return (rhs.compare(lhs) == 0);
+    }
+
+    friend bool operator==(const string &lhs, const char *rhs)
+    {
+        return (lhs.compare(rhs) == 0);
+    }
+
+    friend bool operator!=(const string &lhs, const string &rhs)
+    {
+        return (lhs.compare(rhs) != 0);
+    }
+
+    friend bool operator!=(const char *lhs, const string &rhs)
+    {
+        return (rhs.compare(lhs) != 0);
+    }
+
+    friend bool operator!=(const string &lhs, const char *rhs)
+    {
+        return (lhs.compare(rhs) != 0);
+    }
+
+    friend bool operator<(const string &lhs, const string &rhs)
+    {
+        return (lhs.compare(rhs) < 0);
+    }
+
+    friend bool operator<(const char *lhs, const string &rhs)
+    {
+        size_t lSize = strlen(lhs);
+        if (lSize > rhs._size)
+            return false;
+
+        bool isMin{false};
+
+        for (size_t i{0}; i < lSize; i++)
+        {
+            if (lhs[i] > rhs.str[i])
+                return false;
+
+            if (lhs[i] < rhs.str[i])
+                isMin = true;
+        }
+        return (isMin);
+    }
+
+    friend bool operator<(const string &lhs, const char *rhs)
+    {
+        if (lhs._size > strlen(rhs))
+            return false;
+
+        bool isMin{false};
+
+        for (size_t i{0}; i < lhs._size; i++)
+        {
+            if (lhs.str[i] > rhs[i])
+                return false;
+
+            if (lhs.str[i] < rhs[i])
+                isMin = true;
+        }
+        return (isMin);
+    }
+
+    friend bool operator<=(const string &lhs, const string &rhs)
+    {
+        if (lhs._size > rhs._size)
+            return false;
+
+        for (size_t i{0}; i < lhs._size; i++)
+        {
+            if (lhs.str[i] > rhs.str[i])
+                return false;
+        }
+        return true;
+    }
+
+    friend bool operator<=(const char *lhs, const string &rhs)
+    {
+        size_t lSize = strlen(lhs);
+        if (lSize > rhs._size)
+            return false;
+
+        for (size_t i{0}; i < lSize; i++)
+        {
+            if (lhs[i] > rhs.str[i])
+                return false;
+        }
+        return true;
+    }
+
+    friend bool operator<=(const string &lhs, const char *rhs)
+    {
+        if (lhs._size > strlen(rhs))
+            return false;
+
+        for (size_t i{0}; i < lhs._size; i++)
+        {
+            if (lhs.str[i] > rhs[i])
+                return false;
+        }
+        return true;
+    }
+
+    friend bool operator>(const string &lhs, const string &rhs)
+    {
+        if (lhs._size < rhs._size)
+            return false;
+
+        bool isMax{false};
+
+        for (size_t i{0}; i < rhs._size; i++)
+        {
+            if (lhs.str[i] < rhs.str[i])
+                return false;
+
+            if (lhs.str[i] > rhs.str[i])
+                isMax = true;
+        }
+        return (isMax);
+    }
+
+    friend bool operator>(const char *lhs, const string &rhs)
+    {
+
+        if (strlen(lhs) < rhs._size)
+            return false;
+
+        bool isMax{false};
+
+        for (size_t i{0}; i < rhs._size; i++)
+        {
+            if (lhs[i] < rhs.str[i])
+                return false;
+
+            if (lhs[i] > rhs.str[i])
+                isMax = true;
+        }
+        return (isMax);
+    }
+
+    friend bool operator>(const string &lhs, const char *rhs)
+    {
+        size_t rSize = strlen(rhs);
+
+        if (lhs._size < rSize)
+            return false;
+
+        bool isMax{false};
+
+        for (size_t i{0}; i < rSize; i++)
+        {
+            if (lhs.str[i] < rhs[i])
+                return false;
+
+            if (lhs.str[i] > rhs[i])
+                isMax = true;
+        }
+        return (isMax);
+    }
+
+    friend bool operator>=(const string &lhs, const string &rhs)
+    {
+        if (lhs._size < rhs._size)
+            return false;
+
+        for (size_t i{0}; i < rhs._size; i++)
+        {
+            if (lhs.str[i] < rhs.str[i])
+                return false;
+        }
+        return true;
+    }
+
+    friend bool operator>=(const char *lhs, const string &rhs)
+    {
+        if (strlen(lhs) < rhs._size)
+            return false;
+
+        for (size_t i{0}; i < rhs._size; i++)
+        {
+            if (lhs[i] < rhs.str[i])
+                return false;
+        }
+        return true;
+    }
+
+    friend bool operator>=(const string &lhs, const char *rhs)
+    {
+
+        size_t rSize = strlen(rhs);
+
+        if (lhs._size < rSize)
+            return false;
+
+        for (size_t i{0}; i < rSize; i++)
+        {
+            if (lhs.str[i] < rhs[i])
+                return false;
+        }
+        return true;
+    }
 
 private:
     void capacity_selecter();
@@ -136,9 +434,34 @@ public:
     // iterator erase(const_iterator p);                          // character
     // iterator erase(const_iterator first, const_iterator last); // range
 
+    string &replace(size_t pos, size_t len, const string &rhs); // string
+    // string &replace(const_iterator i1, const_iterator i2, const string &rhs);
+    string &replace(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen = npos); // substring
+    string &replace(size_t pos, size_t len, const char *s);                                          // c-string
+    // string& replace (const_iterator i1, const_iterator i2, const char* s);
+    string &replace(size_t pos, size_t len, const char *s, size_t n); // buffer
+    // string& replace (const_iterator i1, const_iterator i2, const char* s, size_t n);
+    string &replace(size_t pos, size_t len, size_t n, char c); // fill
+    // string& replace (const_iterator i1, const_iterator i2, size_t n, char c);
+    // string &replace(const_iterator i1, const_iterator i2, InputIterator first, InputIterator last); // range
+    // string &replace(const_iterator i1, const_iterator i2, std::initializer_list<char> list); // initializer list
+
+    void swap(string &rhs); // swap string
+
     void pop_back();
 
     /*************************************************** STRING OPERATIONS **********************************************/
+    const char *c_str() const;
+    const char *data() const;
+    size_t copy(char *s, size_t len, size_t pos = 0) const;
+    string substr(size_t pos = 0, size_t len = npos) const;
+
+    int compare(const string &rhs) const;                         // string
+    int compare(size_t pos, size_t len, const string &rhs) const; // substrings
+    int compare(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen = npos) const;
+    int compare(const char *s) const; // c-string
+    int compare(size_t pos, size_t len, const char *s) const;
+    int compare(size_t pos, size_t len, const char *s, size_t n) const; // buffer
 
     ~string();
 };

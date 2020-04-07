@@ -21,7 +21,7 @@ void cod::string::capacity_updater(size_t n)
         _capacity = n;
 }
 
-void cod::string::cat(const char *rhs, size_t len)
+void cod::string::cat(const char *rhs, size_t len) // use true ,false for str[_size]=0;
 {
     if (len == npos)
     {
@@ -98,7 +98,8 @@ cod::string::string(size_t n, char c) : str(nullptr), _size(0), _capacity(0), _m
 
 cod::string::string(const string &rhs) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
 {
-    _size = _capacity = rhs.size();
+    _size = rhs._size;
+    _capacity = rhs._capacity;
 
     this->capacity_selecter();
 
@@ -134,7 +135,8 @@ cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _
 {
     size_t refSize = (len == npos) ? (rhs._size - pos) : (cod::min(rhs._size - pos, len));
 
-    _size = _capacity = refSize;
+    _size = refSize;
+    _capacity = rhs._capacity;
 
     this->capacity_selecter();
 
@@ -960,12 +962,422 @@ cod::string &cod::string::erase(size_t pos, size_t len)
     return *this;
 }
 
+cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t validLength = cod::min(len, _size);
+    size_t newSize = _size - validLength + rhs._size;
+
+    if (newSize > _capacity)
+    {
+        string temp1(*this, 0, pos);
+        string temp2(*this, validLength);
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        _size = newSize;
+
+        this->cpy(temp1.str);
+        this->cat(rhs.str);
+        this->cat(temp2.str);
+    }
+    else
+    {
+        string temp(*this, validLength);
+
+        for (size_t i{0}; i < rhs._size; ++i)
+        {
+            str[pos + i] = rhs.str[i];
+        }
+
+        str[pos + rhs._size] = '\0';
+        this->cat(temp.str);
+
+        if (_size < newSize)
+            _size = newSize;
+    }
+
+    return *this;
+}
+
+cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t refSize = (sublen == npos) ? (rhs._size - subpos) : (cod::min(rhs._size - subpos, sublen));
+    size_t validLength = cod::min(len, _size);
+    size_t newSize = _size - validLength + refSize;
+    size_t tempSize = pos + refSize;
+
+    if (newSize > _capacity)
+    {
+        string temp1(*this, 0, pos);
+        string temp2(*this, validLength);
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        _size = newSize;
+
+        this->cpy(temp1.str);
+
+        for (size_t i{0}; i < refSize; ++i)
+        {
+            str[pos + i] = rhs.str[subpos + i];
+        }
+        str[tempSize] = '\0';
+
+        this->cat(temp2.str);
+    }
+    else
+    {
+        string temp(*this, validLength);
+
+        size_t i{0};
+
+        for (; i < refSize; ++i)
+        {
+            str[pos + i] = rhs.str[subpos + i];
+        }
+
+        str[tempSize] = '\0';
+
+        this->cat(temp.str);
+
+        if (_size < newSize)
+            _size = newSize;
+    }
+
+    return *this;
+}
+
+cod::string &cod::string::replace(size_t pos, size_t len, const char *s)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t rhsSize = strlen(s);
+    size_t validLength = cod::min(len, _size);
+    size_t newSize = _size - validLength + rhsSize;
+
+    if (newSize > _capacity)
+    {
+        string temp1(*this, 0, pos);
+        string temp2(*this, validLength);
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        _size = newSize;
+
+        this->cpy(temp1.str);
+        this->cat(s);
+        this->cat(temp2.str);
+    }
+    else
+    {
+        string temp(*this, validLength);
+
+        for (size_t i{0}; i < rhsSize; ++i)
+        {
+            str[pos + i] = s[i];
+        }
+
+        str[pos + rhsSize] = '\0';
+        this->cat(temp.str);
+
+        if (_size < newSize)
+            _size = newSize;
+    }
+
+    return *this;
+}
+
+cod::string &cod::string::replace(size_t pos, size_t len, const char *s, size_t n)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t refSize = cod::min(strlen(s), n);
+    size_t validLength = cod::min(len, _size);
+    size_t newSize = _size - validLength + refSize;
+
+    if (newSize > _capacity)
+    {
+        string temp1(*this, 0, pos);
+        string temp2(*this, validLength);
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp1.str);
+
+        _size = pos + refSize;
+        this->cat(s, refSize);
+        this->cat(temp2.str);
+        _size = newSize;
+    }
+    else
+    {
+        string temp(*this, validLength);
+
+        for (size_t i{0}; i < refSize; ++i)
+        {
+            str[pos + i] = s[i];
+        }
+
+        str[pos + refSize] = '\0';
+        this->cat(temp.str);
+
+        if (_size < newSize)
+            _size = newSize;
+    }
+
+    return *this;
+}
+
+cod::string &cod::string::replace(size_t pos, size_t len, size_t n, char c)
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t validLength = cod::min(len, _size);
+    size_t newSize = _size - validLength + n;
+
+    if (newSize > _capacity)
+    {
+        string temp1(*this, 0, pos);
+        string temp2(*this, validLength);
+        delete[] str;
+
+        this->capacity_updater(newSize);
+
+        str = new char[_capacity + 1];
+
+        this->cpy(temp1.str);
+
+        for (size_t i{0}; i < n; ++i)
+        {
+            str[pos + i] = c;
+        }
+
+        str[pos + n] = '\0';
+        this->cat(temp2.str);
+        _size = newSize;
+    }
+    else
+    {
+        string temp(*this, validLength);
+
+        for (size_t i{0}; i < n; ++i)
+        {
+            str[pos + i] = c;
+        }
+
+        str[pos + n] = '\0';
+        this->cat(temp.str);
+
+        if (_size < newSize)
+            _size = newSize;
+    }
+
+    return *this;
+}
+
+void cod::string::swap(string &rhs)
+{
+    // temporary copying this data
+    string temp(string(*this));
+
+    // copying rhs to this
+    *this = string(rhs);
+
+    // copying this to rhs
+    rhs = string(temp);
+}
+
 void cod::string::pop_back()
 {
     str[--_size] = '\0';
 }
 
 /**************************************************** STRING OPERATIONS *************************************************/
+const char *cod::string::c_str() const
+{
+    return str;
+}
+
+const char *cod::string::data() const
+{
+    return str;
+}
+
+size_t cod::string::copy(char *s, size_t len, size_t pos) const
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t validLength = cod::min(len, _size);
+
+    for (size_t i{0}; i < validLength; ++i)
+    {
+        s[i] = str[pos + i];
+    }
+
+    return validLength;
+}
+
+cod::string cod::string::substr(size_t pos, size_t len) const
+{
+    return string(*this, pos, len);
+}
+
+int cod::string::compare(const string &rhs) const
+{
+    size_t validLength = cod::min(_size, rhs._size);
+
+    if (str[0] != rhs.str[0])
+        return (str[0] - rhs.str[0]);
+
+    for (size_t i{1}; i < validLength; i++)
+    {
+        if (str[i] != rhs.str[i])
+            return 256 * (str[i] - rhs.str[i]); // converting to bits
+    }
+
+    if (_size != rhs._size)
+        return (_size - rhs._size);
+
+    return 0;
+}
+
+int cod::string::compare(size_t pos, size_t len, const string &rhs) const
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+    size_t validLength = cod::min(lSize, rhs._size);
+
+    if (str[pos] != rhs.str[0])
+        return (str[pos] - rhs.str[0]);
+
+    for (size_t i{1}; i < validLength; i++)
+    {
+        if (str[pos + i] != rhs.str[i])
+            return 256 * (str[pos + i] - rhs.str[i]); // converting to bits
+    }
+
+    if (lSize != rhs._size)
+        return (lSize - rhs._size);
+
+    return 0;
+}
+
+int cod::string::compare(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen) const
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+    size_t rSize = (sublen == npos) ? rhs._size - pos : cod::min(rhs._size - pos, sublen);
+    size_t validLength = cod::min(lSize, rSize);
+
+    if (str[pos] != rhs.str[subpos])
+        return (str[pos] - rhs.str[subpos]);
+
+    for (size_t i{1}; i < validLength; i++)
+    {
+        if (str[pos + i] != rhs.str[subpos + i])
+            return 256 * (str[pos + i] - rhs.str[subpos + i]); // converting to bits
+    }
+
+    if (lSize != rSize)
+        return (lSize - rSize);
+
+    return 0;
+}
+
+int cod::string::compare(const char *s) const
+{
+    size_t rSize = strlen(s);
+
+    size_t validLength = cod::min(_size, rSize);
+
+    if (str[0] != s[0])
+        return (str[0] - s[0]);
+
+    for (size_t i{1}; i < validLength; i++)
+    {
+        if (str[i] != s[i])
+            return 256 * (str[i] - s[i]); // converting to bits
+    }
+
+    if (_size != rSize)
+        return (_size - rSize);
+
+    return 0;
+}
+
+int cod::string::compare(size_t pos, size_t len, const char *s) const
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+    size_t rSize = strlen(s);
+    size_t validLength = cod::min(lSize, rSize);
+
+    if (str[pos] != s[0])
+        return (str[pos] - s[0]);
+
+    for (size_t i{1}; i < validLength; i++)
+    {
+        if (str[pos + i] != s[i])
+            return 256 * (str[pos + i] - s[i]); // converting to bits
+    }
+
+    if (lSize != rSize)
+        return (lSize - rSize);
+
+    return 0;
+}
+
+int cod::string::compare(size_t pos, size_t len, const char *s, size_t n) const
+{
+    if (pos > _size)
+        throw OutofBoundsException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+    size_t rSize = cod::min(n, strlen(s));
+    size_t validLength = cod::min(lSize, rSize);
+
+    if (str[pos] != s[0])
+        return (str[pos] - s[0]);
+
+    for (size_t i{1}; i < validLength; i++)
+    {
+        if (str[pos + i] != s[i])
+            return 256 * (str[pos + i] - s[i]); // converting to bits
+    }
+
+    if (lSize != rSize)
+        return (lSize - rSize);
+
+    return 0;
+}
 
 cod::string::~string()
 {

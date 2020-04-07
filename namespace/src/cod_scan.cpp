@@ -42,6 +42,11 @@ int cod::scan::checkChar(bool isPassword)
     // shortcut checking
     c = ::tolower(c);
 
+    // switch(::tolower(c)){
+    //     case 'q':
+    //     break;
+    // }
+
     if (c == 'q')
         flag = 11;
     else if (c == 's')
