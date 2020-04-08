@@ -1239,6 +1239,379 @@ size_t cod::string::copy(char *s, size_t len, size_t pos) const
     return validLength;
 }
 
+size_t cod::string::find(const string &rhs, size_t pos) const
+{
+    for (size_t i{pos}, j{0}; i < _size; i++, j = 0)
+    {
+        if (str[i] == rhs.str[j])
+        {
+            for (size_t k{i}; j < rhs._size; k++, j++)
+            {
+                if (str[k] != rhs.str[j])
+                    break;
+            }
+
+            if (j == rhs._size)
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find(const char *s, size_t pos) const
+{
+    size_t rhsSize = strlen(s);
+
+    for (size_t i{pos}, j{0}; i < _size; i++, j = 0)
+    {
+        if (str[i] == s[j])
+        {
+            for (size_t k{i}; j < rhsSize; k++, j++)
+            {
+                if (str[k] != s[j])
+                    break;
+            }
+
+            if (j == rhsSize)
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find(const char *s, size_t pos, size_t n) const
+{
+    for (size_t i{pos}, j{0}; i < _size; i++, j = 0)
+    {
+        if (str[i] == s[j])
+        {
+            for (size_t k{i}; j < n; k++, j++)
+            {
+                if (str[k] != s[j])
+                    break;
+            }
+
+            if (j == n)
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find(char c, size_t pos) const
+{
+    for (size_t i{pos}; i < _size; i++)
+    {
+        if (str[i] == c)
+            return i;
+    }
+
+    return npos;
+}
+
+size_t cod::string::rfind(const string &rhs, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}, j{0}; i != npos; i--, j = 0)
+    {
+        if (str[i] == rhs.str[j])
+        {
+            for (size_t k{i}; j < rhs._size; k++, j++)
+            {
+                if (str[k] != rhs.str[j])
+                    break;
+            }
+
+            if (j == rhs._size)
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::rfind(const char *s, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+    size_t rhsSize = strlen(s);
+
+    for (size_t i{validPos}, j{0}; i != npos; i--, j = 0)
+    {
+        if (str[i] == s[j])
+        {
+            for (size_t k{i}; j < rhsSize; k++, j++)
+            {
+                if (str[k] != s[j])
+                    break;
+            }
+
+            if (j == rhsSize)
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::rfind(const char *s, size_t pos, size_t n) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}, j{0}; i != npos; i--, j = 0)
+    {
+        if (str[i] == s[j])
+        {
+            for (size_t k{i}; j < n; k++, j++)
+            {
+                if (str[k] != s[j])
+                    break;
+            }
+
+            if (j == n)
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::rfind(char c, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        if (str[i] == c)
+            return i;
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_first_of(const string &rhs, size_t pos) const
+{
+    for (size_t i{pos}; i < _size; i++)
+    {
+        for (size_t j{0}; j < rhs._size; j++)
+        {
+            if (str[i] == rhs.str[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_first_of(const char *s, size_t pos) const
+{
+    size_t rhsSize = strlen(s);
+
+    for (size_t i{pos}; i < _size; i++)
+    {
+        for (size_t j{0}; j < rhsSize; j++)
+        {
+            if (str[i] == s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_first_of(const char *s, size_t pos, size_t n) const
+{
+    for (size_t i{pos}; i < _size; i++)
+    {
+        for (size_t j{0}; j < n; j++)
+        {
+            if (str[i] == s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_first_of(char c, size_t pos) const
+{
+    return (this->find(c, pos));
+}
+
+size_t cod::string::find_last_of(const string &rhs, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        for (size_t j{0}; j < rhs._size; j++)
+        {
+            if (str[i] == rhs.str[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_last_of(const char *s, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+    size_t rhsSize = strlen(s);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        for (size_t j{0}; j < rhsSize; j++)
+        {
+            if (str[i] == s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_last_of(const char *s, size_t pos, size_t n) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        for (size_t j{0}; j < n; j++)
+        {
+            if (str[i] == s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_last_of(char c, size_t pos) const
+{
+    return (this->rfind(c, pos));
+}
+
+size_t cod::string::find_first_not_of(const string &rhs, size_t pos) const
+{
+    for (size_t i{pos}; i < _size; i++)
+    {
+        for (size_t j{0}; j < rhs._size; j++)
+        {
+            if (str[i] != rhs.str[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_first_not_of(const char *s, size_t pos) const
+{
+    size_t rhsSize = strlen(s);
+
+    for (size_t i{pos}; i < _size; i++)
+    {
+        for (size_t j{0}; j < rhsSize; j++)
+        {
+            if (str[i] != s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_first_not_of(const char *s, size_t pos, size_t n) const
+{
+    for (size_t i{pos}; i < _size; i++)
+    {
+        for (size_t j{0}; j < n; j++)
+        {
+            if (str[i] != s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_first_not_of(char c, size_t pos) const
+{
+    for (size_t i{pos}; i < _size; i++)
+    {
+        if (str[i] != c)
+            return i;
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_last_not_of(const string &rhs, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        for (size_t j{0}; j < rhs._size; j++)
+        {
+            if (str[i] != rhs.str[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_last_not_of(const char *s, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+    size_t rhsSize = strlen(s);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        for (size_t j{0}; j < rhsSize; j++)
+        {
+            if (str[i] != s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_last_not_of(const char *s, size_t pos, size_t n) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        for (size_t j{0}; j < n; j++)
+        {
+            if (str[i] != s[j])
+                return i;
+        }
+    }
+
+    return npos;
+}
+
+size_t cod::string::find_last_not_of(char c, size_t pos) const
+{
+    size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
+
+    for (size_t i{validPos}; i != npos; i--)
+    {
+        if (str[i] != c)
+            return i;
+    }
+
+    return npos;
+}
+
 cod::string cod::string::substr(size_t pos, size_t len) const
 {
     return string(*this, pos, len);

@@ -163,7 +163,7 @@ class string
 
     friend bool operator<(const char *lhs, const string &rhs)
     {
-        return (rhs.compare(lhs) < 0);
+        return (rhs.compare(lhs) > 0);
     }
 
     friend bool operator<(const string &lhs, const char *rhs)
@@ -178,7 +178,7 @@ class string
 
     friend bool operator<=(const char *lhs, const string &rhs)
     {
-        return (rhs.compare(lhs) <= 0);
+        return (rhs.compare(lhs) >= 0);
     }
 
     friend bool operator<=(const string &lhs, const char *rhs)
@@ -194,7 +194,7 @@ class string
     friend bool operator>(const char *lhs, const string &rhs)
     {
 
-        return (rhs.compare(lhs) > 0);
+        return (rhs.compare(lhs) < 0);
     }
 
     friend bool operator>(const string &lhs, const char *rhs)
@@ -209,7 +209,7 @@ class string
 
     friend bool operator>=(const char *lhs, const string &rhs)
     {
-        return (rhs.compare(lhs) >= 0);
+        return (rhs.compare(lhs) <= 0);
     }
 
     friend bool operator>=(const string &lhs, const char *rhs)
@@ -333,6 +333,37 @@ public:
     const char *c_str() const;
     const char *data() const;
     size_t copy(char *s, size_t len, size_t pos = 0) const;
+
+    size_t find(const string &rhs, size_t pos = 0) const;   // string
+    size_t find(const char *s, size_t pos = 0) const;       // c-string
+    size_t find(const char *s, size_t pos, size_t n) const; // buffer
+    size_t find(char c, size_t pos = 0) const;              // character
+
+    size_t rfind(const string &rhs, size_t pos = npos) const; // string
+    size_t rfind(const char *s, size_t pos = npos) const;     // c-string
+    size_t rfind(const char *s, size_t pos, size_t n) const;  // buffer
+    size_t rfind(char c, size_t pos = npos) const;            // character
+
+    size_t find_first_of(const string &rhs, size_t pos = 0) const;   // string
+    size_t find_first_of(const char *s, size_t pos = 0) const;       // c-string
+    size_t find_first_of(const char *s, size_t pos, size_t n) const; // buffer
+    size_t find_first_of(char c, size_t pos = 0) const;              // character
+
+    size_t find_last_of(const string &rhs, size_t pos = npos) const; // string
+    size_t find_last_of(const char *s, size_t pos = npos) const;     // c-string
+    size_t find_last_of(const char *s, size_t pos, size_t n) const;  // buffer
+    size_t find_last_of(char c, size_t pos = npos) const;            // character
+
+    size_t find_first_not_of(const string &rhs, size_t pos = 0) const;   // string
+    size_t find_first_not_of(const char *s, size_t pos = 0) const;       // c-string
+    size_t find_first_not_of(const char *s, size_t pos, size_t n) const; // buffer
+    size_t find_first_not_of(char c, size_t pos = 0) const;              // character
+
+    size_t find_last_not_of(const string &rhs, size_t pos = npos) const; // string
+    size_t find_last_not_of(const char *s, size_t pos = npos) const;     // c-string
+    size_t find_last_not_of(const char *s, size_t pos, size_t n) const;  // buffer
+    size_t find_last_not_of(char c, size_t pos = npos) const;            // character
+
     string substr(size_t pos = 0, size_t len = npos) const;
 
     int compare(const string &rhs) const;                         // string
