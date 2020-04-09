@@ -88,7 +88,8 @@ void cod::scan::choice(int &choice)
         case 16:
             throw OpenChangelog();
         case 17:
-            throw OpenHintSetting();
+            if (showHint)
+                throw OpenHintSetting();
         default: // do nothing
             break;
         }

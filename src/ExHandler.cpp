@@ -110,9 +110,7 @@ void OpenChangelog::what() const noexcept
 
 void OpenHintSetting::what() const noexcept
 {
-    std::string message{"4. "};
-    message += (showHint ? std::string{"Disable "} : std::string{"Enable "});
-    message += settingsMenu.at(3);
+    std::string message{"4. Disable hints"};
 
     show_me_first(message, 4);
 }

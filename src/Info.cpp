@@ -35,11 +35,14 @@ void help()
 
     for (const auto &sc : helpCharData)
     {
-        std::cout << " " << std::setw(widthIndex) << std::left << sc;
-        std::cout << "-> " << helpCharDesc.at(i++);
+        if (showHint || sc != std::string{"d"})
+        {
+            std::cout << " " << std::setw(widthIndex) << std::left << sc
+                      << "-> " << helpCharDesc.at(i++);
 
-        if (sc != std::string{"u"})
-            std::cout << std::endl;
+            if (sc != std::string{"u"})
+                std::cout << std::endl;
+        }
     }
     print_message(std::string{"*Can be used only in menu screen"});
     press_key(NIL);
