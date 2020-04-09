@@ -93,13 +93,18 @@ class array
 
     friend std::ostream &operator<<(std::ostream &os, const array &arr)
     {
+        char c = '-';
+
         if (arr._size)
-            for (const auto &val : arr)
+            for (size_t i{0}; i < arr._size; ++i)
             {
-                if (val != arr.at(arr._size - 1))
-                    std::cout << val << " ";
+                if (arr.A[i] == arr.MIN_VAL)
+                    std::cout << c;
                 else
-                    std::cout << val;
+                    std::cout << arr.A[i];
+
+                if (i < arr._size - 1)
+                    std::cout << " ";
             }
         else
             os << "No value to display";

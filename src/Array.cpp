@@ -643,7 +643,11 @@ void ArrayHandler<T>::add_elements()
     if (size < 0)
         throw NegativeValueException();
 
-    std::cout << std::endl;
+    // std::string message{" ENTER " + std::to_string(size)};
+    border(widthMenu);
+
+    std::string val = (size > 1) ? " values:\n" : " value ";
+    std::cout << "Enter " << size << val;
 
     for (int i{0}; i < size; ++i)
     {
@@ -881,7 +885,6 @@ void ArrayHandler<T>::set_opn_arr()
         menu(setMenu, std::string{" SET "});
 
         toStop = true;
-        // sc.scanChoice(ch);
         sc.choice(ch);
 
         switch (ch)

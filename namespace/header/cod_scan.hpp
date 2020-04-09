@@ -17,6 +17,51 @@ class scan
         return sc;
     }
 
+    friend scan &operator>>(scan &sc, char &data)
+    {
+        sc.reset();
+        int count{0};
+
+        while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+        {
+            if (sc.c == ' ')
+            {
+                if (sc.isLast)
+                    ++count;
+                else if (sc.value.size()) // will break only when the string has minimum 1 element
+                    break;
+
+                if (count == 3)
+                    emessage(std::string{"     Press Enter to submit data"});
+            }
+
+            if (sc.value.size() > 0)
+                sc.isLimitExceed = true;
+            else
+                sc.isLimitExceed = false;
+
+            if (sc.checkChar() == -1)
+                throw EscPressed();
+        }
+
+        if (!(sc.isLast))
+        {
+            if (sc.c == '\r')
+                sc.print();
+            else if (sc.c == ' ')
+                sc.print(" ");
+
+            sc.isLast = true;
+        }
+
+        std::stringstream ss{sc.value};
+
+        if (!(ss >> data))
+            throw InvalidInputException();
+
+        return sc;
+    }
+
     template <typename T>
     friend scan &operator>>(scan &sc, T &data)
     {
