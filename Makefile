@@ -1,5 +1,5 @@
 OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\Home.o obj\Info.o obj\Security.o obj\Settings.o obj\String.o obj\UIhandler.o
-OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_sstream.o obj\cod_string.o
+OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
 OBJF = obj/*.o
 LIBS = -static
 CC = g++
@@ -68,9 +68,6 @@ obj\cod_pair.o: namespace\src\cod_pair.cpp namespace\header\cod_pair.hpp
 
 obj\cod_scan.o: namespace\src\cod_scan.cpp namespace\header\cod_scan.hpp
 	$(CC) $(CFLAGS) namespace\src\cod_scan.cpp -o obj\cod_scan.o
-
-obj\cod_sstream.o: namespace\src\cod_sstream.cpp namespace\header\cod_sstream.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_sstream.cpp -o obj\cod_sstream.o
 
 obj\cod_string.o: namespace\src\cod_string.cpp namespace\header\cod_string.hpp
 	$(CC) $(CFLAGS) namespace\src\cod_string.cpp -o obj\cod_string.o
