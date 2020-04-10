@@ -56,7 +56,7 @@ const std::vector<std::string> findValueMenu{"Search the array", "Select a range
 const std::vector<std::string> logVersionData{"1.6", "1.4", "1.2", "1.0"};
 const std::vector<std::string> logVersionDesc{"Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
 const std::vector<std::string> helpCharData{"Esc", "a", /* "c",*/ "d", "h", /* "i",*/ "l", /* "p",*/ "q", "s", "u"};
-const std::vector<std::string> helpCharDesc{"Return to last screen", "About the software", /* "Show code",*/ "Disable hint/confirm message", "Help", /* "Analyse the code",*/ "Changelog", /* "Save",*/ "Quit", "Open settings", "Get Updates"};
+const std::vector<std::string> helpCharDesc{"Return to last screen", "About the software", /* "Show code",*/ "Disable hint/warning", "Help", /* "Analyse the code",*/ "Changelog", /* "Save",*/ "Quit", "Open settings", "Get Updates"};
 
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 

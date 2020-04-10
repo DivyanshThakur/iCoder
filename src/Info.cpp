@@ -25,11 +25,9 @@ void about()
 
 void help()
 {
-    size_t pos = helpCharData.at(7).size();
-
     header(std::string{" HELP "});
 
-    std::cout << std::setw(pos + 1) << std::left << " Key"
+    std::cout << std::setw(widthIndex) << std::left << " Key"
               << "    Description";
     border(widthMenu);
 
@@ -37,9 +35,9 @@ void help()
 
     for (const auto &sc : helpCharData)
     {
-        if (showHint || sc != std::string{"d"})
+        if (showHint || showQuit || sc != std::string{"d"})
         {
-            std::cout << " " << std::setw(pos + 1) << std::left << sc
+            std::cout << " " << std::setw(widthIndex) << std::left << sc
                       << "-> " << helpCharDesc.at(i++);
 
             if (sc != std::string{"u"})
@@ -125,7 +123,7 @@ void changelog()
     header(std::string{" CHANGELOG "});
 
     std::cout << std::setw(widthIndex + 2) << std::left << "Version"
-              << "    Description";
+              << "   Description";
     border(widthMenu);
 
     size_t i{0};
@@ -138,6 +136,7 @@ void changelog()
         {
             if (logVersionDesc.at(i) == "\n")
             {
+                std::cout << std::endl;
                 ++i;
                 break;
             }
@@ -148,8 +147,7 @@ void changelog()
             std::cout << "-> " << logVersionDesc.at(i);
 
             if (vInfo != std::string{"1.0"})
-                std::cout << std::endl
-                          << std::endl;
+                std::cout << std::endl;
         }
     }
     press_key(NIL);
