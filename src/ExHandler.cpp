@@ -82,7 +82,15 @@ void Exit::what() const noexcept
 {
     if (showQuit)
     {
-        bool toProceed = confirm_the_change(std::string{"Press d to disable this message!"}, std::string{"Do you want to exit?"});
+        std::string message;
+
+        if (opnScreen != SETTINGS)
+        {
+            isConditionEnabled = true;
+            message = std::string{"Press d to disable this message!"};
+        }
+
+        bool toProceed = confirm_the_change(message, std::string{"Do you want to exit?"});
 
         if (toProceed)
             exit(0);

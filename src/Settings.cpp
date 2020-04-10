@@ -111,7 +111,8 @@ void settings()
         }
         catch (const OpenAnimeSetting &e)
         {
-            // do nothing
+            if (showHint)
+                settings_controller(5); // disable hint
         }
 
     } while (1); // true
@@ -152,7 +153,7 @@ void settings_controller(char ch)
         break;
     }
 
-    press_key(HOME);
+    press_key(MAIN);
 }
 
 std::vector<std::string> settings_screen_selector()

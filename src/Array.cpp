@@ -289,7 +289,7 @@ void ArrayHandler<T>::empty_arrays_controller(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(HOME);
+        press_key(MAIN);
         return;
     }
 }
@@ -332,7 +332,7 @@ void ArrayHandler<T>::arrays_controller(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(HOME);
+        press_key(MAIN);
         return;
     }
 }
@@ -430,7 +430,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(HOME);
+        press_key(MAIN);
         return;
     }
 }
@@ -514,7 +514,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(HOME);
+        press_key(MAIN);
         return;
     }
 }
@@ -594,7 +594,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(HOME);
+        press_key(MAIN);
         return;
     }
 }

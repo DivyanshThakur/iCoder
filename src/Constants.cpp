@@ -66,4 +66,5 @@ const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};
 
 // enums
+OpenedScreen opnScreen;
 Status stats;

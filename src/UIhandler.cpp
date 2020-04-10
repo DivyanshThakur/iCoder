@@ -5,6 +5,7 @@
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
+#include "../header/Settings.hpp"
 
 void load()
 {
@@ -58,6 +59,8 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
     if (showStatus)
         show_status(statsStr, statsVal);
 
+    update_screen(heading);
+
     for (size_t index{0}; index < vecMenu.size(); ++index)
     {
         std::cout << std::setw(2) << std::right << index + 1 << ". " << vecMenu.at(index);
@@ -93,6 +96,20 @@ std::string stats_selector()
     }
 
     return str;
+}
+
+void update_screen(const std::string &heading)
+{
+    if (heading == std::string{" ARRAY "})
+        opnScreen = ARRAY;
+    else if (heading == std::string{" HOME "})
+        opnScreen = HOME;
+    else if (heading == std::string{" MENU "})
+        opnScreen = MENU;
+    else if (heading == std::string{" SETTINGS "})
+        opnScreen = SETTINGS;
+    else if (heading == std::string{" UPDATES "})
+        opnScreen = UPDATES;
 }
 
 void header(const std::string &menuTitle, bool showTitle)
@@ -180,7 +197,7 @@ void press_key(const ReturnTo &rt, const std::string &message)
         {
         case PRE:
             throw EscPressed();
-        case HOME:
+        case MAIN:
             throw ReturnHome();
         case NIL:
             break;
@@ -208,7 +225,8 @@ void wait_message(const std::string &message)
 
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
 {
-    print_message(message);
+    if (message != std::string{""})
+        print_message(message);
 
     border(widthMenu);
 
@@ -220,12 +238,12 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
 
     try
     {
-        isConditionEnabled = true;
         sc >> c;
     }
     catch (const OpenAnimeSetting &e)
     {
-        e.what();
+        if (opnScreen != SETTINGS)
+            e.what();
     }
     catch (...)
     {

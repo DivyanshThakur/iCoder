@@ -84,10 +84,20 @@ enum Status
 enum ReturnTo
 {
     PRE,
-    HOME,
+    MAIN,
     NIL
 };
 
+enum OpenedScreen
+{
+    ARRAY,
+    HOME,
+    MENU,
+    SETTINGS,
+    UPDATES
+};
+
+extern enum OpenedScreen opnScreen;
 extern enum Status stats;
 
 #endif
