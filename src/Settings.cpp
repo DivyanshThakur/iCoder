@@ -36,7 +36,13 @@ void show_me_first(const std::string &message, int repeatFor)
         std::cout << std::endl;
     }
 
+    Sleep(200);
     settings();
+}
+
+std::string state_selector(bool isTrue)
+{
+    return (isTrue ? std::string{"Disable "} : std::string{"Enable "});
 }
 
 void settings()
@@ -103,7 +109,7 @@ void settings()
         {
             e.what();
         }
-        catch (const OpenHintSetting &e)
+        catch (const OpenAnimeSetting &e)
         {
             // do nothing
         }
@@ -129,11 +135,15 @@ void settings_controller(char ch)
         welcome_message();
         break;
 
-    case 4: // hint message enable/disable
+    case 4: // quit message enable/disable
+        quit_message();
+        break;
+
+    case 5: // hint message enable/disable
         hint_message();
         break;
 
-    case 5: // reset the settings and delete users
+    case 6: // reset the settings and delete users
         reset();
         break;
 
@@ -157,9 +167,11 @@ std::vector<std::string> settings_screen_selector()
         std::string selector;
 
         if (i == 2)
-            selector = (showWelcome ? std::string{"Disable "} : std::string{"Enable "});
+            selector = state_selector(showWelcome);
         else if (i == 3)
-            selector = (showHint ? std::string{"Disable "} : std::string{"Enable "});
+            selector = state_selector(showQuit);
+        else if (i == 4)
+            selector = state_selector(showHint);
 
         menu_to_display.push_back(selector + settingsMenu.at(i));
     }
@@ -219,21 +231,23 @@ void change_lsearch_type()
 
 void welcome_message()
 {
-    if (showWelcome)
-        showWelcome = false;
-    else
-        showWelcome = true;
+    showWelcome = (!showWelcome); // reverse the state
 
     save_to_file(fSetting, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
     print_message(std::string{"Changes saved!"});
 }
 
+void quit_message()
+{
+    showQuit = (!showQuit); // reverse the state
+
+    save_to_file(fSetting, std::string{"SHOW_QUIT_MESSAGE"}, showQuit);
+    print_message(std::string{"Changes saved!"});
+}
+
 void hint_message()
 {
-    if (showHint)
-        showHint = false;
-    else
-        showHint = true;
+    showHint = (!showHint); // reverse the state
 
     save_to_file(fSetting, std::string{"SHOW_HINT"}, showHint);
     print_message(std::string{"Changes saved!"});

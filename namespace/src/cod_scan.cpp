@@ -47,7 +47,9 @@ int cod::scan::checkChar(bool isPassword)
     //     break;
     // }
 
-    if (c == 'q')
+    if (c == 'd' && isConditionEnabled)
+        flag = 10;
+    else if (c == 'q')
         flag = 11;
     else if (c == 's')
         flag = 12;
@@ -89,7 +91,7 @@ void cod::scan::choice(int &choice)
             throw OpenChangelog();
         case 17:
             if (showHint)
-                throw OpenHintSetting();
+                throw OpenAnimeSetting(5);
         default: // do nothing
             break;
         }

@@ -218,7 +218,19 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
     cod::scan sc;
     char c;
 
-    sc >> c;
+    try
+    {
+        isConditionEnabled = true;
+        sc >> c;
+    }
+    catch (const OpenAnimeSetting &e)
+    {
+        e.what();
+    }
+    catch (...)
+    {
+        return false;
+    }
 
     return (::tolower(c) == 'y');
 }

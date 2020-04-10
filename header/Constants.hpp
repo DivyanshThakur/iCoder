@@ -11,7 +11,10 @@ extern std::string signedUserID; // this will be initialized at runtime
 extern int sleepTime;
 extern bool showWelcome;
 extern bool showHint;
+extern bool showQuit;
+// extern bool isShortcutEnabled;
 extern bool showedOneTime;
+extern bool isConditionEnabled;
 extern const std::string devName;
 extern const std::string versionInfo;
 extern const std::string sCodeUrl;

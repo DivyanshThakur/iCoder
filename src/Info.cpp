@@ -25,9 +25,11 @@ void about()
 
 void help()
 {
+    size_t pos = helpCharData.at(7).size();
+
     header(std::string{" HELP "});
 
-    std::cout << std::setw(widthIndex) << std::left << " Key"
+    std::cout << std::setw(pos + 1) << std::left << " Key"
               << "    Description";
     border(widthMenu);
 
@@ -37,12 +39,14 @@ void help()
     {
         if (showHint || sc != std::string{"d"})
         {
-            std::cout << " " << std::setw(widthIndex) << std::left << sc
+            std::cout << " " << std::setw(pos + 1) << std::left << sc
                       << "-> " << helpCharDesc.at(i++);
 
             if (sc != std::string{"u"})
                 std::cout << std::endl;
         }
+        else
+            i++;
     }
     print_message(std::string{"*Can be used only in menu screen"});
     press_key(NIL);
@@ -103,7 +107,7 @@ void update()
         {
             e.what();
         }
-        catch (const OpenHintSetting &e)
+        catch (const OpenAnimeSetting &e)
         {
             e.what();
         }

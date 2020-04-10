@@ -155,9 +155,12 @@ public:
     void what() const noexcept;
 };
 
-class OpenHintSetting
+class OpenAnimeSetting
 {
+    size_t pos;
+
 public:
+    OpenAnimeSetting(size_t pos);
     void what() const noexcept;
 };
 

@@ -80,7 +80,15 @@ const char *OutofBoundsException::what() const noexcept
 
 void Exit::what() const noexcept
 {
-    exit(0);
+    if (showQuit)
+    {
+        bool toProceed = confirm_the_change(std::string{"Press d to disable this message!"}, std::string{"Do you want to exit?"});
+
+        if (toProceed)
+            exit(0);
+    }
+    else
+        exit(0);
 }
 
 void OpenSettings::what() const noexcept
@@ -108,9 +116,14 @@ void OpenChangelog::what() const noexcept
     changelog();
 }
 
-void OpenHintSetting::what() const noexcept
+OpenAnimeSetting::OpenAnimeSetting(size_t pos) : pos(pos)
 {
-    std::string message{"4. Disable hints"};
+}
 
-    show_me_first(message, 4);
+void OpenAnimeSetting::what() const noexcept
+{
+    std::string message{". Disable "};
+    message += settingsMenu.at(pos - 1);
+
+    show_me_first(std::to_string(pos) + message, pos);
 }

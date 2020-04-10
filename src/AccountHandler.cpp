@@ -22,6 +22,7 @@ void restore_saved_changes()
         signedUserID = std::string{"NULL"};
         sleepTime = 25;
         showWelcome = true;
+        showQuit = true;
         showHint = true;
         stats = DEFAULT;
 
@@ -31,6 +32,7 @@ void restore_saved_changes()
         print_to_file(outFile, std::string{"ANIMATION_SPEED"}, sleepTime);
         print_to_file(outFile, std::string{"LSEARCH_STATUS"}, stats);
         print_to_file(outFile, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
+        print_to_file(outFile, std::string{"SHOW_QUIT_MESSAGE"}, showQuit);
         print_to_file(outFile, std::string{"SHOW_HINT"}, showHint);
 
         outFile.close();
@@ -54,6 +56,8 @@ void restore_saved_changes()
         }
         else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
             file >> showWelcome;
+        else if (title == std::string{"SHOW_QUIT_MESSAGE"})
+            file >> showQuit;
         else if (title == std::string{"SHOW_HINT"})
             file >> showHint;
     }
@@ -95,7 +99,7 @@ bool check_default_settings()
     std::ifstream file(fSetting);
     std::string title, usr_signed;
     int time, c;
-    bool wlcome, hint;
+    bool wlcome, hint, quit;
 
     if (!file)
         return true;
@@ -110,11 +114,13 @@ bool check_default_settings()
             file >> c;
         else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
             file >> wlcome;
+        else if (title == std::string{"SHOW_QUIT_MESSAGE"})
+            file >> quit;
         else if (title == std::string{"SHOW_HINT"})
             file >> hint;
     }
 
-    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome == true && hint == true && c == 0)
+    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome && quit && hint && !c)
         return true;
 
     file.close();

@@ -97,7 +97,7 @@ int main()
         {
             e.what();
         }
-        catch (const OpenHintSetting &e)
+        catch (const OpenAnimeSetting &e)
         {
             e.what();
         }

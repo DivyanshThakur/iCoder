@@ -40,8 +40,18 @@ class scan
             else
                 sc.isLimitExceed = false;
 
-            if (sc.checkChar() == -1)
+            switch (sc.checkChar())
+            {
+            case -1:
                 throw EscPressed();
+                break;
+
+            case 10:
+                isConditionEnabled = false;
+                if (showQuit)
+                    throw OpenAnimeSetting(4);
+                break;
+            }
         }
 
         if (!(sc.isLast))
