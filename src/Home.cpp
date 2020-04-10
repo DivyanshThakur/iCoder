@@ -53,6 +53,7 @@ void home(const std::string &userID)
         }
         catch (const OpenSettings &e)
         {
+            lstScreen = LAST_HOME;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -65,6 +66,7 @@ void home(const std::string &userID)
         }
         catch (const OpenUpdate &e)
         {
+            lstScreen = LAST_HOME;
             e.what();
         }
         catch (const OpenChangelog &e)
@@ -80,7 +82,7 @@ void home(const std::string &userID)
             // to return to home screen
         }
 
-    } while (1); // exit the program when ch == 8
+    } while (1); // always true
 }
 
 void home_controller(int ch)
@@ -88,10 +90,12 @@ void home_controller(int ch)
     switch (ch)
     {
     case 1: // arrays
+        lstScreen = LAST_ARRAY;
         Arrays();
         return;
 
     case 2: // strings
+        lstScreen = LAST_STRING;
         String();
         break;
 

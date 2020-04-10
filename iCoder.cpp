@@ -3,14 +3,14 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.7.20.4.1-BETA
+ * VERSION - 1.7.20.4.10-BETA
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
  * FIRST STABLE RELEASE - 19 FEBRUARY, 2020
  * 
  * DESCRIPTION :
- * A SMALL PROJECT WITH ALL FEATURES SUCH AS DATA STRUCTURE & ALGORITHM, GAMES AND MUCH MORE...
+ * A SMALL PROJECT WITH ALL FEATURES SUCH AS DATA STRUCTURE, ALGORITHM, GAMES AND MUCH MORE...
  * 
  * **********************************************************************************************************************/
 
@@ -79,6 +79,7 @@ int main()
         }
         catch (const OpenSettings &e)
         {
+            lstScreen = LAST_MENU;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -91,6 +92,7 @@ int main()
         }
         catch (const OpenUpdate &e)
         {
+            lstScreen = LAST_MENU;
             e.what();
         }
         catch (const OpenChangelog &e)
@@ -126,6 +128,7 @@ void main_menu_controller(int ch)
         break;
 
     case 3: // login Anonymously
+        lstScreen = LAST_ARRAY;
         home(std::string{"User"});
         break;
 

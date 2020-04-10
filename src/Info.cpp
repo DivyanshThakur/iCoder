@@ -89,6 +89,11 @@ void update()
         }
         catch (const OpenSettings &e)
         {
+
+            if (lstScreen == LAST_SETTINGS)
+                return;
+
+            lstScreen = LAST_UPDATES;
             e.what();
         }
         catch (const OpenAbout &e)

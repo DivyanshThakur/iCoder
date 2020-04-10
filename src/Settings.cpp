@@ -103,6 +103,11 @@ void settings()
         }
         catch (const OpenUpdate &e)
         {
+
+            if (lstScreen == LAST_UPDATES)
+                return;
+
+            lstScreen = LAST_SETTINGS;
             e.what();
         }
         catch (const OpenChangelog &e)
@@ -153,7 +158,7 @@ void settings_controller(char ch)
         break;
     }
 
-    press_key(MAIN);
+    press_key(HOME);
 }
 
 std::vector<std::string> settings_screen_selector()

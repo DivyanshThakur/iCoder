@@ -131,6 +131,7 @@ void ArrayHandler<T>::start()
         }
         catch (const OpenSettings &e)
         {
+            lstScreen = LAST_ARRAY;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -143,6 +144,7 @@ void ArrayHandler<T>::start()
         }
         catch (const OpenUpdate &e)
         {
+            lstScreen = LAST_ARRAY;
             e.what();
         }
         catch (const OpenChangelog &e)
@@ -289,7 +291,7 @@ void ArrayHandler<T>::empty_arrays_controller(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(MAIN);
+        press_key(HOME);
         return;
     }
 }
@@ -332,7 +334,7 @@ void ArrayHandler<T>::arrays_controller(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(MAIN);
+        press_key(HOME);
         return;
     }
 }
@@ -430,7 +432,7 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(MAIN);
+        press_key(HOME);
         return;
     }
 }
@@ -514,7 +516,7 @@ void ArrayHandler<char>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(MAIN);
+        press_key(HOME);
         return;
     }
 }
@@ -594,7 +596,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
 
     default:
         print_message(std::string{"Invalid choice"});
-        press_key(MAIN);
+        press_key(HOME);
         return;
     }
 }

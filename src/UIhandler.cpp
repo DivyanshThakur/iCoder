@@ -101,15 +101,15 @@ std::string stats_selector()
 void update_screen(const std::string &heading)
 {
     if (heading == std::string{" ARRAY "})
-        opnScreen = ARRAY;
+        opnScreen = CUR_ARRAY;
     else if (heading == std::string{" HOME "})
-        opnScreen = HOME;
+        opnScreen = CUR_HOME;
     else if (heading == std::string{" MENU "})
-        opnScreen = MENU;
+        opnScreen = CUR_MENU;
     else if (heading == std::string{" SETTINGS "})
-        opnScreen = SETTINGS;
+        opnScreen = CUR_SETTINGS;
     else if (heading == std::string{" UPDATES "})
-        opnScreen = UPDATES;
+        opnScreen = CUR_UPDATES;
 }
 
 void header(const std::string &menuTitle, bool showTitle)
@@ -197,7 +197,7 @@ void press_key(const ReturnTo &rt, const std::string &message)
         {
         case PRE:
             throw EscPressed();
-        case MAIN:
+        case HOME:
             throw ReturnHome();
         case NIL:
             break;
@@ -242,7 +242,7 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
     }
     catch (const OpenAnimeSetting &e)
     {
-        if (opnScreen != SETTINGS)
+        if (opnScreen != CUR_SETTINGS)
             e.what();
     }
     catch (...)
