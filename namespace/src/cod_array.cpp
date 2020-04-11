@@ -809,7 +809,7 @@ size_t cod::array<T>::lsearch(const T &x)
     for (; i < _size; ++i)
         if (A[i] == x)
         {
-            switch (stats)
+            switch (lSearchStats)
             {
             case DEFAULT:
                 ++i; // add 1 to i to return position

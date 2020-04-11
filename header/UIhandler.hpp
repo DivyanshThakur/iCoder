@@ -3,15 +3,15 @@
 
 #include <string>
 #include <vector>
-#include "../header/Constants.hpp"
+#include "Constants.hpp"
 
 /** FUNCTION PROTOTYPES **/
 
 void load();
 void title();
-void menu(const std::vector<std::string> &vecMenu, const std::string &heading = " MENU ", bool showStatus = false, const std::string &statsVal = "Default", const std::string &statsStr = "Status: ");
+void menu(const std::vector<std::string> &vecMenu, const std::string &heading = " MENU ", bool showStatus = false, const std::string &statsVal = "Default", const std::string &statsStr = "Current Status: ");
 void show_status(const std::string &statsStr, const std::string &statsVal);
-std::string stats_selector();
+std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData);
 void update_screen(const std::string &heading);
 void header(const std::string &menuTitle, bool showTitle = true);
 void show_hint();

@@ -24,13 +24,15 @@ void restore_saved_changes()
         showWelcome = true;
         showQuit = true;
         showHint = true;
-        stats = DEFAULT;
+        lSearchStats = DEFAULT;
+        shortcutStats = DEFAULT;
 
         std::ofstream outFile(fSetting);
 
         print_to_file(outFile, std::string{"CURRENT_USER"}, signedUserID);
         print_to_file(outFile, std::string{"ANIMATION_SPEED"}, sleepTime);
-        print_to_file(outFile, std::string{"LSEARCH_STATUS"}, stats);
+        print_to_file(outFile, std::string{"LSEARCH_STATUS"}, lSearchStats);
+        print_to_file(outFile, std::string{"SHORTCUT_STATUS"}, shortcutStats);
         print_to_file(outFile, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
         print_to_file(outFile, std::string{"SHOW_QUIT_MESSAGE"}, showQuit);
         print_to_file(outFile, std::string{"SHOW_HINT"}, showHint);
@@ -52,7 +54,12 @@ void restore_saved_changes()
         else if (title == std::string{"LSEARCH_STATUS"})
         {
             file >> c;
-            update_stats(c);
+            update_stats(lSearchStats, c);
+        }
+        else if (title == std::string{"SHORTCUT_STATUS"})
+        {
+            file >> c;
+            update_stats(shortcutStats, c);
         }
         else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
             file >> showWelcome;
@@ -65,7 +72,7 @@ void restore_saved_changes()
     file.close();
 }
 
-void update_stats(int c)
+void update_stats(enum Status &stats, int c)
 {
     switch (c)
     {
@@ -98,7 +105,7 @@ bool check_default_settings()
 {
     std::ifstream file(fSetting);
     std::string title, usr_signed;
-    int time, c;
+    int time, c, s;
     bool wlcome, hint, quit;
 
     if (!file)
@@ -112,6 +119,8 @@ bool check_default_settings()
             file >> time;
         else if (title == std::string{"LSEARCH_STATUS"})
             file >> c;
+        else if (title == std::string{"SHORTCUT_STATUS"})
+            file >> s;
         else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
             file >> wlcome;
         else if (title == std::string{"SHOW_QUIT_MESSAGE"})
@@ -120,7 +129,7 @@ bool check_default_settings()
             file >> hint;
     }
 
-    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome && quit && hint && !c)
+    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome && quit && hint && !c && !s)
         return true;
 
     file.close();

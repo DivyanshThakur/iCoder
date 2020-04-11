@@ -2,11 +2,12 @@
 #define ACCOUNTHANDLER_HPP
 
 #include <string>
+#include "Constants.hpp"
 
 /** FUNCTION PROTOTYPES **/
 
 void restore_saved_changes();
-void update_stats(int c);
+void update_stats(enum Status &stats, int c);
 void login();
 void display_users();
 bool check_new_user();

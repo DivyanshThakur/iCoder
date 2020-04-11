@@ -129,27 +129,43 @@ void settings_controller(char ch)
     {
     case 1: // change the animation speed of the menu
         change_text_anime_speed();
+        print_message(std::string{"Changes saved!"});
         press_key();
         return;
 
     case 2: // change linear search type
         change_lsearch_type();
+        print_message(std::string{"Changes saved!"});
         press_key();
         return;
 
-    case 3: // welcome message enable/disable
+    case 3: // change shortcuts access type
+        change_shortcuts_type();
+        print_message(std::string{"Changes saved!"});
+        press_key();
+        return;
+
+    case 4: // change theme type
+        change_theme_type();
+        break;
+
+    case 5: // change display style
+        change_display_style();
+        break;
+
+    case 6: // welcome message enable/disable
         welcome_message();
         break;
 
-    case 4: // quit message enable/disable
+    case 7: // quit message enable/disable
         quit_message();
         break;
 
-    case 5: // hint message enable/disable
+    case 8: // hint message enable/disable
         hint_message();
         break;
 
-    case 6: // reset the settings and delete users
+    case 9: // reset the settings and delete users
         reset();
         break;
 
@@ -172,11 +188,11 @@ std::vector<std::string> settings_screen_selector()
 
         std::string selector;
 
-        if (i == 2)
+        if (i == 5)
             selector = state_selector(showWelcome);
-        else if (i == 3)
+        else if (i == 6)
             selector = state_selector(showQuit);
-        else if (i == 4)
+        else if (i == 7)
             selector = state_selector(showHint);
 
         menu_to_display.push_back(selector + settingsMenu.at(i));
@@ -196,7 +212,6 @@ void change_text_anime_speed()
 
     animater(std::string{"Enter the speed: "});
 
-    // sc.scan(speed);
     sc >> speed;
 
     if (speed < 0)
@@ -214,7 +229,7 @@ void change_lsearch_type()
 
     do
     {
-        menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(), std::string{"Search Type: "});
+        menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, lSearchTypeMenu), std::string{"Current Type: "});
 
         sc.choice(ch);
 
@@ -223,8 +238,8 @@ void change_lsearch_type()
         case 1:
         case 2:
         case 3:
-            update_stats(ch - 1);
-            save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, stats);
+            update_stats(lSearchStats, ch - 1);
+            save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, lSearchStats);
             return;
 
         default:
@@ -233,6 +248,94 @@ void change_lsearch_type()
             break;
         }
     } while (1);
+}
+
+void change_shortcuts_type()
+{
+    cod::scan sc;
+    int ch;
+
+    do
+    {
+        menu(shortcutsTypeMenu, std::string{" CHANGE SHORTCUT ACCESS "}, true, stats_selector(shortcutStats, shortcutsTypeMenu), std::string{"Current Type: "});
+
+        sc.choice(ch);
+
+        switch (ch)
+        {
+        case 1:
+        case 2:
+        case 3:
+            update_stats(shortcutStats, ch - 1);
+            save_to_file(fSetting, std::string{"SHORTCUT_STATUS"}, shortcutStats);
+            return;
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            press_key();
+            break;
+        }
+    } while (1);
+}
+
+void change_theme_type()
+{
+    print_message();
+
+    // cod::scan sc;
+    // int ch;
+
+    // do
+    // {
+    //     menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, lSearchTypeMenu), std::string{"Search Type: "});
+
+    //     sc.choice(ch);
+
+    //     switch (ch)
+    //     {
+    //     case 1:
+    //     case 2:
+    //     case 3:
+    //         update_stats(lSearchStats, ch - 1);
+    //         save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, lSearchStats);
+    //         return;
+
+    //     default:
+    //         print_message(std::string{"Invalid choice"});
+    //         press_key();
+    //         break;
+    //     }
+    // } while (1);
+}
+
+void change_display_style()
+{
+    print_message();
+
+    // cod::scan sc;
+    // int ch;
+
+    // do
+    // {
+    //     menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, lSearchTypeMenu), std::string{"Search Type: "});
+
+    //     sc.choice(ch);
+
+    //     switch (ch)
+    //     {
+    //     case 1:
+    //     case 2:
+    //     case 3:
+    //         update_stats(lSearchStats, ch - 1);
+    //         save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, lSearchStats);
+    //         return;
+
+    //     default:
+    //         print_message(std::string{"Invalid choice"});
+    //         press_key();
+    //         break;
+    //     }
+    // } while (1);
 }
 
 void welcome_message()
@@ -287,23 +390,3 @@ void reset()
         restore_saved_changes();
     }
 }
-
-// void delete_account()
-// {
-
-//     if (check_new_user())
-//     {
-//         print_message(std::string{"No user in database!"});
-//         return;
-//     }
-
-//     bool toProceed = confirm_the_change(std::string{"This will permanently delete all\nthe user info from the database!"});
-//     if (toProceed)
-//     {
-//         std::remove(fUser.c_str());
-//         print_message(std::string{"Successfully deleted!"});
-
-//         if (signedUserID != std::string{"NULL"})
-//             throw SignOut();
-//     }
-// }

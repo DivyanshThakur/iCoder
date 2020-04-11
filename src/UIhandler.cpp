@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <conio.h>
 #include "../header/ExHandler.hpp"
+#include "../namespace/header/cod_algorithm.hpp"
 #include "../header/UIhandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
 #include "../header/Settings.hpp"
@@ -78,24 +79,22 @@ void show_status(const std::string &statsStr, const std::string &statsVal)
     border(widthMenu);
 }
 
-std::string stats_selector()
+std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData)
 {
-    std::string str;
-
     switch (stats)
     {
     case DEFAULT:
-        str = "DEFAULT";
-        break;
-    case EASY:
-        str = "TRANSPOSITION";
-        break;
-    case ADV:
-        str = "MOVE-TO-FRONT";
-        break;
-    }
+        return cod::toupper(statsData.at(0));
 
-    return str;
+    case EASY:
+        return cod::toupper(statsData.at(1));
+
+    case ADV:
+        return cod::toupper(statsData.at(2));
+
+    default:
+        return "";
+    }
 }
 
 void update_screen(const std::string &heading)

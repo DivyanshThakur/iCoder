@@ -1,6 +1,7 @@
 #include <string>
 #include "../header/cod_algorithm.hpp"
 
+/***************************************************** MIN FUNCTION ****************************************************/
 template <typename T>
 T cod::min(const T &lhs, const T &rhs)
 {
@@ -10,8 +11,38 @@ T cod::min(const T &lhs, const T &rhs)
         return rhs;
 }
 
-// template declaration
-// min
+/*************************************************** STRING FUNCTIONS **************************************************/
+std::string cod::toupper(const std::string &str)
+{
+    std::string temp;
+
+    for (const auto &c : str)
+    {
+        temp.push_back(::toupper(c));
+    }
+
+    return temp;
+}
+
+std::string cod::tolower(const std::string &str)
+{
+    std::string temp;
+
+    for (const auto &c : str)
+    {
+        temp.push_back(::tolower(c));
+    }
+
+    return temp;
+}
+
+/************************************************************************************************************************
+ * 
+ *                                                  TEMPLATE DECLARATION                                                  
+ * 
+ ***********************************************************************************************************************/
+
+/***************************************************** MIN FUNCTION ****************************************************/
 template int cod::min(const int &lhs, const int &rhs);
 template size_t cod::min(const size_t &lhs, const size_t &rhs);
 template long long cod::min(const long long &lhs, const long long &rhs);

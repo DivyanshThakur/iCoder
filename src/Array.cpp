@@ -678,15 +678,15 @@ void ArrayHandler<T>::insert_value()
 
     show_status(std::string{"Valid position: 1-"}, std::to_string(arr.size()));
 
-    animater(std::string{"Enter the value: "});
-
-    sc >> value;
-
-    std::cout << std::endl;
-
     animater(std::string{"Enter the position: "});
 
     sc >> pos;
+
+    std::cout << std::endl;
+
+    animater(std::string{"Enter the value: "});
+
+    sc >> value;
 
     arr.insert(value, pos);
 
@@ -774,7 +774,7 @@ void ArrayHandler<T>::linear_search_arr()
 
     header(std::string{" LINEAR SEARCH "});
 
-    show_status(std::string{"Search Type: "}, stats_selector());
+    show_status(std::string{"Search Type: "}, stats_selector(lSearchStats, lSearchTypeMenu));
 
     animater(std::string{"Enter the value: "});
 

@@ -3,25 +3,33 @@
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 
-/*** GLOBAL VARIABLES ***/
+/************************************************** GLOBAL VARIABLES **************************************************/
+// saved for future use
 std::string signedUserID; // this will be initialized at runtime
 int sleepTime;
 bool showWelcome;
 bool showHint;
 bool showQuit;
-// bool isShortcutEnabled{true};
+
+// used for temporary conditions
 bool showedOneTime{true};
 bool isConditionEnabled{false};
+
+// software details
 const std::string devName{"Divyansh Singh Thakur"};
 const std::string versionInfo{"1.7.20.4.10-beta"};
+
+// remote url
 const std::string sCodeUrl{"https://github.com/DivyanshThakur/iCoder"};
 const std::string iCoderUrl{"https://github.com/DivyanshThakur/iCoder/raw/master/iCoder.exe"};
 const std::string iCoderBetaUrl{"https://github.com/DivyanshThakur/iCoder/raw/Development/iCoder.exe"};
+
+// software database path
 std::string path;
 std::string fUser;
 std::string fSetting;
 
-/** CONSTANTS **/
+/***************************************************** CONSTANTS *****************************************************/
 
 // uihandler.h
 const int consoleWidth = 850;
@@ -39,7 +47,7 @@ const std::string txtString{"String"};
 
 // menuhandler.h
 const std::vector<std::string> mainMenu{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
-const std::vector<std::string> settingsMenu{"Text animation speed", "Linear search type", "welcome messages", "quit confirmation", "hints", "Reset"};
+const std::vector<std::string> settingsMenu{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> getDataTypeMenu{"Int", "Long", "Double", "Char", "String"};
 const std::vector<std::string> homeMenu{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
 const std::vector<std::string> arrayMenu{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
@@ -52,6 +60,7 @@ const std::vector<std::string> setMenu{"Union", "Intersection", "Difference"};
 const std::vector<std::string> reverseMenu{"Reverse the array", "Select a range"};
 const std::vector<std::string> shiftRotateMenu{"Left Shift", "Right Shift", "Left Rotation", "Right Rotation"};
 const std::vector<std::string> lSearchTypeMenu{"Default", "Transposition", "Move to front"};
+const std::vector<std::string> shortcutsTypeMenu{"Only key", "Ctrl + key", "Disable"};
 const std::vector<std::string> findValueMenu{"Search the array", "Select a range"};
 const std::vector<std::string> logVersionData{"1.6", "1.4", "1.2", "1.0"};
 const std::vector<std::string> logVersionDesc{"Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
@@ -65,7 +74,7 @@ const std::string username{"Username: "};
 const std::string password{"Password: "};
 const std::string RePassword{"Re-enter Password: "};
 
-// enums
+/******************************************************* ENUMS *******************************************************/
 LastScreen lstScreen;
 OpenedScreen opnScreen;
-Status stats;
+Status lSearchStats, shortcutStats;

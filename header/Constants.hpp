@@ -6,25 +6,33 @@
 
 /** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
 
-/*** GLOBAL VARIABLES ***/
-extern std::string signedUserID; // this will be initialized at runtime
+/************************************************** GLOBAL VARIABLES **************************************************/
+// saved for future use
+extern std::string signedUserID;
 extern int sleepTime;
 extern bool showWelcome;
 extern bool showHint;
 extern bool showQuit;
-// extern bool isShortcutEnabled;
+
+// used for temporary conditions
 extern bool showedOneTime;
 extern bool isConditionEnabled;
+
+// software details
 extern const std::string devName;
 extern const std::string versionInfo;
+
+// remote url
 extern const std::string sCodeUrl;
 extern const std::string iCoderUrl;
 extern const std::string iCoderBetaUrl;
+
+// software database path
 extern std::string path;
 extern std::string fUser;
 extern std::string fSetting;
 
-/** CONSTANTS **/
+/***************************************************** CONSTANTS *****************************************************/
 
 // uihandler.h
 extern const int consoleWidth;
@@ -56,6 +64,7 @@ extern const std::vector<std::string> setMenu;
 extern const std::vector<std::string> reverseMenu;
 extern const std::vector<std::string> shiftRotateMenu;
 extern const std::vector<std::string> lSearchTypeMenu;
+extern const std::vector<std::string> shortcutsTypeMenu;
 extern const std::vector<std::string> findValueMenu;
 extern const std::vector<std::string> logVersionData;
 extern const std::vector<std::string> logVersionDesc;
@@ -67,7 +76,7 @@ extern const std::string username;
 extern const std::string password;
 extern const std::string RePassword;
 
-// enums
+/******************************************************* ENUMS *******************************************************/
 enum Side
 {
     LEFT,
@@ -110,6 +119,6 @@ enum OpenedScreen
 
 extern enum LastScreen lstScreen;
 extern enum OpenedScreen opnScreen;
-extern enum Status stats;
+extern enum Status lSearchStats, shortcutStats;
 
 #endif
