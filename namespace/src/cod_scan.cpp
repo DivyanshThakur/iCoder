@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 #include "../header/cod_scan.hpp"
 #include "../header/cod_limits.hpp"
 #include "../../header/Constants.hpp"
@@ -15,7 +16,7 @@ int cod::scan::checkChar(bool isPassword)
     int flag{0};
 
     if (c == ESC)
-        flag = -1; // -1 means that user has pressed ESC, stop the scan and return to startup menu
+        return -1; // -1 means that user has pressed ESC, stop the scan and return to startup menu
 
     else if (c == ' ')
     {
@@ -39,30 +40,65 @@ int cod::scan::checkChar(bool isPassword)
         std::cout << (isPassword ? '*' : c);
     }
 
-    // shortcut checking
-    c = ::tolower(c);
-
-    // switch(::tolower(c)){
-    //     case 'q':
-    //     break;
-    // }
-
-    if (c == 'd' && isConditionEnabled)
-        flag = 10;
-    else if (c == 'q')
-        flag = 11;
-    else if (c == 's')
-        flag = 12;
-    else if (c == 'a')
-        flag = 13;
-    else if (c == 'h')
-        flag = 14;
-    else if (c == 'u')
-        flag = 15;
-    else if (c == 'l')
-        flag = 16;
-    else if (c == 'd')
-        flag = 17;
+    if (shortcutStats == DEFAULT) // shortcut checking
+    {
+        switch (::tolower(c))
+        {
+        case 'a':
+            flag = 10;
+            break;
+        case 'c':
+            flag = 11;
+            break;
+        case 'd':
+            flag = (isquitConditionEnabled) ? 12 : 13;
+            break;
+        case 'h':
+            flag = 14;
+            break;
+        case 'i':
+            flag = 15;
+            break;
+        case 'l':
+            flag = 16;
+            break;
+        case 'p':
+            flag = 17;
+            break;
+        case 'q':
+            flag = 18;
+            break;
+        case 's':
+            flag = 19;
+            break;
+        case 'u':
+            flag = 20;
+            break;
+        }
+    }
+    else if (shortcutStats == EASY)
+    {
+        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x41)) // ctrl + a
+            flag = 10;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x43)) // ctrl + c
+            flag = 11;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x44)) // ctrl + d
+            flag = (isquitConditionEnabled) ? 12 : 13;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x48)) // ctrl + h
+            flag = 14;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x49)) // ctrl + i
+            flag = 15;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x4C)) // ctrl + l
+            flag = 16;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x50)) // ctrl + p
+            flag = 17;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x51)) // ctrl + q
+            flag = 18;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x53)) // ctrl + s
+            flag = 19;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x55)) // ctrl + u
+            flag = 20;
+    }
 
     return flag;
 }
@@ -75,23 +111,30 @@ void cod::scan::choice(int &choice)
     {
         switch (checkChar())
         {
-        case -1:
+        case -1: // Esc - last screen
             throw EscPressed();
-        case 11:
-            throw Exit();
-        case 12:
-            throw OpenSettings();
-        case 13:
+        case 10: // a - about screen
             throw OpenAbout();
-        case 14:
-            throw OpenHelp();
-        case 15:
-            throw OpenUpdate();
-        case 16:
-            throw OpenChangelog();
-        case 17:
+        case 11: // c - code screen
+            break;
+        case 13: // d - disable hints
             if (showHint)
                 throw OpenAnimeSetting(5);
+            break;
+        case 14: // help screen
+            throw OpenHelp();
+        case 15: // info screen
+            break;
+        case 16: // changelog screen
+            throw OpenChangelog();
+        case 17: // save changes
+            break;
+        case 18: // exit the software
+            throw Exit();
+        case 19: // settings screen
+            throw OpenSettings();
+        case 20: // updates screen
+            throw OpenUpdate();
         default: // do nothing
             break;
         }

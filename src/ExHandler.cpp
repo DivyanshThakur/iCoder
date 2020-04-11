@@ -86,7 +86,7 @@ void Exit::what() const noexcept
 
         if (opnScreen != CUR_SETTINGS)
         {
-            isConditionEnabled = true;
+            isquitConditionEnabled = true;
             message = std::string{"Press d to disable this message!"};
         }
 

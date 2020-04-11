@@ -13,7 +13,7 @@ bool showQuit;
 
 // used for temporary conditions
 bool showedOneTime{true};
-bool isConditionEnabled{false};
+bool isquitConditionEnabled{false};
 
 // software details
 const std::string devName{"Divyansh Singh Thakur"};

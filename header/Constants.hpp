@@ -16,7 +16,7 @@ extern bool showQuit;
 
 // used for temporary conditions
 extern bool showedOneTime;
-extern bool isConditionEnabled;
+extern bool isquitConditionEnabled;
 
 // software details
 extern const std::string devName;

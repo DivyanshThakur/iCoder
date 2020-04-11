@@ -46,8 +46,8 @@ class scan
                 throw EscPressed();
                 break;
 
-            case 10:
-                isConditionEnabled = false;
+            case 12: // display quit message
+                isquitConditionEnabled = false;
                 if (showQuit)
                     throw OpenAnimeSetting(4);
                 break;
