@@ -18,7 +18,7 @@ bool isquitConditionEnabled{false};
 
 // software details
 const std::string devName{"Divyansh Singh Thakur"};
-const std::string versionInfo{"1.7.20.4.10-beta"};
+const std::string versionInfo{"1.7.20.4.12-beta"};
 
 // remote url
 const std::string sCodeUrl{"https://github.com/DivyanshThakur/iCoder"};
