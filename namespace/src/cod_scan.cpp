@@ -78,25 +78,26 @@ int cod::scan::checkChar(bool isPassword)
     }
     else if (shortcutStats == EASY)
     {
-        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x41)) // ctrl + a
+        // & 0x8000 is used for current pressed state
+        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x41) & 0x8000) // ctrl + a
             flag = 10;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x43)) // ctrl + c
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x43) & 0x8000) // ctrl + c
             flag = 11;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x44)) // ctrl + d
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x44) & 0x8000) // ctrl + d
             flag = (isquitConditionEnabled) ? 12 : 13;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x48)) // ctrl + h
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x48) & 0x8000) // ctrl + h
             flag = 14;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x49)) // ctrl + i
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x49) & 0x8000) // ctrl + i
             flag = 15;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x4C)) // ctrl + l
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x4C) & 0x8000) // ctrl + l
             flag = 16;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x50)) // ctrl + p
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x50) & 0x8000) // ctrl + p
             flag = 17;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x51)) // ctrl + q
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x51) & 0x8000) // ctrl + q
             flag = 18;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x53)) // ctrl + s
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x53) & 0x8000) // ctrl + s
             flag = 19;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x55)) // ctrl + u
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x55) & 0x8000) // ctrl + u
             flag = 20;
     }
 
