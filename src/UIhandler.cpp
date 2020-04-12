@@ -128,13 +128,22 @@ void show_hint()
 {
     header(std::string{" HINT "}, false);
 
-    std::cout << std::setw(8) << std::left << " Esc "
-              << "Last Screen" << std::endl
-              << std::setw(8) << std::left << " h "
-              << "Help screen" << std::endl
-              << std::setw(8) << std::left << " d "
-              << "Disable this hint" << std::endl
-              << std::endl;
+    std::string hlp = (shortcutStats == EASY) ? " Ctrl + h " : " h ";
+    std::string dsb = (shortcutStats == EASY) ? " Ctrl + d " : " d ";
+    int wdth = (shortcutStats == EASY) ? 12 : 8;
+
+    std::cout << std::setw(wdth) << std::left << " Esc "
+              << "Last Screen" << std::endl;
+
+    if (shortcutStats != ADV)
+    {
+        std::cout << std::setw(wdth) << std::left << hlp
+                  << "Help screen" << std::endl
+                  << std::setw(wdth) << std::left << dsb
+                  << "Disable this hint" << std::endl;
+    }
+
+    std::cout << std::endl;
 }
 
 void border(int size)

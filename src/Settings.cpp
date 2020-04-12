@@ -117,7 +117,7 @@ void settings()
         catch (const OpenAnimeSetting &e)
         {
             if (showHint)
-                settings_controller(5); // disable hint
+                settings_controller(9); // disable hint
         }
 
     } while (1); // true

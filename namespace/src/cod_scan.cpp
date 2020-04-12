@@ -120,7 +120,7 @@ void cod::scan::choice(int &choice)
             break;
         case 13: // d - disable hints
             if (showHint)
-                throw OpenAnimeSetting(5);
+                throw OpenAnimeSetting(9);
             break;
         case 14: // help screen
             throw OpenHelp();

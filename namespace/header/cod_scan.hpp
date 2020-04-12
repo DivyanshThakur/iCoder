@@ -49,7 +49,7 @@ class scan
             case 12: // display quit message
                 isquitConditionEnabled = false;
                 if (showQuit)
-                    throw OpenAnimeSetting(4);
+                    throw OpenAnimeSetting(8); // quit message
                 break;
             }
         }

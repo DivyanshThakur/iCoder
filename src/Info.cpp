@@ -46,7 +46,16 @@ void help()
         else
             i++;
     }
-    print_message(std::string{"*Can be used only in menu screen"});
+    std::string message;
+
+    if (shortcutStats == DEFAULT)
+        message = std::string{"*Can be used only in menu screen"};
+    else if (shortcutStats == EASY)
+        message = std::string{"*Can be used only in menu screen\nUse ctrl + key to access it"};
+    else if (shortcutStats == ADV)
+        message = std::string{"*Enable shortcuts from setting!!"};
+
+    print_message(message);
     press_key(NIL);
 }
 
