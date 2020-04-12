@@ -21,6 +21,7 @@ void restore_saved_changes()
     {
         signedUserID = std::string{"NULL"};
         sleepTime = 25;
+        wsAllowed = false;
         showWelcome = true;
         showQuit = true;
         showHint = true;
@@ -29,13 +30,14 @@ void restore_saved_changes()
 
         std::ofstream outFile(fSetting);
 
-        print_to_file(outFile, std::string{"CURRENT_USER"}, signedUserID);
-        print_to_file(outFile, std::string{"ANIMATION_SPEED"}, sleepTime);
-        print_to_file(outFile, std::string{"LSEARCH_STATUS"}, lSearchStats);
-        print_to_file(outFile, std::string{"SHORTCUT_STATUS"}, shortcutStats);
-        print_to_file(outFile, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
-        print_to_file(outFile, std::string{"SHOW_QUIT_MESSAGE"}, showQuit);
-        print_to_file(outFile, std::string{"SHOW_HINT"}, showHint);
+        print_to_file(outFile, CURRENT_USER, signedUserID);
+        print_to_file(outFile, ANIMATION_SPEED, sleepTime);
+        print_to_file(outFile, LSEARCH_STATUS, lSearchStats);
+        print_to_file(outFile, SHORTCUT_STATUS, shortcutStats);
+        print_to_file(outFile, WS_ALLOWED, wsAllowed);
+        print_to_file(outFile, SHOW_WELCOME_MESSAGE, showWelcome);
+        print_to_file(outFile, SHOW_QUIT_MESSAGE, showQuit);
+        print_to_file(outFile, SHOW_HINT, showHint);
 
         outFile.close();
 
@@ -47,25 +49,27 @@ void restore_saved_changes()
 
     while (file >> title)
     {
-        if (title == std::string{"CURRENT_USER"})
+        if (title == CURRENT_USER)
             file >> signedUserID;
-        else if (title == std::string{"ANIMATION_SPEED"})
+        else if (title == ANIMATION_SPEED)
             file >> sleepTime;
-        else if (title == std::string{"LSEARCH_STATUS"})
+        else if (title == LSEARCH_STATUS)
         {
             file >> c;
             update_stats(lSearchStats, c);
         }
-        else if (title == std::string{"SHORTCUT_STATUS"})
+        else if (title == SHORTCUT_STATUS)
         {
             file >> c;
             update_stats(shortcutStats, c);
         }
-        else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
+        else if (title == WS_ALLOWED)
+            file >> wsAllowed;
+        else if (title == SHOW_WELCOME_MESSAGE)
             file >> showWelcome;
-        else if (title == std::string{"SHOW_QUIT_MESSAGE"})
+        else if (title == SHOW_QUIT_MESSAGE)
             file >> showQuit;
-        else if (title == std::string{"SHOW_HINT"})
+        else if (title == SHOW_HINT)
             file >> showHint;
     }
 
@@ -106,30 +110,32 @@ bool check_default_settings()
     std::ifstream file(fSetting);
     std::string title, usr_signed;
     int time, c, s;
-    bool wlcome, hint, quit;
+    bool ws, wlcome, hint, quit;
 
     if (!file)
         return true;
 
     while (file >> title)
     {
-        if (title == std::string{"CURRENT_USER"})
+        if (title == CURRENT_USER)
             file >> usr_signed;
-        else if (title == std::string{"ANIMATION_SPEED"})
+        else if (title == ANIMATION_SPEED)
             file >> time;
-        else if (title == std::string{"LSEARCH_STATUS"})
+        else if (title == LSEARCH_STATUS)
             file >> c;
-        else if (title == std::string{"SHORTCUT_STATUS"})
+        else if (title == SHORTCUT_STATUS)
             file >> s;
-        else if (title == std::string{"SHOW_WELCOME_MESSAGE"})
+        else if (title == WS_ALLOWED)
+            file >> ws;
+        else if (title == SHOW_WELCOME_MESSAGE)
             file >> wlcome;
-        else if (title == std::string{"SHOW_QUIT_MESSAGE"})
+        else if (title == SHOW_QUIT_MESSAGE)
             file >> quit;
-        else if (title == std::string{"SHOW_HINT"})
+        else if (title == SHOW_HINT)
             file >> hint;
     }
 
-    if (usr_signed == std::string{"NULL"} && time == 25 && wlcome && quit && hint && !c && !s)
+    if (usr_signed == std::string{"NULL"} && time == 25 && ws && wlcome && quit && hint && !c && !s)
         return true;
 
     file.close();
@@ -140,7 +146,7 @@ void save_active_user(const std::string &userID)
 {
     signedUserID = userID;
 
-    save_to_file(fSetting, std::string{"CURRENT_USER"}, signedUserID);
+    save_to_file(fSetting, CURRENT_USER, signedUserID);
 }
 
 void login()

@@ -129,52 +129,54 @@ void settings_controller(char ch)
     {
     case 1: // change the animation speed of the menu
         change_text_anime_speed();
-        print_message(std::string{"Changes saved!"});
-        press_key();
-        return;
+        break;
 
     case 2: // change linear search type
         change_lsearch_type();
-        print_message(std::string{"Changes saved!"});
-        press_key();
-        return;
+        break;
 
     case 3: // change shortcuts access type
         change_shortcuts_type();
-        print_message(std::string{"Changes saved!"});
-        press_key();
-        return;
+        break;
 
     case 4: // change theme type
         change_theme_type();
-        break;
+        press_key(HOME);
+        return;
 
     case 5: // change display style
         change_display_style();
+        press_key(HOME);
+        return;
+
+    case 6: // whitespace allowed enable/disable
+        whitespace_message();
         break;
 
-    case 6: // welcome message enable/disable
+    case 7: // welcome message enable/disable
         welcome_message();
         break;
 
-    case 7: // quit message enable/disable
+    case 8: // quit message enable/disable
         quit_message();
         break;
 
-    case 8: // hint message enable/disable
+    case 9: // hint message enable/disable
         hint_message();
         break;
 
-    case 9: // reset the settings and delete users
+    case 10: // reset the settings and delete users
         reset();
-        break;
+        return;
 
     default:
         print_message(std::string{"Invalid choice"});
-        break;
+        press_key(HOME);
+        return;
     }
 
-    press_key(HOME);
+    print_message(std::string{"Changes saved!"});
+    press_key();
 }
 
 std::vector<std::string> settings_screen_selector()
@@ -189,10 +191,12 @@ std::vector<std::string> settings_screen_selector()
         std::string selector;
 
         if (i == 5)
-            selector = state_selector(showWelcome);
+            selector = state_selector(wsAllowed);
         else if (i == 6)
-            selector = state_selector(showQuit);
+            selector = state_selector(showWelcome);
         else if (i == 7)
+            selector = state_selector(showQuit);
+        else if (i == 8)
             selector = state_selector(showHint);
 
         menu_to_display.push_back(selector + settingsMenu.at(i));
@@ -219,7 +223,7 @@ void change_text_anime_speed()
 
     sleepTime = speed;
 
-    save_to_file(fSetting, std::string{"ANIMATION_SPEED"}, speed);
+    save_to_file(fSetting, ANIMATION_SPEED, speed);
 }
 
 void change_lsearch_type()
@@ -239,7 +243,7 @@ void change_lsearch_type()
         case 2:
         case 3:
             update_stats(lSearchStats, ch - 1);
-            save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, lSearchStats);
+            save_to_file(fSetting, LSEARCH_STATUS, lSearchStats);
             return;
 
         default:
@@ -267,7 +271,7 @@ void change_shortcuts_type()
         case 2:
         case 3:
             update_stats(shortcutStats, ch - 1);
-            save_to_file(fSetting, std::string{"SHORTCUT_STATUS"}, shortcutStats);
+            save_to_file(fSetting, SHORTCUT_STATUS, shortcutStats);
             return;
 
         default:
@@ -338,28 +342,32 @@ void change_display_style()
     // } while (1);
 }
 
+void whitespace_message()
+{
+    wsAllowed = (!wsAllowed); // reverse the state
+
+    save_to_file(fSetting, WS_ALLOWED, wsAllowed);
+}
+
 void welcome_message()
 {
     showWelcome = (!showWelcome); // reverse the state
 
-    save_to_file(fSetting, std::string{"SHOW_WELCOME_MESSAGE"}, showWelcome);
-    print_message(std::string{"Changes saved!"});
+    save_to_file(fSetting, SHOW_WELCOME_MESSAGE, showWelcome);
 }
 
 void quit_message()
 {
     showQuit = (!showQuit); // reverse the state
 
-    save_to_file(fSetting, std::string{"SHOW_QUIT_MESSAGE"}, showQuit);
-    print_message(std::string{"Changes saved!"});
+    save_to_file(fSetting, SHOW_QUIT_MESSAGE, showQuit);
 }
 
 void hint_message()
 {
     showHint = (!showHint); // reverse the state
 
-    save_to_file(fSetting, std::string{"SHOW_HINT"}, showHint);
-    print_message(std::string{"Changes saved!"});
+    save_to_file(fSetting, SHOW_HINT, showHint);
 }
 
 void reset()
