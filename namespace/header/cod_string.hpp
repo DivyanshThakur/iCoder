@@ -31,7 +31,10 @@ class string
     friend cod::scan &operator>>(cod::scan &sc, string &obj)
     {
         char *buff = new char[1'02'400]; // 100 MB
+
+        sc.is_string(true);
         sc >> buff;
+        sc.is_string(false);
 
         string s = buff;
         std::cout << "[size: " << s.size() << "], [ capacity: " << s.capacity() << "]\n";
@@ -41,10 +44,21 @@ class string
         return sc;
     }
 
-    // cod::scan &getline(cod::scan &sc, string &obj)
-    // {
-    // needed to allow space to accept as sring in scanner
-    // }
+    cod::scan &getline(cod::scan &sc, string &obj)
+    {
+        char *buff = new char[1'02'400]; // 100 MB
+
+        sc.is_string(true);
+        sc >> buff;
+        sc.is_string(false);
+
+        string s = buff;
+        std::cout << "[size: " << s.size() << "], [ capacity: " << s.capacity() << "]\n";
+        obj = s;
+
+        delete[] buff;
+        return sc;
+    }
 
     friend string operator+(const string &lhs, const string &rhs) //  string
     {

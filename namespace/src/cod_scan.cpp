@@ -4,7 +4,7 @@
 #include "../header/cod_limits.hpp"
 #include "../../header/Constants.hpp"
 
-cod::scan::scan() : isLast{true}, isLimitExceed{false} {}
+cod::scan::scan() : isLast{true}, isLimitExceed{false}, isString{false} {}
 
 void cod::scan::print(const std::string &s) const
 {
@@ -145,6 +145,11 @@ void cod::scan::choice(int &choice)
 
     if (!(ss >> choice))
         choice = cod::limits<int>::min();
+}
+
+void cod::scan::is_string(bool isStr)
+{
+    this->isString = isStr;
 }
 
 std::string cod::scan::username()

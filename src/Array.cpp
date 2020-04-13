@@ -51,7 +51,9 @@ void array_type_selector(int ch)
         break;
 
     case 5:
+        // str_handler.sc.is_string(true);
         str_handler.start();
+        // str_handler.sc.is_string(false);
         break;
 
     default:
@@ -606,7 +608,7 @@ void ArrayHandler<std::string>::arrays_controller_adv(int ch)
 template <typename T>
 void ArrayHandler<T>::update_size()
 {
-    int size;
+    size_t size;
 
     header(std::string{" ARRAY SIZE "});
 
@@ -626,7 +628,7 @@ void ArrayHandler<T>::update_size()
 template <typename T>
 void ArrayHandler<T>::add_elements()
 {
-    int size;
+    size_t size;
     T value;
 
     if (arr.size() == arr.max_size())
@@ -645,13 +647,12 @@ void ArrayHandler<T>::add_elements()
     if (size < 0)
         throw NegativeValueException();
 
-    // std::string message{" ENTER " + std::to_string(size)};
     border(widthMenu);
 
     std::string val = (size > 1) ? " values:\n" : " value ";
     std::cout << "Enter " << size << val;
 
-    for (int i{0}; i < size; ++i)
+    for (size_t i{0}; i < size; ++i)
     {
         if (arr.size() == arr.max_size())
             throw ArrayFullException();
@@ -1013,7 +1014,8 @@ template <typename T>
 void ArrayHandler<T>::shift_rotate_arr()
 {
 
-    int ch, n;
+    int ch;
+    size_t n;
     bool toStop;
 
     do
