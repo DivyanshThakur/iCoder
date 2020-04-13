@@ -24,7 +24,7 @@ class scan
 
         while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
         {
-            if (/*sc.isString &&*/ wsAllowed && spaceCount && sc.value.size() && sc.c == ' ')
+            if (sc.isString && wsAllowed && spaceCount && sc.value.size() && sc.c == ' ')
             {
                 sc.value.push_back(sc.c); // add element at last of pass string
                 std::cout << sc.c;
@@ -42,6 +42,7 @@ class scan
                 switch (sc.checkChar())
                 {
                 case -1:
+                    sc.isLast = true;
                     throw EscPressed();
                     break;
 
@@ -98,6 +99,7 @@ class scan
                 switch (sc.checkChar())
                 {
                 case -1:
+                    sc.isLast = true;
                     throw EscPressed();
                     break;
 
@@ -190,7 +192,10 @@ class scan
             }
 
             if (sc.checkChar() == -1)
+            {
+                sc.isLast = true;
                 throw EscPressed();
+            }
         }
 
         if (!(sc.isLast))
