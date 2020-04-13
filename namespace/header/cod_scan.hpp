@@ -20,21 +20,9 @@ class scan
     friend scan &operator>>(scan &sc, char &data)
     {
         sc.reset();
-        int count{0};
 
-        while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+        while ((sc.c = getch()) && !(sc.value.size() && (sc.c == '\r' || sc.c == ' ')))
         {
-            if (sc.c == ' ')
-            {
-                if (sc.isLast)
-                    ++count;
-                else if (sc.value.size()) // will break only when the string has minimum 1 element
-                    break;
-
-                if (count == 3)
-                    emessage(std::string{"     Press Enter to submit data"});
-            }
-
             if (sc.value.size() > 0)
                 sc.isLimitExceed = true;
             else
@@ -76,21 +64,9 @@ class scan
     friend scan &operator>>(scan &sc, T &data)
     {
         sc.reset();
-        int count{0};
 
-        while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+        while ((sc.c = getch()) && !(sc.value.size() && (sc.c == '\r' || sc.c == ' ')))
         {
-            if (sc.c == ' ')
-            {
-                if (sc.isLast)
-                    ++count;
-                else if (sc.value.size()) // will break only when the string has minimum 1 element
-                    break;
-
-                if (count == 3)
-                    emessage(std::string{"     Press Enter to submit data"});
-            }
-
             if (sc.checkChar() == -1)
                 throw EscPressed();
         }
