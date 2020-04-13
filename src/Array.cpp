@@ -51,9 +51,7 @@ void array_type_selector(int ch)
         break;
 
     case 5:
-        // str_handler.sc.is_string(true);
         str_handler.start();
-        // str_handler.sc.is_string(false);
         break;
 
     default:

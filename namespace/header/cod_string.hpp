@@ -32,33 +32,16 @@ class string
     {
         char *buff = new char[1'02'400]; // 100 MB
 
-        sc.is_string(true);
         sc >> buff;
-        sc.is_string(false);
 
         string s = buff;
-        std::cout << "[size: " << s.size() << "], [ capacity: " << s.capacity() << "]\n";
         obj = s;
 
         delete[] buff;
         return sc;
     }
 
-    cod::scan &getline(cod::scan &sc, string &obj)
-    {
-        char *buff = new char[1'02'400]; // 100 MB
-
-        sc.is_string(true);
-        sc >> buff;
-        sc.is_string(false);
-
-        string s = buff;
-        std::cout << "[size: " << s.size() << "], [ capacity: " << s.capacity() << "]\n";
-        obj = s;
-
-        delete[] buff;
-        return sc;
-    }
+    friend cod::scan &getline(cod::scan &sc, cod::string &s);
 
     friend string operator+(const string &lhs, const string &rhs) //  string
     {
@@ -389,6 +372,8 @@ public:
 
     ~string();
 };
+
+cod::scan &getline(cod::scan &sc, cod::string &s);
 
 } // namespace cod
 

@@ -20,46 +20,28 @@ class scan
     friend scan &operator>>(scan &sc, char &data)
     {
         sc.reset();
-        int spaceCount = 1;
 
-        while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+        while ((sc.c = getch()) && !(sc.value.size() && (sc.c == '\r' || sc.c == ' ')))
         {
-            if (sc.isString && wsAllowed && spaceCount && sc.value.size() && sc.c == ' ')
-            {
-                sc.value.push_back(sc.c); // add element at last of pass string
-                std::cout << sc.c;
-                spaceCount = 0;
-            }
+            if (sc.value.size() > 0)
+                sc.isLimitExceed = true;
             else
+                sc.isLimitExceed = false;
+
+            switch (sc.checkChar())
             {
-                spaceCount = 1;
+            case -1:
+                sc.isLast = true;
+                throw EscPressed();
+                break;
 
-                if (sc.value.size() > 0)
-                    sc.isLimitExceed = true;
-                else
-                    sc.isLimitExceed = false;
-
-                switch (sc.checkChar())
-                {
-                case -1:
-                    sc.isLast = true;
-                    throw EscPressed();
-                    break;
-
-                case 1:
-                    if (sc.value.size())
-                        goto after_space;
-
-                case 12: // display quit message
-                    isquitConditionEnabled = false;
-                    if (showQuit)
-                        throw OpenAnimeSetting(8); // quit message
-                    break;
-                }
+            case 12: // display quit message
+                isquitConditionEnabled = false;
+                if (showQuit)
+                    throw OpenAnimeSetting(8); // quit message
+                break;
             }
         }
-
-    after_space: // if the user press space and its not a string it will reach here breaking the while loop
 
         if (!(sc.isLast))
         {
@@ -86,7 +68,7 @@ class scan
 
         while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
         {
-            if (sc.isString && wsAllowed && spaceCount && sc.value.size() && sc.c == ' ')
+            if (wsAllowed && spaceCount && sc.value.size() && sc.c == ' ')
             {
                 sc.value.push_back(sc.c); // add element at last of pass string
                 std::cout << sc.c;
@@ -128,10 +110,7 @@ class scan
             sc.isLast = true;
         }
 
-        std::stringstream ss{sc.value};
-
-        if (!(ss >> data))
-            throw InvalidInputException();
+        data = sc.value;
 
         return sc;
     }

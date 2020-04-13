@@ -12,6 +12,7 @@ template <typename T>
 class ArrayHandler
 {
     cod::array<T> arr;
+    cod::scan sc;
     bool show_adv_opn{false};
 
     void pressi_display();
@@ -43,7 +44,6 @@ class ArrayHandler
     void sum();
 
 public:
-    cod::scan sc;
     void start();
 };
 

@@ -3,6 +3,17 @@
 #include "../header/cod_limits.hpp"
 #include "../header/cod_algorithm.hpp"
 
+cod::scan &cod::getline(cod::scan &sc, cod::string &s)
+{
+    std::string temp;
+
+    sc >> temp;
+
+    s = temp.c_str();
+
+    return sc;
+}
+
 void cod::string::capacity_selecter()
 {
     if (_capacity <= 15)
