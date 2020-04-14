@@ -7,7 +7,9 @@ cod::scan &cod::getline(cod::scan &sc, cod::string &s)
 {
     std::string temp;
 
+    sc.is_string(true);
     sc >> temp;
+    sc.is_string(false);
 
     s = temp.c_str();
 

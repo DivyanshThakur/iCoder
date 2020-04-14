@@ -90,12 +90,12 @@ void home_controller(int ch)
     switch (ch)
     {
     case 1: // arrays
-        lstScreen = LAST_ARRAY;
+        lstScreen = LAST_HOME;
         Arrays();
         return;
 
     case 2: // strings
-        lstScreen = LAST_STRING;
+        lstScreen = LAST_HOME;
         String();
         break;
 

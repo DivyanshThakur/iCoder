@@ -1,4 +1,4 @@
-/*************************************************************************************************************************
+/***********************************************************************************************************************
  *                                                   ICODER
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
@@ -12,7 +12,7 @@
  * DESCRIPTION :
  * A SMALL PROJECT WITH ALL FEATURES SUCH AS DATA STRUCTURE, ALGORITHM, GAMES AND MUCH MORE...
  * 
- * **********************************************************************************************************************/
+ * *********************************************************************************************************************/
 
 #include <iostream>
 #include <fstream>
@@ -27,7 +27,7 @@
 #include "header/Settings.hpp"
 #include "header/Info.hpp"
 
-/** FUNCTION PROTOTYPES **/
+/************************************************ FUNCTION PROTOTYPES **************************************************/
 void main_menu_controller(int ch);
 bool isDirectoryExists();
 void adjust_console_size();
@@ -79,7 +79,7 @@ int main()
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_MENU;
+            lstScreen = LAST_MENU; // set the last screen visited as main menu to avoid infinite switching
             e.what();
         }
         catch (const OpenAbout &e)
@@ -127,14 +127,14 @@ void main_menu_controller(int ch)
         create_account();
         break;
 
-    case 3: // login Anonymously
-        lstScreen = LAST_ARRAY;
+    case 3:                    // login Anonymously
+        lstScreen = LAST_MENU; // sets the last screen as main menu
         home(std::string{"User"});
         break;
 
-    case 4: // show saved user details
-        display_users();
-        press_key(); // getch()
+    case 4:              // show saved user details
+        display_users(); // fetches user details and display it
+        press_key();     // getch()
         break;
 
     case 5: // help for shortcuts
@@ -177,6 +177,7 @@ bool isDirectoryExists()
 
 void adjust_console_size()
 {
+    // code to ajust the console size to fix for all the screens
     HWND console = GetConsoleWindow();
     RECT r;
     GetWindowRect(console, &r); //stores the console's current dimensions
@@ -184,9 +185,10 @@ void adjust_console_size()
     MoveWindow(console, r.left, r.top, consoleWidth, consoleHeight, TRUE); // 850 width, 600 height
 }
 
+// It creates a path to the user's document folder for storing the user data
 void create_path()
 {
-    char *userpath = getenv("USERPROFILE");
+    char *userpath = getenv("USERPROFILE"); // stores the path to userProfile
 
     if (userpath == nullptr)
     {
@@ -194,6 +196,7 @@ void create_path()
         return;
     }
 
+    // assigning path to their respective variables
     path = std::string(userpath) + "\\Documents\\iCoder";
     fUser = path + "\\users.dat";
     fSetting = path + "\\settings.dat";

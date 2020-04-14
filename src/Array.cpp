@@ -84,12 +84,7 @@ void ArrayHandler<T>::start()
                 throw ReturnHome();
             }
 
-            if (arr.size() == 0)
-                empty_arrays_controller(ch);
-            else if (show_adv_opn)
-                arrays_controller_adv(ch);
-            else
-                arrays_controller(ch);
+            array_controller(ch);
         }
         catch (const EscPressed &e)
         {
@@ -166,68 +161,49 @@ void ArrayHandler<T>::pressi_display()
         this->display_arr();
 }
 
-/** MENU SCREEN SELECTOR TEMPLATE FUNCTIONS **/
+/**************************************************** MENU SCREEN SELECTOR TEMPLATE FUNCTIONS ****************************************************/
 
 template <typename T>
 std::vector<std::string> ArrayHandler<T>::menu_screen_selector()
 {
     // select the correct menu to display as per need
-
     std::vector<std::string> toDisplayMenu;
+    menuIndex.clear();
+
     size_t i;
 
     if (arr.max_size())
+    {
         toDisplayMenu.push_back(arrayMenu.at(0));
+        menuIndex.push_back(0);
+    }
     else
+    {
         toDisplayMenu.push_back(arrayMenu.at(1));
+        menuIndex.push_back(1);
+    }
 
     if (arr.size() == 0)
     {
         toDisplayMenu.push_back(arrayMenu.at(2));
+        menuIndex.push_back(2);
+
         toDisplayMenu.push_back(arrayMenu.at(6));
+        menuIndex.push_back(6);
     }
     else
     {
         for (i = 2; i < arrayMenu.size(); ++i)
         {
-            if (!(i == 7 && show_adv_opn))
-                toDisplayMenu.push_back(arrayMenu.at(i));
+            toDisplayMenu.push_back(arrayMenu.at(i));
+            menuIndex.push_back(i);
 
-            if (i == 7 && !show_adv_opn)
+            if (i == 6 && !show_adv_opn)
+            {
+                toDisplayMenu.push_back("Advanced Operations");
+                menuIndex.push_back(i + 1);
                 break;
-        }
-    }
-
-    return toDisplayMenu;
-}
-
-template <>
-std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
-{
-    // select the correct menu to display as per need
-
-    std::vector<std::string> toDisplayMenu;
-    size_t i;
-
-    if (arr.max_size())
-        toDisplayMenu.push_back(arrayMenu.at(0));
-    else
-        toDisplayMenu.push_back(arrayMenu.at(1));
-
-    if (arr.size() == 0)
-    {
-        toDisplayMenu.push_back(arrayMenu.at(2));
-        toDisplayMenu.push_back(arrayMenu.at(6));
-    }
-    else
-    {
-        for (i = 2; i < arrayMenu.size(); ++i)
-        {
-            if (!((i == 7 || i == 16 || i == 17) && show_adv_opn))
-                toDisplayMenu.push_back(arrayMenu.at(i));
-
-            if ((i == 7 && !show_adv_opn) || i == 20)
-                break;
+            }
         }
     }
 
@@ -238,71 +214,126 @@ template <>
 std::vector<std::string> ArrayHandler<char>::menu_screen_selector()
 {
     // select the correct menu to display as per need
-
     std::vector<std::string> toDisplayMenu;
+    menuIndex.clear();
+
     size_t i;
 
     if (arr.max_size())
+    {
         toDisplayMenu.push_back(arrayMenu.at(0));
+        menuIndex.push_back(0);
+    }
     else
+    {
         toDisplayMenu.push_back(arrayMenu.at(1));
+        menuIndex.push_back(1);
+    }
 
     if (arr.size() == 0)
     {
         toDisplayMenu.push_back(arrayMenu.at(2));
+        menuIndex.push_back(2);
+
         toDisplayMenu.push_back(arrayMenu.at(6));
+        menuIndex.push_back(6);
     }
     else
     {
-        for (i = 2; i < arrayMenu.size(); ++i)
+        for (i = 2; i < arrayMenu.size() - 2; ++i)
         {
-            if (!((i == 7 || i == 17) && show_adv_opn))
+            if (i != 16)
+            {
                 toDisplayMenu.push_back(arrayMenu.at(i));
+                menuIndex.push_back(i);
+            }
 
-            if ((i == 7 && !show_adv_opn) || i == 20)
+            if (i == 6 && !show_adv_opn)
+            {
+                toDisplayMenu.push_back("Advanced Operations");
+                menuIndex.push_back(i + 1);
                 break;
+            }
         }
     }
 
     return toDisplayMenu;
 }
 
-/** END OF MENU SCREEN SELECTOR TEMPLATE FUNCTIONS **/
+template <>
+std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
+{
+    // select the correct menu to display as per need
+    std::vector<std::string> toDisplayMenu;
+    menuIndex.clear();
 
-/** Empty Array Menu **/
+    size_t i;
+
+    if (arr.max_size())
+    {
+        toDisplayMenu.push_back(arrayMenu.at(0));
+        menuIndex.push_back(0);
+    }
+    else
+    {
+        toDisplayMenu.push_back(arrayMenu.at(1));
+        menuIndex.push_back(1);
+    }
+
+    if (arr.size() == 0)
+    {
+        toDisplayMenu.push_back(arrayMenu.at(2));
+        menuIndex.push_back(2);
+
+        toDisplayMenu.push_back(arrayMenu.at(6));
+        menuIndex.push_back(6);
+    }
+    else
+    {
+        for (i = 2; i < arrayMenu.size() - 2; ++i)
+        {
+            if (i != 15 && i != 16)
+            {
+                toDisplayMenu.push_back(arrayMenu.at(i));
+                menuIndex.push_back(i);
+            }
+
+            if (i == 6 && !show_adv_opn)
+            {
+                toDisplayMenu.push_back("Advanced Operations");
+                menuIndex.push_back(i + 1);
+                break;
+            }
+        }
+    }
+
+    return toDisplayMenu;
+}
+
+/************************************************ END OF MENU SCREEN SELECTOR TEMPLATE FUNCTIONS ************************************************/
 
 template <typename T>
-void ArrayHandler<T>::empty_arrays_controller(int ch)
+void ArrayHandler<T>::array_controller(int ch)
 {
-
-    switch (ch)
+    if (ch == 1)
+        fn_caller(1);
+    else
     {
-    case 1: // add or update size of array
-        update_size();
-        break;
-
-    case 2: // add elements after last element in array
-        add_elements();
-        break;
-
-    case 3: // display elements
-        display_arr();
-        break;
-
-    default:
-        print_message(std::string{"Invalid choice"});
-        press_key(HOME);
-        return;
+        if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
+            fn_caller(menuIndex.at(ch - 1));
+        else
+        {
+            print_message(std::string{"Invalid choice"});
+            press_key(HOME);
+        }
     }
 }
 
-/** Array Controller **/
-
 template <typename T>
-void ArrayHandler<T>::arrays_controller(int ch)
+void ArrayHandler<T>::fn_caller(int c)
 {
 
-    switch (ch)
+    switch (c)
     {
     case 1: // add or update size of array
         update_size();
@@ -328,50 +359,11 @@ void ArrayHandler<T>::arrays_controller(int ch)
         display_arr();
         break;
 
-    case 7: // make show_adb_opn = true at end of while loop
-        show_adv_opn = true;
-        return;
-
-    default:
-        print_message(std::string{"Invalid choice"});
-        press_key(HOME);
-        return;
-    }
-}
-
-/** ARRAYS CONTROLLER ADVANCED TEMPLATE FUNCTIONS **/
-
-template <typename T>
-void ArrayHandler<T>::arrays_controller_adv(int ch)
-{
-    switch (ch)
-    {
-    case 1: // add or update size of array
-        update_size();
-        break;
-
-    case 2: // add elements after last element in array
-        add_elements();
-        break;
-
-    case 3: // insert a value at a given position
-        insert_value();
-        break;
-
-    case 4: // delete a range of values
-        remove_multiple_values();
-        break;
-
-    case 5: // delete from a given position
-        remove_value();
-        break;
-
-    case 6: // display elements
-        display_arr();
-        break;
-
-    case 7: // linear search
-        linear_search_arr();
+    case 7:
+        if (show_adv_opn)
+            linear_search_arr(); // linear search
+        else
+            show_adv_opn = true; // make show_adv_opn = true and shows all available options
         break;
 
     case 8: // binary search
@@ -429,179 +421,8 @@ void ArrayHandler<T>::arrays_controller_adv(int ch)
     case 21: // sum
         sum();
         break;
-
-    default:
-        print_message(std::string{"Invalid choice"});
-        press_key(HOME);
-        return;
     }
 }
-
-template <>
-void ArrayHandler<char>::arrays_controller_adv(int ch)
-{
-    switch (ch)
-    {
-    case 1: // add or update size of array
-        update_size();
-        break;
-
-    case 2: // add elements after last element in array
-        add_elements();
-        break;
-
-    case 3: // insert a value at a given position
-        insert_value();
-        break;
-
-    case 4: // delete a range of values
-        remove_multiple_values();
-        break;
-
-    case 5: // delete from a given position
-        remove_value();
-        break;
-
-    case 6: // display elements
-        display_arr();
-        break;
-
-    case 7: // linear search
-        linear_search_arr();
-        break;
-
-    case 8: // binary search
-        binary_search_arr();
-        break;
-
-    case 9: // merge
-        merge_arr();
-        break;
-
-    case 10: // set operations
-        set_opn_arr();
-        break;
-
-    case 11: // sorting
-        sort_opn_arr();
-        break;
-
-    case 12: // reverse the array
-        reverse_arr();
-        break;
-
-    case 13: // shift/Rotation
-        shift_rotate_arr();
-        break;
-
-    case 14: // finding duplicates
-        find_dup_val_arr();
-        break;
-
-    case 15: // find missing elements
-        find_miss_val_arr();
-        break;
-
-    case 16: // min and max value
-        max_min();
-        break;
-
-    case 17: // get value
-        get_value();
-        break;
-
-    case 18: // set value
-        set_value();
-        break;
-
-    default:
-        print_message(std::string{"Invalid choice"});
-        press_key(HOME);
-        return;
-    }
-}
-
-template <>
-void ArrayHandler<std::string>::arrays_controller_adv(int ch)
-{
-    switch (ch)
-    {
-    case 1: // add or update size of array
-        update_size();
-        break;
-
-    case 2: // add elements after last element in array
-        add_elements();
-        break;
-
-    case 3: // insert a value at a given position
-        insert_value();
-        break;
-
-    case 4: // delete a range of values
-        remove_multiple_values();
-        break;
-
-    case 5: // delete from a given position
-        remove_value();
-        break;
-
-    case 6: // display elements
-        display_arr();
-        break;
-
-    case 7: // linear search
-        linear_search_arr();
-        break;
-
-    case 8: // binary search
-        binary_search_arr();
-        break;
-
-    case 9: // merge
-        merge_arr();
-        break;
-
-    case 10: // set operations
-        set_opn_arr();
-        break;
-
-    case 11: // sorting
-        sort_opn_arr();
-        break;
-
-    case 12: // reverse the array
-        reverse_arr();
-        break;
-
-    case 13: // shift/Rotation
-        shift_rotate_arr();
-        break;
-
-    case 14: // finding duplicates
-        find_dup_val_arr();
-        break;
-
-    case 15: // min and max value
-        max_min();
-        break;
-
-    case 16: // get value
-        get_value();
-        break;
-
-    case 17: // set value
-        set_value();
-        break;
-
-    default:
-        print_message(std::string{"Invalid choice"});
-        press_key(HOME);
-        return;
-    }
-}
-
-/** END OF ARRAYS CONTROLLER ADVANCED TEMPLATE FUNCTIONS **/
 
 template <typename T>
 void ArrayHandler<T>::update_size()
@@ -1450,7 +1271,8 @@ void ArrayHandler<T>::sum()
 
         if (toStop)
         {
-            print_message(std::string{"Sum: " + std::to_string(sum)});
+            border(widthMenu);
+            std::cout << "Sum: " << sum;
 
             this->pressi_display();
         }

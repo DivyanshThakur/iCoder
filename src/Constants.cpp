@@ -61,7 +61,7 @@ const std::vector<std::string> mainMenu{"Log In", "Create Account", "Try (Anonym
 const std::vector<std::string> settingsMenu{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "whitespace in string", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> getDataTypeMenu{"Int", "Long", "Double", "Char", "String"};
 const std::vector<std::string> homeMenu{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
-const std::vector<std::string> arrayMenu{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Advanced Operations", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
+const std::vector<std::string> arrayMenu{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
 
 // small menu funtions
 const std::vector<std::string> updatesMenu{"Stable Version", "Beta Version"};

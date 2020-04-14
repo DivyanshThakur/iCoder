@@ -14,12 +14,12 @@ class ArrayHandler
     cod::array<T> arr;
     cod::scan sc;
     bool show_adv_opn{false};
+    std::vector<int> menuIndex; // It stored the index of the string to display
 
     void pressi_display();
     std::vector<std::string> menu_screen_selector();
-    void empty_arrays_controller(int ch);
-    void arrays_controller(int ch);
-    void arrays_controller_adv(int ch);
+    void array_controller(int ch);
+    void fn_caller(int c);
     void update_size();
     void add_elements();
     void insert_value();
