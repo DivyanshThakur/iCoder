@@ -612,9 +612,8 @@ void ArrayHandler<T>::update_size()
 
     if (arr.max_size() != 0)
     {
-        std::cout << "Current size: " << arr.max_size() << std::endl
-                  << "Value stored: " << arr.size();
-        border(widthMenu);
+        show_status(std::string{"Current size: "}, std::to_string(arr.max_size()), false);
+        show_status(std::string{"Value stored: "}, std::to_string(arr.size()));
     }
 
     animater(std::string{"Enter max size: "});
@@ -634,9 +633,8 @@ void ArrayHandler<T>::add_elements()
 
     header(std::string{" ADD VALUES "});
 
-    std::cout << "Maximum size: " << arr.max_size() << std::endl
-              << "Value stored: " << arr.size();
-    border(widthMenu);
+    show_status(std::string{"Maximum size: "}, std::to_string(arr.max_size()), false);
+    show_status(std::string{"Value stored: "}, std::to_string(arr.size()));
 
     animater(std::string{"Enter no of values: "});
 
@@ -645,10 +643,9 @@ void ArrayHandler<T>::add_elements()
     if (size < 0)
         throw NegativeValueException();
 
-    border(widthMenu);
+    std::string val = "Enter " + std::to_string(size) + ((size > 1) ? " values:\n" : " value ");
 
-    std::string val = (size > 1) ? " values:\n" : " value ";
-    std::cout << "Enter " << size << val;
+    print_message(val);
 
     for (size_t i{0}; i < size; ++i)
     {
@@ -681,9 +678,7 @@ void ArrayHandler<T>::insert_value()
 
     sc >> pos;
 
-    std::cout << std::endl;
-
-    animater(std::string{"Enter the value: "});
+    animater(std::string{"\nEnter the value: "});
 
     sc >> value;
 
@@ -706,9 +701,7 @@ void ArrayHandler<T>::remove_multiple_values()
 
     sc >> pos;
 
-    std::cout << std::endl;
-
-    animater(std::string{"Enter the number of elements: "});
+    animater(std::string{"\nEnter the number of elements: "});
 
     sc >> n;
 
@@ -719,11 +712,9 @@ void ArrayHandler<T>::remove_multiple_values()
     if (!n) // if position is invalid return to menu screen
         return;
 
-    border(widthMenu);
+    std::string message = std::to_string(n) + ((n == 1) ? " value: " : " values: ");
 
-    std::cout << n;
-
-    (n == 1) ? std::cout << " value: " : std::cout << " values:" << std::endl;
+    print_message(message);
 
     std::cout << values << " deleted from array";
 
@@ -1104,9 +1095,7 @@ void ArrayHandler<T>::find_miss_val_arr()
 
             sc >> start;
 
-            std::cout << std::endl;
-
-            animater(std::string{"Enter the ending position: "});
+            animater(std::string{"\nEnter the ending position: "});
 
             sc >> end;
 
@@ -1172,9 +1161,7 @@ void ArrayHandler<T>::find_dup_val_arr()
 
             sc >> start;
 
-            std::cout << std::endl;
-
-            animater(std::string{"Enter the ending position: "});
+            animater(std::string{"\nEnter the ending position: "});
 
             sc >> end;
             vec = arr.find_duplicates(start - 1, end - 1);
@@ -1248,9 +1235,7 @@ void ArrayHandler<T>::find_pair_sum_arr()
 
             sc >> start;
 
-            std::cout << std::endl;
-
-            animater(std::string{"Enter the ending position: "});
+            animater(std::string{"\nEnter the ending position: "});
 
             sc >> end;
 
@@ -1319,6 +1304,9 @@ void ArrayHandler<T>::get_value()
 
     sc >> pos;
 
+    if (pos <= 0 || pos > arr.size())
+        throw InvalidPositionException();
+
     T val = arr[pos - 1];
 
     border(widthMenu);
@@ -1341,9 +1329,10 @@ void ArrayHandler<T>::set_value()
 
     sc >> pos;
 
-    std::cout << std::endl;
+    if (pos <= 0 || pos > arr.size())
+        throw InvalidPositionException();
 
-    animater(std::string{"Enter the value: "});
+    animater(std::string{"\nEnter the value: "});
 
     sc >> set_val;
 
@@ -1386,9 +1375,7 @@ void ArrayHandler<T>::average()
 
             sc >> pos;
 
-            std::cout << std::endl;
-
-            animater(std::string{"Enter the number of elements: "});
+            animater(std::string{"\nEnter the number of elements: "});
 
             sc >> n;
 
@@ -1444,9 +1431,7 @@ void ArrayHandler<T>::sum()
             animater(std::string{"Enter the starting position: "});
             sc >> pos;
 
-            std::cout << std::endl;
-
-            animater(std::string{"Enter the number of elements: "});
+            animater(std::string{"\nEnter the number of elements: "});
 
             sc >> n;
 

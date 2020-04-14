@@ -73,10 +73,14 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
     print_message(std::string{"Your Choice: "});
 }
 
-void show_status(const std::string &statsStr, const std::string &statsVal)
+void show_status(const std::string &statsStr, const std::string &statsVal, bool isFinal)
 {
     std::cout << statsStr << statsVal;
-    border(widthMenu);
+
+    if (isFinal)
+        border(widthMenu);
+    else
+        std::cout << std::endl;
 }
 
 std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData)
