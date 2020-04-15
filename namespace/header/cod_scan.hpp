@@ -38,7 +38,7 @@ class scan
             case 12: // display quit message
                 isquitConditionEnabled = false;
                 if (showQuit)
-                    throw OpenAnimeSetting(8); // quit message
+                    throw OpenAnimeSetting(7); // quit message
                 break;
             }
         }
@@ -88,12 +88,6 @@ class scan
                 case 1:
                     if (sc.value.size())
                         goto after_space;
-
-                case 12: // display quit message
-                    isquitConditionEnabled = false;
-                    if (showQuit)
-                        throw OpenAnimeSetting(7); // quit message
-                    break;
                 }
             }
         }
