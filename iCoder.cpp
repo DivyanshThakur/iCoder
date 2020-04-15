@@ -3,7 +3,7 @@
  * 
  * DEVELOPER - DIVYANSH SINGH THAKUR
  * 
- * VERSION - 1.7.20.4.12-BETA
+ * VERSION - 1.7.20.4.15-BETA
  * 
  * FIRST BETA - 27 DECEMBER, 2019
  * 
@@ -40,11 +40,12 @@ int main()
 
     restore_saved_changes(); // restore the settings that was previously changed and saved
 
-    if (check_new_user() && showWelcome) // if there is no current user & showWelcome enabled, it displays below message
+    if (showedOneTime) // if there is no current user & showWelcome enabled, it displays below message
     {
         title();                                                            // display title
         emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // 1 time message to user
         showedOneTime = false;                                              // set to false to not show next time
+        save_to_file(fSetting, SHOW_ONE_TIME_HINT, showedOneTime);
     }
 
     if (signedUserID != std::string{"NULL"}) // checking for current signed user

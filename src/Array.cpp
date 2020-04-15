@@ -332,7 +332,6 @@ void ArrayHandler<T>::array_controller(int ch)
 template <typename T>
 void ArrayHandler<T>::fn_caller(int c)
 {
-
     switch (c)
     {
     case 1: // add or update size of array

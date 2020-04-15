@@ -10,7 +10,6 @@ int sleepTime;
 bool showWelcome;
 bool showHint;
 bool showQuit;
-bool wsAllowed;
 
 // used for temporary conditions
 bool showedOneTime{true};
@@ -18,7 +17,7 @@ bool isquitConditionEnabled{false};
 
 // software details
 const std::string devName{"Divyansh Singh Thakur"};
-const std::string versionInfo{"1.7.20.4.12-beta"};
+const std::string versionInfo{"1.7.20.4.15-beta"};
 
 // remote url
 const std::string sCodeUrl{"https://github.com/DivyanshThakur/iCoder"};
@@ -37,10 +36,10 @@ const std::string CURRENT_USER = std::string{"CURRENT_USER"};
 const std::string ANIMATION_SPEED = std::string{"ANIMATION_SPEED"};
 const std::string LSEARCH_STATUS = std::string{"LSEARCH_STATUS"};
 const std::string SHORTCUT_STATUS = std::string{"SHORTCUT_STATUS"};
-const std::string WS_ALLOWED = std::string{"WS_ALLOWED"};
 const std::string SHOW_WELCOME_MESSAGE = std::string{"SHOW_WELCOME_MESSAGE"};
 const std::string SHOW_QUIT_MESSAGE = std::string{"SHOW_QUIT_MESSAGE"};
 const std::string SHOW_HINT = std::string{"SHOW_HINT"};
+const std::string SHOW_ONE_TIME_HINT = std::string{"SHOW_ONE_TIME_HINT"};
 
 // uihandler.h
 const int consoleWidth = 850;
@@ -58,7 +57,7 @@ const std::string txtString{"String"};
 
 // menuhandler.h
 const std::vector<std::string> mainMenu{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
-const std::vector<std::string> settingsMenu{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "whitespace in string", "welcome messages", "quit confirmation", "hints", "Reset"};
+const std::vector<std::string> settingsMenu{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> getDataTypeMenu{"Int", "Long", "Double", "Char", "String"};
 const std::vector<std::string> homeMenu{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
 const std::vector<std::string> arrayMenu{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};

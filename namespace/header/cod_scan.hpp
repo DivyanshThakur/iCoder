@@ -68,7 +68,7 @@ class scan
 
         while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
         {
-            if (sc.isString && wsAllowed && spaceCount && sc.value.size() && sc.c == ' ')
+            if (sc.isString && spaceCount && sc.value.size() && sc.c == ' ')
             {
                 sc.value.push_back(sc.c); // add element at last of pass string
                 std::cout << sc.c;
@@ -92,7 +92,7 @@ class scan
                 case 12: // display quit message
                     isquitConditionEnabled = false;
                     if (showQuit)
-                        throw OpenAnimeSetting(8); // quit message
+                        throw OpenAnimeSetting(7); // quit message
                     break;
                 }
             }

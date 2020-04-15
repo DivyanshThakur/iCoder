@@ -47,10 +47,7 @@ void title()
 void menu(const std::vector<std::string> &vecMenu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
 { // show the specific menu
 
-    if (showedOneTime)
-        title(); // display title - "iCoder"
-    else
-        showedOneTime = true;
+    title(); // display title - "iCoder"
 
     if (showHint) // display hint in every screen
         show_hint();

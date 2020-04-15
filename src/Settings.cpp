@@ -117,7 +117,7 @@ void settings()
         catch (const OpenAnimeSetting &e)
         {
             if (showHint)
-                settings_controller(9); // disable hint
+                settings_controller(8); // disable hint
         }
 
     } while (1); // true
@@ -149,23 +149,19 @@ void settings_controller(char ch)
         press_key(HOME);
         return;
 
-    case 6: // whitespace allowed enable/disable
-        whitespace_message();
-        break;
-
-    case 7: // welcome message enable/disable
+    case 6: // welcome message enable/disable
         welcome_message();
         break;
 
-    case 8: // quit message enable/disable
+    case 7: // quit message enable/disable
         quit_message();
         break;
 
-    case 9: // hint message enable/disable
+    case 8: // hint message enable/disable
         hint_message();
         break;
 
-    case 10: // reset the settings and delete users
+    case 9: // reset the settings and delete users
         reset();
         return;
 
@@ -191,12 +187,10 @@ std::vector<std::string> settings_screen_selector()
         std::string selector;
 
         if (i == 5)
-            selector = state_selector(wsAllowed);
-        else if (i == 6)
             selector = state_selector(showWelcome);
-        else if (i == 7)
+        else if (i == 6)
             selector = state_selector(showQuit);
-        else if (i == 8)
+        else if (i == 7)
             selector = state_selector(showHint);
 
         menu_to_display.push_back(selector + settingsMenu.at(i));
@@ -340,13 +334,6 @@ void change_display_style()
     //         break;
     //     }
     // } while (1);
-}
-
-void whitespace_message()
-{
-    wsAllowed = (!wsAllowed); // reverse the state
-
-    save_to_file(fSetting, WS_ALLOWED, wsAllowed);
 }
 
 void welcome_message()

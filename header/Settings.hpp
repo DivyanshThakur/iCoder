@@ -12,7 +12,6 @@ void change_lsearch_type();
 void change_shortcuts_type();
 void change_theme_type();
 void change_display_style();
-void whitespace_message();
 void welcome_message();
 void quit_message();
 void hint_message();

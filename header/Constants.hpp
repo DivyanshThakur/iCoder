@@ -13,7 +13,6 @@ extern int sleepTime;
 extern bool showWelcome;
 extern bool showHint;
 extern bool showQuit;
-extern bool wsAllowed;
 
 // used for temporary conditions
 extern bool showedOneTime;
@@ -40,10 +39,10 @@ extern const std::string CURRENT_USER;
 extern const std::string ANIMATION_SPEED;
 extern const std::string LSEARCH_STATUS;
 extern const std::string SHORTCUT_STATUS;
-extern const std::string WS_ALLOWED;
 extern const std::string SHOW_WELCOME_MESSAGE;
 extern const std::string SHOW_QUIT_MESSAGE;
 extern const std::string SHOW_HINT;
+extern const std::string SHOW_ONE_TIME_HINT;
 
 // uihandler.h
 extern const int consoleWidth;
