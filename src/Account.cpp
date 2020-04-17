@@ -12,9 +12,9 @@
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
     os << std::endl
-       << " " << std::setw(widthIndex) << std::left << ++acc.index
-       << " | " << std::setw(widthUsername) << std::left << acc.userID
-       << " | " << std::setw(widthPassword) << std::left << pass_to_asteric(acc.pass)
+       << " " << std::setw(Ui::widthIndex) << std::left << ++acc.index
+       << " | " << std::setw(Ui::widthUsername) << std::left << acc.userID
+       << " | " << std::setw(Ui::widthPassword) << std::left << pass_to_asteric(acc.pass)
        << " |";
     return os;
 }
@@ -47,7 +47,7 @@ void Account::display_remember_me() const
 {
     cod::scan sc;
 
-    border(widthMenu);
+    border(Ui::widthMenu);
 
     animater(std::string{"Remember me? (Y/N): "});
 
@@ -59,12 +59,12 @@ void Account::display_remember_me() const
     if (::tolower(c) == 'y')
         save_active_user(userID); // save the current user
     else
-        signedUserID = userID;
+        Global::signedUserID = userID;
 }
 
 void Account::check_account() const
 {
-    std::ifstream file(fUser);
+    std::ifstream file(Path::fUser);
     std::string fusername, fpassword;
     Decrypter dc;
 

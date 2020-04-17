@@ -8,79 +8,79 @@
 
 const char *NegativeValueException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Negative value not allowed!";
 }
 
 const char *InvalidChoiceException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Invalid choice!";
 }
 
 const char *InvalidInputException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Invalid input!";
 }
 
 const char *PasswordNotMatchedException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Password not matched!";
 }
 
 const char *UsernameAlreadyExistsException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Username already exists!";
 }
 
 const char *SavingUserException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Error saving user details!";
 }
 
 const char *InvalidUser::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Invalid UserID/Password!";
 }
 
 const char *FileNotOpenedException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Error fetching data!";
 }
 
 const char *ArrayFullException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Array is full!";
 }
 
 const char *ArrayEmptyException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Array is empty!";
 }
 
 const char *InvalidPositionException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
     return "Invalid position!";
 }
 
 const char *OutofBoundsException::what() const noexcept
 {
-    border(widthMenu);
+    border(Ui::Ui::widthMenu);
     return "Invalid position!";
 }
 
 void Exit::what() const noexcept
 {
-    if (showQuit)
+    if (Global::showQuit)
     {
         std::string message;
 
@@ -131,7 +131,7 @@ OpenAnimeSetting::OpenAnimeSetting(size_t pos) : pos(pos)
 void OpenAnimeSetting::what() const noexcept
 {
     std::string message{". Disable "};
-    message += settingsMenu.at(pos - 1);
+    message += Menu::settings.at(pos - 1);
 
     show_me_first(std::to_string(pos) + message, pos);
 }

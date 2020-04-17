@@ -13,7 +13,7 @@ void show_me_first(const std::string &message, int repeatFor)
 {
     title();
 
-    if (showHint) // display hint in every screen
+    if (Global::showHint) // display hint in every screen
         show_hint();
 
     header(std::string{" SETTINGS "}, false);
@@ -116,7 +116,7 @@ void settings()
         }
         catch (const OpenAnimeSetting &e)
         {
-            if (showHint)
+            if (Global::showHint)
                 settings_controller(8); // disable hint
         }
 
@@ -181,19 +181,19 @@ std::vector<std::string> settings_screen_selector()
 
     std::vector<std::string> menu_to_display;
 
-    for (size_t i{0}; i < settingsMenu.size(); ++i)
+    for (size_t i{0}; i < Menu::settings.size(); ++i)
     {
 
         std::string selector;
 
         if (i == 5)
-            selector = state_selector(showWelcome);
+            selector = state_selector(Global::showWelcome);
         else if (i == 6)
-            selector = state_selector(showQuit);
+            selector = state_selector(Global::showQuit);
         else if (i == 7)
-            selector = state_selector(showHint);
+            selector = state_selector(Global::showHint);
 
-        menu_to_display.push_back(selector + settingsMenu.at(i));
+        menu_to_display.push_back(selector + Menu::settings.at(i));
     }
 
     return menu_to_display;
@@ -206,7 +206,7 @@ void change_text_anime_speed()
 
     header(std::string{" CHANGE ANIMATION SPEED "});
 
-    show_status(std::string{"Current speed: "}, std::to_string(sleepTime));
+    show_status(std::string{"Current speed: "}, std::to_string(Global::sleepTime));
 
     animater(std::string{"Enter the speed: "});
 
@@ -215,9 +215,9 @@ void change_text_anime_speed()
     if (speed < 0)
         throw NegativeValueException();
 
-    sleepTime = speed;
+    Global::sleepTime = speed;
 
-    save_to_file(fSetting, ANIMATION_SPEED, speed);
+    save_to_file(Path::fSetting, File::ANIMATION_SPEED, speed);
 }
 
 void change_lsearch_type()
@@ -227,7 +227,7 @@ void change_lsearch_type()
 
     do
     {
-        menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, lSearchTypeMenu), std::string{"Current Type: "});
+        menu(SmallMenu::lSearchType, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, SmallMenu::lSearchType), std::string{"Current Type: "});
 
         sc.choice(ch);
 
@@ -237,7 +237,7 @@ void change_lsearch_type()
         case 2:
         case 3:
             update_stats(lSearchStats, ch - 1);
-            save_to_file(fSetting, LSEARCH_STATUS, lSearchStats);
+            save_to_file(Path::fSetting, File::LSEARCH_STATUS, lSearchStats);
             return;
 
         default:
@@ -255,7 +255,7 @@ void change_shortcuts_type()
 
     do
     {
-        menu(shortcutsTypeMenu, std::string{" CHANGE SHORTCUT ACCESS "}, true, stats_selector(shortcutStats, shortcutsTypeMenu), std::string{"Current Type: "});
+        menu(SmallMenu::shortcutsType, std::string{" CHANGE SHORTCUT ACCESS "}, true, stats_selector(shortcutStats, SmallMenu::shortcutsType), std::string{"Current Type: "});
 
         sc.choice(ch);
 
@@ -265,7 +265,7 @@ void change_shortcuts_type()
         case 2:
         case 3:
             update_stats(shortcutStats, ch - 1);
-            save_to_file(fSetting, SHORTCUT_STATUS, shortcutStats);
+            save_to_file(Path::fSetting, File::SHORTCUT_STATUS, shortcutStats);
             return;
 
         default:
@@ -338,23 +338,23 @@ void change_display_style()
 
 void welcome_message()
 {
-    showWelcome = (!showWelcome); // reverse the state
+    Global::showWelcome = (!Global::showWelcome); // reverse the state
 
-    save_to_file(fSetting, SHOW_WELCOME_MESSAGE, showWelcome);
+    save_to_file(Path::fSetting, File::SHOW_WELCOME_MESSAGE, Global::showWelcome);
 }
 
 void quit_message()
 {
-    showQuit = (!showQuit); // reverse the state
+    Global::showQuit = (!Global::showQuit); // reverse the state
 
-    save_to_file(fSetting, SHOW_QUIT_MESSAGE, showQuit);
+    save_to_file(Path::fSetting, File::SHOW_QUIT_MESSAGE, Global::showQuit);
 }
 
 void hint_message()
 {
-    showHint = (!showHint); // reverse the state
+    Global::showHint = (!Global::showHint); // reverse the state
 
-    save_to_file(fSetting, SHOW_HINT, showHint);
+    save_to_file(Path::fSetting, File::SHOW_HINT, Global::showHint);
 }
 
 void reset()
@@ -369,10 +369,10 @@ void reset()
 
     if (toProceed)
     {
-        std::remove(fSetting.c_str());
-        std::remove(fUser.c_str());
+        std::remove(Path::fSetting.c_str());
+        std::remove(Path::fUser.c_str());
 
-        if (signedUserID != std::string{"NULL"})
+        if (Global::signedUserID != std::string{"NULL"})
         {
             header(std::string{" SETTINGS "});
 

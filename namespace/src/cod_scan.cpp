@@ -15,7 +15,7 @@ int cod::scan::checkChar(bool isPassword)
 {
     int flag{0};
 
-    if (c == ESC)
+    if (c == Ui::ESC)
         return -1; // -1 means that user has pressed ESC, stop the scan and return to startup menu
 
     else if (c == ' ')
@@ -119,7 +119,7 @@ void cod::scan::choice(int &choice)
         case 11: // c - code screen
             break;
         case 13: // d - disable hints
-            if (showHint)
+            if (Global::showHint)
                 throw OpenAnimeSetting(8);
             break;
         case 14: // help screen
@@ -158,7 +158,7 @@ std::string cod::scan::username()
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(widthUsername));
+        isLimitExceed = (value.size() >= static_cast<unsigned int>(Ui::widthUsername));
 
         switch (checkChar())
         {
@@ -173,7 +173,7 @@ std::string cod::scan::username()
             break;
 
         case 2:
-            emessage("     " + txtUsername + " exceeds " + std::to_string(widthUsername) + " characters!");
+            emessage("     " + Ui::txtUsername + " exceeds " + std::to_string(Ui::widthUsername) + " characters!");
             break;
         }
     }
@@ -190,7 +190,7 @@ std::string cod::scan::password()
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(widthPassword));
+        isLimitExceed = (value.size() >= static_cast<unsigned int>(Ui::widthPassword));
 
         switch (checkChar(true))
         {
@@ -205,7 +205,7 @@ std::string cod::scan::password()
             break;
 
         case 2:
-            emessage("     " + txtPassword + " exceeds " + std::to_string(widthPassword) + " characters!");
+            emessage("     " + Ui::txtPassword + " exceeds " + std::to_string(Ui::widthPassword) + " characters!");
             break;
         }
     }

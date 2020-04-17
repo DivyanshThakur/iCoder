@@ -16,7 +16,7 @@ void home(const std::string &userID)
 
     do
     {
-        if (flag && showWelcome)
+        if (flag && Global::showWelcome)
         {
             flag = 0;
             title();                                 // display the title = iCoder
@@ -24,7 +24,7 @@ void home(const std::string &userID)
             showedOneTime = false;
         }
 
-        menu(homeMenu, std::string{" HOME "}); // display the startup menu
+        menu(Menu::home, std::string{" HOME "}); // display the startup menu
 
         try
         {
@@ -34,7 +34,7 @@ void home(const std::string &userID)
         }
         catch (const EscPressed &e)
         {
-            if (signedUserID == std::string{"NULL"})
+            if (Global::signedUserID == std::string{"NULL"})
                 return;
         }
         catch (const InvalidInputException &e)
@@ -129,7 +129,7 @@ void home_controller(int ch)
 
 void sign_out()
 {
-    if (signedUserID != std::string{"NULL"})
+    if (Global::signedUserID != std::string{"NULL"})
         save_active_user(std::string{"NULL"});
     throw EscPressed();
 }

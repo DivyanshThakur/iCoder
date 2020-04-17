@@ -11,34 +11,34 @@ void about()
 {
     header(std::string{" ABOUT "});
 
-    std::cout << "Developer: " << devName << std::endl
-              << "Version: " << versionInfo;
+    std::cout << "Developer: " << iCoder::devName << std::endl
+              << "Version: " << iCoder::versionInfo;
 
-    border(widthMenu);
+    border(Ui::widthMenu);
 
     std::cout << "Source code:" << std::endl
-              << sCodeUrl.substr(8);
+              << Url::source.substr(8);
 
     if (press_i(std::string{"Press i to open URL"}))
-        system(std::string("start " + sCodeUrl).c_str()); // this code will open github source code in default browser
+        system(std::string("start " + Url::source).c_str()); // this code will open github source code in default browser
 }
 
 void help()
 {
     header(std::string{" HELP "});
 
-    std::cout << std::setw(widthIndex) << std::left << " Key"
+    std::cout << std::setw(Ui::widthIndex) << std::left << " Key"
               << "    Description";
-    border(widthMenu);
+    border(Ui::widthMenu);
 
     size_t i{0};
 
-    for (const auto &sc : helpCharData)
+    for (const auto &sc : SmallMenu::helpCharData)
     {
-        if (showHint || showQuit || sc != std::string{"d"})
+        if (Global::showHint || Global::showQuit || sc != std::string{"d"})
         {
-            std::cout << " " << std::setw(widthIndex) << std::left << sc
-                      << "-> " << helpCharDesc.at(i++);
+            std::cout << " " << std::setw(Ui::widthIndex) << std::left << sc
+                      << "-> " << SmallMenu::helpCharDesc.at(i++);
 
             if (sc != std::string{"u"})
                 std::cout << std::endl;
@@ -66,7 +66,7 @@ void update()
 
     do
     {
-        menu(updatesMenu, std::string{" UPDATES "}, true, versionInfo, std::string{"Version: "});
+        menu(SmallMenu::updates, std::string{" UPDATES "}, true, iCoder::versionInfo, std::string{"Version: "});
 
         try
         {
@@ -75,10 +75,10 @@ void update()
             switch (ch)
             {
             case 1:
-                system(std::string("start " + iCoderUrl).c_str());
+                system(std::string("start " + Url::iStable).c_str());
                 return;
             case 2:
-                system(std::string("start " + iCoderBetaUrl).c_str());
+                system(std::string("start " + Url::iBeta).c_str());
                 return;
             default:
                 print_message(std::string{"Invalid choice"});
@@ -131,29 +131,29 @@ void changelog()
 {
     header(std::string{" CHANGELOG "});
 
-    std::cout << std::setw(widthIndex + 2) << std::left << "Version"
+    std::cout << std::setw(Ui::widthIndex + 2) << std::left << "Version"
               << "   Description";
-    border(widthMenu);
+    border(Ui::widthMenu);
 
     size_t i{0};
 
-    for (const auto &vInfo : logVersionData)
+    for (const auto &vInfo : SmallMenu::logVersionData)
     {
-        std::cout << std::setw(widthIndex + 2) << std::left << vInfo;
+        std::cout << std::setw(Ui::widthIndex + 2) << std::left << vInfo;
 
-        for (; i < logVersionDesc.size(); ++i)
+        for (; i < SmallMenu::logVersionDesc.size(); ++i)
         {
-            if (logVersionDesc.at(i) == "\n")
+            if (SmallMenu::logVersionDesc.at(i) == "\n")
             {
                 std::cout << std::endl;
                 ++i;
                 break;
             }
 
-            if (i > 0 && logVersionDesc.at(i - 1) != "\n")
-                std::cout << std::setw(widthIndex + 2) << "";
+            if (i > 0 && SmallMenu::logVersionDesc.at(i - 1) != "\n")
+                std::cout << std::setw(Ui::widthIndex + 2) << "";
 
-            std::cout << "-> " << logVersionDesc.at(i);
+            std::cout << "-> " << SmallMenu::logVersionDesc.at(i);
 
             if (vInfo != std::string{"1.0"})
                 std::cout << std::endl;

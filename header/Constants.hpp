@@ -4,87 +4,116 @@
 #include <string>
 #include <vector>
 
-/** THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES **/
-
-/************************************************** GLOBAL VARIABLES **************************************************/
-// saved for future use
-extern std::string signedUserID;
-extern int sleepTime;
-extern bool showWelcome;
-extern bool showHint;
-extern bool showQuit;
+/************ THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES ************/
 
 // used for temporary conditions
 extern bool showedOneTime;
 extern bool isquitConditionEnabled;
 
-// software details
-extern const std::string devName;
-extern const std::string versionInfo;
-
-// remote url
-extern const std::string sCodeUrl;
-extern const std::string iCoderUrl;
-extern const std::string iCoderBetaUrl;
-
-// software database path
-extern std::string path;
-extern std::string fUser;
-extern std::string fSetting;
-
-/***************************************************** CONSTANTS *****************************************************/
-
-// file constant
-extern const std::string CURRENT_USER;
-extern const std::string ANIMATION_SPEED;
-extern const std::string LSEARCH_STATUS;
-extern const std::string SHORTCUT_STATUS;
-extern const std::string SHOW_WELCOME_MESSAGE;
-extern const std::string SHOW_QUIT_MESSAGE;
-extern const std::string SHOW_HINT;
-extern const std::string SHOW_ONE_TIME_HINT;
-
-// uihandler.h
-extern const int consoleWidth;
-extern const int consoleHeight;
-extern const int relativeTitleWidth;
-extern const int widthMenu;
-extern const int widthTitle;
-extern const int widthIndex;
-extern const int widthUsername;
-extern const int widthPassword;
-constexpr int ESC = 27;
-extern const std::string txtPassword;
-extern const std::string txtUsername;
-extern const std::string txtChar;
-extern const std::string txtString;
-
-// menuhandler.h
-extern const std::vector<std::string> mainMenu;
-extern const std::vector<std::string> settingsMenu;
-extern const std::vector<std::string> getDataTypeMenu;
-extern const std::vector<std::string> homeMenu;
-extern const std::vector<std::string> arrayMenu;
-
-// small menu funtions
-extern const std::vector<std::string> updatesMenu;
-extern const std::vector<std::string> averageMenu;
-extern const std::vector<std::string> sumMenu;
-extern const std::vector<std::string> setMenu;
-extern const std::vector<std::string> reverseMenu;
-extern const std::vector<std::string> shiftRotateMenu;
-extern const std::vector<std::string> lSearchTypeMenu;
-extern const std::vector<std::string> shortcutsTypeMenu;
-extern const std::vector<std::string> findValueMenu;
-extern const std::vector<std::string> logVersionData;
-extern const std::vector<std::string> logVersionDesc;
-extern const std::vector<std::string> helpCharData;
-extern const std::vector<std::string> helpCharDesc;
-
 //accounthandler.h
 extern const std::string username;
 extern const std::string password;
 extern const std::string RePassword;
+/************************************************** GLOBAL VARIABLES *************************************************/
+
+class Global
+{
+public:
+    static std::string signedUserID;
+    static int sleepTime;
+    static bool showWelcome;
+    static bool showHint;
+    static bool showQuit;
+};
+
+/************************************************* TEMPORARY CONDITION ***********************************************/
+
+class iCoder
+{
+public:
+    static const std::string devName;
+    static const std::string versionInfo;
+};
+
+/***************************************************** REMOTE URL ****************************************************/
+
+class Url
+{
+public:
+    static const std::string source;
+    static const std::string iStable;
+    static const std::string iBeta;
+};
+
+/****************************************************** DATA PATH *****************************************************/
+
+class Path
+{
+public:
+    static std::string dataPath;
+    static std::string fUser;
+    static std::string fSetting;
+};
+
+/***************************************************** CONSTANTS *****************************************************/
+
+class File // File Constant
+{
+public:
+    static const std::string CURRENT_USER;
+    static const std::string ANIMATION_SPEED;
+    static const std::string LSEARCH_STATUS;
+    static const std::string SHORTCUT_STATUS;
+    static const std::string SHOW_WELCOME_MESSAGE;
+    static const std::string SHOW_QUIT_MESSAGE;
+    static const std::string SHOW_HINT;
+    static const std::string SHOW_ONE_TIME_HINT;
+};
+class Ui // Ui Constant
+{
+public:
+    static constexpr int ESC = 27;
+    static const int consoleWidth;
+    static const int consoleHeight;
+    static const int relativeTitleWidth;
+    static const int widthMenu;
+    static const int widthTitle;
+    static const int widthIndex;
+    static const int widthUsername;
+    static const int widthPassword;
+    static const std::string txtPassword;
+    static const std::string txtUsername;
+    static const std::string txtChar;
+    static const std::string txtString;
+};
+
+class Menu // Menu Constant
+{
+public:
+    static const std::vector<std::string> main;
+    static const std::vector<std::string> settings;
+    static const std::vector<std::string> dataType;
+    static const std::vector<std::string> home;
+    static const std::vector<std::string> array;
+};
+
+class SmallMenu // Menu Constant
+{
+public:
+    static const std::vector<std::string> updates;
+    static const std::vector<std::string> average;
+    static const std::vector<std::string> sum;
+    static const std::vector<std::string> set;
+    static const std::vector<std::string> reverse;
+    static const std::vector<std::string> shiftRotate;
+    static const std::vector<std::string> lSearchType;
+    static const std::vector<std::string> shortcutsType;
+    static const std::vector<std::string> findValue;
+    static const std::vector<std::string> logVersionData;
+    static const std::vector<std::string> logVersionDesc;
+    static const std::vector<std::string> helpCharData;
+    static const std::vector<std::string> helpCharDesc;
+};
 
 /******************************************************* ENUMS *******************************************************/
 enum Side

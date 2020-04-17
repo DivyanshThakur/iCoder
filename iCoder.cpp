@@ -45,11 +45,11 @@ int main()
         title();                                                            // display title
         emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // 1 time message to user
         showedOneTime = false;                                              // set to false to not show next time
-        save_to_file(fSetting, SHOW_ONE_TIME_HINT, showedOneTime);
+        save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime);
     }
 
-    if (signedUserID != std::string{"NULL"}) // checking for current signed user
-        home(signedUserID);                  // if the user is saved in file it will automatically sign in the active user
+    if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
+        home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
     else
         save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
 
@@ -58,7 +58,7 @@ int main()
 
     do
     {
-        menu(mainMenu); // display the startup menu
+        menu(Menu::main); // display the startup menu
 
         try
         {
@@ -106,7 +106,7 @@ int main()
         }
         catch (...)
         {
-            border(widthMenu);
+            border(Ui::widthMenu);
             std::cerr << "Unknown error occurred in Main Menu";
             press_key(NIL);
         }
@@ -168,7 +168,7 @@ void main_menu_controller(int ch)
 bool isDirectoryExists()
 {
     // code to check if a Directory exists or not
-    DWORD attribs = ::GetFileAttributesA(path.c_str());
+    DWORD attribs = ::GetFileAttributesA(Path::dataPath.c_str());
 
     if (attribs == INVALID_FILE_ATTRIBUTES)
         return false;
@@ -183,7 +183,7 @@ void adjust_console_size()
     RECT r;
     GetWindowRect(console, &r); //stores the console's current dimensions
 
-    MoveWindow(console, r.left, r.top, consoleWidth, consoleHeight, TRUE); // 850 width, 600 height
+    MoveWindow(console, r.left, r.top, Ui::consoleWidth, Ui::consoleHeight, TRUE); // 850 width, 600 height
 }
 
 // It creates a path to the user's document folder for storing the user data
@@ -198,10 +198,10 @@ void create_path()
     }
 
     // assigning path to their respective variables
-    path = std::string(userpath) + "\\Documents\\iCoder";
-    fUser = path + "\\users.dat";
-    fSetting = path + "\\settings.dat";
+    Path::dataPath = std::string(userpath) + "\\Documents\\iCoder";
+    Path::fUser = Path::dataPath + "\\users.dat";
+    Path::fSetting = Path::dataPath + "\\settings.dat";
 
-    if (!isDirectoryExists()) // checking if the directory "data" exists or not
-        mkdir(path.c_str());  // these code will create a folder in that specific destination
+    if (!isDirectoryExists())          // checking if the directory "data" exists or not
+        mkdir(Path::dataPath.c_str()); // these code will create a folder in that specific destination
 }

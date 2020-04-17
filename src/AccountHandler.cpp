@@ -15,29 +15,29 @@
 
 void restore_saved_changes()
 {
-    std::ifstream file(fSetting);
+    std::ifstream file(Path::fSetting);
 
     if (!file)
     {
-        signedUserID = std::string{"NULL"};
-        sleepTime = 25;
+        Global::signedUserID = std::string{"NULL"};
+        Global::sleepTime = 25;
         lSearchStats = DEFAULT;
         shortcutStats = DEFAULT;
         showedOneTime = true;
-        showWelcome = true;
-        showQuit = true;
-        showHint = true;
+        Global::showWelcome = true;
+        Global::showQuit = true;
+        Global::showHint = true;
 
-        std::ofstream outFile(fSetting);
+        std::ofstream outFile(Path::fSetting);
 
-        print_to_file(outFile, CURRENT_USER, signedUserID);
-        print_to_file(outFile, ANIMATION_SPEED, sleepTime);
-        print_to_file(outFile, LSEARCH_STATUS, lSearchStats);
-        print_to_file(outFile, SHORTCUT_STATUS, shortcutStats);
-        print_to_file(outFile, SHOW_ONE_TIME_HINT, showedOneTime);
-        print_to_file(outFile, SHOW_WELCOME_MESSAGE, showWelcome);
-        print_to_file(outFile, SHOW_QUIT_MESSAGE, showQuit);
-        print_to_file(outFile, SHOW_HINT, showHint);
+        print_to_file(outFile, File::CURRENT_USER, Global::signedUserID);
+        print_to_file(outFile, File::ANIMATION_SPEED, Global::sleepTime);
+        print_to_file(outFile, File::LSEARCH_STATUS, lSearchStats);
+        print_to_file(outFile, File::SHORTCUT_STATUS, shortcutStats);
+        print_to_file(outFile, File::SHOW_ONE_TIME_HINT, showedOneTime);
+        print_to_file(outFile, File::SHOW_WELCOME_MESSAGE, Global::showWelcome);
+        print_to_file(outFile, File::SHOW_QUIT_MESSAGE, Global::showQuit);
+        print_to_file(outFile, File::SHOW_HINT, Global::showHint);
 
         outFile.close();
 
@@ -49,28 +49,28 @@ void restore_saved_changes()
 
     while (file >> title)
     {
-        if (title == CURRENT_USER)
-            file >> signedUserID;
-        else if (title == ANIMATION_SPEED)
-            file >> sleepTime;
-        else if (title == LSEARCH_STATUS)
+        if (title == File::CURRENT_USER)
+            file >> Global::signedUserID;
+        else if (title == File::ANIMATION_SPEED)
+            file >> Global::sleepTime;
+        else if (title == File::LSEARCH_STATUS)
         {
             file >> c;
             update_stats(lSearchStats, c);
         }
-        else if (title == SHORTCUT_STATUS)
+        else if (title == File::SHORTCUT_STATUS)
         {
             file >> c;
             update_stats(shortcutStats, c);
         }
-        else if (title == SHOW_ONE_TIME_HINT)
+        else if (title == File::SHOW_ONE_TIME_HINT)
             file >> showedOneTime;
-        else if (title == SHOW_WELCOME_MESSAGE)
-            file >> showWelcome;
-        else if (title == SHOW_QUIT_MESSAGE)
-            file >> showQuit;
-        else if (title == SHOW_HINT)
-            file >> showHint;
+        else if (title == File::SHOW_WELCOME_MESSAGE)
+            file >> Global::showWelcome;
+        else if (title == File::SHOW_QUIT_MESSAGE)
+            file >> Global::showQuit;
+        else if (title == File::SHOW_HINT)
+            file >> Global::showHint;
     }
 
     file.close();
@@ -96,7 +96,7 @@ void update_stats(enum Status &stats, int c)
 
 bool check_new_user()
 {
-    std::ifstream file(fUser);
+    std::ifstream file(Path::fUser);
 
     if (!file)
         return true;
@@ -107,7 +107,7 @@ bool check_new_user()
 
 bool check_default_settings()
 {
-    std::ifstream file(fSetting);
+    std::ifstream file(Path::fSetting);
     std::string title, usr_signed;
     int time, c, s;
     bool sothint, wlcome, hint, quit;
@@ -117,21 +117,21 @@ bool check_default_settings()
 
     while (file >> title)
     {
-        if (title == CURRENT_USER)
+        if (title == File::CURRENT_USER)
             file >> usr_signed;
-        else if (title == ANIMATION_SPEED)
+        else if (title == File::ANIMATION_SPEED)
             file >> time;
-        else if (title == LSEARCH_STATUS)
+        else if (title == File::LSEARCH_STATUS)
             file >> c;
-        else if (title == SHORTCUT_STATUS)
+        else if (title == File::SHORTCUT_STATUS)
             file >> s;
-        else if (title == SHOW_ONE_TIME_HINT)
+        else if (title == File::SHOW_ONE_TIME_HINT)
             file >> sothint;
-        else if (title == SHOW_WELCOME_MESSAGE)
+        else if (title == File::SHOW_WELCOME_MESSAGE)
             file >> wlcome;
-        else if (title == SHOW_QUIT_MESSAGE)
+        else if (title == File::SHOW_QUIT_MESSAGE)
             file >> quit;
-        else if (title == SHOW_HINT)
+        else if (title == File::SHOW_HINT)
             file >> hint;
     }
 
@@ -144,9 +144,9 @@ bool check_default_settings()
 
 void save_active_user(const std::string &userID)
 {
-    signedUserID = userID;
+    Global::signedUserID = userID;
 
-    save_to_file(fSetting, CURRENT_USER, signedUserID);
+    save_to_file(Path::fSetting, File::CURRENT_USER, Global::signedUserID);
 }
 
 void login()
@@ -163,7 +163,7 @@ void login()
 
         acc->display_remember_me(); // it will display remember me message
 
-        border(widthMenu);       // display the border
+        border(Ui::widthMenu);   // display the border
         load();                  // animate loading screen
         home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
@@ -208,7 +208,7 @@ void create_account()
 
         acc->display_remember_me(); // it will display remember me message
 
-        border(widthMenu);       // display the border
+        border(Ui::widthMenu);   // display the border
         load();                  // animate loading screen
         home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
@@ -253,7 +253,7 @@ void display_users()
 {
     header(" USERS ");
 
-    std::ifstream file(fUser);
+    std::ifstream file(Path::fUser);
 
     if (!file)
     {
@@ -263,18 +263,18 @@ void display_users()
 
     auto acc = std::make_unique<Account>();
 
-    border(widthIndex * 3 + widthUsername + widthPassword - 1);
+    border(Ui::widthIndex * 3 + Ui::widthUsername + Ui::widthPassword - 1);
 
-    std::cout << " " << std::setw(widthIndex) << std::left << "INDEX"
-              << " | " << std::setw(widthUsername) << std::left << "USERNAME"
-              << " | " << std::setw(widthPassword) << std::left << "PASSWORD"
+    std::cout << " " << std::setw(Ui::widthIndex) << std::left << "INDEX"
+              << " | " << std::setw(Ui::widthUsername) << std::left << "USERNAME"
+              << " | " << std::setw(Ui::widthPassword) << std::left << "PASSWORD"
               << " |";
 
-    border(widthIndex * 3 + widthUsername + widthPassword - 1);
+    border(Ui::widthIndex * 3 + Ui::widthUsername + Ui::widthPassword - 1);
 
-    std::cout << std::setw(widthIndex + 1) << ""
-              << " | " << std::setw(widthUsername) << ""
-              << " | " << std::setw(widthPassword) << ""
+    std::cout << std::setw(Ui::widthIndex + 1) << ""
+              << " | " << std::setw(Ui::widthUsername) << ""
+              << " | " << std::setw(Ui::widthPassword) << ""
               << " |";
 
     while (file >> *acc) // taking userID and pass from file to account class
@@ -282,7 +282,7 @@ void display_users()
         std::cout << *acc; // display the id,pass to console using operator<< overloading
     }
 
-    border(widthIndex * 3 + widthUsername + widthPassword - 1);
+    border(Ui::widthIndex * 3 + Ui::widthUsername + Ui::widthPassword - 1);
 
     file.close();
 }
@@ -338,8 +338,8 @@ void save_to_file(const std::string &fileName, const std::string &title, const T
 template <typename T>
 void print_to_file(std::ofstream &outFile, const std::string &title, const T &data)
 {
-    outFile << std::setw(widthUsername * 2) << std::left << title
-            << std::setw(widthUsername) << std::left << data << std::endl;
+    outFile << std::setw(Ui::widthUsername * 2) << std::left << title
+            << std::setw(Ui::widthUsername) << std::left << data << std::endl;
 }
 
 template void save_to_file<std::string>(const std::string &fileName, const std::string &title, const std::string &data);

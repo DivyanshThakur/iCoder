@@ -32,13 +32,13 @@ void title()
 
     const std::string title{"iCoder"}; // this display the title at top of screen
 
-    std::cout << std::setw(relativeTitleWidth) << ""
-              << std::setw(widthTitle) << std::setfill('=') << ""
+    std::cout << std::setw(Ui::relativeTitleWidth) << ""
+              << std::setw(Ui::widthTitle) << std::setfill('=') << ""
               << std::setfill(' ') << std::endl
-              << std::setw(relativeTitleWidth + widthTitle / 2 - title.size() / 2) << ""
+              << std::setw(Ui::relativeTitleWidth + Ui::widthTitle / 2 - title.size() / 2) << ""
               << title << std::endl
-              << std::setw(relativeTitleWidth) << ""
-              << std::setw(widthTitle) << std::setfill('=') << ""
+              << std::setw(Ui::relativeTitleWidth) << ""
+              << std::setw(Ui::widthTitle) << std::setfill('=') << ""
               << std::setfill(' ')
               << std::endl
               << std::endl;
@@ -49,7 +49,7 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
 
     title(); // display title - "iCoder"
 
-    if (showHint) // display hint in every screen
+    if (Global::showHint) // display hint in every screen
         show_hint();
 
     header(heading, false);
@@ -75,7 +75,7 @@ void show_status(const std::string &statsStr, const std::string &statsVal, bool 
     std::cout << statsStr << statsVal;
 
     if (isFinal)
-        border(widthMenu);
+        border(Ui::widthMenu);
     else
         std::cout << std::endl;
 }
@@ -120,7 +120,7 @@ void header(const std::string &menuTitle, bool showTitle)
     std::cout << std::setfill('-')
               << std::setw(2) << ""
               << menuTitle
-              << std::setw(widthMenu - (menuTitle.size() + 2)) << ""
+              << std::setw(Ui::widthMenu - (menuTitle.size() + 2)) << ""
               << std::setfill(' ')
               << std::endl;
 }
@@ -165,7 +165,7 @@ void emessage(const std::string &message)
     for (size_t i{0}; i < message.size(); ++i)
     {
         std::cout << "\b \b";
-        Sleep(sleepTime);
+        Sleep(Global::sleepTime);
     }
 }
 
@@ -182,13 +182,13 @@ void animater(const std::string &anime)
     for (const auto &c : anime)
     {
         std::cout << c;
-        Sleep(sleepTime);
+        Sleep(Global::sleepTime);
     }
 }
 
 void print_message(const std::string &message)
 {
-    border(widthMenu);
+    border(Ui::widthMenu);
 
     std::cout << message;
 }
@@ -200,7 +200,7 @@ void press_key(const ReturnTo &rt, const std::string &message)
     print_message(message);
     ch = getch();
 
-    if (ch == ESC)
+    if (ch == Ui::ESC)
     {
         switch (rt)
         {
@@ -237,7 +237,7 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
     if (message != std::string{""})
         print_message(message);
 
-    border(widthMenu);
+    border(Ui::widthMenu);
 
     animater(txtConfirm + std::string{" (Y/N): "});
 

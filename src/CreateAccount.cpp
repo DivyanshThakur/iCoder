@@ -24,7 +24,7 @@ void CreateAccount::input_data()
 
 void CreateAccount::upload_account()
 {
-    std::ofstream file{fUser, std::ios::app};
+    std::ofstream file{Path::fUser, std::ios::app};
     Encrypter ec;
 
     if (!file)
@@ -40,14 +40,14 @@ void CreateAccount::upload_account()
         throw;
     }
 
-    file << std::setw(widthUsername) << std::left << userID << std::setw(widthPassword) << std::left << ec.encrypt(pass) << std::endl;
+    file << std::setw(Ui::widthUsername) << std::left << userID << std::setw(Ui::widthPassword) << std::left << ec.encrypt(pass) << std::endl;
 
     file.close();
 }
 
 void CreateAccount::isValidUser()
 {
-    std::ifstream file(fUser);
+    std::ifstream file(Path::fUser);
 
     if (!file)
     {

@@ -37,7 +37,7 @@ class scan
 
             case 12: // display quit message
                 isquitConditionEnabled = false;
-                if (showQuit)
+                if (Global::showQuit)
                     throw OpenAnimeSetting(7); // quit message
                 break;
             }
