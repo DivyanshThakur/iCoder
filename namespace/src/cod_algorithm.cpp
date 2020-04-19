@@ -1,5 +1,6 @@
 #include <string>
 #include "../header/cod_algorithm.hpp"
+#include "../../header/ExHandler.hpp"
 
 /***************************************************** MIN FUNCTION ****************************************************/
 template <typename T>
@@ -12,14 +13,50 @@ T cod::min(const T &lhs, const T &rhs)
 }
 
 /*************************************************** STRING FUNCTIONS **************************************************/
+void cod::toupper(cod::string &str, size_t pos, size_t len)
+{
+    if (pos < 0 || pos >= str.size())
+        throw InvalidPositionException();
+
+    size_t refSize = (static_cast<int>(len) == -1) ? (str.size() - pos) : (cod::min(str.size() - pos, len));
+
+    for (size_t i{0}; i < refSize; i++)
+        str[pos + i] = ::toupper(str[pos + i]);
+}
+
+void cod::tolower(cod::string &str, size_t pos, size_t len)
+{
+    if (pos < 0 || pos >= str.size())
+        throw InvalidPositionException();
+
+    size_t refSize = (static_cast<int>(len) == -1) ? (str.size() - pos) : (cod::min(str.size() - pos, len));
+
+    for (size_t i{0}; i < refSize; i++)
+        str[pos + i] = ::tolower(str[pos + i]);
+}
+
+void cod::toggle(cod::string &str, size_t pos, size_t len)
+{
+    if (pos < 0 || pos >= str.size())
+        throw InvalidPositionException();
+
+    size_t refSize = (static_cast<int>(len) == -1) ? (str.size() - pos) : (cod::min(str.size() - pos, len));
+
+    for (size_t i{0}; i < refSize; i++)
+    {
+        if (::islower(str[pos + i]))
+            str[pos + i] = ::toupper(str[pos + i]);
+        else
+            str[pos + i] = ::tolower(str[pos + i]);
+    }
+}
+
 std::string cod::toupper(const std::string &str)
 {
     std::string temp;
 
     for (const auto &c : str)
-    {
         temp.push_back(::toupper(c));
-    }
 
     return temp;
 }
@@ -29,9 +66,7 @@ std::string cod::tolower(const std::string &str)
     std::string temp;
 
     for (const auto &c : str)
-    {
         temp.push_back(::tolower(c));
-    }
 
     return temp;
 }

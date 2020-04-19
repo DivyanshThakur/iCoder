@@ -12,15 +12,18 @@ class StringHandler
     bool show_adv_opn{false};
     std::vector<int> menuIndex; // It stored the index of the string to display
 
-    void pressi_display();
+    void input_data(size_t &pos, size_t &len);
+    void input_data(size_t &pos, cod::string &val);
+    void pressi_display(bool isStringUpdated = false);
     std::vector<std::string> menu_screen_selector();
     void fn_caller(int ch);
     void string_controller(int ch);
     void update_string();
     void insert_substr();
     void remove_substr();
-    void display_str();
+    bool is_range(const std::string &heading);
     void change_case();
+    void display_str();
 
 public:
     void start();

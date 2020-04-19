@@ -1000,19 +1000,12 @@ cod::string cod::string::erase(size_t pos, size_t len)
 
     size_t refSize = (len == npos) ? (_size - pos) : (cod::min(_size - pos, len));
 
-    string remStr(*this, pos, len);
+    string remStr(*this, pos, refSize);
 
-    size_t i;
-
-    for (i = pos; i < pos + refSize; i++)
-    {
-        if (i + refSize == _size)
-            break;
-
+    for (size_t i{pos}; i < _size - refSize; i++)
         str[i] = str[i + refSize];
-    }
 
-    _size = i;
+    _size -= refSize;
     str[_size] = '\0';
 
     return remStr;

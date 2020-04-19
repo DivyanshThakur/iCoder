@@ -16,12 +16,12 @@ class ArrayHandler
     bool show_adv_opn{false};
     std::vector<int> menuIndex; // It stored the index of the string to display
 
-    void pressi_display();
+    void pressi_display(bool isArrayUpdated = false);
     std::vector<std::string> menu_screen_selector();
     void array_controller(int ch);
     void fn_caller(int c);
     void update_size();
-    void add_elements();
+    void add_values();
     void insert_value();
     void remove_multiple_values();
     void remove_value();

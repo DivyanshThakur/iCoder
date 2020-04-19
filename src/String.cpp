@@ -1,4 +1,5 @@
 #include <iostream>
+#include "../namespace/header/cod_algorithm.hpp"
 #include "../header/String.hpp"
 #include "../header/UIhandler.hpp"
 
@@ -86,8 +87,39 @@ void StringHandler::start()
     } while (1); // true
 }
 
-void StringHandler::pressi_display()
+void StringHandler::input_data(size_t &pos, size_t &len)
 {
+    show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
+    show_status(std::string{"Current string: "}, str.c_str());
+
+    animater(std::string{"Enter the position: "});
+
+    sc >> pos;
+
+    animater(std::string{"\nEnter size of sub-string: "});
+
+    sc >> len;
+}
+
+void StringHandler::input_data(size_t &pos, cod::string &val)
+{
+    show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
+    show_status(std::string{"Current string: "}, str.c_str());
+
+    animater(std::string{"Enter the position: "});
+
+    sc >> pos;
+
+    animater(std::string{"\nEnter the sub-string: "});
+
+    cod::getline(sc, val);
+}
+
+void StringHandler::pressi_display(bool isStringUpdated)
+{
+    if (isStringUpdated)
+        print_message(std::string{"String updated..."});
+
     if (press_i(std::string{"Press i to display string"}))
         this->display_str();
 }
@@ -123,12 +155,12 @@ std::vector<std::string> StringHandler::menu_screen_selector()
             toDisplayMenu.push_back(Menu::string.at(i));
             menuIndex.push_back(i);
 
-            if (i == 5 && !show_adv_opn)
-            {
-                toDisplayMenu.push_back("Advanced Operations");
-                menuIndex.push_back(i + 1);
-                break;
-            }
+            // if (i == 5 && !show_adv_opn)
+            // {
+            //     toDisplayMenu.push_back("Advanced Operations");
+            //     menuIndex.push_back(i + 1);
+            //     break;
+            // }
         }
     }
 
@@ -167,28 +199,32 @@ void StringHandler::string_controller(int ch)
         remove_substr();
         break;
 
+    case 4: // change case
+        change_case();
+        break;
+
     case 5:
         display_str();
         break;
 
-    case 6:
-        if (show_adv_opn)
-            print_message();
-        else
-            show_adv_opn = true; // make show_adv_opn = true and shows all available options
-        break;
+        // case 6:
+        //     if (show_adv_opn)
+        //         print_message();
+        //     else
+        //         show_adv_opn = true; // make show_adv_opn = true and shows all available options
+        //     break;
 
-    case 7:
-        break;
+        // case 7:
+        //     break;
 
-    case 8:
-        break;
+        // case 8:
+        //     break;
 
-    case 9:
-        break;
+        // case 9:
+        //     break;
 
-    case 10:
-        break;
+        // case 10:
+        //     break;
     }
 }
 
@@ -207,34 +243,41 @@ void StringHandler::update_string()
             toStop = true;
             sc.choice(ch);
 
-            switch (ch)
+            try
             {
-            case 1:
-                goto new_string_label;
+                switch (ch)
+                {
+                case 1:
+                    goto new_string_label;
 
-            case 2:
-                header(std::string{" EXTEND STRING "});
-                show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
-                show_status(std::string{"Current string: "}, str.c_str());
+                case 2:
+                    header(std::string{" EXTEND STRING "});
+                    show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
+                    show_status(std::string{"Current string: "}, str.c_str());
 
-                animater(std::string{"Enter new string: "});
-                cod::getline(sc, temp);
-                str.push_back(' ');
-                str.append(temp);
-                break;
+                    animater(std::string{"Enter new string: "});
+                    cod::getline(sc, temp);
+                    str.push_back(' ');
+                    str.append(temp);
+                    break;
 
-            case Ui::ESC:
-                throw EscPressed();
+                case Ui::ESC:
+                    throw EscPressed();
 
-            default:
-                print_message(std::string{"Invalid choice"});
-                press_key();
-                toStop = false;
-                break;
+                default:
+                    toStop = false;
+                    print_message(std::string{"Invalid choice"});
+                    press_key();
+                    break;
+                }
+
+                if (toStop)
+                    this->pressi_display(true);
             }
-
-            if (toStop)
-                this->pressi_display();
+            catch (const EscPressed &e)
+            {
+                toStop = false;
+            }
 
         } while (!toStop);
     }
@@ -258,20 +301,11 @@ void StringHandler::insert_substr()
 
     header(std::string{" INSERT SUB-STRING "});
 
-    show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
-    show_status(std::string{"Current string: "}, str.c_str());
-
-    animater(std::string{"Enter the position: "});
-
-    sc >> pos;
-
-    animater(std::string{"\nEnter the sub-string: "});
-
-    sc >> value;
+    this->input_data(pos, value);
 
     str.insert(pos - 1, value);
 
-    this->pressi_display();
+    this->pressi_display(true);
 }
 
 void StringHandler::remove_substr()
@@ -281,23 +315,122 @@ void StringHandler::remove_substr()
 
     header(std::string{" DELETE SUB-STRING "});
 
-    show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
-    show_status(std::string{"Current string: "}, str.c_str());
-
-    animater(std::string{"Enter the position: "});
-
-    sc >> pos;
-
-    animater(std::string{"\nEnter size of sub-string: "});
-
-    sc >> len;
+    this->input_data(pos, len);
 
     subStr = str.erase(pos - 1, len);
 
-    std::cout << "\nRemoved, "
-              << subStr << ".";
+    print_message(std::string{"Removed, "} + subStr.c_str());
 
     this->pressi_display();
+}
+
+bool StringHandler::is_range(const std::string &heading)
+{
+    int ch;
+    bool toStop;
+
+    do
+    {
+        menu(SmallMenu::rangeString, heading);
+
+        toStop = true;
+        sc.choice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            return false;
+
+        case 2:
+            return true;
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            toStop = false;
+            press_key();
+            break;
+        }
+
+    } while (!toStop);
+
+    return false;
+}
+
+void StringHandler::change_case()
+{
+    int ch;
+    bool isRangeSelected;
+    bool toStop;
+    size_t pos = 1, len = -1;
+
+    do
+    {
+        menu(SmallMenu::changeCaseString, std::string{" CHANGE CASE "});
+
+        toStop = true;
+        sc.choice(ch);
+
+        try
+        {
+            switch (ch)
+            {
+            case 1:
+                isRangeSelected = is_range(std::string{" TOGGLE CASE "});
+
+                if (isRangeSelected)
+                {
+                    header(std::string{std::string{" TOGGLE CASE "}});
+                    this->input_data(pos, len);
+                }
+
+                cod::toggle(str, pos - 1, len);
+                break;
+
+            case 2:
+                isRangeSelected = is_range(std::string{" TO LOWER "});
+
+                if (isRangeSelected)
+                {
+                    header(std::string{std::string{" TO LOWER "}});
+                    this->input_data(pos, len);
+                }
+
+                cod::tolower(str, pos - 1, len);
+                break;
+
+            case 3:
+                isRangeSelected = is_range(std::string{" TO UPPER "});
+
+                if (isRangeSelected)
+                {
+                    header(std::string{std::string{" TO UPPER "}});
+                    this->input_data(pos, len);
+                }
+
+                cod::toupper(str, pos - 1, len);
+                break;
+
+            case Ui::ESC:
+                throw EscPressed();
+
+            default:
+                print_message(std::string{"Invalid choice"});
+                press_key();
+                toStop = false;
+                break;
+            }
+
+            if (toStop)
+            {
+                this->pressi_display(true);
+            }
+        }
+        catch (const EscPressed &e)
+        {
+            toStop = false;
+        }
+
+    } while (!toStop);
 }
 
 void StringHandler::display_str()

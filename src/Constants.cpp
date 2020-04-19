@@ -26,7 +26,7 @@ bool Global::showQuit;
 /*************************************************** ICODER CLASS ****************************************************/
 
 const std::string iCoder::devName{"Divyansh Singh Thakur"};
-const std::string iCoder::versionInfo{"1.7.20.4.15-beta"};
+const std::string iCoder::versionInfo{"1.7.20.4.19-beta"};
 
 /***************************************************** REMOTE URL ****************************************************/
 
@@ -74,7 +74,7 @@ const std::string Ui::txtString{"String"};
 const std::vector<std::string> Menu::main{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
 const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> Menu::dataType{"Int", "Long", "Double", "Char", "String"};
-const std::vector<std::string> Menu::home{"Array (NEW)", "Strings", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
+const std::vector<std::string> Menu::home{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
 const std::vector<std::string> Menu::array{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
 const std::vector<std::string> Menu::string{"Update string", "Add string", "Insert sub-string", "Delete sub-string", "Change case", "Display string"};
 
@@ -91,8 +91,8 @@ const std::vector<std::string> SmallMenu::lSearchType{"Default", "Transposition"
 const std::vector<std::string> SmallMenu::shortcutsType{"Only key", "Ctrl + key", "Disable"};
 
 // array
-const std::vector<std::string> SmallMenu::average{"Average of all elements", "Select a range"}; // array
-const std::vector<std::string> SmallMenu::sum{"Sum of all elements", "Select a range"};         // array
+const std::vector<std::string> SmallMenu::average{"Average of all values", "Select a range"}; // array
+const std::vector<std::string> SmallMenu::sum{"Sum of all values", "Select a range"};         // array
 const std::vector<std::string> SmallMenu::set{"Union", "Intersection", "Difference"};
 const std::vector<std::string> SmallMenu::reverse{"Reverse the array", "Select a range"};
 const std::vector<std::string> SmallMenu::shiftRotate{"Left Shift", "Right Shift", "Left Rotation", "Right Rotation"};
@@ -100,6 +100,8 @@ const std::vector<std::string> SmallMenu::findValue{"Search the array", "Select 
 
 // string
 const std::vector<std::string> SmallMenu::updateString{"Add new string", "Extend current string"};
+const std::vector<std::string> SmallMenu::changeCaseString{"Toggle case", "To lower", "To upper"};
+const std::vector<std::string> SmallMenu::rangeString{"Full string", "Select a range"};
 
 // const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
 

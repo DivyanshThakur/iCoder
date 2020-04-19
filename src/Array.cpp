@@ -172,8 +172,11 @@ void ArrayHandler<T>::start()
 }
 
 template <typename T>
-void ArrayHandler<T>::pressi_display()
+void ArrayHandler<T>::pressi_display(bool isArrayUpdated)
 {
+    if (isArrayUpdated)
+        print_message(std::string{"Array updated..."});
+
     if (press_i(std::string{"Press i to display array"}))
         this->display_arr();
 }
@@ -356,7 +359,7 @@ void ArrayHandler<T>::array_controller(int c)
         break;
 
     case 2: // add elements after last element in array
-        add_elements();
+        add_values();
         break;
 
     case 3: // insert a value at a given position
@@ -460,7 +463,7 @@ void ArrayHandler<T>::update_size()
 }
 
 template <typename T>
-void ArrayHandler<T>::add_elements()
+void ArrayHandler<T>::add_values()
 {
     size_t size;
     T value;
@@ -495,7 +498,7 @@ void ArrayHandler<T>::add_elements()
         arr.push_back(value);
     }
 
-    this->pressi_display();
+    this->pressi_display(true);
 }
 
 template <typename T>
@@ -521,7 +524,7 @@ void ArrayHandler<T>::insert_value()
 
     arr.insert(value, pos);
 
-    this->pressi_display();
+    this->pressi_display(true);
 }
 
 template <typename T>
@@ -658,7 +661,7 @@ void ArrayHandler<T>::merge_arr()
 
     try
     {
-        arrHndlr.add_elements();
+        arrHndlr.add_values();
     }
     catch (const EscPressed &e)
     {
@@ -700,7 +703,7 @@ void ArrayHandler<T>::set_opn_arr()
     try
     {
         arrHndlr.update_size();
-        arrHndlr.add_elements();
+        arrHndlr.add_values();
     }
     catch (const EscPressed &e)
     {
@@ -834,7 +837,7 @@ void ArrayHandler<T>::reverse_arr()
         {
             print_message(std::string{"Array Updated!"});
 
-            this->pressi_display();
+            this->pressi_display(true);
         }
 
     } while (!toStop); // stops when toStop is true
@@ -899,7 +902,7 @@ void ArrayHandler<T>::shift_rotate_arr()
         }
 
         if (toStop)
-            this->pressi_display();
+            this->pressi_display(true);
 
     } while (!toStop);
 }
@@ -1215,7 +1218,7 @@ void ArrayHandler<T>::average()
 
             sc >> pos;
 
-            animater(std::string{"\nEnter the number of elements: "});
+            animater(std::string{"\nEnter the number of values: "});
 
             sc >> n;
 
@@ -1271,7 +1274,7 @@ void ArrayHandler<T>::sum()
             animater(std::string{"Enter the starting position: "});
             sc >> pos;
 
-            animater(std::string{"\nEnter the number of elements: "});
+            animater(std::string{"\nEnter the number of values: "});
 
             sc >> n;
 

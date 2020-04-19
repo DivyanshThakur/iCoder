@@ -122,6 +122,8 @@ public:
 
     // string
     static const std::vector<std::string> updateString;
+    static const std::vector<std::string> changeCaseString;
+    static const std::vector<std::string> rangeString;
 };
 
 /******************************************************* ENUMS *******************************************************/
