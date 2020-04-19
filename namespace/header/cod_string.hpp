@@ -17,14 +17,14 @@ class string
 
     friend std::ostream &operator<<(std::ostream &os, const string &obj)
     {
-        // for (auto const &c : obj)
-        // {
-        //     os << c;
-        // }
-        for (size_t i{0}; i < obj._size; i++)
-        {
-            os << obj.at(i);
-        }
+        if (obj.size())
+            for (size_t i{0}; i < obj._size; i++)
+            {
+                os << obj.at(i);
+            }
+        else
+            os << "String is empty!";
+
         return os;
     }
 
@@ -217,11 +217,12 @@ class string
 private:
     void capacity_selecter();
     void capacity_updater(size_t n);
+    void update_word_vowel_consonant();
     void cat(const char *rhs, size_t len = npos);
     void cpy(const char *rhs, size_t len = npos);
 
     char *str;
-    size_t _size, _capacity, _max_size;
+    size_t _size, _capacity, _maxSize, _words, _vowels, _consonants;
 
 public:
     static constexpr size_t npos = -1;
@@ -254,6 +255,9 @@ public:
     size_t size() const;
     size_t length() const;
     size_t max_size() const;
+    size_t words();
+    size_t vowels();
+    size_t consonants();
     void resize(size_t n, char c = '\0');
     size_t capacity() const;
     void reserve(size_t n = 0);
@@ -306,7 +310,7 @@ public:
     // iterator insert(iterator p, InputIterator first, InputIterator last); // range
     // string &insert(const_iterator p, initializer_list<char> il);// initializer list
 
-    string &erase(size_t pos = 0, size_t len = npos); // sequence
+    string erase(size_t pos = 0, size_t len = npos); // sequence
     // iterator erase(const_iterator p);                          // character
     // iterator erase(const_iterator first, const_iterator last); // range
 

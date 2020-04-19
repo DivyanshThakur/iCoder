@@ -37,16 +37,6 @@ void home(const std::string &userID)
             if (Global::signedUserID == std::string{"NULL"})
                 return;
         }
-        catch (const InvalidInputException &e)
-        {
-            std::cerr << e.what();
-            press_key(NIL);
-        }
-        catch (const NegativeValueException &e)
-        {
-            std::cerr << e.what();
-            press_key(NIL);
-        }
         catch (const Exit &e)
         {
             e.what();

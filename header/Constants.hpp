@@ -95,24 +95,33 @@ public:
     static const std::vector<std::string> dataType;
     static const std::vector<std::string> home;
     static const std::vector<std::string> array;
+    static const std::vector<std::string> string;
 };
 
 class SmallMenu // Menu Constant
 {
 public:
+    // info
     static const std::vector<std::string> updates;
+    static const std::vector<std::string> logVersionData;
+    static const std::vector<std::string> logVersionDesc;
+    static const std::vector<std::string> helpCharData;
+    static const std::vector<std::string> helpCharDesc;
+
+    // settings
+    static const std::vector<std::string> lSearchType;
+    static const std::vector<std::string> shortcutsType;
+
+    // array
     static const std::vector<std::string> average;
     static const std::vector<std::string> sum;
     static const std::vector<std::string> set;
     static const std::vector<std::string> reverse;
     static const std::vector<std::string> shiftRotate;
-    static const std::vector<std::string> lSearchType;
-    static const std::vector<std::string> shortcutsType;
     static const std::vector<std::string> findValue;
-    static const std::vector<std::string> logVersionData;
-    static const std::vector<std::string> logVersionDesc;
-    static const std::vector<std::string> helpCharData;
-    static const std::vector<std::string> helpCharDesc;
+
+    // string
+    static const std::vector<std::string> updateString;
 };
 
 /******************************************************* ENUMS *******************************************************/

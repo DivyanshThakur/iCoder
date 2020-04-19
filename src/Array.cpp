@@ -67,11 +67,28 @@ void ArrayHandler<T>::start()
 {
     int ch;
 
-    update_size();
+    try
+    {
+        update_size();
+    }
+    catch (const EscPressed &e)
+    {
+        throw ReturnHome();
+    }
+    catch (const InvalidInputException &e)
+    {
+        std::cerr << e.what();
+        press_key(NIL);
+    }
+    catch (const NegativeValueException &e)
+    {
+        std::cerr << e.what();
+        press_key(NIL);
+    }
 
     do
     {
-        menu(menu_screen_selector());
+        menu(menu_screen_selector(), std::string{" ARRAY "});
 
         try
         {
@@ -84,7 +101,7 @@ void ArrayHandler<T>::start()
                 throw ReturnHome();
             }
 
-            array_controller(ch);
+            fn_caller(ch);
         }
         catch (const EscPressed &e)
         {
@@ -313,14 +330,14 @@ std::vector<std::string> ArrayHandler<std::string>::menu_screen_selector()
 /************************************************ END OF MENU SCREEN SELECTOR TEMPLATE FUNCTIONS ************************************************/
 
 template <typename T>
-void ArrayHandler<T>::array_controller(int ch)
+void ArrayHandler<T>::fn_caller(int ch)
 {
     if (ch == 1)
-        fn_caller(1);
+        array_controller(1);
     else
     {
         if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
-            fn_caller(menuIndex.at(ch - 1));
+            array_controller(menuIndex.at(ch - 1));
         else
         {
             print_message(std::string{"Invalid choice"});
@@ -330,7 +347,7 @@ void ArrayHandler<T>::array_controller(int ch)
 }
 
 template <typename T>
-void ArrayHandler<T>::fn_caller(int c)
+void ArrayHandler<T>::array_controller(int c)
 {
     switch (c)
     {
@@ -569,8 +586,10 @@ void ArrayHandler<T>::display_arr() const
     header(std::string{" DISPLAY ARRAY "});
 
     std::cout << "Maximum size: " << arr.max_size() << std::endl
-              << "Value stored: " << arr.size() << std::endl
-              << "Array: "
+              << "Value stored: " << arr.size();
+
+    border(Ui::widthMenu);
+    std::cout << "Array: "
               << arr;
 
     press_key();
@@ -635,9 +654,10 @@ void ArrayHandler<T>::merge_arr()
 {
     ArrayHandler arrHndlr;
 
+    arrHndlr.update_size();
+
     try
     {
-        arrHndlr.update_size();
         arrHndlr.add_elements();
     }
     catch (const EscPressed &e)
@@ -878,8 +898,8 @@ void ArrayHandler<T>::shift_rotate_arr()
             break;
         }
 
-        if (toStop && press_i(std::string{"Press i to display array"}))
-            this->display_arr();
+        if (toStop)
+            this->pressi_display();
 
     } while (!toStop);
 }

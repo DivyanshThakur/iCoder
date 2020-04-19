@@ -34,6 +34,28 @@ void cod::string::capacity_updater(size_t n)
         _capacity = n;
 }
 
+void cod::string::update_word_vowel_consonant()
+{
+    char c;
+
+    _words = _vowels = _consonants = 0;
+
+    for (size_t i{0}; i < _size; i++)
+    {
+        c = ::tolower(str[i]);
+
+        if (c == ' ')
+            ++_words;
+        else if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+            ++_vowels;
+        else if (c > 'a' && c <= 'z')
+            ++_consonants;
+    }
+
+    if (_size)    // check for null string
+        ++_words; // to add the last word without space
+}
+
 void cod::string::cat(const char *rhs, size_t len) // use true ,false for str[_size]=0;
 {
     if (len == npos)
@@ -65,7 +87,7 @@ cod::string::string() : string(nullptr)
 {
 }
 
-cod::string::string(const char *s) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
+cod::string::string(const char *s) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     if (s == nullptr)
     {
@@ -85,7 +107,7 @@ cod::string::string(const char *s) : str(nullptr), _size(0), _capacity(0), _max_
     }
 }
 
-cod::string::string(const char *s, size_t n) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
+cod::string::string(const char *s, size_t n) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -95,7 +117,7 @@ cod::string::string(const char *s, size_t n) : str(nullptr), _size(0), _capacity
     this->cpy(s, n);
 }
 
-cod::string::string(size_t n, char c) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
+cod::string::string(size_t n, char c) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -109,7 +131,7 @@ cod::string::string(size_t n, char c) : str(nullptr), _size(0), _capacity(0), _m
     str[n] = '\0';
 }
 
-cod::string::string(const string &rhs) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
+cod::string::string(const string &rhs) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = rhs._size;
     _capacity = rhs._capacity;
@@ -120,7 +142,7 @@ cod::string::string(const string &rhs) : str(nullptr), _size(0), _capacity(0), _
     this->cpy(rhs.str, rhs._size);
 }
 
-cod::string::string(string &&rhs) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
+cod::string::string(string &&rhs) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _capacity = rhs._capacity;
     _size = rhs._size;
@@ -128,7 +150,7 @@ cod::string::string(string &&rhs) : str(nullptr), _size(0), _capacity(0), _max_s
     rhs.str = nullptr;
 }
 
-cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
+cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = list.size();
 
@@ -144,7 +166,7 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _si
     str[i] = '\0';
 }
 
-cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _size(0), _capacity(0), _max_size(cod::limits<size_t>::max())
+cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     size_t refSize = (len == npos) ? (rhs._size - pos) : (cod::min(rhs._size - pos, len));
 
@@ -273,7 +295,23 @@ size_t cod::string::length() const
 
 size_t cod::string::max_size() const
 {
-    return _max_size;
+    return _maxSize;
+}
+
+size_t cod::string::words()
+{
+    this->update_word_vowel_consonant();
+    return _words;
+}
+size_t cod::string::vowels()
+{
+    this->update_word_vowel_consonant();
+    return _vowels;
+}
+size_t cod::string::consonants()
+{
+    this->update_word_vowel_consonant();
+    return _consonants;
 }
 
 void cod::string::resize(size_t n, char c)
@@ -370,7 +408,7 @@ const char &cod::string::operator[](size_t pos) const
 char &cod::string::at(size_t pos)
 {
     if (pos < 0 || pos >= _size)
-        throw OutofBoundsException();
+        throw InvalidPositionException();
 
     return str[pos];
 }
@@ -378,7 +416,7 @@ char &cod::string::at(size_t pos)
 const char &cod::string::at(size_t pos) const
 {
     if (pos < 0 || pos >= _size)
-        throw OutofBoundsException();
+        throw InvalidPositionException();
 
     return str[pos];
 }
@@ -450,7 +488,7 @@ cod::string &cod::string::operator+=(const char *s)
 
 cod::string &cod::string::operator+=(char c)
 {
-    if (1 > (_capacity - _size))
+    if ((_capacity - _size) < 1)
     {
         string temp(*this);
 
@@ -601,6 +639,7 @@ void cod::string::push_back(char c)
     }
 
     str[_size++] = c;
+    str[_size] = '\0';
 }
 
 cod::string &cod::string::assign(const string &rhs)
@@ -697,8 +736,8 @@ cod::string &cod::string::assign(const std::initializer_list<char> &list)
 
 cod::string &cod::string::insert(size_t pos, const string &rhs)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t newSize = _size + rhs._size;
 
@@ -746,8 +785,8 @@ cod::string &cod::string::insert(size_t pos, const string &rhs)
 
 cod::string &cod::string::insert(size_t pos, const string &rhs, size_t subpos, size_t sublen)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t refSize = (sublen == npos) ? (rhs._size - subpos) : (cod::min(rhs._size - subpos, sublen));
 
@@ -802,8 +841,8 @@ cod::string &cod::string::insert(size_t pos, const string &rhs, size_t subpos, s
 
 cod::string &cod::string::insert(size_t pos, const char *s)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t strSize = strlen(s);
     size_t newSize = _size + strSize;
@@ -852,8 +891,8 @@ cod::string &cod::string::insert(size_t pos, const char *s)
 
 cod::string &cod::string::insert(size_t pos, const char *s, size_t n)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t newSize = _size + n;
 
@@ -902,8 +941,8 @@ cod::string &cod::string::insert(size_t pos, const char *s, size_t n)
 
 cod::string &cod::string::insert(size_t pos, size_t n, char c)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t newSize = _size + n;
 
@@ -954,31 +993,35 @@ cod::string &cod::string::insert(size_t pos, size_t n, char c)
     return *this;
 }
 
-cod::string &cod::string::erase(size_t pos, size_t len)
+cod::string cod::string::erase(size_t pos, size_t len)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
-    size_t i{pos};
+    size_t refSize = (len == npos) ? (_size - pos) : (cod::min(_size - pos, len));
 
-    for (; i < pos + len; i++)
+    string remStr(*this, pos, len);
+
+    size_t i;
+
+    for (i = pos; i < pos + refSize; i++)
     {
-        if (i + len == _size)
+        if (i + refSize == _size)
             break;
 
-        str[i] = str[i + len];
+        str[i] = str[i + refSize];
     }
 
     _size = i;
     str[_size] = '\0';
 
-    return *this;
+    return remStr;
 }
 
 cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t validLength = cod::min(len, _size);
     size_t newSize = _size - validLength + rhs._size;
@@ -1020,8 +1063,8 @@ cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs)
 
 cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t refSize = (sublen == npos) ? (rhs._size - subpos) : (cod::min(rhs._size - subpos, sublen));
     size_t validLength = cod::min(len, _size);
@@ -1074,8 +1117,8 @@ cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs, siz
 
 cod::string &cod::string::replace(size_t pos, size_t len, const char *s)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t rhsSize = strlen(s);
     size_t validLength = cod::min(len, _size);
@@ -1118,8 +1161,8 @@ cod::string &cod::string::replace(size_t pos, size_t len, const char *s)
 
 cod::string &cod::string::replace(size_t pos, size_t len, const char *s, size_t n)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t refSize = cod::min(strlen(s), n);
     size_t validLength = cod::min(len, _size);
@@ -1163,8 +1206,8 @@ cod::string &cod::string::replace(size_t pos, size_t len, const char *s, size_t 
 
 cod::string &cod::string::replace(size_t pos, size_t len, size_t n, char c)
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t validLength = cod::min(len, _size);
     size_t newSize = _size - validLength + n;
@@ -1239,8 +1282,8 @@ const char *cod::string::data() const
 
 size_t cod::string::copy(char *s, size_t len, size_t pos) const
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t validLength = cod::min(len, _size);
 
@@ -1651,8 +1694,8 @@ int cod::string::compare(const string &rhs) const
 
 int cod::string::compare(size_t pos, size_t len, const string &rhs) const
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t validLength = cod::min(lSize, rhs._size);
@@ -1674,8 +1717,8 @@ int cod::string::compare(size_t pos, size_t len, const string &rhs) const
 
 int cod::string::compare(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen) const
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t rSize = (sublen == npos) ? rhs._size - pos : cod::min(rhs._size - pos, sublen);
@@ -1719,8 +1762,8 @@ int cod::string::compare(const char *s) const
 
 int cod::string::compare(size_t pos, size_t len, const char *s) const
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t rSize = strlen(s);
@@ -1743,8 +1786,8 @@ int cod::string::compare(size_t pos, size_t len, const char *s) const
 
 int cod::string::compare(size_t pos, size_t len, const char *s, size_t n) const
 {
-    if (pos > _size)
-        throw OutofBoundsException();
+    if (pos < 0 || pos > _size)
+        throw InvalidPositionException();
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t rSize = cod::min(n, strlen(s));

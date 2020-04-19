@@ -51,7 +51,7 @@ void help()
     if (shortcutStats == DEFAULT)
         message = std::string{"*Can be used only in menu screen"};
     else if (shortcutStats == EASY)
-        message = std::string{"*Can be used only in menu screen\nUse ctrl + key to access it"};
+        message = std::string{"*Can be used only in menu screen\n Use ctrl + key to access it"};
     else if (shortcutStats == ADV)
         message = std::string{"*Enable shortcuts from setting!!"};
 
