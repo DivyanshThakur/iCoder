@@ -87,8 +87,10 @@ void StringHandler::start()
     } while (1); // true
 }
 
-void StringHandler::input_data(size_t &pos, size_t &len)
+void StringHandler::input_data(size_t &pos, size_t &len, const std::string &heading)
 {
+    header(heading);
+
     show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
     show_status(std::string{"Current string: "}, str.c_str());
 
@@ -101,8 +103,10 @@ void StringHandler::input_data(size_t &pos, size_t &len)
     sc >> len;
 }
 
-void StringHandler::input_data(size_t &pos, cod::string &val)
+void StringHandler::input_data(size_t &pos, cod::string &val, const std::string &heading)
 {
+    header(heading);
+
     show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
     show_status(std::string{"Current string: "}, str.c_str());
 
@@ -305,8 +309,6 @@ void StringHandler::update_string()
         animater(std::string{"Enter string: "});
         cod::getline(sc, temp);
         str.assign(temp);
-
-        this->pressi_display();
     }
 }
 
@@ -315,9 +317,7 @@ void StringHandler::insert_substr()
     cod::string value;
     size_t pos;
 
-    header(std::string{" INSERT SUB-STRING "});
-
-    this->input_data(pos, value);
+    this->input_data(pos, value, std::string{" INSERT SUB-STRING "});
 
     str.insert(pos - 1, value);
 
@@ -329,9 +329,7 @@ void StringHandler::remove_substr()
     size_t pos, len;
     cod::string subStr;
 
-    header(std::string{" DELETE SUB-STRING "});
-
-    this->input_data(pos, len);
+    this->input_data(pos, len, std::string{" DELETE SUB-STRING "});
 
     subStr = str.erase(pos - 1, len);
 
@@ -394,10 +392,7 @@ void StringHandler::change_case()
                 isRangeSelected = is_range(std::string{" TOGGLE CASE "});
 
                 if (isRangeSelected)
-                {
-                    header(std::string{std::string{" TOGGLE CASE "}});
-                    this->input_data(pos, len);
-                }
+                    this->input_data(pos, len, std::string{std::string{" TOGGLE CASE "}});
 
                 cod::toggle(str, pos - 1, len);
                 break;
@@ -406,10 +401,7 @@ void StringHandler::change_case()
                 isRangeSelected = is_range(std::string{" TO LOWER "});
 
                 if (isRangeSelected)
-                {
-                    header(std::string{std::string{" TO LOWER "}});
-                    this->input_data(pos, len);
-                }
+                    this->input_data(pos, len, std::string{std::string{" TO LOWER "}});
 
                 cod::tolower(str, pos - 1, len);
                 break;
@@ -418,10 +410,7 @@ void StringHandler::change_case()
                 isRangeSelected = is_range(std::string{" TO UPPER "});
 
                 if (isRangeSelected)
-                {
-                    header(std::string{std::string{" TO UPPER "}});
-                    this->input_data(pos, len);
-                }
+                    this->input_data(pos, len, std::string{std::string{" TO UPPER "}});
 
                 cod::toupper(str, pos - 1, len);
                 break;
@@ -437,9 +426,7 @@ void StringHandler::change_case()
             }
 
             if (toStop)
-            {
                 this->pressi_display(true);
-            }
         }
         catch (const EscPressed &e)
         {
@@ -473,9 +460,7 @@ void StringHandler::reverse()
     bool isRangeSelected = is_range(std::string{" REVERSE "});
 
     if (isRangeSelected)
-    {
-        this->input_data(pos, len);
-    }
+        this->input_data(pos, len, std::string{" REVERSE "});
 
     str.reverse(pos - 1, len);
 
@@ -484,28 +469,185 @@ void StringHandler::reverse()
 
 void StringHandler::compare()
 {
+    size_t pos = 1, len = -1;
+
+    bool isRangeSelected = is_range(std::string{" COMPARE "});
+
+    if (isRangeSelected)
+        this->input_data(pos, len, std::string{" COMPARE "});
+
+    StringHandler s2;
+    s2.update_string();
+
+    int result = str.compare(pos - 1, len, s2.str);
+
+    char symbol = ((result) ? ((result > 0) ? '>' : '<') : '=');
+
+    border(Ui::widthMenu);
+    wait_message(std::string{"Comparing..."});
+
+    header(std::string{" COMPARE "});
+
+    show_status(std::string{"String 1: "}, str.c_str(), false);
+    show_status(std::string{"String 2: "}, s2.str.c_str());
+
+    std::cout << "String 1 " << symbol << " String 2";
+
+    press_key();
 }
 
 void StringHandler::merge()
 {
+    StringHandler s2;
+    s2.update_string();
+
+    str.append(s2.str);
+
+    border(Ui::widthMenu);
+    wait_message(std::string{"Merging..."});
+
+    std::cout << "\rString merged!";
+
+    pressi_display();
 }
 
 void StringHandler::anagram()
 {
+    size_t pos = 1, len = -1;
+
+    bool isRangeSelected = is_range(std::string{" ANAGRAM "});
+
+    if (isRangeSelected)
+        this->input_data(pos, len, std::string{" ANAGRAM "});
+
+    StringHandler s2;
+    s2.update_string();
+
+    bool isAnagram = str.isanagram(pos - 1, len, s2.str);
+
+    border(Ui::widthMenu);
+    wait_message(std::string{"Checking..."});
+
+    header(std::string{" ANAGRAM "});
+
+    show_status(std::string{"String 1: "}, str.c_str(), false);
+    show_status(std::string{"String 2: "}, s2.str.c_str());
+
+    std::string message = ((isAnagram) ? "(Y) The string is anagram" : "(N) The string is not anagram");
+
+    print_message(message);
+
+    press_key();
 }
 
 void StringHandler::palindrome()
 {
+    size_t pos = 1, len = -1;
+
+    bool isRangeSelected = is_range(std::string{" PALINDROME "});
+
+    if (isRangeSelected)
+        this->input_data(pos, len, std::string{" PALINDROME "});
+
+    bool isPalin = str.ispalindrome(pos - 1, len);
+
+    std::string message = ((isPalin) ? "(Y) The string is palindrome" : "(N) The string is not palindrome");
+
+    border(Ui::widthMenu);
+    wait_message(std::string{"Checking..."});
+
+    std::cout << "\r" << message;
+
+    pressi_display();
 }
 
 void StringHandler::permutation()
 {
+    size_t pos = 1, len = -1;
+
+    bool isRangeSelected = is_range(std::string{" PERMUTATION "});
+
+    if (isRangeSelected)
+        this->input_data(pos, len, std::string{" PERMUTATION "});
+
+    border(Ui::widthMenu);
+    wait_message(std::string{"Generating..."});
+
+    header(std::string{" ANAGRAM "});
+
+    show_status(std::string{"String: "}, str.c_str());
+
+    std::cout << "Permutation:" << std::endl;
+
+    str.permutation(pos - 1, len);
+
+    std::cout << "\x1b[A"; // return to previous line
+
+    pressi_display();
 }
 
 void StringHandler::find_unique()
 {
+    size_t pos = 1, len = -1;
+
+    bool isRangeSelected = is_range(std::string{" FIND UNIQUE "});
+
+    if (isRangeSelected)
+        this->input_data(pos, len, std::string{" FIND UNIQUE "});
+
+    std::vector<char> vec = str.find_unique(pos - 1, len);
+
+    border(Ui::widthMenu);
+    wait_message(std::string{"Finding..."});
+
+    header(std::string{" FIND UNIQUE "});
+
+    show_status(std::string{"String: "}, str.c_str());
+
+    if (vec.size())
+    {
+        std::cout << vec.size() << " unique characters:" << std::endl;
+
+        for (auto const &c : vec)
+            std::cout << c << " ";
+    }
+    else
+        std::cout << "No unique characters found";
+
+    this->pressi_display();
 }
 
 void StringHandler::find_duplicates()
 {
+    size_t pos = 1, len = -1;
+
+    bool isRangeSelected = is_range(std::string{" FIND DUPLICATES "});
+
+    if (isRangeSelected)
+        this->input_data(pos, len, std::string{" FIND DUPLICATES "});
+
+    std::vector<cod::pair<char, int>> vec = str.find_duplicates(pos - 1, len);
+
+    border(Ui::widthMenu);
+    wait_message(std::string{"Finding..."});
+
+    header(std::string{" FIND DUPLICATES "});
+
+    show_status(std::string{"String: "}, str.c_str());
+
+    if (vec.size())
+    {
+        std::cout << std::setw(12) << std::left << "Occurence"
+                  << "Char" << std::endl;
+
+        for (size_t i{0}; i < vec.size(); ++i)
+            if (i < vec.size() - 1)
+                std::cout << vec.at(i) << std::endl;
+            else
+                std::cout << vec.at(i);
+    }
+    else
+        std::cout << "No duplicate characters found";
+
+    this->pressi_display();
 }

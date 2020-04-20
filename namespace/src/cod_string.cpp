@@ -56,6 +56,22 @@ void cod::string::update_word_vowel_consonant()
         ++_words; // to add the last word without space
 }
 
+void cod::string::perm(string &str, size_t l, size_t h)
+{
+    if (l == h)
+    {
+        std::cout << static_cast<char>(175) << " " << str << std::endl;
+        return;
+    }
+
+    for (size_t i{l}; i <= h; i++)
+    {
+        cod::swap(str[l], str[i]);
+        perm(str, l + 1, h);
+        cod::swap(str[l], str[i]);
+    }
+}
+
 void cod::string::cat(const char *rhs, size_t len) // use true ,false for str[_size]=0;
 {
     if (len == npos)
@@ -300,17 +316,17 @@ size_t cod::string::max_size() const
 
 size_t cod::string::words()
 {
-    this->update_word_vowel_consonant();
+    this->update_word_vowel_consonant(); // updates words, vowels & consonants
     return _words;
 }
+
 size_t cod::string::vowels()
 {
-    this->update_word_vowel_consonant();
     return _vowels;
 }
+
 size_t cod::string::consonants()
 {
-    this->update_word_vowel_consonant();
     return _consonants;
 }
 
@@ -1245,6 +1261,13 @@ cod::string &cod::string::replace(size_t pos, size_t len, size_t n, char c)
     return *this;
 }
 
+void cod::string::pop_back()
+{
+    str[--_size] = '\0';
+}
+
+/************************************************** ADVANCED OPERATIONS *********************************************/
+
 void cod::string::swap(string &rhs)
 {
     // temporary copying this data
@@ -1270,9 +1293,102 @@ void cod::string::reverse(size_t pos, size_t len) const
     }
 }
 
-void cod::string::pop_back()
+bool cod::string::ispalindrome(size_t pos, size_t len) const
 {
-    str[--_size] = '\0';
+    if (pos < 0 || pos >= _size)
+        throw InvalidPositionException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+
+    for (size_t i{pos}, j{pos + lSize - 1}; i < j; i++, j--)
+    {
+        if (str[i] != str[j])
+            return false;
+    }
+
+    return true;
+}
+
+bool cod::string::isanagram(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen) const
+{
+    if (pos < 0 || pos >= _size || subpos < 0 || subpos >= rhs._size)
+        throw InvalidPositionException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+    size_t rSize = (sublen == npos) ? rhs._size - subpos : cod::min(rhs._size - subpos, sublen);
+
+    if (lSize != rSize)
+        return false;
+
+    int x = 0;
+
+    for (size_t i{0}; i < lSize; i++)
+    {
+        x ^= static_cast<int>(str[i]);
+        x ^= static_cast<int>(rhs.str[i]);
+    }
+
+    return (!x);
+}
+
+void cod::string::permutation(size_t pos, size_t len)
+{
+    if (pos < 0 || pos >= _size)
+        throw InvalidPositionException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+
+    this->perm(*this, pos, pos + lSize - 1);
+}
+
+std::vector<cod::pair<char, int>> cod::string::find_duplicates(size_t pos, size_t len)
+{
+    if (pos < 0 || pos >= _size)
+        throw InvalidPositionException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+    std::vector<cod::pair<char, int>> vec;
+
+    int H[26]{0};
+
+    for (size_t i{0}; i < lSize; i++)
+    {
+        if (::isalpha(str[i]))
+            H[::tolower(str[pos + i]) - 97]++;
+    }
+
+    for (size_t i{0}; i < 26; i++)
+    {
+        if (H[i] > 1)
+            vec.push_back(cod::pair<char, int>{97 + i, H[i]});
+    }
+
+    return vec;
+}
+
+std::vector<char> cod::string::find_unique(size_t pos, size_t len)
+{
+    if (pos < 0 || pos >= _size)
+        throw InvalidPositionException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+    std::vector<char> vec;
+
+    int H[26]{0};
+
+    for (size_t i{pos}; i < pos + lSize; i++)
+    {
+        if (::isalpha(str[i]))
+            H[::tolower(str[i]) - 97]++;
+    }
+
+    for (size_t i{0}; i < 26; i++)
+    {
+        if (H[i] == 1)
+            vec.push_back(97 + i);
+    }
+
+    return vec;
 }
 
 /**************************************************** STRING OPERATIONS *************************************************/

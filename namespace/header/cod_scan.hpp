@@ -68,7 +68,7 @@ class scan
 
         while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
         {
-            if (sc.isString && spaceCount && sc.value.size() && sc.c == ' ')
+            if (sc.isString && spaceCount && sc.c == ' ')
             {
                 sc.value.push_back(sc.c); // add element at last of pass string
                 std::cout << sc.c;
@@ -83,7 +83,6 @@ class scan
                 case -1:
                     sc.isLast = true;
                     throw EscPressed();
-                    break;
 
                 case 1:
                     if (sc.value.size())

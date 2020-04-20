@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "cod_scan.hpp"
+#include "cod_pair.hpp"
 
 namespace cod
 {
@@ -218,6 +219,7 @@ private:
     void capacity_selecter();
     void capacity_updater(size_t n);
     void update_word_vowel_consonant();
+    void perm(string &str, size_t l, size_t h);
     void cat(const char *rhs, size_t len = npos);
     void cpy(const char *rhs, size_t len = npos);
 
@@ -326,11 +328,17 @@ public:
     // string &replace(const_iterator i1, const_iterator i2, InputIterator first, InputIterator last); // range
     // string &replace(const_iterator i1, const_iterator i2, std::initializer_list<char> list); // initializer list
 
-    void swap(string &rhs); // swap string
-
-    void reverse(size_t pos = 0, size_t len = npos) const;
-
     void pop_back();
+
+    /************************************************** ADVANCED OPERATIONS *********************************************/
+
+    void swap(string &rhs); // swap string
+    void reverse(size_t pos = 0, size_t len = npos) const;
+    bool ispalindrome(size_t pos = 0, size_t len = npos) const;
+    bool isanagram(size_t pos, size_t len, const string &rhs, size_t subpos = 0, size_t sublen = npos) const;
+    void permutation(size_t pos = 0, size_t len = npos);
+    std::vector<cod::pair<char, int>> find_duplicates(size_t pos = 0, size_t len = npos);
+    std::vector<char> find_unique(size_t pos = 0, size_t len = npos);
 
     /*************************************************** STRING OPERATIONS **********************************************/
     const char *c_str() const;
