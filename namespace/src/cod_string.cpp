@@ -1338,7 +1338,9 @@ void cod::string::permutation(size_t pos, size_t len)
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
 
-    this->perm(*this, pos, pos + lSize - 1);
+    cod::string str(*this, pos, len);
+
+    this->perm(str, pos, pos + lSize - 1);
 }
 
 std::vector<cod::pair<char, int>> cod::string::find_duplicates(size_t pos, size_t len)

@@ -488,7 +488,7 @@ void StringHandler::compare()
 
     header(std::string{" COMPARE "});
 
-    show_status(std::string{"String 1: "}, str.c_str(), false);
+    show_status(std::string{"String 1: "}, std::string(str.c_str(), pos - 1, len), false);
     show_status(std::string{"String 2: "}, s2.str.c_str());
 
     std::cout << "String 1 " << symbol << " String 2";
@@ -530,12 +530,12 @@ void StringHandler::anagram()
 
     header(std::string{" ANAGRAM "});
 
-    show_status(std::string{"String 1: "}, str.c_str(), false);
+    show_status(std::string{"String 1: "}, std::string(str.c_str(), pos - 1, len), false);
     show_status(std::string{"String 2: "}, s2.str.c_str());
 
     std::string message = ((isAnagram) ? "(Y) The string is anagram" : "(N) The string is not anagram");
 
-    print_message(message);
+    std::cout << message;
 
     press_key();
 }
@@ -573,9 +573,9 @@ void StringHandler::permutation()
     border(Ui::widthMenu);
     wait_message(std::string{"Generating..."});
 
-    header(std::string{" ANAGRAM "});
+    header(std::string{" PERMUTATION "});
 
-    show_status(std::string{"String: "}, str.c_str());
+    show_status(std::string{"String: "}, std::string(str.c_str(), pos - 1, len));
 
     std::cout << "Permutation:" << std::endl;
 
@@ -602,7 +602,7 @@ void StringHandler::find_unique()
 
     header(std::string{" FIND UNIQUE "});
 
-    show_status(std::string{"String: "}, str.c_str());
+    show_status(std::string{"String: "}, std::string(str.c_str(), pos - 1, len));
 
     if (vec.size())
     {
@@ -633,7 +633,7 @@ void StringHandler::find_duplicates()
 
     header(std::string{" FIND DUPLICATES "});
 
-    show_status(std::string{"String: "}, str.c_str());
+    show_status(std::string{"String: "}, std::string(str.c_str(), pos - 1, len));
 
     if (vec.size())
     {
