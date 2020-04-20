@@ -21,7 +21,7 @@ void show_me_first(const std::string &message, int repeatFor)
     while (repeatFor--)
     {
         std::cout << message;
-        Sleep(250);
+        Sleep(300);
 
         if (repeatFor == 0)
             break;
@@ -36,7 +36,7 @@ void show_me_first(const std::string &message, int repeatFor)
         std::cout << std::endl;
     }
 
-    Sleep(250);
+    Sleep(200);
     settings();
 }
 
@@ -116,8 +116,15 @@ void settings()
         }
         catch (const OpenAnimeSetting &e)
         {
-            if (Global::showHint)
-                settings_controller(8); // disable hint
+            try
+            {
+                if (Global::showHint)
+                    settings_controller(8); // disable hint
+            }
+            catch (const EscPressed &e)
+            {
+                // do nothing
+            }
         }
 
     } while (1); // true

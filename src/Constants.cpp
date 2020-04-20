@@ -26,7 +26,7 @@ bool Global::showQuit;
 /*************************************************** ICODER CLASS ****************************************************/
 
 const std::string iCoder::devName{"Divyansh Singh Thakur"};
-const std::string iCoder::versionInfo{"1.7.20.4.19-beta"};
+const std::string iCoder::versionInfo{"1.8"};
 
 /***************************************************** REMOTE URL ****************************************************/
 
@@ -81,8 +81,8 @@ const std::vector<std::string> Menu::string{"Update string", "Add string", "Inse
 /************************************************ Small Menu Constant ************************************************/
 // info
 const std::vector<std::string> SmallMenu::updates{"Stable Version", "Beta Version"};
-const std::vector<std::string> SmallMenu::logVersionData{"1.6", "1.4", "1.2", "1.0"};
-const std::vector<std::string> SmallMenu::logVersionDesc{"Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
+const std::vector<std::string> SmallMenu::logVersionData{"1.8", "1.6", "1.4", "1.2", "1.0"};
+const std::vector<std::string> SmallMenu::logVersionDesc{"Added Strings with advanced operations", "Increased password secuity with encryption", "Ui changes & bug fixes", "Hints-added for new users", "New falling animation added", "More customization in settings", "\n", "Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
 const std::vector<std::string> SmallMenu::helpCharData{"Esc", "a", /* "c",*/ "d", "h", /* "i",*/ "l", /* "p",*/ "q", "s", "u"};
 const std::vector<std::string> SmallMenu::helpCharDesc{"Return to last screen", "About the software", /* "Show code",*/ "Disable hint/warning", "Help", /* "Analyse the code",*/ "Changelog", /* "Save",*/ "Quit", "Open settings", "Get Updates"};
 

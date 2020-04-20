@@ -12,7 +12,7 @@ void about()
     header(std::string{" ABOUT "});
 
     std::cout << "Developer: " << iCoder::devName << std::endl
-              << "Version: " << iCoder::versionInfo;
+              << "Version:   " << iCoder::versionInfo;
 
     border(Ui::widthMenu);
 

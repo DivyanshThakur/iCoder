@@ -1362,7 +1362,7 @@ std::vector<cod::pair<char, int>> cod::string::find_duplicates(size_t pos, size_
     for (size_t i{0}; i < 26; i++)
     {
         if (H[i] > 1)
-            vec.push_back(cod::pair<char, int>{97 + i, H[i]});
+            vec.push_back(cod::pair<char, int>{static_cast<char>(97 + i), H[i]});
     }
 
     return vec;

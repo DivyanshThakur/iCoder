@@ -98,7 +98,7 @@ void StringHandler::input_data(size_t &pos, size_t &len, const std::string &head
 
     sc >> pos;
 
-    animater(std::string{"\nEnter size of sub-string: "});
+    animater(std::string{"\nEnter no of chars: "});
 
     sc >> len;
 }
