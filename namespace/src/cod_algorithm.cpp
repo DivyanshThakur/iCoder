@@ -12,6 +12,14 @@ T cod::min(const T &lhs, const T &rhs)
         return rhs;
 }
 
+template <typename T>
+void cod::swap(T &lhs, T &rhs)
+{
+    T temp = rhs;
+    rhs = lhs;
+    lhs = temp;
+}
+
 /*************************************************** STRING FUNCTIONS **************************************************/
 void cod::toupper(cod::string &str, size_t pos, size_t len)
 {
@@ -84,3 +92,11 @@ template long long cod::min(const long long &lhs, const long long &rhs);
 template double cod::min(const double &lhs, const double &rhs);
 template char cod::min(const char &lhs, const char &rhs);
 template std::string cod::min(const std::string &lhs, const std::string &rhs);
+
+/***************************************************** SWAP FUNCTION ****************************************************/
+template void cod::swap(int &lhs, int &rhs);
+template void cod::swap(size_t &lhs, size_t &rhs);
+template void cod::swap(long long &lhs, long long &rhs);
+template void cod::swap(double &lhs, double &rhs);
+template void cod::swap(char &lhs, char &rhs);
+template void cod::swap(std::string &lhs, std::string &rhs);

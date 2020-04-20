@@ -9,6 +9,9 @@ namespace cod
 template <typename T>
 T min(const T &lhs, const T &rhs);
 
+template <typename T>
+void swap(T &lhs, T &rhs);
+
 /*************************************************** STRING FUNCTIONS ***************************************************/
 void toupper(cod::string &str, size_t pos = 0, size_t len = -1);
 void tolower(cod::string &str, size_t pos = 0, size_t len = -1);

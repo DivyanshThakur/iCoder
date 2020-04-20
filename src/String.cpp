@@ -121,7 +121,7 @@ void StringHandler::pressi_display(bool isStringUpdated)
         print_message(std::string{"String updated..."});
 
     if (press_i(std::string{"Press i to display string"}))
-        this->display_str();
+        this->display();
 }
 
 std::vector<std::string> StringHandler::menu_screen_selector()
@@ -155,12 +155,12 @@ std::vector<std::string> StringHandler::menu_screen_selector()
             toDisplayMenu.push_back(Menu::string.at(i));
             menuIndex.push_back(i);
 
-            // if (i == 5 && !show_adv_opn)
-            // {
-            //     toDisplayMenu.push_back("Advanced Operations");
-            //     menuIndex.push_back(i + 1);
-            //     break;
-            // }
+            if (i == 5 && !show_adv_opn)
+            {
+                toDisplayMenu.push_back("Advanced Operations");
+                menuIndex.push_back(i + 1);
+                break;
+            }
         }
     }
 
@@ -204,27 +204,43 @@ void StringHandler::string_controller(int ch)
         break;
 
     case 5:
-        display_str();
+        display();
         break;
 
-        // case 6:
-        //     if (show_adv_opn)
-        //         print_message();
-        //     else
-        //         show_adv_opn = true; // make show_adv_opn = true and shows all available options
-        //     break;
+    case 6:
+        if (show_adv_opn)
+            reverse();
+        else
+            show_adv_opn = true; // make show_adv_opn = true and shows all available options
+        break;
 
-        // case 7:
-        //     break;
+    case 7:
+        compare();
+        break;
 
-        // case 8:
-        //     break;
+    case 8:
+        merge();
+        break;
 
-        // case 9:
-        //     break;
+    case 9:
+        anagram();
+        break;
 
-        // case 10:
-        //     break;
+    case 10:
+        palindrome();
+        break;
+
+    case 11:
+        permutation();
+        break;
+
+    case 12:
+        find_unique();
+        break;
+
+    case 13:
+        find_duplicates();
+        break;
     }
 }
 
@@ -433,7 +449,7 @@ void StringHandler::change_case()
     } while (!toStop);
 }
 
-void StringHandler::display_str()
+void StringHandler::display()
 {
     header(std::string{" DISPLAY STRING "});
 
@@ -448,4 +464,48 @@ void StringHandler::display_str()
               << str;
 
     press_key();
+}
+
+void StringHandler::reverse()
+{
+    size_t pos = 1, len = -1;
+
+    bool isRangeSelected = is_range(std::string{" REVERSE "});
+
+    if (isRangeSelected)
+    {
+        this->input_data(pos, len);
+    }
+
+    str.reverse(pos - 1, len);
+
+    this->pressi_display(true);
+}
+
+void StringHandler::compare()
+{
+}
+
+void StringHandler::merge()
+{
+}
+
+void StringHandler::anagram()
+{
+}
+
+void StringHandler::palindrome()
+{
+}
+
+void StringHandler::permutation()
+{
+}
+
+void StringHandler::find_unique()
+{
+}
+
+void StringHandler::find_duplicates()
+{
 }

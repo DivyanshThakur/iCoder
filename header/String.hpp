@@ -23,7 +23,15 @@ class StringHandler
     void remove_substr();
     bool is_range(const std::string &heading);
     void change_case();
-    void display_str();
+    void display();
+    void reverse();
+    void compare();
+    void merge();
+    void anagram();
+    void palindrome();
+    void permutation();
+    void find_unique();
+    void find_duplicates();
 
 public:
     void start();

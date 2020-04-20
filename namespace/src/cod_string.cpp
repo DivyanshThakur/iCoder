@@ -1257,6 +1257,19 @@ void cod::string::swap(string &rhs)
     rhs = string(temp);
 }
 
+void cod::string::reverse(size_t pos, size_t len) const
+{
+    if (pos < 0 || pos >= _size)
+        throw InvalidPositionException();
+
+    size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
+
+    for (size_t i{pos}, j{pos + lSize - 1}; i < j; i++, j--)
+    {
+        cod::swap(str[i], str[j]);
+    }
+}
+
 void cod::string::pop_back()
 {
     str[--_size] = '\0';

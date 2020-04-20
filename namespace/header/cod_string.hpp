@@ -328,6 +328,8 @@ public:
 
     void swap(string &rhs); // swap string
 
+    void reverse(size_t pos = 0, size_t len = npos) const;
+
     void pop_back();
 
     /*************************************************** STRING OPERATIONS **********************************************/
