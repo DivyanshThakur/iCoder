@@ -207,42 +207,42 @@ void StringHandler::string_controller(int ch)
         change_case();
         break;
 
-    case 5:
+    case 5: // display string
         display();
         break;
 
-    case 6:
+    case 6: // reverse the string
         if (show_adv_opn)
             reverse();
         else
             show_adv_opn = true; // make show_adv_opn = true and shows all available options
         break;
 
-    case 7:
+    case 7: // compare 2 strings
         compare();
         break;
 
-    case 8:
+    case 8: // merge 2 strings
         merge();
         break;
 
-    case 9:
+    case 9: // check for anagram
         anagram();
         break;
 
-    case 10:
+    case 10: // check for palindrome
         palindrome();
         break;
 
-    case 11:
+    case 11: // show all permutations
         permutation();
         break;
 
-    case 12:
+    case 12: // find unique characters
         find_unique();
         break;
 
-    case 13:
+    case 13: // find duplicate characters
         find_duplicates();
         break;
     }
