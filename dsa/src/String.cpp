@@ -1,7 +1,6 @@
 #include <iostream>
-#include "../namespace/header/cod_algorithm.hpp"
 #include "../header/String.hpp"
-#include "../header/UIhandler.hpp"
+#include "../../namespace/header/cod_algorithm.hpp"
 
 void String()
 {

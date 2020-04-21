@@ -1,12 +1,8 @@
 #include <iostream>
 #include <vector>
-#include <sstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
 #include "../header/AccountHandler.hpp"
-#include "../header/Constants.hpp"
-#include "../header/ExHandler.hpp"
-#include "../header/UIhandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
 void show_me_first(const std::string &message, int repeatFor)

@@ -18,14 +18,11 @@
 #include <fstream>
 #include <windows.h>
 #include <dir.h>
-#include "namespace/header/cod_scan.hpp"
-#include "header/ExHandler.hpp"
-#include "header/Constants.hpp"
-#include "header/UIhandler.hpp"
-#include "header/AccountHandler.hpp"
 #include "header/Home.hpp"
+#include "header/Help.hpp"
 #include "header/Settings.hpp"
-#include "header/Info.hpp"
+#include "header/AccountHandler.hpp"
+#include "namespace/header/cod_scan.hpp"
 
 /************************************************ FUNCTION PROTOTYPES **************************************************/
 void main_menu_controller(int ch);

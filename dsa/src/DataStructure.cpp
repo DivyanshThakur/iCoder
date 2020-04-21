@@ -1,29 +1,16 @@
 #include <iostream>
-#include "../header/ExHandler.hpp"
-#include "../header/Home.hpp"
-#include "../header/Constants.hpp"
-#include "../header/UIhandler.hpp"
-#include "../header/AccountHandler.hpp"
+#include "../header/DataStructure.hpp"
+#include "../../header/AccountHandler.hpp"
 #include "../header/Array.hpp"
 #include "../header/String.hpp"
-#include "../namespace/header/cod_scan.hpp"
 
-void data_structure(const std::string &userID)
+void data_structure()
 {
     cod::scan sc;
     int ch;
-    int flag{1};
 
     do
     {
-        if (flag && Global::showWelcome)
-        {
-            flag = 0;
-            title();                                 // display the title = iCoder
-            emessage("--> Welcome " + userID + "!"); // display the welcome message
-            showedOneTime = false;
-        }
-
         menu(Menu::dataStructure, std::string{" DATA STRUCTURE "}); // display the startup menu
 
         try

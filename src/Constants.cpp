@@ -1,5 +1,4 @@
-#include "../header/Constants.hpp"
-#include "../namespace/header/cod_array.hpp"
+#include "../namespace/header/cod_array.hpp" // Constatns.hpp is included in it
 
 /**********************************************************************************************************************
  * 

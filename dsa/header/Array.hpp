@@ -2,8 +2,8 @@
 #define ARRAY_HPP
 
 #include <vector>
-#include "../namespace/header/cod_array.hpp"
-#include "../namespace/header/cod_scan.hpp"
+#include "../../namespace/header/cod_array.hpp"
+#include "../../namespace/header/cod_scan.hpp"
 
 void Arrays();
 void array_type_selector(int ch);

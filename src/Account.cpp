@@ -2,12 +2,9 @@
 #include <iomanip>
 #include <fstream>
 #include "../header/Account.hpp"
-#include "../header/Constants.hpp"
-#include "../header/UIhandler.hpp"
-#include "../header/ExHandler.hpp"
 #include "../header/AccountHandler.hpp"
-#include "../namespace/header/cod_scan.hpp"
 #include "../header/Security.hpp"
+#include "../namespace/header/cod_scan.hpp"
 
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {

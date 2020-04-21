@@ -1,7 +1,7 @@
 #ifndef STRING_HPP
 #define STRING_HPP
 
-#include "../namespace/header/cod_string.hpp"
+#include "../../namespace/header/cod_string.hpp"
 
 void String();
 

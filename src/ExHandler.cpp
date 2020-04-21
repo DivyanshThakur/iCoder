@@ -2,9 +2,8 @@
 #include <windows.h>
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
-#include "../header/Constants.hpp"
 #include "../header/Settings.hpp"
-#include "../header/Info.hpp"
+#include "../header/Help.hpp"
 
 const char *NegativeValueException::what() const noexcept
 {

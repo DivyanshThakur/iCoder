@@ -1,7 +1,6 @@
 #ifndef CREATE_ACCOUNT_HPP
 #define CREATE_ACCOUNT_HPP
 
-#include <string>
 #include "Account.hpp"
 
 class CreateAccount : public Account

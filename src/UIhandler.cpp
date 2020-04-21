@@ -1,13 +1,11 @@
 #include <iostream>
 #include <iomanip>
 #include <windows.h>
-#include <conio.h>
 #include "../header/ExHandler.hpp"
-#include "../namespace/header/cod_algorithm.hpp"
 #include "../header/UIhandler.hpp"
-#include "../namespace/header/cod_scan.hpp"
 #include "../header/Settings.hpp"
-
+#include "../namespace/header/cod_algorithm.hpp"
+#include "../namespace/header/cod_scan.hpp"
 void load()
 {
 

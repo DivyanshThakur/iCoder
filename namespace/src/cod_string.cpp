@@ -1,7 +1,6 @@
 #include <cstring>
-#include "../header/cod_string.hpp"
 #include "../header/cod_limits.hpp"
-#include "../header/cod_algorithm.hpp"
+#include "../header/cod_algorithm.hpp" // cod_string is included in cod_algorithm
 
 cod::scan &cod::getline(cod::scan &sc, cod::string &s)
 {

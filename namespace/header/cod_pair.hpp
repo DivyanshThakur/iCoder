@@ -2,7 +2,6 @@
 #define COD_PAIR_HPP
 
 #include <iomanip>
-#include "../header/cod_limits.hpp"
 
 namespace cod
 {

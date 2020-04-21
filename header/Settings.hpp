@@ -1,6 +1,8 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
 
+#include <vector>
+
 /** FUNCTION PROTOTYPES **/
 void show_me_first(const std::string &message, int repeatFor);
 std::string state_selector(bool isTrue);

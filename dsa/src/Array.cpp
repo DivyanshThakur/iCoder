@@ -1,12 +1,5 @@
 #include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <windows.h>
 #include "../header/Array.hpp"
-#include "../namespace/header/cod_array.hpp"
-#include "../header/ExHandler.hpp"
-#include "../header/UIhandler.hpp"
-#include "../header/Constants.hpp"
 
 void Arrays()
 {

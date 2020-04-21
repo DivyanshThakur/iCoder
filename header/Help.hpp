@@ -1,5 +1,5 @@
-#ifndef INFO_HPP
-#define INFO_HPP
+#ifndef HELP_HPP
+#define HELP_HPP
 
 void about();
 void help();

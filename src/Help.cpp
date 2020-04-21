@@ -1,11 +1,8 @@
 #include <iostream>
 #include <conio.h>
 #include <iomanip>
-#include "../header/Info.hpp"
+#include "../header/Help.hpp"
 #include "../namespace/header/cod_scan.hpp"
-#include "../header/UIhandler.hpp"
-#include "../header/ExHandler.hpp"
-#include "../header/Constants.hpp"
 
 void about()
 {
