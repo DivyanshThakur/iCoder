@@ -1,4 +1,4 @@
-OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\Home.o obj\Info.o obj\Security.o obj\Settings.o obj\String.o obj\UIhandler.o
+OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\DataStructure.o obj\ExHandler.o obj\Games.o obj\Home.o obj\Info.o obj\Security.o obj\Settings.o obj\String.o obj\UIhandler.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
 OBJF = obj/*.o
 LIBS = -static
@@ -22,14 +22,23 @@ obj\Account.o: src\Account.cpp header\Account.hpp
 obj\AccountHandler.o: src\AccountHandler.cpp header\AccountHandler.hpp
 	$(CC) $(CFLAGS) src\AccountHandler.cpp -o obj\AccountHandler.o
 
+obj\Array.o: src\Array.cpp header\Array.hpp
+	$(CC) $(CFLAGS) src\Array.cpp -o obj\Array.o
+
 obj\Constants.o: src\Constants.cpp header\Constants.hpp
 	$(CC) $(CFLAGS) src\Constants.cpp -o obj\Constants.o
 
 obj\CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
 	$(CC) $(CFLAGS) src\CreateAccount.cpp -o obj\CreateAccount.o
 
+obj\DataStructure.o: src\DataStructure.cpp header\DataStructure.hpp
+	$(CC) $(CFLAGS) src\DataStructure.cpp -o obj\DataStructure.o
+
 obj\ExHandler.o: src\ExHandler.cpp header\ExHandler.hpp
 	$(CC) $(CFLAGS) src\ExHandler.cpp -o obj\ExHandler.o
+
+obj\Games.o: src\Games.cpp header\Games.hpp
+	$(CC) $(CFLAGS) src\Games.cpp -o obj\Games.o
 
 obj\Home.o: src\Home.cpp header\Home.hpp
 	$(CC) $(CFLAGS) src\Home.cpp -o obj\Home.o
@@ -39,9 +48,6 @@ obj\Info.o: src\Info.cpp header\Info.hpp
 
 obj\Security.o: src\Security.cpp header\Security.hpp
 	$(CC) $(CFLAGS) src\Security.cpp -o obj\Security.o
-
-obj\Array.o: src\Array.cpp header\Array.hpp
-	$(CC) $(CFLAGS) src\Array.cpp -o obj\Array.o
 
 obj\Settings.o: src\Settings.cpp header\Settings.hpp
 	$(CC) $(CFLAGS) src\Settings.cpp -o obj\Settings.o

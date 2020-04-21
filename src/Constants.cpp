@@ -74,7 +74,7 @@ const std::string Ui::txtString{"String"};
 const std::vector<std::string> Menu::main{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
 const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> Menu::dataType{"Int", "Long", "Double", "Char", "String"};
-const std::vector<std::string> Menu::home{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
+const std::vector<std::string> Menu::dataStructure{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
 const std::vector<std::string> Menu::array{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
 const std::vector<std::string> Menu::string{"Update string", "Add string", "Insert sub-string", "Delete sub-string", "Change case", "Display string", "Reverse", "Compare", "Merge", "Anagram", "Palindrome", "Permutation", "Find unique", "Find duplicates"};
 
