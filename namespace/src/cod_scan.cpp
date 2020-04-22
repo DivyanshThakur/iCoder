@@ -119,7 +119,7 @@ void cod::scan::choice(int &choice)
         case 11: // c - code screen
             break;
         case 13: // d - disable hints
-            if (Global::showHint)
+            if (Global::showHint && opnScreen != CUR_SETTINGS)
                 throw OpenAnimeSetting(8);
             break;
         case 14: // help screen

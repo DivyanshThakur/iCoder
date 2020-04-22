@@ -9,6 +9,8 @@ void show_me_first(const std::string &message, int repeatFor)
 {
     title();
 
+    update_screen(std::string{" SETTINGS "});
+
     if (Global::showHint) // display hint in every screen
         show_hint();
 
@@ -51,7 +53,6 @@ void settings()
 
         try
         {
-
             try
             {
                 sc.choice(ch);
@@ -109,18 +110,6 @@ void settings()
         catch (const OpenChangelog &e)
         {
             e.what();
-        }
-        catch (const OpenAnimeSetting &e)
-        {
-            try
-            {
-                if (Global::showHint)
-                    settings_controller(8); // disable hint
-            }
-            catch (const EscPressed &e)
-            {
-                // do nothing
-            }
         }
 
     } while (1); // true

@@ -47,6 +47,8 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
 
     title(); // display title - "iCoder"
 
+    update_screen(heading);
+
     if (Global::showHint) // display hint in every screen
         show_hint();
 
@@ -54,8 +56,6 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
 
     if (showStatus)
         show_status(statsStr, statsVal);
-
-    update_screen(heading);
 
     for (size_t index{0}; index < vecMenu.size(); ++index)
     {
@@ -100,6 +100,8 @@ void update_screen(const std::string &heading)
 {
     if (heading == std::string{" ARRAY "})
         opnScreen = CUR_ARRAY;
+    else if (heading == std::string{" DATA STRUCTURE "})
+        opnScreen = CUR_HOME;
     else if (heading == std::string{" HOME "})
         opnScreen = CUR_HOME;
     else if (heading == std::string{" MENU "})
@@ -137,9 +139,13 @@ void show_hint()
     if (shortcutStats != ADV)
     {
         std::cout << std::setw(wdth) << std::left << hlp
-                  << "Help screen" << std::endl
-                  << std::setw(wdth) << std::left << dsb
-                  << "Disable this hint" << std::endl;
+                  << "Help screen" << std::endl;
+
+        if (opnScreen != CUR_SETTINGS)
+        {
+            std::cout << std::setw(wdth) << std::left << dsb
+                      << "Disable this hint" << std::endl;
+        }
     }
 
     std::cout << std::endl;

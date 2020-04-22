@@ -91,6 +91,7 @@ class Menu // Menu Constant
 {
 public:
     static const std::vector<std::string> main;
+    static const std::vector<std::string> home;
     static const std::vector<std::string> settings;
     static const std::vector<std::string> dataType;
     static const std::vector<std::string> dataStructure;

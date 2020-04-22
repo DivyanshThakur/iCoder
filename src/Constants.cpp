@@ -71,6 +71,7 @@ const std::string Ui::txtString{"String"};
 
 /*************************************************** Menu Constant **************************************************/
 const std::vector<std::string> Menu::main{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
+const std::vector<std::string> Menu::home{"Data Structure", "Games"};
 const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> Menu::dataType{"Int", "Long", "Double", "Char", "String"};
 const std::vector<std::string> Menu::dataStructure{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
