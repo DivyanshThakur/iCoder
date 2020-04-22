@@ -119,6 +119,10 @@ class ReturnHome
 {
 };
 
+class ReturnMain
+{
+};
+
 class Exit
 {
 public:
@@ -153,6 +157,10 @@ class OpenChangelog
 {
 public:
     void what() const noexcept;
+};
+
+class OpenDefScreen
+{
 };
 
 class OpenAnimeSetting

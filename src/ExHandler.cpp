@@ -4,6 +4,7 @@
 #include "../header/UIhandler.hpp"
 #include "../header/Settings.hpp"
 #include "../header/Help.hpp"
+#include "../header/Home.hpp"
 
 const char *NegativeValueException::what() const noexcept
 {

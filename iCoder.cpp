@@ -46,10 +46,17 @@ int main()
         save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime);
     }
 
-    if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
-        home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
-    else
-        save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
+    try
+    {
+        if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
+            home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
+        else
+            save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
+    }
+    catch (const ReturnMain &)
+    {
+        // do nothing
+    }
 
     cod::scan sc;
     int ch;
@@ -69,6 +76,10 @@ int main()
             // do nothing
         }
         catch (const ReturnHome &e)
+        {
+            // do nothing
+        }
+        catch (const ReturnMain &e)
         {
             // do nothing
         }

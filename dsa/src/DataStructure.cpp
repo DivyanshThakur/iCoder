@@ -8,16 +8,17 @@
 void data_structure()
 {
     cod::scan sc;
-    auto menuVec = Menu::dataStructure;
     int ch;
-
-    if (homeStats == DS)
-    {
-        menuVec.push_back(std::string{"Main Menu (Sign Out)"});
-    }
 
     do
     {
+        auto menuVec = Menu::dataStructure;
+
+        if (homeStats == DS)
+        {
+            menuVec.push_back(std::string{"Main Menu (Sign Out)"});
+        }
+
         menu(menuVec, std::string{" DATA STRUCTURE "}); // display the startup menu
 
         try
@@ -31,10 +32,10 @@ void data_structure()
             if (homeStats == DS)
             {
                 if (Global::signedUserID == std::string{"NULL"})
-                    return;
+                    throw ReturnMain();
             }
             else
-                return;
+                throw OpenDefScreen();
         }
         catch (const Exit &e)
         {

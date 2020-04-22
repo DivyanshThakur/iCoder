@@ -29,6 +29,10 @@ void login()
     {
         return;
     }
+    catch (const ReturnMain &e)
+    {
+        return;
+    }
     catch (const InvalidUser &e)
     {
         std::cerr << e.what();
@@ -44,7 +48,7 @@ void login()
     }
     catch (...)
     {
-        std::cerr << "Unknown error occured!!!" << std::endl;
+        std::cerr << "(Log In) Unknown error occured!!!" << std::endl;
         press_key();
     }
 }
@@ -71,6 +75,10 @@ void create_account()
         home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
     }
     catch (const EscPressed &e)
+    {
+        return;
+    }
+    catch (const ReturnMain &e)
     {
         return;
     }
@@ -102,7 +110,7 @@ void create_account()
     }
     catch (...)
     {
-        std::cerr << "Unknown error occured!!!" << std::endl;
+        std::cerr << "(Create Account) Unknown error occured!!!" << std::endl;
         press_key();
     }
 }

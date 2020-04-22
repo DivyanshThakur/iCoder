@@ -17,38 +17,49 @@ void home(const std::string &userID)
         showedOneTime = false;
     }
 
-    switch (homeStats)
+    do
     {
-    case DEFAULT:
-        home_menu();
-        break;
+        try
+        {
+            switch (homeStats)
+            {
+            case DEFAULT:
+                home_menu();
+                return;
 
-    case DS:
-        data_structure();
-        break;
+            case DS:
+                data_structure();
+                return;
 
-    case GAMES:
-        games();
-        break;
+            case GAMES:
+                games();
+                return;
 
-    default:
-        break;
-    }
+            default:
+                return;
+            }
+        }
+        catch (const OpenDefScreen &e)
+        {
+            // do nothing
+        }
+    } while (1); // true
 }
 
 void home_menu()
 {
     cod::scan sc;
-    auto menuVec = Menu::home;
     int ch;
-
-    if (homeStats == DEFAULT)
-    {
-        menuVec.push_back(std::string{"Main Menu (Sign Out)"});
-    }
 
     do
     {
+        auto menuVec = Menu::home;
+
+        if (homeStats == DEFAULT)
+        {
+            menuVec.push_back(std::string{"Main Menu (Sign Out)"});
+        }
+
         menu(menuVec, std::string{" HOME "}, true, stats_selector(homeStats, SmallMenu::homeScreenType), std::string{"Opening Screen: "}); // display the startup menu
 
         try
@@ -62,10 +73,10 @@ void home_menu()
             if (homeStats == DEFAULT)
             {
                 if (Global::signedUserID == std::string{"NULL"})
-                    return;
+                    throw ReturnMain();
             }
             else
-                return;
+                throw OpenDefScreen();
         }
         catch (const Exit &e)
         {

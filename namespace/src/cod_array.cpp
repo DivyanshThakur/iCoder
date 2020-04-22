@@ -827,6 +827,9 @@ size_t cod::array<T>::lsearch(const T &x)
                     swap(0, i);
                 i = 1;
                 break;
+
+            default:
+                break;
             }
             break;
         }

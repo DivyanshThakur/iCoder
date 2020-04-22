@@ -3,6 +3,7 @@
 #include <fstream>
 #include "../header/Account.hpp"
 #include "../header/AccountHandler.hpp"
+#include "../header/FileHandler.hpp"
 #include "../header/Security.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
