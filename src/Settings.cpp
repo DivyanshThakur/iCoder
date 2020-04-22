@@ -2,7 +2,7 @@
 #include <vector>
 #include <windows.h>
 #include "../header/Settings.hpp"
-#include "../header/AccountHandler.hpp"
+#include "../header/FileHandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
 void show_me_first(const std::string &message, int repeatFor)
@@ -351,7 +351,7 @@ void hint_message()
 
 void reset()
 {
-    if (check_new_user() && check_default_settings())
+    if (check_default_settings())
     {
         print_message(std::string{"Already in default settings"});
         return;

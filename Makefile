@@ -1,5 +1,7 @@
-OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Array.o obj\Constants.o obj\CreateAccount.o obj\DataStructure.o obj\ExHandler.o obj\Games.o obj\Help.o obj\Home.o obj\Security.o obj\Settings.o obj\String.o obj\UIhandler.o
+OBJDS = obj\Array.o obj\DataStructure.o  obj\String.o
+OBJGAMES= obj\Games.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
+OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\Home.o obj\Security.o obj\Settings.o obj\UIhandler.o
 OBJF = obj/*.o
 LIBS = -static
 CC = g++
@@ -8,7 +10,7 @@ CFLAGS = -Wall -c
 
 ### Build the Project
 
-all: $(OBJS) $(OBJCOD)
+all: $(OBJDS) $(OBJGAMES) $(OBJCOD) $(OBJS)
 	$(CC) $(LFLAG) $(OBJF) $(LIBS) -o iCoder
 
 ### Algorithm files are compiled from below
@@ -20,11 +22,11 @@ all: $(OBJS) $(OBJCOD)
 obj\Array.o: dsa\src\Array.cpp dsa\header\Array.hpp
 	$(CC) $(CFLAGS) dsa\src\Array.cpp -o obj\Array.o
 
-obj\String.o: dsa\src\String.cpp dsa\header\String.hpp
-	$(CC) $(CFLAGS) dsa\src\String.cpp -o obj\String.o
-
 obj\DataStructure.o: dsa\src\DataStructure.cpp dsa\header\DataStructure.hpp
 	$(CC) $(CFLAGS) dsa\src\DataStructure.cpp -o obj\DataStructure.o
+
+obj\String.o: dsa\src\String.cpp dsa\header\String.hpp
+	$(CC) $(CFLAGS) dsa\src\String.cpp -o obj\String.o
 
 ### Game files are compiled from below
 
@@ -54,6 +56,9 @@ obj\CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
 
 obj\ExHandler.o: src\ExHandler.cpp header\ExHandler.hpp
 	$(CC) $(CFLAGS) src\ExHandler.cpp -o obj\ExHandler.o
+
+obj\FileHandler.o: src\FileHandler.cpp header\FileHandler.hpp
+	$(CC) $(CFLAGS) src\FileHandler.cpp -o obj\FileHandler.o
 
 obj\Help.o: src\Help.cpp header\Help.hpp
 	$(CC) $(CFLAGS) src\Help.cpp -o obj\Help.o

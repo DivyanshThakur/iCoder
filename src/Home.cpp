@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../header/Home.hpp"
+#include "../header/FileHandler.hpp"
 #include "../dsa/header/DataStructure.hpp"
 #include "../games/header/Games.hpp"
 #include "../namespace/header/cod_scan.hpp"
@@ -38,7 +39,7 @@ void home(const std::string &userID)
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_DS;
+            lstScreen = LAST_HOME;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -51,7 +52,7 @@ void home(const std::string &userID)
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_DS;
+            lstScreen = LAST_HOME;
             e.what();
         }
         catch (const OpenChangelog &e)
@@ -62,10 +63,6 @@ void home(const std::string &userID)
         {
             e.what();
         }
-        catch (const ReturnHome &e)
-        {
-            // to return to home screen
-        }
 
     } while (1); // always true
 }
@@ -74,35 +71,19 @@ void home_controller(int ch)
 {
     switch (ch)
     {
-    case 1: // arrays
+    case 1: // data structure
         lstScreen = LAST_HOME;
         data_structure();
         return;
 
-    case 2: // strings
+    case 2: // games
         lstScreen = LAST_HOME;
         games();
         break;
 
-        // case 3: // matrices
-        //     print_message();
-        //     break;
-
-        // case 4: // sparse matrix
-        //     print_message();
-        //     break;
-
-        // case 5: // polynomial representation
-        //     print_message();
-        //     break;
-
-        // case 6: // linked list
-        //     print_message();
-        //     break;
-
-        // case 7: // sign out
-        //     sign_out();
-        //     break;
+    case 3: // sign out
+        sign_out();
+        break;
 
     default:
         print_message(std::string{"Invalid choice"});
@@ -110,4 +91,11 @@ void home_controller(int ch)
     }
 
     press_key(); // program paused - getch()
+}
+
+void sign_out()
+{
+    if (Global::signedUserID != std::string{"NULL"})
+        save_active_user(std::string{"NULL"});
+    throw EscPressed();
 }

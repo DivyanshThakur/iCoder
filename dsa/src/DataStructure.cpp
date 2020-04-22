@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../header/DataStructure.hpp"
-#include "../../header/AccountHandler.hpp"
+#include "../../header/FileHandler.hpp"
 #include "../header/Array.hpp"
 #include "../header/String.hpp"
 
@@ -56,7 +56,7 @@ void data_structure()
         }
         catch (const ReturnHome &e)
         {
-            // to return to home screen
+            // to return to data structure screen
         }
 
     } while (1); // always true
@@ -93,7 +93,7 @@ void ds_controller(int ch)
         break;
 
     case 7: // sign out
-        sign_out();
+        // sign_out();
         break;
 
     default:
@@ -102,11 +102,4 @@ void ds_controller(int ch)
     }
 
     press_key(); // program paused - getch()
-}
-
-void sign_out()
-{
-    if (Global::signedUserID != std::string{"NULL"})
-        save_active_user(std::string{"NULL"});
-    throw EscPressed();
 }

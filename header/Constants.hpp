@@ -64,6 +64,7 @@ public:
     static const std::string ANIMATION_SPEED;
     static const std::string LSEARCH_STATUS;
     static const std::string SHORTCUT_STATUS;
+    static const std::string HOME_STATUS;
     static const std::string SHOW_WELCOME_MESSAGE;
     static const std::string SHOW_QUIT_MESSAGE;
     static const std::string SHOW_HINT;
@@ -136,9 +137,14 @@ enum Side
 
 enum Status
 {
+    // 3 option status
     DEFAULT,
     EASY,
-    ADV
+    ADV,
+
+    // home screen status
+    DS,
+    GAMES
 };
 
 enum ReturnTo
@@ -172,6 +178,6 @@ enum OpenedScreen
 
 extern enum LastScreen lstScreen;
 extern enum OpenedScreen opnScreen;
-extern enum Status lSearchStats, shortcutStats;
+extern enum Status lSearchStats, shortcutStats, homeStats;
 
 #endif

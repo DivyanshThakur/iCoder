@@ -50,6 +50,7 @@ const std::string File::CURRENT_USER{"CURRENT_USER"};
 const std::string File::ANIMATION_SPEED{"ANIMATION_SPEED"};
 const std::string File::LSEARCH_STATUS{"LSEARCH_STATUS"};
 const std::string File::SHORTCUT_STATUS{"SHORTCUT_STATUS"};
+const std::string File::HOME_STATUS{"HOME_STATUS"};
 const std::string File::SHOW_WELCOME_MESSAGE{"SHOW_WELCOME_MESSAGE"};
 const std::string File::SHOW_QUIT_MESSAGE{"SHOW_QUIT_MESSAGE"};
 const std::string File::SHOW_HINT{"SHOW_HINT"};
@@ -108,4 +109,4 @@ const std::vector<std::string> SmallMenu::rangeString{"Full string", "Select a r
 /******************************************************* ENUMS ********************************************************/
 LastScreen lstScreen;
 OpenedScreen opnScreen;
-Status lSearchStats, shortcutStats;
+Status lSearchStats, shortcutStats, homeStats;

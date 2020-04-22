@@ -21,6 +21,7 @@
 #include "header/Home.hpp"
 #include "header/Help.hpp"
 #include "header/Settings.hpp"
+#include "header/FileHandler.hpp"
 #include "header/AccountHandler.hpp"
 #include "namespace/header/cod_scan.hpp"
 

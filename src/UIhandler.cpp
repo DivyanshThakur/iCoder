@@ -130,6 +130,7 @@ void show_hint()
     header(std::string{" HINT "}, false);
 
     std::string hlp = (shortcutStats == EASY) ? " Ctrl + h " : " h ";
+    std::string hme = (shortcutStats == EASY) ? " Ctrl + m " : " m ";
     std::string dsb = (shortcutStats == EASY) ? " Ctrl + d " : " d ";
     int wdth = (shortcutStats == EASY) ? 12 : 8;
 
@@ -140,6 +141,12 @@ void show_hint()
     {
         std::cout << std::setw(wdth) << std::left << hlp
                   << "Help screen" << std::endl;
+
+        if (opnScreen != CUR_HOME)
+        {
+            std::cout << std::setw(wdth) << std::left << hme
+                      << "Home screen" << std::endl;
+        }
 
         if (opnScreen != CUR_SETTINGS)
         {
