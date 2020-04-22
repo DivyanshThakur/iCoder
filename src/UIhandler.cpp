@@ -86,9 +86,11 @@ std::string stats_selector(const enum Status &stats, const std::vector<std::stri
         return cod::toupper(statsData.at(0));
 
     case EASY:
+    case DS:
         return cod::toupper(statsData.at(1));
 
     case ADV:
+    case GAMES:
         return cod::toupper(statsData.at(2));
 
     default:

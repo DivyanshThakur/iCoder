@@ -131,29 +131,33 @@ void settings_controller(char ch)
         change_shortcuts_type();
         break;
 
-    case 4: // change theme type
+    case 4: // change opening home screen
+        change_home_screen();
+        break;
+
+    case 5: // change theme type
         change_theme_type();
         press_key(HOME);
         return;
 
-    case 5: // change display style
+    case 6: // change display style
         change_display_style();
         press_key(HOME);
         return;
 
-    case 6: // welcome message enable/disable
+    case 7: // welcome message enable/disable
         welcome_message();
         break;
 
-    case 7: // quit message enable/disable
+    case 8: // quit message enable/disable
         quit_message();
         break;
 
-    case 8: // hint message enable/disable
+    case 9: // hint message enable/disable
         hint_message();
         break;
 
-    case 9: // reset the settings and delete users
+    case 10: // reset the settings and delete users
         reset();
         return;
 
@@ -178,11 +182,11 @@ std::vector<std::string> settings_screen_selector()
 
         std::string selector;
 
-        if (i == 5)
+        if (i == 6)
             selector = state_selector(Global::showWelcome);
-        else if (i == 6)
-            selector = state_selector(Global::showQuit);
         else if (i == 7)
+            selector = state_selector(Global::showQuit);
+        else if (i == 8)
             selector = state_selector(Global::showHint);
 
         menu_to_display.push_back(selector + Menu::settings.at(i));
@@ -219,7 +223,7 @@ void change_lsearch_type()
 
     do
     {
-        menu(SmallMenu::lSearchType, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, SmallMenu::lSearchType), std::string{"Current Type: "});
+        menu(SmallMenu::lSearchType, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, SmallMenu::lSearchType), std::string{"Current Search Type: "});
 
         sc.choice(ch);
 
@@ -258,6 +262,38 @@ void change_shortcuts_type()
         case 3:
             update_stats(shortcutStats, ch - 1);
             save_to_file(Path::fSetting, File::SHORTCUT_STATUS, shortcutStats);
+            return;
+
+        default:
+            print_message(std::string{"Invalid choice"});
+            press_key();
+            break;
+        }
+    } while (1);
+}
+
+void change_home_screen()
+{
+    cod::scan sc;
+    int ch;
+
+    do
+    {
+        menu(SmallMenu::homeScreenType, std::string{" CHANGE OPENING SCREEN "}, true, stats_selector(homeStats, SmallMenu::homeScreenType), std::string{"Opening Screen: "});
+
+        sc.choice(ch);
+
+        switch (ch)
+        {
+        case 1:
+            update_stats(homeStats, 0);
+            save_to_file(Path::fSetting, File::HOME_STATUS, homeStats);
+            return;
+
+        case 2:
+        case 3:
+            update_stats(homeStats, ch + 1);
+            save_to_file(Path::fSetting, File::HOME_STATUS, homeStats);
             return;
 
         default:

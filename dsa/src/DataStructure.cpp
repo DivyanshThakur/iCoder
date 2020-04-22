@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../header/DataStructure.hpp"
+#include "../../header/Home.hpp"
 #include "../../header/FileHandler.hpp"
 #include "../header/Array.hpp"
 #include "../header/String.hpp"
@@ -7,11 +8,17 @@
 void data_structure()
 {
     cod::scan sc;
+    auto menuVec = Menu::dataStructure;
     int ch;
+
+    if (homeStats == DS)
+    {
+        menuVec.push_back(std::string{"Main Menu (Sign Out)"});
+    }
 
     do
     {
-        menu(Menu::dataStructure, std::string{" DATA STRUCTURE "}); // display the startup menu
+        menu(menuVec, std::string{" DATA STRUCTURE "}); // display the startup menu
 
         try
         {
@@ -21,7 +28,12 @@ void data_structure()
         }
         catch (const EscPressed &e)
         {
-            if (Global::signedUserID == std::string{"NULL"})
+            if (homeStats == DS)
+            {
+                if (Global::signedUserID == std::string{"NULL"})
+                    return;
+            }
+            else
                 return;
         }
         catch (const Exit &e)
@@ -92,8 +104,8 @@ void ds_controller(int ch)
         print_message();
         break;
 
-    case 7: // sign out
-        // sign_out();
+    case 7:
+        (homeStats == DS) ? sign_out() : print_message(std::string{"Invalid choice"});
         break;
 
     default:

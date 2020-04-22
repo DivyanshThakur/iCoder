@@ -7,8 +7,7 @@
 
 void home(const std::string &userID)
 {
-    cod::scan sc;
-    int ch, flag{1};
+    int flag{1};
 
     if (flag && Global::showWelcome)
     {
@@ -18,9 +17,39 @@ void home(const std::string &userID)
         showedOneTime = false;
     }
 
+    switch (homeStats)
+    {
+    case DEFAULT:
+        home_menu();
+        break;
+
+    case DS:
+        data_structure();
+        break;
+
+    case GAMES:
+        games();
+        break;
+
+    default:
+        break;
+    }
+}
+
+void home_menu()
+{
+    cod::scan sc;
+    auto menuVec = Menu::home;
+    int ch;
+
+    if (homeStats == DEFAULT)
+    {
+        menuVec.push_back(std::string{"Main Menu (Sign Out)"});
+    }
+
     do
     {
-        menu(Menu::home, std::string{" HOME "}); // display the startup menu
+        menu(menuVec, std::string{" HOME "}, true, stats_selector(homeStats, SmallMenu::homeScreenType), std::string{"Opening Screen: "}); // display the startup menu
 
         try
         {
@@ -30,7 +59,12 @@ void home(const std::string &userID)
         }
         catch (const EscPressed &e)
         {
-            if (Global::signedUserID == std::string{"NULL"})
+            if (homeStats == DEFAULT)
+            {
+                if (Global::signedUserID == std::string{"NULL"})
+                    return;
+            }
+            else
                 return;
         }
         catch (const Exit &e)
@@ -82,7 +116,7 @@ void home_controller(int ch)
         break;
 
     case 3: // sign out
-        sign_out();
+        (homeStats == DEFAULT) ? sign_out() : print_message(std::string{"Invalid choice"});
         break;
 
     default:
@@ -97,5 +131,6 @@ void sign_out()
 {
     if (Global::signedUserID != std::string{"NULL"})
         save_active_user(std::string{"NULL"});
+
     throw EscPressed();
 }

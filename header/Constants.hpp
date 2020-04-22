@@ -113,6 +113,7 @@ public:
     // settings
     static const std::vector<std::string> lSearchType;
     static const std::vector<std::string> shortcutsType;
+    static const std::vector<std::string> homeScreenType;
 
     // array
     static const std::vector<std::string> average;

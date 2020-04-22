@@ -12,6 +12,7 @@ std::vector<std::string> settings_screen_selector();
 void change_text_anime_speed();
 void change_lsearch_type();
 void change_shortcuts_type();
+void change_home_screen();
 void change_theme_type();
 void change_display_style();
 void welcome_message();

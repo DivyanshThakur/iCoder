@@ -73,9 +73,9 @@ const std::string Ui::txtString{"String"};
 /*************************************************** Menu Constant **************************************************/
 const std::vector<std::string> Menu::main{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
 const std::vector<std::string> Menu::home{"Data Structure", "Games"};
-const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
+const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Opening screen", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> Menu::dataType{"Int", "Long", "Double", "Char", "String"};
-const std::vector<std::string> Menu::dataStructure{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more...", "Main Menu (Sign Out)"};
+const std::vector<std::string> Menu::dataStructure{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more..."};
 const std::vector<std::string> Menu::array{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
 const std::vector<std::string> Menu::string{"Update string", "Add string", "Insert sub-string", "Delete sub-string", "Change case", "Display string", "Reverse", "Compare", "Merge", "Anagram", "Palindrome", "Permutation", "Find unique", "Find duplicates"};
 
@@ -90,6 +90,7 @@ const std::vector<std::string> SmallMenu::helpCharDesc{"Return to last screen", 
 // settings
 const std::vector<std::string> SmallMenu::lSearchType{"Default", "Transposition", "Move to front"};
 const std::vector<std::string> SmallMenu::shortcutsType{"Only key", "Ctrl + key", "Disable"};
+const std::vector<std::string> SmallMenu::homeScreenType{"Home", "Data Structure", "Games"};
 
 // array
 const std::vector<std::string> SmallMenu::average{"Average of all values", "Select a range"}; // array
