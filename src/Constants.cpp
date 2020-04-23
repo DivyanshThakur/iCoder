@@ -25,7 +25,7 @@ bool Global::showQuit;
 /*************************************************** ICODER CLASS ****************************************************/
 
 const std::string iCoder::devName{"Divyansh Singh Thakur"};
-const std::string iCoder::versionInfo{"1.8"};
+const std::string iCoder::versionInfo{"1.9.20.4.23-beta"};
 
 /***************************************************** REMOTE URL ****************************************************/
 
