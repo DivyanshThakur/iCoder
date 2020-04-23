@@ -82,7 +82,7 @@ void ds_controller(int ch)
     case 1: // arrays
         lstScreen = LAST_DS;
         Arrays();
-        return;
+        break;
 
     case 2: // strings
         lstScreen = LAST_DS;

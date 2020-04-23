@@ -95,6 +95,7 @@ public:
     static const std::vector<std::string> home;
     static const std::vector<std::string> settings;
     static const std::vector<std::string> dataType;
+    static const std::vector<std::string> games;
     static const std::vector<std::string> dataStructure;
     static const std::vector<std::string> array;
     static const std::vector<std::string> string;
@@ -159,6 +160,7 @@ enum LastScreen
 {
     LAST_ARRAY,
     LAST_DS,
+    LAST_GAMES,
     LAST_HOME,
     LAST_MENU,
     LAST_SETTINGS,
@@ -170,6 +172,7 @@ enum OpenedScreen
 {
     CUR_ARRAY,
     CUR_DS,
+    CUR_GAMES,
     CUR_HOME,
     CUR_MENU,
     CUR_SETTINGS,

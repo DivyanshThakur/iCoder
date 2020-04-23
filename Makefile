@@ -1,5 +1,5 @@
 OBJDS = obj\Array.o obj\DataStructure.o  obj\String.o
-OBJGAMES= obj\Games.o
+OBJGAMES= obj\Games.o obj\TicTacToe.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
 OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\Home.o obj\Security.o obj\Settings.o obj\UIhandler.o
 OBJF = obj/*.o
@@ -32,6 +32,9 @@ obj\String.o: dsa\src\String.cpp dsa\header\String.hpp
 
 obj\Games.o: games\src\Games.cpp games\header\Games.hpp
 	$(CC) $(CFLAGS) games\src\Games.cpp -o obj\Games.o
+
+obj\TicTacToe.o: games\src\TicTacToe.cpp games\header\TicTacToe.hpp
+	$(CC) $(CFLAGS) games\src\TicTacToe.cpp -o obj\TicTacToe.o
 
 ### Info files are compiled from below
 

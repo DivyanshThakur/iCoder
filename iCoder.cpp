@@ -53,7 +53,7 @@ int main()
         else
             save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
     }
-    catch (const ReturnMain &)
+    catch (const ReturnMain &e)
     {
         // do nothing
     }
@@ -72,10 +72,6 @@ int main()
             main_menu_controller(ch); // start as per user choice
         }
         catch (const EscPressed &e)
-        {
-            // do nothing
-        }
-        catch (const ReturnHome &e)
         {
             // do nothing
         }

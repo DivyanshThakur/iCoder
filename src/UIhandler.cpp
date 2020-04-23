@@ -104,12 +104,16 @@ void update_screen(const std::string &heading)
         opnScreen = CUR_ARRAY;
     else if (heading == std::string{" DATA STRUCTURE "})
         opnScreen = CUR_HOME;
+    else if (heading == std::string{" GAMES "})
+        opnScreen = CUR_GAMES;
     else if (heading == std::string{" HOME "})
         opnScreen = CUR_HOME;
     else if (heading == std::string{" MENU "})
         opnScreen = CUR_MENU;
     else if (heading == std::string{" SETTINGS "})
         opnScreen = CUR_SETTINGS;
+    else if (heading == std::string{" STRING "})
+        opnScreen = CUR_STRING;
     else if (heading == std::string{" UPDATES "})
         opnScreen = CUR_UPDATES;
 }

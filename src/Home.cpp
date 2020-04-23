@@ -119,7 +119,7 @@ void home_controller(int ch)
     case 1: // data structure
         lstScreen = LAST_HOME;
         data_structure();
-        return;
+        break;
 
     case 2: // games
         lstScreen = LAST_HOME;
