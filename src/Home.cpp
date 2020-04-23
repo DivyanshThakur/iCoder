@@ -43,6 +43,7 @@ void home(const std::string &userID)
         {
             // do nothing
         }
+
     } while (1); // true
 }
 

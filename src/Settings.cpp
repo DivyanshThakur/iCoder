@@ -100,7 +100,6 @@ void settings()
         }
         catch (const OpenUpdate &e)
         {
-
             if (lstScreen == LAST_UPDATES)
                 return;
 

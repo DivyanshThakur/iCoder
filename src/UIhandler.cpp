@@ -1,26 +1,26 @@
 #include <iostream>
 #include <iomanip>
 #include <windows.h>
-#include "../header/ExHandler.hpp"
-#include "../header/UIhandler.hpp"
 #include "../header/Settings.hpp"
 #include "../namespace/header/cod_algorithm.hpp"
-#include "../namespace/header/cod_scan.hpp"
+#include "../namespace/header/cod_scan.hpp" // UiHandler already included in cod_scan
+
 void load()
 {
-
-    srand(time(nullptr)); // it will generate unique random numbers each time
+    srand(time(nullptr)); // It will generate unique random numbers each time
 
     std::string loader{"LOADING..."};
-    size_t loadLimit = loader.size();
+    size_t loadLimit = loader.size(); // It will return the length of the string "loader"
 
+    // Here, it prints the text from loader to console in time gaps
+    // and on reaching the length of string it erases the text and loops again for random times
     for (size_t i{0}; i <= rand() % (2 * loadLimit) + (rand() % loadLimit) * 2 + loadLimit; ++i)
     {
-        if (i % loadLimit == 0)
+        if (i % loadLimit == 0) // Checks, if all letters are printed or not
             std::cout << "\r" << std::setw(loadLimit) << " "
-                      << "\r";                 // erasing current line
-        std::cout << loader.at(i % loadLimit); // display char one by one
-        Sleep(150);                            // delay
+                      << "\r";                 // Erasing current line
+        std::cout << loader.at(i % loadLimit); // Display char one by one
+        Sleep(150);                            // Delay
     }
 }
 
@@ -47,39 +47,41 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
 
     title(); // display title - "iCoder"
 
-    update_screen(heading);
+    update_screen(heading); // It will update the current screen enum variable
 
-    if (Global::showHint) // display hint in every screen
-        show_hint();
+    if (Global::showHint) // checks if showHint is enabled or not
+        show_hint();      // if enabled, it shows different hints based on the current screeen
 
-    header(heading, false);
+    header(heading, false); // It prints the heading to console, accepts boolean to display title or not
 
-    if (showStatus)
-        show_status(statsStr, statsVal);
+    if (showStatus)                      // It checks if it has access to show the current state of the specific screen
+        show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
 
+    // Here, the vecMenu passed from function contains the menu options in vector of string
     for (size_t index{0}; index < vecMenu.size(); ++index)
     {
+        // Print the index starting 1 till vector size
         std::cout << std::setw(2) << std::right << index + 1 << ". " << vecMenu.at(index);
 
-        if (index < vecMenu.size() - 1)
+        if (index < vecMenu.size() - 1) // New line is not printed at last menu option
             std::cout << std::endl;
     }
 
-    print_message(std::string{"Your Choice: "});
+    print_message(std::string{"Your Choice: "}); // ask user for input
 }
 
 void show_status(const std::string &statsStr, const std::string &statsVal, bool isFinal)
 {
-    std::cout << statsStr << statsVal;
+    std::cout << statsStr << statsVal; // It prints the status to console
 
-    if (isFinal)
+    if (isFinal) // checks if 1 or more status is to be printed or not
         border(Ui::widthMenu);
     else
-        std::cout << std::endl;
+        std::cout << std::endl; // print new line at last status printed
 }
 
 std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData)
-{
+{ // The status enum is passed and the specific stats is selected
     switch (stats)
     {
     case DEFAULT:
@@ -99,11 +101,11 @@ std::string stats_selector(const enum Status &stats, const std::vector<std::stri
 }
 
 void update_screen(const std::string &heading)
-{
+{ // This function updates the current screen
     if (heading == std::string{" ARRAY "})
         opnScreen = CUR_ARRAY;
     else if (heading == std::string{" DATA STRUCTURE "})
-        opnScreen = CUR_HOME;
+        opnScreen = CUR_DS;
     else if (heading == std::string{" GAMES "})
         opnScreen = CUR_GAMES;
     else if (heading == std::string{" HOME "})
@@ -120,7 +122,7 @@ void update_screen(const std::string &heading)
 
 void header(const std::string &menuTitle, bool showTitle)
 {
-    if (showTitle)
+    if (showTitle) // displays title ,if true
         title();
 
     std::cout << std::setfill('-')
@@ -133,8 +135,9 @@ void header(const std::string &menuTitle, bool showTitle)
 
 void show_hint()
 {
-    header(std::string{" HINT "}, false);
+    header(std::string{" HINT "}, false); // print heading as " HINT "
 
+    // Assigning correct shortcut key text based on user settings
     std::string hlp = (shortcutStats == EASY) ? " Ctrl + h " : " h ";
     std::string hme = (shortcutStats == EASY) ? " Ctrl + m " : " m ";
     std::string dsb = (shortcutStats == EASY) ? " Ctrl + d " : " d ";
@@ -143,29 +146,29 @@ void show_hint()
     std::cout << std::setw(wdth) << std::left << " Esc "
               << "Last Screen" << std::endl;
 
-    if (shortcutStats != ADV)
+    if (shortcutStats != ADV) // If shortcuts are disabled, below codes are not executed
     {
         std::cout << std::setw(wdth) << std::left << hlp
                   << "Help screen" << std::endl;
 
-        if (opnScreen != CUR_HOME)
+        if (opnScreen != CUR_HOME) // It displays home screen shortcut,except when the home screen is opened
         {
             std::cout << std::setw(wdth) << std::left << hme
                       << "Home screen" << std::endl;
         }
 
-        if (opnScreen != CUR_SETTINGS)
+        if (opnScreen != CUR_SETTINGS) // It displays disable hint shortcut,except when settings is opened
         {
             std::cout << std::setw(wdth) << std::left << dsb
                       << "Disable this hint" << std::endl;
         }
     }
 
-    std::cout << std::endl;
+    std::cout << std::endl; // 1 line gap between Hints and Menu
 }
 
 void border(int size)
-{
+{ // This function displays the border
     std::cout << std::endl
               << std::setfill('-')
               << std::setw(size) << ""
@@ -175,27 +178,29 @@ void border(int size)
 
 void emessage(const std::string &message)
 {
-    animater(message);
+    animater(message); // Animated text is printed for user to get attention
 
-    igetch();
+    igetch(); // Accepts Esc,Enter, Space or Backspace key to continue
 
     for (size_t i{0}; i < message.size(); ++i)
     {
-        std::cout << "\b \b";
-        Sleep(Global::sleepTime);
+        std::cout << "\b \b";     // It erases 1 character at a time
+        Sleep(Global::sleepTime); // time gap is based on user choice
     }
 }
 
 void igetch()
 {
     char c;
+
+    // This whilc loop only exits if the user presses, Esc, Enter, Space or Backspace
     while ((c = getch()))
         if (c == '\r' || c == ' ' || c == '\b' || c == 27)
             return;
 }
 
 void animater(const std::string &anime)
-{
+{ // Prints text in animation, time delay based on user choice
     for (const auto &c : anime)
     {
         std::cout << c;
@@ -204,7 +209,7 @@ void animater(const std::string &anime)
 }
 
 void print_message(const std::string &message)
-{
+{ // prints a border of "-" with a message for user
     border(Ui::widthMenu);
 
     std::cout << message;
@@ -217,22 +222,23 @@ void press_key(const ReturnTo &rt, const std::string &message)
     print_message(message);
     ch = getch();
 
+    // Asks user to press any key to continue, if user presses Esc, below code is executed
     if (ch == Ui::ESC)
     {
         switch (rt)
         {
-        case PRE:
+        case PRE: // Default - normal EscPressed exception thrown
             throw EscPressed();
-        case HOME:
+        case HOME: // It will return to the Specific Home screen of the program.Eg-Data structure, Games, etc.
             throw ReturnHome();
-        case NIL:
+        case NIL: // Nothing happens on pressing Esc, the current screen is loops again
             break;
         }
     }
 }
 
 bool press_i(const std::string &message)
-{
+{ // Ask user to press i to run specific task
     print_message(std::string{message});
 
     char ch = getch();
@@ -244,13 +250,13 @@ bool press_i(const std::string &message)
 }
 
 void wait_message(const std::string &message)
-{
+{ // Simple wait message tells user that some large operations are performed in background
     std::cout << message;
     Sleep(1000);
 }
 
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
-{
+{ // Asks user for confirmation, if the changes are to be accepted or rejected
     if (message != std::string{""})
         print_message(message);
 
@@ -267,14 +273,14 @@ bool confirm_the_change(const std::string &message, const std::string &txtConfir
         sc >> c;
     }
     catch (const OpenAnimeSetting &e)
-    {
-        if (opnScreen != CUR_SETTINGS)
+    {                                  // It will animate quit setting option for user if 'd' is pressed
+        if (opnScreen != CUR_SETTINGS) // while the user is not in settings screen
             e.what();
     }
     catch (...)
     {
-        return false;
+        return false; // returns false if user presses Esc or for other exception
     }
 
-    return (::tolower(c) == 'y');
+    return (::tolower(c) == 'y'); // returns true if user presses 'y'
 }

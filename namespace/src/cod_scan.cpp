@@ -62,17 +62,20 @@ int cod::scan::checkChar(bool isPassword)
         case 'l':
             flag = 16;
             break;
-        case 'p':
+        case 'm':
             flag = 17;
             break;
-        case 'q':
+        case 'p':
             flag = 18;
             break;
-        case 's':
+        case 'q':
             flag = 19;
             break;
-        case 'u':
+        case 's':
             flag = 20;
+            break;
+        case 'u':
+            flag = 21;
             break;
         }
     }
@@ -91,14 +94,16 @@ int cod::scan::checkChar(bool isPassword)
             flag = 15;
         else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x4C) & 0x8000) // ctrl + l
             flag = 16;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x50) & 0x8000) // ctrl + p
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x4D) & 0x8000) // ctrl + m
             flag = 17;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x51) & 0x8000) // ctrl + q
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x50) & 0x8000) // ctrl + p
             flag = 18;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x53) & 0x8000) // ctrl + s
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x51) & 0x8000) // ctrl + q
             flag = 19;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x55) & 0x8000) // ctrl + u
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x53) & 0x8000) // ctrl + s
             flag = 20;
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x55) & 0x8000) // ctrl + u
+            flag = 21;
     }
 
     return flag;
@@ -120,7 +125,7 @@ void cod::scan::choice(int &choice)
             break;
         case 13: // d - disable hints
             if (Global::showHint && opnScreen != CUR_SETTINGS)
-                throw OpenAnimeSetting(8);
+                throw OpenAnimeSetting(9);
             break;
         case 14: // help screen
             throw OpenHelp();
@@ -128,13 +133,16 @@ void cod::scan::choice(int &choice)
             break;
         case 16: // changelog screen
             throw OpenChangelog();
-        case 17: // save changes
+        case 17: // home screen
+            // throw OpenHomeScreen();
             break;
-        case 18: // exit the software
+        case 18: // save changes
+            break;
+        case 19: // exit the software
             throw Exit();
-        case 19: // settings screen
+        case 20: // settings screen
             throw OpenSettings();
-        case 20: // updates screen
+        case 21: // updates screen
             throw OpenUpdate();
         default: // do nothing
             break;

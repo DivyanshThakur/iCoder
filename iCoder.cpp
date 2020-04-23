@@ -33,19 +33,21 @@ void create_path();
 
 int main()
 {
-    adjust_console_size(); // adjust the window size
-    create_path();         // initilize the paths
+    adjust_console_size(); // Adjust the window size
+    create_path();         // Initilize the paths
 
-    restore_saved_changes(); // restore the settings that was previously changed and saved
+    restore_saved_changes(); // Restore the settings that was previously changed and saved
 
-    if (showedOneTime) // if there is no current user & showWelcome enabled, it displays below message
+    // It is executed for only 1 time after installing the software
+    if (showedOneTime) // if the showdOneTime is enabled, it displays below message
     {
-        title();                                                            // display title
-        emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // 1 time message to user
-        showedOneTime = false;                                              // set to false to not show next time
-        save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime);
+        title();                                                               // Display title
+        emessage(std::string{" HINT --> See HELP section for shortcuts!"});    // Show 1 time message to user
+        showedOneTime = false;                                                 // Set to false to not show next time
+        save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime); // saves the changes to the file
     }
 
+    // Here, it is checking for the current logged user and if true,it will automatically log in
     try
     {
         if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
@@ -55,7 +57,7 @@ int main()
     }
     catch (const ReturnMain &e)
     {
-        // do nothing
+        // The ReturnMain exception thrown from any part of program comes here
     }
 
     cod::scan sc;
@@ -77,11 +79,11 @@ int main()
         }
         catch (const ReturnMain &e)
         {
-            // do nothing
+            // The ReturnMain exception thrown from any part of program comes here
         }
         catch (const Exit &e)
         {
-            e.what();
+            e.what(); // call exit function
         }
         catch (const OpenSettings &e)
         {
@@ -90,24 +92,24 @@ int main()
         }
         catch (const OpenAbout &e)
         {
-            e.what();
+            e.what(); // open about screen
         }
         catch (const OpenHelp &e)
         {
-            e.what();
+            e.what(); // open help screen
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_MENU;
+            lstScreen = LAST_MENU; // set the last screen visited as main menu to avoid infinite switching
             e.what();
         }
         catch (const OpenChangelog &e)
         {
-            e.what();
+            e.what(); // open changelog
         }
         catch (const OpenAnimeSetting &e)
         {
-            e.what();
+            e.what(); // open settings with animation
         }
         catch (...)
         {
@@ -116,7 +118,7 @@ int main()
             press_key(NIL);
         }
 
-    } while (1); // the program terminates after this line
+    } while (1); // The program always run and can only be exited when user presses 'q'
 
     return 0;
 }
