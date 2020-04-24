@@ -50,7 +50,6 @@ const std::string File::CURRENT_USER{"CURRENT_USER"};
 const std::string File::ANIMATION_SPEED{"ANIMATION_SPEED"};
 const std::string File::LSEARCH_STATUS{"LSEARCH_STATUS"};
 const std::string File::SHORTCUT_STATUS{"SHORTCUT_STATUS"};
-const std::string File::HOME_STATUS{"HOME_STATUS"};
 const std::string File::SHOW_WELCOME_MESSAGE{"SHOW_WELCOME_MESSAGE"};
 const std::string File::SHOW_QUIT_MESSAGE{"SHOW_QUIT_MESSAGE"};
 const std::string File::SHOW_HINT{"SHOW_HINT"};
@@ -72,8 +71,8 @@ const std::string Ui::txtString{"String"};
 
 /*************************************************** Menu Constant **************************************************/
 const std::vector<std::string> Menu::main{"Log In", "Create Account", "Try (Anonymous)", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
-const std::vector<std::string> Menu::home{"Data Structure", "Games"};
-const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Opening screen", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
+const std::vector<std::string> Menu::more{"Games"};
+const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> Menu::dataType{"Int", "Long", "Double", "Char", "String"};
 const std::vector<std::string> Menu::games{"Tic Tac Toe"};
 const std::vector<std::string> Menu::dataStructure{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more..."};
@@ -91,7 +90,6 @@ const std::vector<std::string> SmallMenu::helpCharDesc{"Return to last screen", 
 // settings
 const std::vector<std::string> SmallMenu::lSearchType{"Default", "Transposition", "Move to front"};
 const std::vector<std::string> SmallMenu::shortcutsType{"Only key", "Ctrl + key", "Disable"};
-const std::vector<std::string> SmallMenu::homeScreenType{"Home", "Data Structure", "Games"};
 
 // array
 const std::vector<std::string> SmallMenu::average{"Average of all values", "Select a range"}; // array
@@ -111,4 +109,4 @@ const std::vector<std::string> SmallMenu::rangeString{"Full string", "Select a r
 /******************************************************* ENUMS ********************************************************/
 LastScreen lstScreen;
 OpenedScreen opnScreen;
-Status lSearchStats, shortcutStats, homeStats;
+Status lSearchStats, shortcutStats;

@@ -159,14 +159,10 @@ public:
     void what() const noexcept;
 };
 
-class OpenHomeScreen
+class OpenMoreScreen
 {
 public:
     void what() const noexcept;
-};
-
-class OpenDefScreen
-{
 };
 
 class OpenAnimeSetting

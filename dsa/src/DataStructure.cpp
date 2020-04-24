@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../header/DataStructure.hpp"
-#include "../../header/Home.hpp"
 #include "../../header/FileHandler.hpp"
 #include "../header/Array.hpp"
 #include "../header/String.hpp"
@@ -12,14 +11,12 @@ void data_structure()
 
     do
     {
-        auto menuVec = Menu::dataStructure;
+        auto dsMenu = Menu::dataStructure;
 
-        if (homeStats == DS)
-        {
-            menuVec.push_back(std::string{"Main Menu (Sign Out)"});
-        }
+        if (Global::signedUserID != std::string{"NULL"})
+            dsMenu.push_back("Main Menu (Sign Out)");
 
-        menu(menuVec, std::string{" DATA STRUCTURE "}); // display the startup menu
+        menu(dsMenu, std::string{" DATA STRUCTURE "}); // display the startup menu
 
         try
         {
@@ -29,13 +26,8 @@ void data_structure()
         }
         catch (const EscPressed &e)
         {
-            if (homeStats == DS)
-            {
-                if (Global::signedUserID == std::string{"NULL"})
-                    throw ReturnMain();
-            }
-            else
-                throw OpenDefScreen();
+            if (Global::signedUserID == std::string{"NULL"})
+                return;
         }
         catch (const Exit &e)
         {
@@ -62,6 +54,10 @@ void data_structure()
             e.what();
         }
         catch (const OpenAnimeSetting &e)
+        {
+            e.what();
+        }
+        catch (const OpenMoreScreen &e)
         {
             e.what();
         }
@@ -102,11 +98,19 @@ void ds_controller(int ch)
         break;
 
     case 7:
-        (homeStats == DS) ? sign_out() : print_message(std::string{"Invalid choice"}, true);
+        (Global::signedUserID != std::string{"NULL"}) ? sign_out() : print_message(std::string{"Invalid choice"}, true);
         break;
 
     default:
         print_message(std::string{"Invalid choice"}, true);
         break;
     }
+}
+
+void sign_out()
+{
+    if (Global::signedUserID != std::string{"NULL"})
+        save_active_user(std::string{"NULL"});
+
+    throw ReturnMain();
 }

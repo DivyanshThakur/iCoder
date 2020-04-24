@@ -114,6 +114,13 @@ void update()
         {
             e.what();
         }
+        catch (const OpenMoreScreen &e)
+        {
+            if (lstScreen == LAST_MORE)
+                return;
+
+            e.what();
+        }
         catch (const OpenAnimeSetting &e)
         {
             e.what();

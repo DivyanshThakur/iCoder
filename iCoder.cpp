@@ -105,7 +105,7 @@ int main()
         {
             e.what(); // open changelog
         }
-        catch (const OpenHomeScreen &e)
+        catch (const OpenMoreScreen &e)
         {
             e.what(); // open home screen
         }

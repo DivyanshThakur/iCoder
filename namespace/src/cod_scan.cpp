@@ -125,7 +125,7 @@ void cod::scan::choice(int &choice)
             break;
         case 13: // d - disable hints
             if (Global::showHint && opnScreen != CUR_SETTINGS)
-                throw OpenAnimeSetting(9);
+                throw OpenAnimeSetting(8);
             break;
         case 14: // help screen
             throw OpenHelp();
@@ -134,7 +134,7 @@ void cod::scan::choice(int &choice)
         case 16: // changelog screen
             throw OpenChangelog();
         case 17: // home screen
-            throw OpenHomeScreen();
+            throw OpenMoreScreen();
         case 18: // save changes
             break;
         case 19: // exit the software

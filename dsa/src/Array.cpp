@@ -154,6 +154,10 @@ void ArrayHandler<T>::start()
         {
             e.what();
         }
+        catch (const OpenMoreScreen &e)
+        {
+            e.what();
+        }
         catch (const OpenAnimeSetting &e)
         {
             e.what();

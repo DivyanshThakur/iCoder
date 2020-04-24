@@ -88,11 +88,9 @@ std::string stats_selector(const enum Status &stats, const std::vector<std::stri
         return cod::toupper(statsData.at(0));
 
     case EASY:
-    case DS:
         return cod::toupper(statsData.at(1));
 
     case ADV:
-    case GAMES:
         return cod::toupper(statsData.at(2));
 
     default:
@@ -116,12 +114,12 @@ void update_last_screen()
         lstScreen = LAST_GAMES;
         break;
 
-    case CUR_HOME:
-        lstScreen = LAST_HOME;
-        break;
-
     case CUR_MENU:
         lstScreen = LAST_MENU;
+        break;
+
+    case CUR_MORE:
+        lstScreen = LAST_MORE;
         break;
 
     case CUR_SETTINGS:
@@ -149,10 +147,10 @@ void update_screen(const std::string &heading)
         opnScreen = CUR_DS;
     else if (heading == std::string{" GAMES "})
         opnScreen = CUR_GAMES;
-    else if (heading == std::string{" HOME "})
-        opnScreen = CUR_HOME;
     else if (heading == std::string{" MENU "})
         opnScreen = CUR_MENU;
+    else if (heading == std::string{" MORE "})
+        opnScreen = CUR_MORE;
     else if (heading == std::string{" SETTINGS "})
         opnScreen = CUR_SETTINGS;
     else if (heading == std::string{" STRING "})
@@ -192,10 +190,10 @@ void show_hint()
         std::cout << std::setw(wdth) << std::left << hlp
                   << "Help screen" << std::endl;
 
-        if (opnScreen != CUR_HOME) // It displays home screen shortcut,except when the home screen is opened
+        if (opnScreen != CUR_MORE) // It displays more screen shortcut,except when the more screen is opened
         {
             std::cout << std::setw(wdth) << std::left << hme
-                      << "Home screen" << std::endl;
+                      << "More features" << std::endl;
         }
 
         if (opnScreen != CUR_SETTINGS) // It displays disable hint shortcut,except when settings is opened
@@ -255,7 +253,7 @@ void print_message(const std::string &message, bool pressKey, const ReturnTo &rt
 
     std::cout << message;
 
-    if (pressKey) // run press_key()
+    if (pressKey || message == std::string{"TO BE IMPLEMENTED"}) // run press_key()
         press_key(rt);
 }
 

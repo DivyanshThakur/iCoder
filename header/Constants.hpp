@@ -64,7 +64,6 @@ public:
     static const std::string ANIMATION_SPEED;
     static const std::string LSEARCH_STATUS;
     static const std::string SHORTCUT_STATUS;
-    static const std::string HOME_STATUS;
     static const std::string SHOW_WELCOME_MESSAGE;
     static const std::string SHOW_QUIT_MESSAGE;
     static const std::string SHOW_HINT;
@@ -92,7 +91,7 @@ class Menu // Menu Constant
 {
 public:
     static const std::vector<std::string> main;
-    static const std::vector<std::string> home;
+    static const std::vector<std::string> more;
     static const std::vector<std::string> settings;
     static const std::vector<std::string> dataType;
     static const std::vector<std::string> games;
@@ -114,7 +113,6 @@ public:
     // settings
     static const std::vector<std::string> lSearchType;
     static const std::vector<std::string> shortcutsType;
-    static const std::vector<std::string> homeScreenType;
 
     // array
     static const std::vector<std::string> average;
@@ -139,14 +137,9 @@ enum Side
 
 enum Status
 {
-    // 3 option status
     DEFAULT,
     EASY,
-    ADV,
-
-    // home screen status
-    DS,
-    GAMES
+    ADV
 };
 
 enum ReturnTo
@@ -161,7 +154,7 @@ enum LastScreen
     LAST_ARRAY,
     LAST_DS,
     LAST_GAMES,
-    LAST_HOME,
+    LAST_MORE,
     LAST_MENU,
     LAST_SETTINGS,
     LAST_STRING,
@@ -173,7 +166,7 @@ enum OpenedScreen
     CUR_ARRAY,
     CUR_DS,
     CUR_GAMES,
-    CUR_HOME,
+    CUR_MORE,
     CUR_MENU,
     CUR_SETTINGS,
     CUR_STRING,
@@ -182,6 +175,6 @@ enum OpenedScreen
 
 extern enum LastScreen lstScreen;
 extern enum OpenedScreen opnScreen;
-extern enum Status lSearchStats, shortcutStats, homeStats;
+extern enum Status lSearchStats, shortcutStats;
 
 #endif

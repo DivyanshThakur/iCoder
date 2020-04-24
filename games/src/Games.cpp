@@ -11,14 +11,7 @@ void games()
 
     do
     {
-        auto menuVec = Menu::games;
-
-        if (homeStats == GAMES)
-        {
-            menuVec.push_back(std::string{"Main Menu (Sign Out)"});
-        }
-
-        menu(menuVec, std::string{" GAMES "}); // display the startup menu
+        menu(Menu::games, std::string{" GAMES "}); // display the startup menu
 
         try
         {
@@ -28,13 +21,7 @@ void games()
         }
         catch (const EscPressed &e)
         {
-            if (homeStats == GAMES)
-            {
-                if (Global::signedUserID == std::string{"NULL"})
-                    throw ReturnMain();
-            }
-            else
-                throw OpenDefScreen();
+            return;
         }
         catch (const Exit &e)
         {
@@ -42,7 +29,6 @@ void games()
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_GAMES;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -55,12 +41,15 @@ void games()
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_GAMES;
             e.what();
         }
         catch (const OpenChangelog &e)
         {
             e.what();
+        }
+        catch (const OpenMoreScreen &e)
+        {
+            return;
         }
         catch (const OpenAnimeSetting &e)
         {
@@ -75,19 +64,12 @@ void game_controller(int ch)
 
     switch (ch)
     {
-    case 1: // data structure
-        lstScreen = LAST_GAMES;
+    case 1: // tic tac toe
         tic_tac_toe();
         break;
 
-    case 2: // sign out
-        (homeStats == GAMES) ? sign_out() : print_message(std::string{"Invalid choice"});
-        break;
-
     default:
-        print_message(std::string{"Invalid choice"});
+        print_message(std::string{"Invalid choice"}, true);
         break;
     }
-
-    press_key(); // program paused - getch()
 }
