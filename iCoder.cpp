@@ -167,8 +167,7 @@ void main_menu_controller(int ch)
         break;
 
     default:
-        print_message(std::string{"Invalid choice"});
-        press_key(); // getch()
+        print_message(std::string{"Invalid choice"}, true); // print given message with press_key() function
         break;
     }
 }

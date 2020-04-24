@@ -68,6 +68,10 @@ void settings()
         {
             // do nothing, already returned to previous screen
         }
+        catch (const ReturnHome &e)
+        {
+            return; // returns to last screen
+        }
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
@@ -156,13 +160,12 @@ void settings_controller(char ch)
         return;
 
     default:
-        print_message(std::string{"Invalid choice"});
-        press_key(HOME);
+        print_message(std::string{"Invalid choice"}, true, HOME);
         return;
     }
 
-    print_message(std::string{"Changes saved!"});
-    press_key();
+    ReturnTo temp = ((ch > 6) ? HOME : PRE);
+    print_message(std::string{"Changes saved!"}, true, temp);
 }
 
 std::vector<std::string> settings_screen_selector()

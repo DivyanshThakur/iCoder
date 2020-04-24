@@ -78,8 +78,7 @@ void update()
                 system(std::string("start " + Url::iBeta).c_str());
                 return;
             default:
-                print_message(std::string{"Invalid choice"});
-                press_key();
+                print_message(std::string{"Invalid choice"}, true);
                 break;
             }
         }

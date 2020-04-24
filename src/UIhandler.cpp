@@ -249,11 +249,14 @@ void animater(const std::string &anime)
     }
 }
 
-void print_message(const std::string &message)
+void print_message(const std::string &message, bool pressKey, const ReturnTo &rt)
 { // prints a border of "-" with a message for user
     border(Ui::widthMenu);
 
     std::cout << message;
+
+    if (pressKey) // run press_key()
+        press_key(rt);
 }
 
 void press_key(const ReturnTo &rt, const std::string &message)

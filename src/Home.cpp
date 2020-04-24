@@ -124,15 +124,13 @@ void home_controller(int ch)
         break;
 
     case 3: // sign out
-        (homeStats == DEFAULT) ? sign_out() : print_message(std::string{"Invalid choice"});
+        (homeStats == DEFAULT) ? sign_out() : print_message(std::string{"Invalid choice"}, true);
         break;
 
     default:
-        print_message(std::string{"Invalid choice"});
+        print_message(std::string{"Invalid choice"}, true);
         break;
     }
-
-    press_key(); // program paused - getch()
 }
 
 void sign_out()

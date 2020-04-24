@@ -102,13 +102,11 @@ void ds_controller(int ch)
         break;
 
     case 7:
-        (homeStats == DS) ? sign_out() : print_message(std::string{"Invalid choice"});
+        (homeStats == DS) ? sign_out() : print_message(std::string{"Invalid choice"}, true);
         break;
 
     default:
-        print_message(std::string{"Invalid choice"});
+        print_message(std::string{"Invalid choice"}, true);
         break;
     }
-
-    press_key(); // program paused - getch()
 }

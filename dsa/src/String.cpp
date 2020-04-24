@@ -177,10 +177,7 @@ void StringHandler::fn_caller(int ch)
         if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
             string_controller(menuIndex.at(ch - 1));
         else
-        {
-            print_message(std::string{"Invalid choice"});
-            press_key(HOME);
-        }
+            print_message(std::string{"Invalid choice"}, true, HOME);
     }
 }
 
