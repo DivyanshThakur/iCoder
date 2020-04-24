@@ -151,7 +151,7 @@ void update_screen(const std::string &heading)
         opnScreen = CUR_MENU;
     else if (heading == std::string{" MORE "})
         opnScreen = CUR_MORE;
-    else if (heading == std::string{" SETTINGS "})
+    else if (heading == std::string{" SETTINGS "} || heading == std::string{" CHANGE LINEAR SEARCH TYPE "} || heading == std::string{" CHANGE SHORTCUT ACCESS "})
         opnScreen = CUR_SETTINGS;
     else if (heading == std::string{" STRING "})
         opnScreen = CUR_STRING;
@@ -182,8 +182,11 @@ void show_hint()
     std::string dsb = (shortcutStats == EASY) ? " Ctrl + d " : " d ";
     int wdth = (shortcutStats == EASY) ? 12 : 8;
 
-    std::cout << std::setw(wdth) << std::left << " Esc "
-              << "Last Screen" << std::endl;
+    if (opnScreen != CUR_MENU) // It displays last screen shortcut,except when the main menu screen is opened
+    {
+        std::cout << std::setw(wdth) << std::left << " Esc "
+                  << "Last Screen" << std::endl;
+    }
 
     if (shortcutStats != ADV) // If shortcuts are disabled, below codes are not executed
     {
