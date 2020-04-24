@@ -43,7 +43,6 @@ void data_structure()
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_DS;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -56,7 +55,6 @@ void data_structure()
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_DS;
             e.what();
         }
         catch (const OpenChangelog &e)
@@ -80,12 +78,10 @@ void ds_controller(int ch)
     switch (ch)
     {
     case 1: // arrays
-        lstScreen = LAST_DS;
         Arrays();
         break;
 
     case 2: // strings
-        lstScreen = LAST_DS;
         String();
         break;
 

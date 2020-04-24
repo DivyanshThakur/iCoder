@@ -68,10 +68,6 @@ void settings()
         {
             // do nothing, already returned to previous screen
         }
-        catch (const ReturnHome &e)
-        {
-            return;
-        }
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();
@@ -103,7 +99,6 @@ void settings()
             if (lstScreen == LAST_UPDATES)
                 return;
 
-            lstScreen = LAST_SETTINGS;
             e.what();
         }
         catch (const OpenChangelog &e)

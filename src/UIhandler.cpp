@@ -100,8 +100,49 @@ std::string stats_selector(const enum Status &stats, const std::vector<std::stri
     }
 }
 
+void update_last_screen()
+{
+    switch (opnScreen)
+    {
+    case CUR_ARRAY:
+        lstScreen = LAST_ARRAY;
+        break;
+
+    case CUR_DS:
+        lstScreen = LAST_DS;
+        break;
+
+    case CUR_GAMES:
+        lstScreen = LAST_GAMES;
+        break;
+
+    case CUR_HOME:
+        lstScreen = LAST_HOME;
+        break;
+
+    case CUR_MENU:
+        lstScreen = LAST_MENU;
+        break;
+
+    case CUR_SETTINGS:
+        lstScreen = LAST_SETTINGS;
+        break;
+
+    case CUR_STRING:
+        lstScreen = LAST_STRING;
+        break;
+
+    case CUR_UPDATES:
+        lstScreen = LAST_UPDATES;
+        break;
+    }
+}
+
 void update_screen(const std::string &heading)
-{ // This function updates the current screen
+{
+    update_last_screen();
+
+    // This function updates the current screen
     if (heading == std::string{" ARRAY "})
         opnScreen = CUR_ARRAY;
     else if (heading == std::string{" DATA STRUCTURE "})

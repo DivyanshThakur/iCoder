@@ -134,8 +134,7 @@ void cod::scan::choice(int &choice)
         case 16: // changelog screen
             throw OpenChangelog();
         case 17: // home screen
-            // throw OpenHomeScreen();
-            break;
+            throw OpenHomeScreen();
         case 18: // save changes
             break;
         case 19: // exit the software

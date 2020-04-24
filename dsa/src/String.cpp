@@ -58,7 +58,6 @@ void StringHandler::start()
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_STRING;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -71,7 +70,6 @@ void StringHandler::start()
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_STRING;
             e.what();
         }
         catch (const OpenChangelog &e)

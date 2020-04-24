@@ -87,7 +87,6 @@ int main()
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_MENU; // set the last screen visited as main menu to avoid infinite switching
             e.what();
         }
         catch (const OpenAbout &e)
@@ -100,12 +99,15 @@ int main()
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_MENU; // set the last screen visited as main menu to avoid infinite switching
             e.what();
         }
         catch (const OpenChangelog &e)
         {
             e.what(); // open changelog
+        }
+        catch (const OpenHomeScreen &e)
+        {
+            e.what(); // open home screen
         }
         catch (const OpenAnimeSetting &e)
         {
@@ -114,7 +116,7 @@ int main()
         catch (...)
         {
             border(Ui::widthMenu);
-            std::cerr << "Unknown error occurred in Main Menu";
+            std::cerr << "Main Menu-Unknown error occurred";
             press_key(NIL);
         }
 
@@ -135,8 +137,7 @@ void main_menu_controller(int ch)
         create_account();
         break;
 
-    case 3:                    // login Anonymously
-        lstScreen = LAST_MENU; // sets the last screen as main menu
+    case 3: // login Anonymously
         home(std::string{"User"});
         break;
 

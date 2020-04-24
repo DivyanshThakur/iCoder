@@ -97,7 +97,6 @@ void update()
             if (lstScreen == LAST_SETTINGS)
                 return;
 
-            lstScreen = LAST_UPDATES;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -110,7 +109,7 @@ void update()
         }
         catch (const OpenUpdate &e)
         {
-            continue;
+            // do nothing
         }
         catch (const OpenChangelog &e)
         {

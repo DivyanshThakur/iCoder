@@ -136,7 +136,6 @@ void ArrayHandler<T>::start()
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_ARRAY;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -149,7 +148,6 @@ void ArrayHandler<T>::start()
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_ARRAY;
             e.what();
         }
         catch (const OpenChangelog &e)

@@ -85,7 +85,6 @@ void home_menu()
         }
         catch (const OpenSettings &e)
         {
-            lstScreen = LAST_HOME;
             e.what();
         }
         catch (const OpenAbout &e)
@@ -98,7 +97,6 @@ void home_menu()
         }
         catch (const OpenUpdate &e)
         {
-            lstScreen = LAST_HOME;
             e.what();
         }
         catch (const OpenChangelog &e)
@@ -118,12 +116,10 @@ void home_controller(int ch)
     switch (ch)
     {
     case 1: // data structure
-        lstScreen = LAST_HOME;
         data_structure();
         break;
 
     case 2: // games
-        lstScreen = LAST_HOME;
         games();
         break;
 
