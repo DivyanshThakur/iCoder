@@ -124,6 +124,11 @@ void OpenChangelog::what() const noexcept
     changelog();
 }
 
+void OpenHomeScreen::what() const noexcept
+{
+    home_menu();
+}
+
 OpenAnimeSetting::OpenAnimeSetting(size_t pos) : pos(pos)
 {
 }

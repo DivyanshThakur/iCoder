@@ -159,6 +159,12 @@ public:
     void what() const noexcept;
 };
 
+class OpenHomeScreen
+{
+public:
+    void what() const noexcept;
+};
+
 class OpenDefScreen
 {
 };
