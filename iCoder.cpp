@@ -15,6 +15,8 @@
  * *********************************************************************************************************************/
 
 #include <iostream>
+#include <iomanip>
+#include <list>
 #include <fstream>
 #include <windows.h>
 #include <dir.h>
@@ -23,13 +25,19 @@
 #include "header/Settings.hpp"
 #include "header/FileHandler.hpp"
 #include "header/AccountHandler.hpp"
+#include "dsa/header/DataStructure.hpp"
 #include "namespace/header/cod_scan.hpp"
 
 /************************************************ FUNCTION PROTOTYPES **************************************************/
+std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex);
+void fn_caller(int ch, const std::vector<int> &menuIndex);
 void main_menu_controller(int ch);
+void animate_main_menu();
+void print_menu(const std::list<std::string> &vecMenu);
 bool isDirectoryExists();
 void adjust_console_size();
 void create_path();
+void sign_out();
 
 int main()
 {
@@ -47,39 +55,27 @@ int main()
         save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime); // saves the changes to the file
     }
 
-    // Here, it is checking for the current logged user and if true,it will automatically log in
-    try
-    {
-        if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
-            home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
-        else
-            save_active_user(std::string{"NULL"}); // if no current user, NULL is passed
-    }
-    catch (const ReturnMain &e)
-    {
-        // The ReturnMain exception thrown from any part of program comes here
-    }
+    if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
+        home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
 
     cod::scan sc;
     int ch;
 
     do
     {
-        menu(Menu::main); // display the startup menu
+        std::vector<int> menuIndex; // It stored the index of the string to display
+
+        menu(menu_screen_selector(menuIndex)); // display the startup menu
 
         try
         {
             sc.choice(ch); // scan user's choice
 
-            main_menu_controller(ch); // start as per user choice
+            fn_caller(ch, menuIndex); // start as per user choice
         }
         catch (const EscPressed &e)
         {
             // do nothing
-        }
-        catch (const ReturnMain &e)
-        {
-            // The ReturnMain exception thrown from any part of program comes here
         }
         catch (const Exit &e)
         {
@@ -113,16 +109,50 @@ int main()
         {
             e.what(); // open settings with animation
         }
-        catch (...)
-        {
-            border(Ui::widthMenu);
-            std::cerr << "Main Menu-Unknown error occurred";
-            press_key(NIL);
-        }
 
     } while (1); // The program always run and can only be exited when user presses 'q'
 
     return 0;
+}
+
+std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex)
+{
+    // select the correct menu to display as per need
+    std::vector<std::string> toDisplayMenu;
+
+    size_t i;
+
+    if (Global::signedUserID == std::string{"NULL"})
+    {
+        toDisplayMenu = Menu::main;
+
+        for (size_t i{0}; i < Menu::main.size(); i++)
+            menuIndex.push_back(i + 1);
+    }
+    else
+    {
+        toDisplayMenu.push_back(std::string{"Data Structure"});
+        menuIndex.push_back(3);
+
+        for (i = 3; i < Menu::main.size(); ++i)
+        {
+            toDisplayMenu.push_back(Menu::main.at(i));
+            menuIndex.push_back(i + 1);
+        }
+
+        toDisplayMenu.push_back(std::string{"Sign Out"});
+        menuIndex.push_back(i + 1);
+    }
+
+    return toDisplayMenu;
+}
+
+void fn_caller(int ch, const std::vector<int> &menuIndex)
+{
+    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
+        main_menu_controller(menuIndex.at(ch - 1));
+    else
+        print_message(std::string{"Invalid choice"}, true);
 }
 
 void main_menu_controller(int ch)
@@ -137,39 +167,94 @@ void main_menu_controller(int ch)
         create_account();
         break;
 
-    case 3: // login Anonymously
-        home(std::string{"User"});
+    case 3: // login Anonymously / Data Structure
+        (Global::signedUserID == std::string{"NULL"}) ? home(std::string{"User"}) : data_structure();
         break;
 
-    case 4:              // show saved user details
+    case 4: // open more features screen
+        more();
+        break;
+
+    case 5:              // show saved user details
         display_users(); // fetches user details and display it
         press_key();     // getch()
         break;
 
-    case 5: // help for shortcuts
+    case 6: // help for shortcuts
         help();
         break;
 
-    case 6: // details about the software
+    case 7: // details about the software
         about();
         break;
 
-    case 7: // changelog
+    case 8: // changelog
         changelog();
         break;
 
-    case 8: // update section to get latest and beta versions
+    case 9: // update section to get latest and beta versions
         update();
         break;
 
-    case 9: // Customize the software using settings
+    case 10: // Customize the software using settings
         settings();
         break;
 
-    default:
-        print_message(std::string{"Invalid choice"}, true); // print given message with press_key() function
+    case 11: // sign out
+        sign_out();
         break;
     }
+}
+
+void animate_main_menu()
+{
+    std::list<std::string> listMenu;
+
+    for (size_t i{3}; i < Menu::main.size(); i++)
+    {
+        listMenu.push_back(Menu::main.at(i));
+    }
+
+    listMenu.push_back(std::string{"Sign Out"});
+
+    int repeatFor = 3;
+
+    while (--repeatFor)
+    {
+        listMenu.push_front(Menu::main.at(repeatFor));
+
+        print_menu(listMenu);
+        Sleep(300);
+
+        if (repeatFor == 2)
+            listMenu.pop_back();
+    }
+
+    Sleep(300);
+}
+
+void print_menu(const std::list<std::string> &listMenu)
+{
+    title();
+
+    if (Global::showHint) // display hint in every screen
+        show_hint();
+
+    header(std::string{" MAIN "}, false);
+
+    auto itr = listMenu.begin();
+
+    // Here, the listMenu passed from function contains the menu options in list of string
+    for (size_t index{0}; index < listMenu.size(); ++index)
+    {
+        // Print the index starting 1 till list size
+        std::cout << std::setw(2) << std::right << index + 1 << ". " << *itr++;
+
+        if (index < listMenu.size() - 1) // New line is not printed at last menu option
+            std::cout << std::endl;
+    }
+
+    print_message(std::string{"Your Choice: "}); // ask user for input
 }
 
 bool isDirectoryExists()
@@ -211,4 +296,10 @@ void create_path()
 
     if (!isDirectoryExists())          // checking if the directory "data" exists or not
         mkdir(Path::dataPath.c_str()); // these code will create a folder in that specific destination
+}
+
+void sign_out()
+{
+    save_active_user(std::string{"NULL"});
+    animate_main_menu();
 }

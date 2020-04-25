@@ -9,17 +9,17 @@ void restore_saved_changes()
 {
     std::ifstream file(Path::fSetting);
 
+    Global::signedUserID = std::string{"NULL"};
+    Global::sleepTime = 25;
+    lSearchStats = DEFAULT;
+    shortcutStats = DEFAULT;
+    showedOneTime = true;
+    Global::showWelcome = true;
+    Global::showQuit = true;
+    Global::showHint = true;
+
     if (!file)
     {
-        Global::signedUserID = std::string{"NULL"};
-        Global::sleepTime = 25;
-        lSearchStats = DEFAULT;
-        shortcutStats = DEFAULT;
-        showedOneTime = true;
-        Global::showWelcome = true;
-        Global::showQuit = true;
-        Global::showHint = true;
-
         std::ofstream outFile(Path::fSetting);
 
         print_to_file(outFile, File::CURRENT_USER, Global::signedUserID);

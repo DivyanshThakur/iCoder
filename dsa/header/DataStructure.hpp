@@ -5,6 +5,5 @@
 
 void data_structure();
 void ds_controller(int ch);
-void sign_out();
 
 #endif

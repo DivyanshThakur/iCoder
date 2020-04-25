@@ -16,6 +16,7 @@ void home(const std::string &userID)
         emessage("--> Welcome " + userID + "!"); // display the welcome message
         showedOneTime = false;
     }
+
     data_structure();
 }
 

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../header/DataStructure.hpp"
-#include "../../header/FileHandler.hpp"
 #include "../header/Array.hpp"
 #include "../header/String.hpp"
 
@@ -11,12 +10,7 @@ void data_structure()
 
     do
     {
-        auto dsMenu = Menu::dataStructure;
-
-        if (Global::signedUserID != std::string{"NULL"})
-            dsMenu.push_back("Main Menu (Sign Out)");
-
-        menu(dsMenu, std::string{" DATA STRUCTURE "}); // display the startup menu
+        menu(Menu::dataStructure, std::string{" DATA STRUCTURE "}); // display the startup menu
 
         try
         {
@@ -26,8 +20,7 @@ void data_structure()
         }
         catch (const EscPressed &e)
         {
-            if (Global::signedUserID == std::string{"NULL"})
-                return;
+            return;
         }
         catch (const Exit &e)
         {
@@ -97,20 +90,8 @@ void ds_controller(int ch)
         print_message();
         break;
 
-    case 7:
-        (Global::signedUserID != std::string{"NULL"}) ? sign_out() : print_message(std::string{"Invalid choice"}, true);
-        break;
-
     default:
         print_message(std::string{"Invalid choice"}, true);
         break;
     }
-}
-
-void sign_out()
-{
-    if (Global::signedUserID != std::string{"NULL"})
-        save_active_user(std::string{"NULL"});
-
-    throw ReturnMain();
 }
