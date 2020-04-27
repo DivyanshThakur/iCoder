@@ -6,6 +6,7 @@
 
 void signout_anime_switcher()
 {
+    SignOutAnime2::start();
 }
 
 /***********************************************************************************************************************
@@ -14,52 +15,91 @@ void signout_anime_switcher()
  * 
  * *********************************************************************************************************************/
 
+// void animate_main_menu()
+// {
+//     int repeatFor = 0;
+//     size_t startPos = 2;
+//     size_t animeIndex = Menu::main.size() - 1;
+
+//     for (size_t i{1}; i < Menu::main.size(); i++, repeatFor = 0, animeIndex--)
+//     {
+//         if (Menu::main.size() - i < 2)
+//             startPos--;
+
+//         while (repeatFor < static_cast<int>(startPos) + 1)
+//         {
+//             print_menu(startPos, repeatFor++, animeIndex);
+//             Sleep(25);
+//         }
+//     }
+// }
+
+// void print_menu(size_t startPos, size_t repeatFor, size_t animeIndex)
+// {
+//     title();
+
+//     if (Global::showHint) // display hint in every screen
+//         show_hint();
+
+//     header(std::string{" MAIN "}, false);
+
+//     for (size_t index{startPos}, num = 1; index < Menu::main.size(); index++, num++)
+//     {
+//         if (index == animeIndex && repeatFor)
+//         {
+//             int temp = repeatFor;
+
+//             while (temp--)
+//                 std::cout << std::setw(2) << std::right << num++ << ". " << std::endl;
+//         }
+
+//         std::cout << std::setw(2) << std::right << num << ". " << Menu::main.at(index);
+
+//         if (index < Menu::main.size() - 1) // New line is not printed at last menu option
+//             std::cout << std::endl;
+
+//         if (index == animeIndex && animeIndex != Menu::main.size() - 1)
+//         {
+//             int temp = static_cast<int>(startPos) - repeatFor;
+
+//             while (temp--)
+//                 std::cout << std::setw(2) << std::right << ++num << ". " << std::endl;
+//         }
+//     }
+//     print_message(std::string{"Your Choice: "}); // ask user for input
+// }
+
 /***********************************************************************************************************************
  * 
  *                                                SIGN OUT ANIMATION - 2
  * 
  * *********************************************************************************************************************/
 
-std::list<std::string> SignOutAnime2::listMenu; // Declaring the static listMenu variable
+size_t SignOutAnime2::startPos{0}; // Declaring the static startPos variable
 
-// start function assigns the menu to the listMenu static variable
+// start function assigns the value 2 to variable startPos and repeatFor
 // The logic behind this is -
-// In first iteration , it changes the first menu option and print it with no change to sign out option
-// When repeatFor is equals to 2, i.e the next iteration. The sign out option gets poped out and
-// the menu option in Menu::main vector of index 'repeatFor' is pushed to listMenu and the menu is printed
-// The third and last iteration is executed with above itr 2 logic
+// In first iteration , it prints the menu from index 2
+// Each time the startPos is decremented by 1 to include the previous option each iteration
 // At last the animation stops and the last menu option (index 0) is printed normally using default menu function
 
 void SignOutAnime2::start()
 {
-    for (size_t i{3}; i < Menu::main.size(); i++)
+    int repeatFor = startPos = 2;
+
+    while (repeatFor--)
     {
-        listMenu.push_back(Menu::main.at(i));
-    }
-
-    listMenu.push_back(std::string{"Sign Out"});
-
-    int repeatFor = 3;
-
-    while (--repeatFor)
-    {
-        listMenu.push_front(Menu::main.at(repeatFor));
-
         print();
-        Sleep(300);
+        Sleep(100);
 
-        if (repeatFor == 2)
-            listMenu.pop_back();
+        startPos--; // Starting position is decreased to include the previous option also
     }
 
-    Sleep(300);
+    Sleep(100);
 }
 
-// The print menu static function uses iteration to print next menu option
-// It's easy to push value in start position while using list.
-// This is the reason list was prefered over vector
-// The logic of print function is -
-// It simply print the whole list
+// The print menu static function print the menu normally
+// Only at startPos = 2, the signOut option is printed for proper animation
 
 void SignOutAnime2::print()
 {
@@ -70,16 +110,22 @@ void SignOutAnime2::print()
 
     header(std::string{" MENU "}, false);
 
-    auto itr = listMenu.begin();
+    size_t index;
 
-    // Here, the listMenu contains the menu options in list of string
-    for (size_t index{0}; index < listMenu.size(); ++index)
+    // Here, the index is started from startPos, i.e. 2 and from 1 at next iteration
+    for (index = startPos; index < Menu::main.size(); ++index)
     {
-        // Print the index starting 1 till list size
-        std::cout << std::setw(2) << std::right << index + 1 << ". " << *itr++;
+        // Print the index starting 1 till menu size
+        std::cout << std::setw(2) << std::right << index - startPos + 1 << ". " << Menu::main.at(index);
 
-        if (index < listMenu.size() - 1) // New line is not printed at last menu option
+        if (index < Menu::main.size() - 1) // New line is not printed at last menu option
             std::cout << std::endl;
+    }
+
+    if (startPos == 2) // At first iteration the sign out option is printed and gets overlapped at second iteration
+    {
+        std::cout << std::endl
+                  << std::setw(2) << std::right << index - startPos + 1 << ". Sign Out";
     }
 
     print_message(std::string{"Your Choice: "}); // ask user for input

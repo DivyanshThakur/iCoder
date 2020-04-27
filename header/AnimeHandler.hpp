@@ -1,8 +1,6 @@
 #ifndef ANIME_HANDLER_HPP
 #define ANIME_HANDLER_HPP
 
-#include <list>
-
 void signout_anime_switcher();
 
 class SignOutAnime1
@@ -15,7 +13,7 @@ public:
 
 class SignOutAnime2
 {
-    static std::list<std::string> listMenu;
+    static size_t startPos;
     static void print();
 
 public:

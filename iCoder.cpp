@@ -119,30 +119,39 @@ std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex)
 
     size_t i;
 
-    if (Global::signedUserID == std::string{"NULL"})
+    if (Global::signedUserID == std::string{"NULL"}) // if singed user is null, perform this
     {
         toDisplayMenu = Menu::main;
 
-        for (size_t i{0}; i < Menu::main.size(); i++)
+        for (i = 0; i < Menu::main.size(); i++)
             menuIndex.push_back(i + 1);
     }
     else
-    {
+    { // if a user is signed in then leaving singing options display other options
+
+        // Data Structure option is added for signed user to return back to DS screen
         toDisplayMenu.push_back(std::string{"Data Structure"});
         menuIndex.push_back(3);
 
-        for (i = 3; i < Menu::main.size(); ++i)
+        for (i = 3; i < Menu::main.size(); ++i) // push back common options
         {
             toDisplayMenu.push_back(Menu::main.at(i));
             menuIndex.push_back(i + 1);
         }
 
-        toDisplayMenu.push_back(std::string{"Sign Out"});
+        toDisplayMenu.push_back(std::string{"Sign Out"}); // add sign out option for the user
         menuIndex.push_back(i + 1);
     }
 
     return toDisplayMenu;
 }
+
+// The menuIndex stores the index of the menu options that is currently displayed in the screen
+// fn_caller calls the required function by using below logic
+// Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
+// if the input is between the menuIndex size range, it calculates which function to call
+// Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::main
+// Since, the index of Menu::main is stored in menuIndex and thus is passed in menu controller
 
 void fn_caller(int ch, const std::vector<int> &menuIndex)
 {
