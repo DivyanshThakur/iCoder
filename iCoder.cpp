@@ -15,8 +15,6 @@
  * *********************************************************************************************************************/
 
 #include <iostream>
-#include <iomanip>
-#include <list>
 #include <fstream>
 #include <windows.h>
 #include <dir.h>
@@ -24,6 +22,7 @@
 #include "header/Help.hpp"
 #include "header/Settings.hpp"
 #include "header/FileHandler.hpp"
+#include "header/AnimeHandler.hpp"
 #include "header/AccountHandler.hpp"
 #include "dsa/header/DataStructure.hpp"
 #include "namespace/header/cod_scan.hpp"
@@ -32,8 +31,6 @@
 std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex);
 void fn_caller(int ch, const std::vector<int> &menuIndex);
 void main_menu_controller(int ch);
-void animate_main_menu();
-void print_menu(const std::list<std::string> &vecMenu);
 bool isDirectoryExists();
 void adjust_console_size();
 void create_path();
@@ -206,57 +203,6 @@ void main_menu_controller(int ch)
     }
 }
 
-void animate_main_menu()
-{
-    std::list<std::string> listMenu;
-
-    for (size_t i{3}; i < Menu::main.size(); i++)
-    {
-        listMenu.push_back(Menu::main.at(i));
-    }
-
-    listMenu.push_back(std::string{"Sign Out"});
-
-    int repeatFor = 3;
-
-    while (--repeatFor)
-    {
-        listMenu.push_front(Menu::main.at(repeatFor));
-
-        print_menu(listMenu);
-        Sleep(100);
-
-        if (repeatFor == 2)
-            listMenu.pop_back();
-    }
-
-    Sleep(100);
-}
-
-void print_menu(const std::list<std::string> &listMenu)
-{
-    title();
-
-    if (Global::showHint) // display hint in every screen
-        show_hint();
-
-    header(std::string{" MAIN "}, false);
-
-    auto itr = listMenu.begin();
-
-    // Here, the listMenu passed from function contains the menu options in list of string
-    for (size_t index{0}; index < listMenu.size(); ++index)
-    {
-        // Print the index starting 1 till list size
-        std::cout << std::setw(2) << std::right << index + 1 << ". " << *itr++;
-
-        if (index < listMenu.size() - 1) // New line is not printed at last menu option
-            std::cout << std::endl;
-    }
-
-    print_message(std::string{"Your Choice: "}); // ask user for input
-}
-
 bool isDirectoryExists()
 {
     // code to check if a Directory exists or not
@@ -301,5 +247,5 @@ void create_path()
 void sign_out()
 {
     save_active_user(std::string{"NULL"});
-    animate_main_menu();
+    signout_anime_switcher();
 }

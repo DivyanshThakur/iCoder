@@ -10,10 +10,8 @@ CFLAGS = -Wall -c
 
 ### Build the Project
 
-all: $(OBJDS) $(OBJGAMES) $(OBJCOD) $(OBJS)
+all: $(OBJA) $(OBJDS) $(OBJGAMES) $(OBJCOD) $(OBJS)
 	$(CC) $(LFLAG) $(OBJF) $(LIBS) -o iCoder
-
-### Algorithm files are compiled from below
 
 ### Code Analysis files are compiled from below
 
