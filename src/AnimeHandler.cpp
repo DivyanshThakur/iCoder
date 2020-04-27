@@ -8,7 +8,27 @@ void signout_anime_switcher()
 {
 }
 
-std::list<std::string> SignOutAnime2::listMenu;
+/***********************************************************************************************************************
+ * 
+ *                                                SIGN OUT ANIMATION - 1
+ * 
+ * *********************************************************************************************************************/
+
+/***********************************************************************************************************************
+ * 
+ *                                                SIGN OUT ANIMATION - 2
+ * 
+ * *********************************************************************************************************************/
+
+std::list<std::string> SignOutAnime2::listMenu; // Declaring the static listMenu variable
+
+// start function assigns the menu to the listMenu static variable
+// The logic behind this is -
+// In first iteration , it changes the first menu option and print it with no change to sign out option
+// When repeatFor is equals to 2, i.e the next iteration. The sign out option gets poped out and
+// the menu option in Menu::main vector of index 'repeatFor' is pushed to listMenu and the menu is printed
+// The third and last iteration is executed with above itr 2 logic
+// At last the animation stops and the last menu option (index 0) is printed normally using default menu function
 
 void SignOutAnime2::start()
 {
@@ -26,14 +46,20 @@ void SignOutAnime2::start()
         listMenu.push_front(Menu::main.at(repeatFor));
 
         print();
-        Sleep(100);
+        Sleep(300);
 
         if (repeatFor == 2)
             listMenu.pop_back();
     }
 
-    Sleep(100);
+    Sleep(300);
 }
+
+// The print menu static function uses iteration to print next menu option
+// It's easy to push value in start position while using list.
+// This is the reason list was prefered over vector
+// The logic of print function is -
+// It simply print the whole list
 
 void SignOutAnime2::print()
 {
@@ -46,7 +72,7 @@ void SignOutAnime2::print()
 
     auto itr = listMenu.begin();
 
-    // Here, the listMenu passed from function contains the menu options in list of string
+    // Here, the listMenu contains the menu options in list of string
     for (size_t index{0}; index < listMenu.size(); ++index)
     {
         // Print the index starting 1 till list size
