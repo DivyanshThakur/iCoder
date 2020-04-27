@@ -1,3 +1,6 @@
+#ifndef SECURITY_HPP
+#define SECURITY_HPP
+
 #include <string>
 
 class Encrypter
@@ -17,3 +20,5 @@ class Decrypter
 public:
     std::string decrypt(const std::string &value);
 };
+
+#endif

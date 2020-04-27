@@ -224,13 +224,13 @@ void animate_main_menu()
         listMenu.push_front(Menu::main.at(repeatFor));
 
         print_menu(listMenu);
-        Sleep(300);
+        Sleep(100);
 
         if (repeatFor == 2)
             listMenu.pop_back();
     }
 
-    Sleep(300);
+    Sleep(100);
 }
 
 void print_menu(const std::list<std::string> &listMenu)

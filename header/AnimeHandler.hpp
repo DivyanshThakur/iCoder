@@ -1,0 +1,4 @@
+#ifndef ANIME_HANDLER_HPP
+#define ANIME_HANDLER_HPP
+
+#endif

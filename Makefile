@@ -1,7 +1,7 @@
 OBJDS = obj\Array.o obj\DataStructure.o  obj\String.o
 OBJGAMES= obj\Games.o obj\TicTacToe.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
-OBJS = obj\iCoder.o obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\Home.o obj\Security.o obj\Settings.o obj\UIhandler.o
+OBJS = obj\Account.o obj\AccountHandler.o obj\AnimeHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\Home.o obj\Security.o obj\Settings.o obj\UIhandler.o obj\iCoder.o
 OBJF = obj/*.o
 LIBS = -static
 CC = g++
@@ -40,16 +40,36 @@ obj\TicTacToe.o: games\src\TicTacToe.cpp games\header\TicTacToe.hpp
 
 ### Minor feature files are compiled from below
 
-### Common files are compiled from below
+### Namespace files are compiled from below
 
-obj\iCoder.o: iCoder.cpp
-	$(CC) $(CFLAGS) iCoder.cpp -o obj\iCoder.o
+obj\cod_algorithm.o: namespace\src\cod_algorithm.cpp namespace\header\cod_algorithm.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_algorithm.cpp -o obj\cod_algorithm.o
+	
+obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_array.cpp -o obj\cod_array.o
+
+obj\cod_limits.o: namespace\src\cod_limits.cpp namespace\header\cod_limits.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_limits.cpp -o obj\cod_limits.o
+
+obj\cod_pair.o: namespace\src\cod_pair.cpp namespace\header\cod_pair.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_pair.cpp -o obj\cod_pair.o
+
+obj\cod_scan.o: namespace\src\cod_scan.cpp namespace\header\cod_scan.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_scan.cpp -o obj\cod_scan.o
+
+obj\cod_string.o: namespace\src\cod_string.cpp namespace\header\cod_string.hpp
+	$(CC) $(CFLAGS) namespace\src\cod_string.cpp -o obj\cod_string.o
+
+### Common files are compiled from below
 
 obj\Account.o: src\Account.cpp header\Account.hpp
 	$(CC) $(CFLAGS) src\Account.cpp -o obj\Account.o
 
 obj\AccountHandler.o: src\AccountHandler.cpp header\AccountHandler.hpp
 	$(CC) $(CFLAGS) src\AccountHandler.cpp -o obj\AccountHandler.o
+
+obj\AnimeHandler.o: src\AnimeHandler.cpp header\AnimeHandler.hpp
+	$(CC) $(CFLAGS) src\AnimeHandler.cpp -o obj\AnimeHandler.o
 
 obj\Constants.o: src\Constants.cpp header\Constants.hpp
 	$(CC) $(CFLAGS) src\Constants.cpp -o obj\Constants.o
@@ -78,25 +98,8 @@ obj\Settings.o: src\Settings.cpp header\Settings.hpp
 obj\UIhandler.o: src\UIhandler.cpp header\UIhandler.hpp
 	$(CC) $(CFLAGS) src\UIhandler.cpp -o obj\UIhandler.o
 
-### Namespace files are compiled from below
-
-obj\cod_algorithm.o: namespace\src\cod_algorithm.cpp namespace\header\cod_algorithm.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_algorithm.cpp -o obj\cod_algorithm.o
-	
-obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_array.cpp -o obj\cod_array.o
-
-obj\cod_limits.o: namespace\src\cod_limits.cpp namespace\header\cod_limits.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_limits.cpp -o obj\cod_limits.o
-
-obj\cod_pair.o: namespace\src\cod_pair.cpp namespace\header\cod_pair.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_pair.cpp -o obj\cod_pair.o
-
-obj\cod_scan.o: namespace\src\cod_scan.cpp namespace\header\cod_scan.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_scan.cpp -o obj\cod_scan.o
-
-obj\cod_string.o: namespace\src\cod_string.cpp namespace\header\cod_string.hpp
-	$(CC) $(CFLAGS) namespace\src\cod_string.cpp -o obj\cod_string.o
+obj\iCoder.o: iCoder.cpp
+	$(CC) $(CFLAGS) iCoder.cpp -o obj\iCoder.o
 
 ### Extras
 
