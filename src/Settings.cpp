@@ -138,27 +138,29 @@ void settings_controller(char ch)
 
     case 4: // change theme type
         change_theme_type();
-        press_key(HOME);
         return;
 
-    case 5: // change display style
+    case 5: // change animation style
+        change_anime_style();
+        break;
+
+    case 6: // change display style
         change_display_style();
-        press_key(HOME);
         return;
 
-    case 6: // welcome message enable/disable
+    case 7: // welcome message enable/disable
         welcome_message();
         break;
 
-    case 7: // quit message enable/disable
+    case 8: // quit message enable/disable
         quit_message();
         break;
 
-    case 8: // hint message enable/disable
+    case 9: // hint message enable/disable
         hint_message();
         break;
 
-    case 9: // reset the settings and delete users
+    case 10: // reset the settings and delete users
         reset();
         return;
 
@@ -237,10 +239,10 @@ void change_lsearch_type()
             return;
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
+
     } while (1);
 }
 
@@ -265,71 +267,49 @@ void change_shortcuts_type()
             return;
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
+
     } while (1);
 }
 
 void change_theme_type()
 {
     print_message();
+}
 
-    // cod::scan sc;
-    // int ch;
+void change_anime_style()
+{
+    cod::scan sc;
+    int ch;
 
-    // do
-    // {
-    //     menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, lSearchTypeMenu), std::string{"Search Type: "});
+    do
+    {
+        menu(SmallMenu::animeSignOutStyle, std::string{" CHANGE ANIMATION STYLE "}, true, stats_selector(animeSignOutStats, SmallMenu::animeSignOutStyle), std::string{"Current Animation: "});
 
-    //     sc.choice(ch);
+        sc.choice(ch);
 
-    //     switch (ch)
-    //     {
-    //     case 1:
-    //     case 2:
-    //     case 3:
-    //         update_stats(lSearchStats, ch - 1);
-    //         save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, lSearchStats);
-    //         return;
+        switch (ch)
+        {
+        case 1:
+        case 2:
+        case 3:
+            update_stats(animeSignOutStats, ch - 1);
+            save_to_file(Path::fSetting, File::ANIME_SIGN_OUT_STATUS, animeSignOutStats);
+            return;
 
-    //     default:
-    //         print_message(std::string{"Invalid choice"});
-    //         press_key();
-    //         break;
-    //     }
-    // } while (1);
+        default:
+            print_message(std::string{"Invalid choice"}, true);
+            break;
+        }
+
+    } while (1);
 }
 
 void change_display_style()
 {
     print_message();
-
-    // cod::scan sc;
-    // int ch;
-
-    // do
-    // {
-    //     menu(lSearchTypeMenu, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, lSearchTypeMenu), std::string{"Search Type: "});
-
-    //     sc.choice(ch);
-
-    //     switch (ch)
-    //     {
-    //     case 1:
-    //     case 2:
-    //     case 3:
-    //         update_stats(lSearchStats, ch - 1);
-    //         save_to_file(fSetting, std::string{"LSEARCH_STATUS"}, lSearchStats);
-    //         return;
-
-    //     default:
-    //         print_message(std::string{"Invalid choice"});
-    //         press_key();
-    //         break;
-    //     }
-    // } while (1);
 }
 
 void welcome_message()

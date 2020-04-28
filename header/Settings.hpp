@@ -14,6 +14,7 @@ void change_lsearch_type();
 void change_shortcuts_type();
 void change_home_screen();
 void change_theme_type();
+void change_anime_style();
 void change_display_style();
 void welcome_message();
 void quit_message();

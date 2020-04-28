@@ -64,6 +64,7 @@ public:
     static const std::string ANIMATION_SPEED;
     static const std::string LSEARCH_STATUS;
     static const std::string SHORTCUT_STATUS;
+    static const std::string ANIME_SIGN_OUT_STATUS;
     static const std::string SHOW_WELCOME_MESSAGE;
     static const std::string SHOW_QUIT_MESSAGE;
     static const std::string SHOW_HINT;
@@ -113,6 +114,7 @@ public:
     // settings
     static const std::vector<std::string> lSearchType;
     static const std::vector<std::string> shortcutsType;
+    static const std::vector<std::string> animeSignOutStyle;
 
     // array
     static const std::vector<std::string> average;
@@ -175,6 +177,6 @@ enum OpenedScreen
 
 extern enum LastScreen lstScreen;
 extern enum OpenedScreen opnScreen;
-extern enum Status lSearchStats, shortcutStats;
+extern enum Status lSearchStats, shortcutStats, animeSignOutStats;
 
 #endif

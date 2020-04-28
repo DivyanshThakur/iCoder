@@ -50,6 +50,7 @@ const std::string File::CURRENT_USER{"CURRENT_USER"};
 const std::string File::ANIMATION_SPEED{"ANIMATION_SPEED"};
 const std::string File::LSEARCH_STATUS{"LSEARCH_STATUS"};
 const std::string File::SHORTCUT_STATUS{"SHORTCUT_STATUS"};
+const std::string File::ANIME_SIGN_OUT_STATUS{"ANIME_SIGN_OUT_STATUS"};
 const std::string File::SHOW_WELCOME_MESSAGE{"SHOW_WELCOME_MESSAGE"};
 const std::string File::SHOW_QUIT_MESSAGE{"SHOW_QUIT_MESSAGE"};
 const std::string File::SHOW_HINT{"SHOW_HINT"};
@@ -90,6 +91,7 @@ const std::vector<std::string> SmallMenu::helpCharDesc{"Return to last screen", 
 // settings
 const std::vector<std::string> SmallMenu::lSearchType{"Default", "Transposition", "Move to front"};
 const std::vector<std::string> SmallMenu::shortcutsType{"Only key", "Ctrl + key", "Disable"};
+const std::vector<std::string> SmallMenu::animeSignOutStyle{"Style 1", "Style 2", "Disable"};
 
 // array
 const std::vector<std::string> SmallMenu::average{"Average of all values", "Select a range"}; // array
@@ -109,4 +111,4 @@ const std::vector<std::string> SmallMenu::rangeString{"Full string", "Select a r
 /******************************************************* ENUMS ********************************************************/
 LastScreen lstScreen;
 OpenedScreen opnScreen;
-Status lSearchStats, shortcutStats;
+Status lSearchStats, shortcutStats, animeSignOutStats;
