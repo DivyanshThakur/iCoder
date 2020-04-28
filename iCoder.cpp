@@ -18,7 +18,8 @@
 #include <fstream>
 #include <windows.h>
 #include <dir.h>
-#include "header/Home.hpp"
+#include "iCoder.hpp"
+#include "header/More.hpp"
 #include "header/Help.hpp"
 #include "header/Settings.hpp"
 #include "header/FileHandler.hpp"
@@ -26,15 +27,6 @@
 #include "header/AccountHandler.hpp"
 #include "dsa/header/DataStructure.hpp"
 #include "namespace/header/cod_scan.hpp"
-
-/************************************************ FUNCTION PROTOTYPES **************************************************/
-std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex);
-void fn_caller(int ch, const std::vector<int> &menuIndex);
-void main_menu_controller(int ch);
-bool isDirectoryExists();
-void adjust_console_size();
-void create_path();
-void sign_out();
 
 int main()
 {
@@ -210,6 +202,21 @@ void main_menu_controller(int ch)
         sign_out();
         break;
     }
+}
+
+void home(const std::string &userID)
+{
+    int flag{1};
+
+    if (flag && Global::showWelcome)
+    {
+        flag = 0;
+        title();                                 // display the title = iCoder
+        emessage("--> Welcome " + userID + "!"); // display the welcome message
+        showedOneTime = false;
+    }
+
+    data_structure();
 }
 
 bool isDirectoryExists()

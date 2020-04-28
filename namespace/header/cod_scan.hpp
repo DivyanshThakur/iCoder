@@ -1,7 +1,7 @@
 #ifndef COD_SCAN_HPP
 #define COD_SCAN_HPP
 
-#include <string>
+#include <iostream>
 #include <sstream>
 #include <conio.h>
 #include "../../header/ExHandler.hpp"
@@ -33,7 +33,6 @@ class scan
             case -1:
                 sc.isLast = true;
                 throw EscPressed();
-                break;
 
             case 12: // display quit message
                 isquitConditionEnabled = false;

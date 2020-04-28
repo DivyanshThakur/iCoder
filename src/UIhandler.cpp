@@ -256,7 +256,7 @@ void print_message(const std::string &message, bool pressKey, const ReturnTo &rt
 
     std::cout << message;
 
-    if (pressKey || message == std::string{"TO BE IMPLEMENTED"}) // run press_key()
+    if (pressKey || message == std::string{"TO BE IMPLEMENTED..."}) // run press_key()
         press_key(rt);
 }
 
