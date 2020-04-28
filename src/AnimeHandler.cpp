@@ -6,7 +6,7 @@
 
 void signout_anime_switcher()
 {
-    SignOutAnime1::start();
+    SignOutAnime2::start();
 }
 
 /***********************************************************************************************************************
@@ -77,56 +77,63 @@ void SignOutAnime1::print()
  * 
  * *********************************************************************************************************************/
 
-// void animate_main_menu()
-// {
-//     int repeatFor = 0;
-//     size_t startPos = 2;
-//     size_t animeIndex = Menu::main.size() - 1;
+size_t SignOutAnime2::startPos{0}; // static variable declarations
+size_t SignOutAnime2::count{0};
+size_t SignOutAnime2::animeIndex{0};
 
-//     for (size_t i{1}; i < Menu::main.size(); i++, repeatFor = 0, animeIndex--)
-//     {
-//         if (Menu::main.size() - i < 2)
-//             startPos--;
+void SignOutAnime2::start()
+{
+    startPos = 2;
+    count = 1;
+    animeIndex = Menu::main.size() - 1;
 
-//         while (repeatFor < static_cast<int>(startPos) + 1)
-//         {
-//             print_menu(startPos, repeatFor++, animeIndex);
-//             Sleep(25);
-//         }
-//     }
-// }
+    for (size_t i{1}; i < Menu::main.size(); i++, count = 1, animeIndex--)
+    {
+        if (Menu::main.size() - i < 2)
+        {
+            startPos--;
+            count--;
+        }
 
-// void print_menu(size_t startPos, size_t repeatFor, size_t animeIndex)
-// {
-//     title();
+        do
+        {
+            print();
+            Sleep(25);
+        } while (count++ < startPos);
+    }
+}
 
-//     if (Global::showHint) // display hint in every screen
-//         show_hint();
+void SignOutAnime2::print()
+{
+    title();
 
-//     header(std::string{" MAIN "}, false);
+    if (Global::showHint) // display hint in every screen
+        show_hint();
 
-//     for (size_t index{startPos}, num = 1; index < Menu::main.size(); index++, num++)
-//     {
-//         if (index == animeIndex && repeatFor)
-//         {
-//             int temp = repeatFor;
+    header(std::string{" MENU "}, false);
 
-//             while (temp--)
-//                 std::cout << std::setw(2) << std::right << num++ << ". " << std::endl;
-//         }
+    for (size_t index{startPos}, num = 1; index < Menu::main.size(); index++, num++)
+    {
+        if (index == animeIndex && count)
+        {
+            size_t temp = count;
 
-//         std::cout << std::setw(2) << std::right << num << ". " << Menu::main.at(index);
+            while (temp--)
+                std::cout << std::setw(2) << std::right << num++ << ". " << std::endl;
+        }
 
-//         if (index < Menu::main.size() - 1) // New line is not printed at last menu option
-//             std::cout << std::endl;
+        std::cout << std::setw(2) << std::right << num << ". " << Menu::main.at(index);
 
-//         if (index == animeIndex && animeIndex != Menu::main.size() - 1)
-//         {
-//             int temp = static_cast<int>(startPos) - repeatFor;
+        if (index < Menu::main.size() - 1) // New line is not printed at last menu option
+            std::cout << std::endl;
 
-//             while (temp--)
-//                 std::cout << std::setw(2) << std::right << ++num << ". " << std::endl;
-//         }
-//     }
-//     print_message(std::string{"Your Choice: "}); // ask user for input
-// }
+        if (index == animeIndex && animeIndex != Menu::main.size() - 1)
+        {
+            size_t temp = startPos - count;
+
+            while (temp--)
+                std::cout << std::setw(2) << std::right << ++num << ". " << std::endl;
+        }
+    }
+    print_message(std::string{"Your Choice: "}); // ask user for input
+}

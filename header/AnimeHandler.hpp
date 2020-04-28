@@ -6,6 +6,7 @@ void signout_anime_switcher();
 class SignOutAnime1
 {
     static size_t startPos;
+
     static void print();
 
 public:
@@ -14,6 +15,8 @@ public:
 
 class SignOutAnime2
 {
+    static size_t startPos, count, animeIndex;
+
     static void print();
 
 public:
