@@ -6,7 +6,19 @@
 
 void signout_anime_switcher()
 {
-    SignOutAnime2::start();
+    switch (animeSignOutStats)
+    {
+    case DEFAULT:
+        SignOutAnime1::start();
+        break;
+
+    case EASY:
+        SignOutAnime2::start();
+        break;
+
+    case ADV:
+        break;
+    }
 }
 
 /***********************************************************************************************************************
@@ -98,7 +110,7 @@ void SignOutAnime2::start()
         do
         {
             print();
-            Sleep(25);
+            Sleep(50);
         } while (count++ < startPos);
     }
 }

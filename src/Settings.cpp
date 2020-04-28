@@ -184,11 +184,11 @@ std::vector<std::string> settings_screen_selector()
 
         std::string selector;
 
-        if (i == 5)
+        if (i == 6)
             selector = state_selector(Global::showWelcome);
-        else if (i == 6)
-            selector = state_selector(Global::showQuit);
         else if (i == 7)
+            selector = state_selector(Global::showQuit);
+        else if (i == 8)
             selector = state_selector(Global::showHint);
 
         menu_to_display.push_back(selector + Menu::settings.at(i));
