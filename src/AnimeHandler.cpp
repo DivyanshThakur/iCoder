@@ -21,13 +21,27 @@ void signout_anime_switcher()
     }
 }
 
+void speed_updater(int &speed)
+{
+    SYSTEM_POWER_STATUS status;
+
+    GetSystemPowerStatus(&status); // checking different state of battery
+
+    if (status.Reserved1 == 1) // if battery saver is ON the speed is increased to 10
+        speed = 10;
+
+    if (status.ACLineStatus == 1) // if AC power supper is enabled, speed is decreased by 20%
+        speed += (0.2 * speed);
+}
+
 /***********************************************************************************************************************
  * 
  *                                                SIGN OUT ANIMATION - 1
  * 
  * *********************************************************************************************************************/
 
-size_t SignOutAnime1::startPos{0}; // Declaring the static startPos variable
+int SignOutAnime1::speed{0}; // Declaring the static variables
+size_t SignOutAnime1::startPos{0};
 
 // start function assigns the value 2 to variable startPos and repeatFor
 // The logic behind this is -
@@ -38,16 +52,17 @@ size_t SignOutAnime1::startPos{0}; // Declaring the static startPos variable
 void SignOutAnime1::start()
 {
     int repeatFor = startPos = 2;
+    speed = 100;
 
     while (repeatFor--)
     {
         print();
-        Sleep(100);
+        Sleep(speed);
 
         startPos--; // Starting position is decreased to include the previous option also
     }
 
-    Sleep(100);
+    Sleep(speed);
 }
 
 // The print menu static function print the menu normally
@@ -89,15 +104,19 @@ void SignOutAnime1::print()
  * 
  * *********************************************************************************************************************/
 
-size_t SignOutAnime2::startPos{0}; // static variable declarations
+int SignOutAnime2::speed{0}; // Declaring the static variables
+size_t SignOutAnime2::startPos{0};
 size_t SignOutAnime2::count{0};
 size_t SignOutAnime2::animeIndex{0};
 
 void SignOutAnime2::start()
 {
+    speed = 50;
     startPos = 2;
     count = 1;
     animeIndex = Menu::main.size() - 1;
+
+    speed_updater(speed);
 
     for (size_t i{1}; i < Menu::main.size(); i++, count = 1, animeIndex--)
     {
@@ -110,7 +129,7 @@ void SignOutAnime2::start()
         do
         {
             print();
-            Sleep(50);
+            Sleep(speed);
         } while (count++ < startPos);
     }
 }

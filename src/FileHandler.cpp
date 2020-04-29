@@ -57,7 +57,7 @@ void restore_saved_changes()
             file >> c;
             update_stats(shortcutStats, c);
         }
-        else if (title == File::SHORTCUT_STATUS)
+        else if (title == File::ANIME_SIGN_OUT_STATUS)
         {
             file >> c;
             update_stats(animeSignOutStats, c);
