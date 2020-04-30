@@ -31,7 +31,7 @@ void speed_updater(int &speed)
         speed = 10;
 
     if (status.ACLineStatus == 1) // if AC power supper is enabled, speed is decreased by 20%
-        speed += (0.2 * speed);
+        speed += (0.5 * speed);
 }
 
 /***********************************************************************************************************************
@@ -109,9 +109,19 @@ size_t SignOutAnime2::startPos{0};
 size_t SignOutAnime2::count{0};
 size_t SignOutAnime2::animeIndex{0};
 
+// The speed is firstly updated based on power status
+// Then, animation is started with position 2 till size
+// The loop is executed n-2 times to print all menu except the top option
+// which will be automatically added in normal menu printer
+// Each time pos is started with 2
+// animeIndex represents the index of the menu options which is to be animated
+// count represents the no of gaps to be printed for that index
+// If main.size() -i <2, i.e. For second last index the startPos and count is decremented
+// to print the second option in animation and after it the loop stops
+
 void SignOutAnime2::start()
 {
-    speed = 50;
+    speed = 25;
     startPos = 2;
     count = 1;
     animeIndex = Menu::main.size() - 1;
@@ -133,6 +143,23 @@ void SignOutAnime2::start()
         } while (count++ < startPos);
     }
 }
+
+// loops through startPos till size
+// index - The index of the main menu vector
+// num - The Position printed in console.eg. 1,2,3...
+// The num is incremented for each console line (menu Option + gaps)
+// The index is incremented only when current index option is printed
+// At each iteration 3 parts are executed
+// 1. checking if the animeIndex which is to be animated is the current index or not
+// if its true, temporary variable takes count value and prints the gap each time before the animeIndex option
+// At first itr: for count as 1, 1 gap is printed
+// At second itr: for count as 2, 2 gaps are printed
+// Gaps include Line number only
+// 2. The menu option is printed and a new line (leaving last index)
+// 3. Again the index if checked for animeIndex equals index
+// if true, the gaps after the animeIndex is printed
+// At first itr: for count as 1, startPos - count (1) gap is printed
+// At second itr: for count as 2, startPos - count (0) gaps is printed
 
 void SignOutAnime2::print()
 {
