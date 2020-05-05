@@ -55,6 +55,10 @@ void more()
         {
             e.what();
         }
+        catch (const OpenMoreScreen &e)
+        {
+            // do nothing
+        }
 
     } while (1); // always true
 }

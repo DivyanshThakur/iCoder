@@ -27,16 +27,22 @@ void cod::scan::assign(T &data)
         throw InvalidInputException();
 }
 
-int cod::scan::checkChar(bool isPassword)
+int cod::scan::check_char(bool isPassword)
 {
     int flag{0};
 
     if (c == Ui::ESC)
         return -1; // -1 means that user has pressed ESC, stop the scan and return to startup menu
 
-    else if (!isString && c == ' ')
+    else if (c == ' ')
     {
-        flag = 1;
+        if (isString && value.size())
+        {
+            value.push_back(c);
+            std::cout << c;
+        }
+        else
+            flag = 1;
     }
     else if (c == '\b' && value.size())
     {                         // cheking backspace and limit it to size of value
@@ -47,7 +53,7 @@ int cod::scan::checkChar(bool isPassword)
     else if (isLimitExceed)
         flag = 2;
 
-    else if (c >= ' ' && c <= '~')
+    else if (c >= '!' && c <= '~')
     {
         flag = 3;
 
@@ -55,6 +61,13 @@ int cod::scan::checkChar(bool isPassword)
 
         std::cout << (isPassword ? '*' : c);
     }
+
+    return flag;
+}
+
+int cod::scan::check_shortcut()
+{
+    int flag = check_char();
 
     if (shortcutStats == DEFAULT) // shortcut checking
     {
@@ -131,7 +144,7 @@ void cod::scan::choice(int &choice)
 
     while ((c = getch()) && !(value.size() && c == '\r'))
     {
-        switch (checkChar())
+        switch (check_shortcut())
         {
         case -1: // Esc - last screen
             throw EscPressed();
@@ -183,7 +196,7 @@ std::string cod::scan::username()
     {
         isLimitExceed = (value.size() >= static_cast<unsigned int>(Ui::widthUsername));
 
-        switch (checkChar())
+        switch (check_char())
         {
         case -1:
             throw EscPressed();
@@ -215,7 +228,7 @@ std::string cod::scan::password()
     {
         isLimitExceed = (value.size() >= static_cast<unsigned int>(Ui::widthPassword));
 
-        switch (checkChar(true))
+        switch (check_char(true))
         {
         case -1:
             throw EscPressed();

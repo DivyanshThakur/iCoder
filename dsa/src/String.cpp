@@ -249,7 +249,7 @@ void StringHandler::string_controller(int ch)
 void StringHandler::update_string()
 {
     int ch;
-    bool toStop;
+    bool toStop, addSpace;
     cod::string temp;
 
     if (str.size())
@@ -275,7 +275,12 @@ void StringHandler::update_string()
 
                     animater(std::string{"Enter new string: "});
                     cod::getline(sc, temp);
-                    str.push_back(' ');
+
+                    addSpace = confirm_the_change("", std::string{"Seprate them with space"});
+
+                    if (addSpace)
+                        str.push_back(' ');
+
                     str.append(temp);
                     break;
 

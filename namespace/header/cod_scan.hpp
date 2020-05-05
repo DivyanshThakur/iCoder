@@ -8,151 +8,152 @@
 
 namespace cod
 {
-class scan
-{
-    template <typename T>
-    void assign(T &data);
-
-    friend scan &operator>>(scan &sc, bool last)
+    class scan
     {
-        sc.isLast = last;
-        return sc;
-    }
+        template <typename T>
+        void assign(T &data);
 
-    friend scan &operator>>(scan &sc, char &data)
-    {
-        sc.reset();
-
-        while ((sc.c = getch()) && !(sc.value.size() && (sc.c == '\r' || sc.c == ' ')))
+        friend scan &operator>>(scan &sc, bool last)
         {
-            sc.isLimitExceed = (sc.value.size() > 0);
-
-            switch (sc.checkChar())
-            {
-            case -1:
-                sc.isLast = true;
-                throw EscPressed();
-
-            case 12: // display quit message
-                isquitConditionEnabled = false;
-                if (Global::showQuit)
-                    throw OpenAnimeSetting(8); // quit message
-                break;
-            }
+            sc.isLast = last;
+            return sc;
         }
 
-        sc.assign(data);
-
-        return sc;
-    }
-
-    friend scan &operator>>(scan &sc, std::string &data)
-    {
-        sc.reset();
-
-        while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+        friend scan &operator>>(scan &sc, char &data)
         {
-            switch (sc.checkChar())
+            sc.reset();
+
+            while ((sc.c = getch()) && !(sc.value.size() && (sc.c == '\r' || sc.c == ' ')))
             {
-            case -1:
-                sc.isLast = true;
-                throw EscPressed();
+                sc.isLimitExceed = (sc.value.size() > 0);
 
-            case 1:
-                if (sc.value.size())
-                    goto after_space;
-            }
-        }
+                switch (sc.check_char())
+                {
+                case -1:
+                    sc.isLast = true;
+                    throw EscPressed();
 
-    after_space: // if the user press space and its not a empty string it will reach here breaking the while loop
-
-        if (!(sc.isLast))
-        {
-            sc.print();
-            sc.isLast = true;
-        }
-
-        data = sc.value;
-
-        return sc;
-    }
-
-    friend scan &operator>>(scan &sc, size_t &data)
-    {
-        sc.reset();
-        int count{0};
-
-        while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
-        {
-            if (sc.c == ' ')
-            {
-                if (sc.isLast)
-                    ++count;
-                else if (sc.value.size()) // will break only when the string has minimum 1 element
+                case 12: // display quit message
+                    isquitConditionEnabled = false;
+                    if (Global::showQuit)
+                        throw OpenAnimeSetting(8); // quit message
                     break;
+                }
+            }
 
-                if (count == 3)
-                    emessage(std::string{"     Press Enter to submit data"});
-            }
-            if (sc.checkChar() == -1)
-            {
-                sc.isLast = true;
-                throw EscPressed();
-            }
+            sc.assign(data);
+
+            return sc;
         }
 
-        sc.assign(data);
-
-        return sc;
-    }
-
-    template <typename T>
-    friend scan &operator>>(scan &sc, T &data) // int, long, double
-    {
-        sc.reset();
-
-        while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+        friend scan &operator>>(scan &sc, std::string &data)
         {
-            if (sc.c == ' ')
+            sc.reset();
+
+            while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
             {
-                if (sc.value.size()) // will break only when the string has minimum 1 element
-                    break;
+                switch (sc.check_char())
+                {
+                case -1:
+                    sc.isLast = true;
+                    throw EscPressed();
+
+                case 1:
+                    if (sc.value.size())
+                        goto after_space;
+                }
             }
 
-            if (sc.checkChar() == -1)
+        after_space: // if the user press space and its not a empty string it will reach here breaking the while loop
+
+            if (!(sc.isLast))
             {
+                sc.print();
                 sc.isLast = true;
-                throw EscPressed();
             }
+
+            data = sc.value;
+
+            return sc;
         }
 
-        sc.assign(data);
+        friend scan &operator>>(scan &sc, size_t &data)
+        {
+            sc.reset();
+            int count{0};
 
-        return sc;
-    }
+            while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+            {
+                if (sc.c == ' ')
+                {
+                    if (sc.isLast)
+                        ++count;
+                    else if (sc.value.size()) // will break only when the string has minimum 1 element
+                        break;
 
-private:
-    char c;
-    bool isLast;
-    std::string value;
-    bool isLimitExceed;
-    bool isString;
+                    if (count == 3)
+                        emessage(std::string{"     Press Enter to submit data"});
+                }
+                if (sc.check_char() == -1)
+                {
+                    sc.isLast = true;
+                    throw EscPressed();
+                }
+            }
 
-    int checkChar(bool isPassword = false);
-    void print() const;
+            sc.assign(data);
 
-public:
-    scan(); // type of string - username, pass, char
+            return sc;
+        }
 
-    void choice(int &choice);
+        template <typename T>
+        friend scan &operator>>(scan &sc, T &data) // int, long, double
+        {
+            sc.reset();
 
-    void is_string(bool isStr);
+            while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
+            {
+                if (sc.c == ' ')
+                {
+                    if (sc.value.size()) // will break only when the string has minimum 1 element
+                        break;
+                }
 
-    std::string username();
-    std::string password();
+                if (sc.check_char() == -1)
+                {
+                    sc.isLast = true;
+                    throw EscPressed();
+                }
+            }
 
-    void reset(); // reset the values of scan class
-};                // namespace cod
+            sc.assign(data);
+
+            return sc;
+        }
+
+    private:
+        char c;
+        bool isLast;
+        std::string value;
+        bool isLimitExceed;
+        bool isString;
+
+        int check_char(bool isPassword = false);
+        int check_shortcut();
+        void print() const;
+
+    public:
+        scan(); // type of string - username, pass, char
+
+        void choice(int &choice);
+
+        void is_string(bool isStr);
+
+        std::string username();
+        std::string password();
+
+        void reset(); // reset the values of scan class
+    };                // namespace cod
 } // namespace cod
 
 #endif
