@@ -10,7 +10,14 @@ void Arrays()
     {
         menu(Menu::dataType, std::string{" SELECT DATA TYPE "});
 
-        sc.choice(ch);
+        try
+        {
+            sc.choice(ch);
+        }
+        catch (EscPressed &e)
+        {
+            return;
+        }
 
         array_type_selector(ch); // call the array funtion with user defined data type
 

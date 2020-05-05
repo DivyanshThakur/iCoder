@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <windows.h>
 #include "../header/cod_scan.hpp"
 #include "../header/cod_limits.hpp"
@@ -6,9 +7,24 @@
 
 cod::scan::scan() : isLast{true}, isLimitExceed{false}, isString{false} {}
 
-void cod::scan::print(const std::string &s) const
+void cod::scan::print() const
 {
-    (s != "") ? std::cout << s : std::cout << std::endl;
+    std::cout << ((c == '\r') ? '\n' : c);
+}
+
+template <typename T>
+void cod::scan::assign(T &data)
+{
+    if (!(isLast))
+    {
+        print();
+        isLast = true;
+    }
+
+    std::stringstream ss{value};
+
+    if (!(ss >> data))
+        throw InvalidInputException();
 }
 
 int cod::scan::checkChar(bool isPassword)
@@ -18,7 +34,7 @@ int cod::scan::checkChar(bool isPassword)
     if (c == Ui::ESC)
         return -1; // -1 means that user has pressed ESC, stop the scan and return to startup menu
 
-    else if (c == ' ')
+    else if (!isString && c == ' ')
     {
         flag = 1;
     }
@@ -31,7 +47,7 @@ int cod::scan::checkChar(bool isPassword)
     else if (isLimitExceed)
         flag = 2;
 
-    else if (c >= '!' && c <= '~')
+    else if (c >= ' ' && c <= '~')
     {
         flag = 3;
 
@@ -224,3 +240,11 @@ void cod::scan::reset()
     value.clear();
     isLimitExceed = false;
 }
+
+/*********************************************** TEMPLATE DECLARATIONS ***********************************************/
+
+template void cod::scan::assign(int &data);
+template void cod::scan::assign(size_t &data);
+template void cod::scan::assign(long long &data);
+template void cod::scan::assign(double &data);
+template void cod::scan::assign(char &data);

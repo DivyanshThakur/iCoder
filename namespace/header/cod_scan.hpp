@@ -2,7 +2,6 @@
 #define COD_SCAN_HPP
 
 #include <iostream>
-#include <sstream>
 #include <conio.h>
 #include "../../header/ExHandler.hpp"
 #include "../../header/UIhandler.hpp"
@@ -11,6 +10,9 @@ namespace cod
 {
 class scan
 {
+    template <typename T>
+    void assign(T &data);
+
     friend scan &operator>>(scan &sc, bool last)
     {
         sc.isLast = last;
@@ -23,10 +25,7 @@ class scan
 
         while ((sc.c = getch()) && !(sc.value.size() && (sc.c == '\r' || sc.c == ' ')))
         {
-            if (sc.value.size() > 0)
-                sc.isLimitExceed = true;
-            else
-                sc.isLimitExceed = false;
+            sc.isLimitExceed = (sc.value.size() > 0);
 
             switch (sc.checkChar())
             {
@@ -42,20 +41,7 @@ class scan
             }
         }
 
-        if (!(sc.isLast))
-        {
-            if (sc.c == '\r')
-                sc.print();
-            else if (sc.c == ' ')
-                sc.print(" ");
-
-            sc.isLast = true;
-        }
-
-        std::stringstream ss{sc.value};
-
-        if (!(ss >> data))
-            throw InvalidInputException();
+        sc.assign(data);
 
         return sc;
     }
@@ -63,42 +49,26 @@ class scan
     friend scan &operator>>(scan &sc, std::string &data)
     {
         sc.reset();
-        int spaceCount = 1;
 
         while ((sc.c = getch()) && !(sc.value.size() && sc.c == '\r'))
         {
-            if (sc.isString && spaceCount && sc.c == ' ')
+            switch (sc.checkChar())
             {
-                sc.value.push_back(sc.c); // add element at last of pass string
-                std::cout << sc.c;
-                spaceCount = 0;
-            }
-            else
-            {
-                spaceCount = 1;
+            case -1:
+                sc.isLast = true;
+                throw EscPressed();
 
-                switch (sc.checkChar())
-                {
-                case -1:
-                    sc.isLast = true;
-                    throw EscPressed();
-
-                case 1:
-                    if (sc.value.size())
-                        goto after_space;
-                }
+            case 1:
+                if (sc.value.size())
+                    goto after_space;
             }
         }
 
-    after_space: // if the user press space and its not a string it will reach here breaking the while loop
+    after_space: // if the user press space and its not a empty string it will reach here breaking the while loop
 
         if (!(sc.isLast))
         {
-            if (sc.c == '\r')
-                sc.print();
-            else if (sc.c == ' ')
-                sc.print(" ");
-
+            sc.print();
             sc.isLast = true;
         }
 
@@ -131,20 +101,7 @@ class scan
             }
         }
 
-        if (!(sc.isLast))
-        {
-            if (sc.c == '\r')
-                sc.print();
-            else if (sc.c == ' ')
-                sc.print(" ");
-
-            sc.isLast = true;
-        }
-
-        std::stringstream ss{sc.value};
-
-        if (!(ss >> data))
-            throw InvalidInputException();
+        sc.assign(data);
 
         return sc;
     }
@@ -169,20 +126,7 @@ class scan
             }
         }
 
-        if (!(sc.isLast))
-        {
-            if (sc.c == '\r')
-                sc.print();
-            else if (sc.c == ' ')
-                sc.print(" ");
-
-            sc.isLast = true;
-        }
-
-        std::stringstream ss{sc.value};
-
-        if (!(ss >> data))
-            throw InvalidInputException();
+        sc.assign(data);
 
         return sc;
     }
@@ -195,7 +139,7 @@ private:
     bool isString;
 
     int checkChar(bool isPassword = false);
-    void print(const std::string &s = "") const;
+    void print() const;
 
 public:
     scan(); // type of string - username, pass, char

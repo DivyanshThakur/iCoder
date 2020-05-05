@@ -158,6 +158,7 @@ void save_to_file(const std::string &fileName, const std::string &title, const T
     }
 
     in_file.close();
+
     std::ofstream outFile(fileName);
     std::stringstream ss{file_str};
     bool isSaved{false};
