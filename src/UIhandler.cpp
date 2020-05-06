@@ -294,6 +294,12 @@ bool press_i(const std::string &message)
     return false;
 }
 
+void erase_line(size_t len)
+{
+    std::cout << "\r" << std::setw(len) << ""
+              << "\r";
+}
+
 void wait_message(const std::string &message)
 { // Simple wait message tells user that some large operations are performed in background
     std::cout << message;

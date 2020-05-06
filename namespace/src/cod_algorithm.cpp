@@ -20,6 +20,17 @@ void cod::swap(T &lhs, T &rhs)
     lhs = temp;
 }
 
+/*********************************************** FACTORIAL FUNCTION ***********************************************/
+long long cod::fact(int x)
+{
+    long long fact{1};
+
+    while (x)
+        fact *= x--;
+
+    return fact;
+}
+
 /*************************************************** STRING FUNCTIONS **************************************************/
 void cod::toupper(cod::string &str, size_t pos, size_t len)
 {

@@ -59,7 +59,7 @@ void cod::string::perm(string &str, size_t l, size_t h)
 {
     if (l == h)
     {
-        std::cout << static_cast<char>(175) << " " << str << std::endl;
+        std::cout << std::setw(Ui::widthIndex) << std::left << index++ << " " << static_cast<char>(175) << " " << str << std::endl;
         return;
     }
 
@@ -102,7 +102,7 @@ cod::string::string() : string(nullptr)
 {
 }
 
-cod::string::string(const char *s) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     if (s == nullptr)
     {
@@ -122,7 +122,7 @@ cod::string::string(const char *s) : str(nullptr), _size(0), _capacity(0), _maxS
     }
 }
 
-cod::string::string(const char *s, size_t n) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -132,7 +132,7 @@ cod::string::string(const char *s, size_t n) : str(nullptr), _size(0), _capacity
     this->cpy(s, n);
 }
 
-cod::string::string(size_t n, char c) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(size_t n, char c) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -146,7 +146,7 @@ cod::string::string(size_t n, char c) : str(nullptr), _size(0), _capacity(0), _m
     str[n] = '\0';
 }
 
-cod::string::string(const string &rhs) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = rhs._size;
     _capacity = rhs._capacity;
@@ -157,7 +157,7 @@ cod::string::string(const string &rhs) : str(nullptr), _size(0), _capacity(0), _
     this->cpy(rhs.str, rhs._size);
 }
 
-cod::string::string(string &&rhs) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(string &&rhs) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _capacity = rhs._capacity;
     _size = rhs._size;
@@ -165,7 +165,7 @@ cod::string::string(string &&rhs) : str(nullptr), _size(0), _capacity(0), _maxSi
     rhs.str = nullptr;
 }
 
-cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const std::initializer_list<char> &list) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = list.size();
 
@@ -181,7 +181,7 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), _si
     str[i] = '\0';
 }
 
-cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     size_t refSize = (len == npos) ? (rhs._size - pos) : (cod::min(rhs._size - pos, len));
 
@@ -298,9 +298,15 @@ cod::string &cod::string::operator=(const std::initializer_list<char> &list)
 
 /****************************************************** CAPACITY *********************************************************/
 
-size_t cod::string::size() const
+size_t cod::string::size(size_t pos, size_t len) const
 {
-    return _size;
+    if (!pos && len == npos)
+        return _size;
+
+    if (pos < 0 || pos >= _size)
+        throw InvalidPositionException();
+
+    return ((len == npos) ? (_size - pos) : (cod::min(_size - pos, len)));
 }
 
 size_t cod::string::length() const
@@ -1338,6 +1344,11 @@ void cod::string::permutation(size_t pos, size_t len)
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
 
     cod::string str(*this, pos, lSize);
+
+    this->index = 1;
+
+    std::cout << std::setw(Ui::widthIndex) << std::left << "Index"
+              << "   Pattern" << std::endl;
 
     this->perm(str, 0, lSize - 1);
 }

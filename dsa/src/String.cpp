@@ -576,15 +576,44 @@ void StringHandler::permutation()
     border(Ui::widthMenu);
     wait_message(std::string{"Generating..."});
 
-    header(std::string{" PERMUTATION "});
+    auto permCount = cod::fact(str.size(pos - 1, len));
+    bool yesProceed{false};
 
-    show_status(std::string{"String: "}, std::string(str.c_str(), pos - 1, len));
+    do
+    {
+        header(std::string{" PERMUTATION "});
 
-    std::cout << "Permutation:" << std::endl;
+        show_status(std::string{"String: "}, std::string(str.c_str(), pos - 1, len));
 
-    str.permutation(pos - 1, len);
+        std::cout << permCount << ((permCount < 2) ? " Permutation" : " Permutations");
 
-    std::cout << "\x1b[A"; // return to previous line
+        if (permCount > 1000 && !yesProceed)
+        {
+            yesProceed = confirm_the_change(std::string{"Generating all permutations can\ntake time longer then usual.."});
+        }
+        else
+        {
+            if (!yesProceed)
+            {
+                bool showPerm = press_i(std::string{"Press i to show all permutations"});
+
+                erase_line();
+
+                if (!showPerm)
+                    return;
+            }
+            else
+            {
+                yesProceed = false;
+                border(Ui::widthMenu);
+            }
+
+            str.permutation(pos - 1, len);
+
+            std::cout << "\x1b[A"; // return to previous line
+        }
+
+    } while (yesProceed);
 
     pressi_display();
 }
