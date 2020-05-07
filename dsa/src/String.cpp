@@ -2,41 +2,44 @@
 #include "../header/String.hpp"
 #include "../../namespace/header/cod_algorithm.hpp"
 
+// This function initilizes the StringHandler class and start it
 void String()
 {
     StringHandler sh;
     sh.start();
 }
 
+// It starts by displaying string menu screen
 void StringHandler::start()
 {
     int ch;
 
     try
     {
-        update_string();
+        update_string(); // input string from the user
     }
     catch (const EscPressed &e)
     {
-        throw ReturnHome();
+        throw ReturnHome(); // return if Esc is pressed
     }
 
     do
     {
-        menu(menu_screen_selector(), std::string{" STRING "});
+        // menu_screen_selector() print selective menu options based on the string status
+        menu(menu_screen_selector(), std::string{" STRING "}); // display string menu
 
         try
         {
             try
             {
-                sc.choice(ch);
+                sc.choice(ch); // scan user choice
             }
             catch (const EscPressed &e)
             {
                 throw ReturnHome();
             }
 
-            fn_caller(ch);
+            fn_caller(ch); // call appropriate function based on choice
         }
         catch (const EscPressed &e)
         {
@@ -88,9 +91,10 @@ void StringHandler::start()
     } while (1); // true
 }
 
-void StringHandler::input_data(size_t &pos, size_t &len, const std::string &heading)
+// This function accepts the pos as reference to assign values to it
+void StringHandler::input_data(const std::string &heading, size_t &pos)
 {
-    header(heading);
+    header(heading); // display their particular heading
 
     show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
     show_status(std::string{"Current string: "}, str.c_str());
@@ -98,69 +102,57 @@ void StringHandler::input_data(size_t &pos, size_t &len, const std::string &head
     animater(std::string{"Enter the position: "});
 
     sc >> pos;
+}
+
+// This function accepts the pos and len as reference to assign values to it
+void StringHandler::input_data(const std::string &heading, size_t &pos, size_t &len)
+{
+    input_data(heading, pos);
 
     animater(std::string{"\nEnter no of chars: "});
 
     sc >> len;
 }
 
-void StringHandler::input_data(size_t &pos, cod::string &val, const std::string &heading)
+// This function accepts the pos and string value as reference to assign values to it
+void StringHandler::input_data(const std::string &heading, size_t &pos, cod::string &val)
 {
-    header(heading);
-
-    show_status(std::string{"String size:    "}, std::to_string(str.size()), false);
-    show_status(std::string{"Current string: "}, str.c_str());
-
-    animater(std::string{"Enter the position: "});
-
-    sc >> pos;
+    input_data(heading, pos);
 
     animater(std::string{"\nEnter the sub-string: "});
 
     cod::getline(sc, val);
 }
 
+// display press i to display string whenever the string is updated
 void StringHandler::pressi_display(bool isStringUpdated)
 {
     if (isStringUpdated)
         print_message(std::string{"String updated..."});
 
+    // calls the press_i() from UiHandler.hpp
     if (press_i(std::string{"Press i to display string"}))
         this->display();
 }
 
 std::vector<std::string> StringHandler::menu_screen_selector()
 {
-    // select the correct menu to display as per need
-    std::vector<std::string> toDisplayMenu;
-    menuIndex.clear();
+    std::vector<std::string> toDisplayMenu; // select the correct menu to display as per need
+    menuIndex.clear();                      // clear each time to erase previous index values
 
     size_t i;
 
     if (str.size())
     {
-        toDisplayMenu.push_back(Menu::string.at(0));
-        menuIndex.push_back(0);
-    }
-    else
-    {
-        toDisplayMenu.push_back(Menu::string.at(1));
-        menuIndex.push_back(1);
-    }
+        toDisplayMenu.push_back(Menu::string.at(0)); // If the string is not empty it shows to update the current string
+        menuIndex.push_back(0);                      // The index of the menu::string is stored in menuIndex vector
 
-    if (str.size() == 0)
-    {
-        toDisplayMenu.push_back(Menu::string.at(5));
-        menuIndex.push_back(5);
-    }
-    else
-    {
         for (i = 2; i < Menu::string.size(); ++i)
         {
             toDisplayMenu.push_back(Menu::string.at(i));
             menuIndex.push_back(i);
 
-            if (i == 5 && !show_adv_opn)
+            if (i == 5 && !show_adv_opn) // adds adv opns if show_adv_opn is false at index = 5
             {
                 toDisplayMenu.push_back("Advanced Operations");
                 menuIndex.push_back(i + 1);
@@ -168,9 +160,24 @@ std::vector<std::string> StringHandler::menu_screen_selector()
             }
         }
     }
+    else
+    {
+        toDisplayMenu.push_back(Menu::string.at(1)); // if string is empty it shows to add new string
+        menuIndex.push_back(1);
+
+        toDisplayMenu.push_back(Menu::string.at(5)); // with display string option
+        menuIndex.push_back(5);
+    }
 
     return toDisplayMenu;
 }
+
+// The fn_caller() calls the appropriate function based on the index stored in menuIndex
+// logic- In menu_screen_selector() when a menu option is selected to display its index
+// is stored in the menuIndex vector which tellls about its position in menu screen
+// The first func is called if ch = 1 and for values of ch <=0 or ch>size are invalid
+// eg. for ch = 4, it menuIndex returns the menu index at position ch-1,i.e. 4-1 = 3
+// At index 3, the appropriate func is called using string_controller().
 
 void StringHandler::fn_caller(int ch)
 {
@@ -246,8 +253,14 @@ void StringHandler::string_controller(int ch)
     }
 }
 
+// This function upadates the current string or add new string
 void StringHandler::update_string()
 {
+    // ch stores the user's choice
+    // toStop runs the loop till its true
+    // addSpace adds space between old and new string
+    // temp stored the inputed string temporary and updates the current string by assigning temp to it
+
     int ch;
     bool toStop, addSpace;
     cod::string temp;
@@ -258,14 +271,14 @@ void StringHandler::update_string()
         {
             menu(SmallMenu::updateString, std::string{" UPDATE STRING "});
 
-            toStop = true;
+            toStop = true; // make toStop true each time to make it stop at current itr,until invalid values are pressed
             sc.choice(ch);
 
             try
             {
                 switch (ch)
                 {
-                case 1:
+                case 1: // goto add new string section
                     goto new_string_label;
 
                 case 2:
@@ -288,13 +301,12 @@ void StringHandler::update_string()
                     throw EscPressed();
 
                 default:
-                    toStop = false;
-                    print_message(std::string{"Invalid choice"});
-                    press_key();
+                    toStop = false; // to run the loop again
+                    print_message(std::string{"Invalid choice"}, true);
                     break;
                 }
 
-                if (toStop)
+                if (toStop) // if true print the display array funtion and exits loop after it
                     this->pressi_display(true);
             }
             catch (const EscPressed &e)
@@ -320,9 +332,9 @@ void StringHandler::insert_substr()
     cod::string value;
     size_t pos;
 
-    this->input_data(pos, value, std::string{" INSERT SUB-STRING "});
+    this->input_data(std::string{" INSERT SUB-STRING "}, pos, value);
 
-    str.insert(pos - 1, value);
+    str.insert(pos - 1, value); // Insert substring at a position
 
     this->pressi_display(true);
 }
@@ -332,14 +344,17 @@ void StringHandler::remove_substr()
     size_t pos, len;
     cod::string subStr;
 
-    this->input_data(pos, len, std::string{" DELETE SUB-STRING "});
+    this->input_data(std::string{" DELETE SUB-STRING "}, pos, len);
 
-    subStr = str.erase(pos - 1, len);
+    subStr = str.erase(pos - 1, len); // remove substring from a position
 
     print_message(std::string{"Removed, "} + subStr.c_str());
 
     this->pressi_display();
 }
+
+// is_range() is a base function for getting user's choice for slecting range of string
+// user can select full string, or a substring, other values are invalid
 
 bool StringHandler::is_range(const std::string &heading)
 {
@@ -355,24 +370,24 @@ bool StringHandler::is_range(const std::string &heading)
 
         switch (ch)
         {
-        case 1:
+        case 1: // returns false if opn 1 is selected
             return false;
 
-        case 2:
+        case 2: // returns true if opn 2 is selected
             return true;
 
         default:
-            print_message(std::string{"Invalid choice"});
-            toStop = false;
-            press_key();
+            toStop = false; // loop again
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
     } while (!toStop);
 
-    return false;
+    return false; // useless return, to avoid warning
 }
 
+// This func changes the string case by toggling, changing to upper or lower, full string or substring
 void StringHandler::change_case()
 {
     int ch;
@@ -395,7 +410,7 @@ void StringHandler::change_case()
                 isRangeSelected = is_range(std::string{" TOGGLE CASE "});
 
                 if (isRangeSelected)
-                    this->input_data(pos, len, std::string{std::string{" TOGGLE CASE "}});
+                    this->input_data(std::string{std::string{" TOGGLE CASE "}}, pos, len);
 
                 cod::toggle(str, pos - 1, len);
                 break;
@@ -404,7 +419,7 @@ void StringHandler::change_case()
                 isRangeSelected = is_range(std::string{" TO LOWER "});
 
                 if (isRangeSelected)
-                    this->input_data(pos, len, std::string{std::string{" TO LOWER "}});
+                    this->input_data(std::string{std::string{" TO LOWER "}}, pos, len);
 
                 cod::tolower(str, pos - 1, len);
                 break;
@@ -413,7 +428,7 @@ void StringHandler::change_case()
                 isRangeSelected = is_range(std::string{" TO UPPER "});
 
                 if (isRangeSelected)
-                    this->input_data(pos, len, std::string{std::string{" TO UPPER "}});
+                    this->input_data(std::string{std::string{" TO UPPER "}}, pos, len);
 
                 cod::toupper(str, pos - 1, len);
                 break;
@@ -422,9 +437,8 @@ void StringHandler::change_case()
                 throw EscPressed();
 
             default:
-                print_message(std::string{"Invalid choice"});
-                press_key();
                 toStop = false;
+                print_message(std::string{"Invalid choice"}, true);
                 break;
             }
 
@@ -439,6 +453,7 @@ void StringHandler::change_case()
     } while (!toStop);
 }
 
+// Display the string with details about the size, words , consonants and vowels
 void StringHandler::display()
 {
     header(std::string{" DISPLAY STRING "});
@@ -448,12 +463,7 @@ void StringHandler::display()
               << "Consonants:  " << str.consonants() << std::endl
               << "Vowels:      " << str.vowels();
 
-    border(Ui::widthMenu);
-
-    std::cout << "String: "
-              << str;
-
-    press_key();
+    print_message(std::string{"String: "} + str.c_str(), true);
 }
 
 void StringHandler::reverse()
@@ -463,7 +473,7 @@ void StringHandler::reverse()
     bool isRangeSelected = is_range(std::string{" REVERSE "});
 
     if (isRangeSelected)
-        this->input_data(pos, len, std::string{" REVERSE "});
+        this->input_data(std::string{" REVERSE "}, pos, len);
 
     str.reverse(pos - 1, len);
 
@@ -477,7 +487,7 @@ void StringHandler::compare()
     bool isRangeSelected = is_range(std::string{" COMPARE "});
 
     if (isRangeSelected)
-        this->input_data(pos, len, std::string{" COMPARE "});
+        this->input_data(std::string{" COMPARE "}, pos, len);
 
     StringHandler s2;
     s2.update_string();
@@ -521,7 +531,7 @@ void StringHandler::anagram()
     bool isRangeSelected = is_range(std::string{" ANAGRAM "});
 
     if (isRangeSelected)
-        this->input_data(pos, len, std::string{" ANAGRAM "});
+        this->input_data(std::string{" ANAGRAM "}, pos, len);
 
     StringHandler s2;
     s2.update_string();
@@ -550,7 +560,7 @@ void StringHandler::palindrome()
     bool isRangeSelected = is_range(std::string{" PALINDROME "});
 
     if (isRangeSelected)
-        this->input_data(pos, len, std::string{" PALINDROME "});
+        this->input_data(std::string{" PALINDROME "}, pos, len);
 
     bool isPalin = str.ispalindrome(pos - 1, len);
 
@@ -571,7 +581,7 @@ void StringHandler::permutation()
     bool isRangeSelected = is_range(std::string{" PERMUTATION "});
 
     if (isRangeSelected)
-        this->input_data(pos, len, std::string{" PERMUTATION "});
+        this->input_data(std::string{" PERMUTATION "}, pos, len);
 
     border(Ui::widthMenu);
     wait_message(std::string{"Generating..."});
@@ -625,7 +635,7 @@ void StringHandler::find_unique()
     bool isRangeSelected = is_range(std::string{" FIND UNIQUE "});
 
     if (isRangeSelected)
-        this->input_data(pos, len, std::string{" FIND UNIQUE "});
+        this->input_data(std::string{" FIND UNIQUE "}, pos, len);
 
     std::vector<char> vec = str.find_unique(pos - 1, len);
 
@@ -656,7 +666,7 @@ void StringHandler::find_duplicates()
     bool isRangeSelected = is_range(std::string{" FIND DUPLICATES "});
 
     if (isRangeSelected)
-        this->input_data(pos, len, std::string{" FIND DUPLICATES "});
+        this->input_data(std::string{" FIND DUPLICATES "}, pos, len);
 
     std::vector<cod::pair<char, int>> vec = str.find_duplicates(pos - 1, len);
 

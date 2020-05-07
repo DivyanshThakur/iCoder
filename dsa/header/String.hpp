@@ -12,9 +12,12 @@ class StringHandler
     bool show_adv_opn{false};
     std::vector<int> menuIndex; // It stored the index of the string to display
 
-    void input_data(size_t &pos, size_t &len, const std::string &heading);
-    void input_data(size_t &pos, cod::string &val, const std::string &heading);
+    void input_data(const std::string &heading, size_t &pos);
+    void input_data(const std::string &heading, size_t &pos, size_t &len);
+    void input_data(const std::string &heading, size_t &pos, cod::string &val);
+
     void pressi_display(bool isStringUpdated = false);
+
     std::vector<std::string> menu_screen_selector();
     void fn_caller(int ch);
     void string_controller(int ch);
