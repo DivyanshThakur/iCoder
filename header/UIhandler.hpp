@@ -24,6 +24,7 @@ void print_message(const std::string &message = std::string{"TO BE IMPLEMENTED..
 void press_key(const ReturnTo &rt = PRE, const std::string &message = "Press any key to continue");
 bool press_i(const std::string &message);
 void erase_line(size_t len = Ui::widthMenu);
+std::string s_or_not_s(size_t num, const std::string &message, const std::string &extra = "s", const std::string &updateFirst = "");
 void wait_message(const std::string &message);
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm = "Do you want to proceed?");
 

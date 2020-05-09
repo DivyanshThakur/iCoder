@@ -300,8 +300,19 @@ void erase_line(size_t len)
               << "\r";
 }
 
+std::string s_or_not_s(size_t num, const std::string &message, const std::string &extra, const std::string &updateFirst)
+{
+    auto temp = message;
+    temp += (num < 2) ? updateFirst : extra;
+
+    return temp;
+}
+
 void wait_message(const std::string &message)
 { // Simple wait message tells user that some large operations are performed in background
+
+    border(Ui::widthMenu);
+
     std::cout << message;
     Sleep(1000);
 }

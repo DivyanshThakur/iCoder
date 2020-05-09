@@ -482,7 +482,7 @@ void ArrayHandler<T>::add_values()
     if (size < 0)
         throw NegativeValueException();
 
-    std::string val = "Enter " + std::to_string(size) + ((size > 1) ? " values:\n" : " value ");
+    std::string val = "Enter " + std::to_string(size) + s_or_not_s(size, " value", "s:\n", " ");
 
     print_message(val);
 
@@ -551,7 +551,7 @@ void ArrayHandler<T>::remove_multiple_values()
     if (!n) // if position is invalid return to menu screen
         return;
 
-    std::string message = std::to_string(n) + ((n == 1) ? " value: " : " values: ");
+    std::string message = std::to_string(n) + s_or_not_s(n, "value", "s: ", ": ");
 
     print_message(message);
 

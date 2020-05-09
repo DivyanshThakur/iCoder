@@ -9,11 +9,11 @@ namespace cod
 {
     class string
     {
-        /*************************************** NON MEMBER FUNCTION OVERLOADS **********************************************/
+        /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
 
         friend void swap(string &lhs, string &rhs)
         {
-            lhs.swap(rhs);
+            lhs.swap(rhs); // calls the swap mwmber function
         }
 
         friend std::ostream &operator<<(std::ostream &os, const string &obj)
@@ -21,7 +21,7 @@ namespace cod
             if (obj.size())
                 for (size_t i{0}; i < obj._size; i++)
                 {
-                    os << obj.at(i);
+                    os << obj.at(i); // display string to console
                 }
             else
                 os << "String is empty!";
@@ -33,7 +33,7 @@ namespace cod
         {
             char *buff = new char[1'02'400]; // 100 MB
 
-            sc >> buff;
+            sc >> buff; // scan string
 
             string s = buff;
             obj = s;
@@ -230,7 +230,7 @@ namespace cod
     public:
         static constexpr size_t npos = -1;
 
-        /*************************************************** CONSTRUCTOR ***************************************************/
+        /*************************************************** CONSTRUCTOR *********************************************/
         string();                                                 // no-args
         string(const char *s);                                    // from c-string
         string(const char *s, size_t n);                          // from buffer
@@ -241,20 +241,20 @@ namespace cod
         string(const string &rhs, size_t pos, size_t len = npos); // substring
         // string(const iterator &first, const iterator &last);   // range
 
-        /************************************************* ASSIGNMENT OPERATOR *********************************************/
+        /************************************************ ASSIGNMENT OPERATOR ****************************************/
         string &operator=(const string &rhs);                       // copy
         string &operator=(string &&rhs);                            // move
         string &operator=(const char *s);                           // c-string
         string &operator=(char c);                                  // character
         string &operator=(const std::initializer_list<char> &list); // initializer list
 
-        /*************************************************** STRING ITERATOR ***********************************************/
+        /************************************************** STRING ITERATOR ******************************************/
         // iterator begin() const;
         // iterator end() const;
         // const const_iterator cbegin() const;
         // const const_iterator cend() const;
 
-        /****************************************************** CAPACITY ***************************************************/
+        /****************************************************** CAPACITY *********************************************/
         size_t size(size_t pos = 0, size_t len = npos) const;
         size_t length() const;
         size_t max_size() const;
@@ -268,7 +268,7 @@ namespace cod
         bool empty() const;
         void shrink_to_fit();
 
-        /**************************************************** ELEMENT ACCESS ************************************************/
+        /**************************************************** ELEMENT ACCESS *****************************************/
         char &operator[](size_t pos);
         const char &operator[](size_t pos) const;
         char &at(size_t pos);
@@ -278,7 +278,7 @@ namespace cod
         char &front();
         const char &front() const;
 
-        /******************************************************* MODIFIERS **************************************************/
+        /******************************************************* MODIFIERS *******************************************/
         string &operator+=(const string &rhs);                       // string
         string &operator+=(const char *s);                           // c-string
         string &operator+=(char c);                                  // character
@@ -331,7 +331,7 @@ namespace cod
 
         void pop_back();
 
-        /************************************************** ADVANCED OPERATIONS *********************************************/
+        /************************************************** ADVANCED OPERATIONS *************************************/
 
         void swap(string &rhs); // swap string
         void reverse(size_t pos = 0, size_t len = npos) const;
@@ -341,7 +341,7 @@ namespace cod
         std::vector<cod::pair<char, int>> find_duplicates(size_t pos = 0, size_t len = npos);
         std::vector<char> find_unique(size_t pos = 0, size_t len = npos);
 
-        /*************************************************** STRING OPERATIONS **********************************************/
+        /*************************************************** STRING OPERATIONS **************************************/
         const char *c_str() const;
         const char *data() const;
         size_t copy(char *s, size_t len, size_t pos = 0) const;

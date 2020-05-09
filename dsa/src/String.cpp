@@ -466,6 +466,7 @@ void StringHandler::display()
     print_message(std::string{"String: "} + str.c_str(), true);
 }
 
+// Reverse the given string
 void StringHandler::reverse()
 {
     size_t pos = 1, len = -1;
@@ -480,6 +481,7 @@ void StringHandler::reverse()
     this->pressi_display(true);
 }
 
+// Compare the given string with another temporary string
 void StringHandler::compare()
 {
     size_t pos = 1, len = -1;
@@ -496,7 +498,6 @@ void StringHandler::compare()
 
     char symbol = ((result) ? ((result > 0) ? '>' : '<') : '=');
 
-    border(Ui::widthMenu);
     wait_message(std::string{"Comparing..."});
 
     header(std::string{" COMPARE "});
@@ -509,6 +510,7 @@ void StringHandler::compare()
     press_key();
 }
 
+// Merge temp string in current string
 void StringHandler::merge()
 {
     StringHandler s2;
@@ -516,14 +518,14 @@ void StringHandler::merge()
 
     str.append(s2.str);
 
-    border(Ui::widthMenu);
     wait_message(std::string{"Merging..."});
 
     std::cout << "\rString merged!";
 
-    pressi_display();
+    this->pressi_display();
 }
 
+// Check for anagram - same number of chars but rearranged
 void StringHandler::anagram()
 {
     size_t pos = 1, len = -1;
@@ -538,7 +540,6 @@ void StringHandler::anagram()
 
     bool isAnagram = str.isanagram(pos - 1, len, s2.str);
 
-    border(Ui::widthMenu);
     wait_message(std::string{"Checking..."});
 
     header(std::string{" ANAGRAM "});
@@ -553,6 +554,7 @@ void StringHandler::anagram()
     press_key();
 }
 
+// Check for palindrome - String from left is same as string from right
 void StringHandler::palindrome()
 {
     size_t pos = 1, len = -1;
@@ -566,25 +568,24 @@ void StringHandler::palindrome()
 
     std::string message = ((isPalin) ? "(Y) The string is palindrome" : "(N) The string is not palindrome");
 
-    border(Ui::widthMenu);
     wait_message(std::string{"Checking..."});
 
     std::cout << "\r" << message;
 
-    pressi_display();
+    this->pressi_display();
 }
 
+// Print all possible permutations of the string
 void StringHandler::permutation()
 {
     size_t pos = 1, len = -1;
 
     bool isRangeSelected = is_range(std::string{" PERMUTATION "});
 
-    if (isRangeSelected)
+    if (isRangeSelected) // taking input from the user about the substring
         this->input_data(std::string{" PERMUTATION "}, pos, len);
 
-    border(Ui::widthMenu);
-    wait_message(std::string{"Generating..."});
+    wait_message(std::string{"Generating..."}); // silly wait message to show off
 
     auto permCount = cod::fact(str.size(pos - 1, len));
     bool yesProceed{false};
@@ -595,7 +596,13 @@ void StringHandler::permutation()
 
         show_status(std::string{"String: "}, std::string(str.c_str(), pos - 1, len));
 
-        std::cout << permCount << ((permCount < 2) ? " Permutation" : " Permutations");
+        std::cout << permCount << s_or_not_s(permCount, " Permutation");
+
+        // If permutation count is greater than 1000, it will show a confirmation message asking user to generate
+        // all permutations or not. This condition is executed 1 time, next time due to yesProceed equals true it
+        // becomes false. If count is less than 1000 it will check 2 condition.
+        // 1st- if count was greater than 1000 1st time and user confirmed to generate, it will not run press_i()
+        // 2nd - else it will run press_i() and asks user to show or not.
 
         if (permCount > 1000 && !yesProceed)
         {
@@ -607,10 +614,10 @@ void StringHandler::permutation()
             {
                 bool showPerm = press_i(std::string{"Press i to show all permutations"});
 
-                erase_line();
-
                 if (!showPerm)
                     return;
+
+                erase_line();
             }
             else
             {
@@ -625,9 +632,10 @@ void StringHandler::permutation()
 
     } while (yesProceed);
 
-    pressi_display();
+    this->pressi_display();
 }
 
+// Find unique chars in the string
 void StringHandler::find_unique()
 {
     size_t pos = 1, len = -1;
@@ -639,7 +647,6 @@ void StringHandler::find_unique()
 
     std::vector<char> vec = str.find_unique(pos - 1, len);
 
-    border(Ui::widthMenu);
     wait_message(std::string{"Finding..."});
 
     header(std::string{" FIND UNIQUE "});
@@ -648,7 +655,7 @@ void StringHandler::find_unique()
 
     if (vec.size())
     {
-        std::cout << vec.size() << " unique characters:" << std::endl;
+        std::cout << vec.size() << s_or_not_s(vec.size(), "unique character", "s:", ":") << std::endl;
 
         for (auto const &c : vec)
             std::cout << c << " ";
@@ -659,6 +666,7 @@ void StringHandler::find_unique()
     this->pressi_display();
 }
 
+// Find duplicates
 void StringHandler::find_duplicates()
 {
     size_t pos = 1, len = -1;
@@ -670,7 +678,6 @@ void StringHandler::find_duplicates()
 
     std::vector<cod::pair<char, int>> vec = str.find_duplicates(pos - 1, len);
 
-    border(Ui::widthMenu);
     wait_message(std::string{"Finding..."});
 
     header(std::string{" FIND DUPLICATES "});

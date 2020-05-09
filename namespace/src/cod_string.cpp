@@ -2,18 +2,28 @@
 #include "../header/cod_limits.hpp"
 #include "../header/cod_algorithm.hpp" // cod_string is included in cod_algorithm
 
+// The getline scans the whole line.
+// Accepts cod::string and internally
+// scans string in std::string and
+// transfer the data back to cod::string
+
 cod::scan &cod::getline(cod::scan &sc, cod::string &s)
 {
     std::string temp;
 
-    sc.is_string(true);
+    sc.is_string(true); // It enables the space to be accepted as string
     sc >> temp;
-    sc.is_string(false);
+    sc.is_string(false); // disables it
 
-    s = temp.c_str();
+    s = temp.c_str(); // c = style string is assigned to cod::string
 
     return sc;
 }
+
+// It select appropriate capacity based on new capacity
+// Minimum capacity is 15, and if less than 30 assigns 30
+// otherwise the capacity is not changed
+// This function is only used when the string is declared
 
 void cod::string::capacity_selecter()
 {
@@ -22,6 +32,11 @@ void cod::string::capacity_selecter()
     else if (_capacity <= 30)
         _capacity = 30;
 }
+
+// This function is used when the string is updated after declaring
+// Min cpacity is 15, else if the no of values stored in the string
+// when twice greater than the arg n, is assigned to capacity
+// else capacity is changed to n
 
 void cod::string::capacity_updater(size_t n)
 {
@@ -33,6 +48,7 @@ void cod::string::capacity_updater(size_t n)
         _capacity = n;
 }
 
+// A simple function to calculate vowels, words and consonants
 void cod::string::update_word_vowel_consonant()
 {
     char c;
@@ -41,9 +57,9 @@ void cod::string::update_word_vowel_consonant()
 
     for (size_t i{0}; i < _size; i++)
     {
-        c = ::tolower(str[i]);
+        c = ::tolower(str[i]); // lower the char
 
-        if (c == ' ')
+        if (c == ' ') // Since. space indicate a new word
             ++_words;
         else if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
             ++_vowels;
@@ -55,13 +71,23 @@ void cod::string::update_word_vowel_consonant()
         ++_words; // to add the last word without space
 }
 
+// A recursive algorithm to find the permutation of the string
+// Accepts the string, the starting pos and the last pos
+
 void cod::string::perm(string &str, size_t l, size_t h)
 {
-    if (l == h)
+    if (l == h) // If l==h, means pointing to same character,i.e. print the string and return
     {
         std::cout << std::setw(Ui::widthIndex) << std::left << index++ << " " << static_cast<char>(175) << " " << str << std::endl;
         return;
     }
+
+    // loops from l to h
+    // Firstly swaps the values of pos l and i
+    // recursively calls itself
+    // again swap back the values
+    // This makes it to print all possible pattern
+    // that a string can have
 
     for (size_t i{l}; i <= h; i++)
     {
@@ -73,11 +99,11 @@ void cod::string::perm(string &str, size_t l, size_t h)
 
 void cod::string::cat(const char *rhs, size_t len) // use true ,false for str[_size]=0;
 {
-    if (len == npos)
+    if (len == npos) // concats whole rhs to current string
     {
         strcat(str, rhs);
     }
-    else
+    else // concats a length len of rhs to current string
     {
         strncat(str, rhs, len);
         str[_size] = '\0';
@@ -86,11 +112,11 @@ void cod::string::cat(const char *rhs, size_t len) // use true ,false for str[_s
 
 void cod::string::cpy(const char *rhs, size_t len)
 {
-    if (len == npos)
+    if (len == npos) // copy whole rhs to current string
     {
         strcpy(str, rhs);
     }
-    else
+    else // copy a length len of rhs to current string
     {
         strncpy(str, rhs, len);
         str[len] = '\0';
@@ -183,6 +209,10 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), ind
 
 cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
+    // Initializing valid size by taking references of size and pos with different len condtition
+    // if len equals npos, it returns the difference of rhs.size and pos
+    // else it gives the minimum of len and difference of rhs.size and pos
+
     size_t refSize = (len == npos) ? (rhs._size - pos) : (cod::min(rhs._size - pos, len));
 
     _size = refSize;
@@ -192,14 +222,10 @@ cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), i
 
     str = new char[_capacity + 1];
 
-    size_t i{0};
-
-    for (; i < refSize; ++i)
-    {
+    for (size_t i{0}; i < refSize; ++i)
         str[i] = rhs.str[pos + i];
-    }
 
-    str[i] = '\0';
+    str[_size] = '\0';
 }
 
 /************************************************* ASSIGNMENT OPERATOR ***************************************************/
