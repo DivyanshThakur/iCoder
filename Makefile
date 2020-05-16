@@ -96,7 +96,7 @@ obj\Settings.o: src\Settings.cpp header\Settings.hpp
 obj\UIhandler.o: src\UIhandler.cpp header\UIhandler.hpp
 	$(CC) $(CFLAGS) src\UIhandler.cpp -o obj\UIhandler.o
 
-obj\iCoder.o: iCoder.cpp
+obj\iCoder.o: iCoder.cpp iCoder.hpp
 	$(CC) $(CFLAGS) iCoder.cpp -o obj\iCoder.o
 
 ### Extras

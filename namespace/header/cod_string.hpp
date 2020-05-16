@@ -4,11 +4,17 @@
 #include <iostream>
 #include "cod_scan.hpp"
 #include "cod_pair.hpp"
+#include "../../header/FileHandler.hpp"
 
 namespace cod
 {
-    class string
+    class string : public ISaveable
     {
+        /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+
+        virtual std::string save() const override;
+        virtual void load(const std::string &data) override;
+
         /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
 
         friend void swap(string &lhs, string &rhs)
@@ -218,6 +224,7 @@ namespace cod
     private:
         void capacity_selecter();
         void capacity_updater(size_t n);
+        void validate(size_t pos, bool cmpSize = false) const;
         void update_word_vowel_consonant();
         void perm(string &str, size_t l, size_t h);
         void cat(const char *rhs, size_t len = npos);

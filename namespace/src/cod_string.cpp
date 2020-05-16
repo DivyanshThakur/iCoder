@@ -2,6 +2,21 @@
 #include "../header/cod_limits.hpp"
 #include "../header/cod_algorithm.hpp" // cod_string is included in cod_algorithm
 
+/************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+
+std::string cod::string::save() const
+{
+    std::string data;
+
+    return data;
+}
+
+void cod::string::load(const std::string &data)
+{
+}
+
+/************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
+
 // The getline scans the whole line.
 // Accepts cod::string and internally
 // scans string in std::string and
@@ -46,6 +61,12 @@ void cod::string::capacity_updater(size_t n)
         _capacity = _size * 2;
     else
         _capacity = n;
+}
+
+void cod::string::validate(size_t pos, bool cmpSize) const
+{
+    if ((pos < 0 || pos > _size) || (cmpSize && pos == _size))
+        throw InvalidPositionException();
 }
 
 // A simple function to calculate vowels, words and consonants
@@ -326,23 +347,23 @@ cod::string &cod::string::operator=(const std::initializer_list<char> &list)
 
 size_t cod::string::size(size_t pos, size_t len) const
 {
-    if (!pos && len == npos)
+    if (!pos && len == npos) // returns the size when no args are passed
         return _size;
 
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
+    // If pos or len are passed, then the size is calculated based on below formula
     return ((len == npos) ? (_size - pos) : (cod::min(_size - pos, len)));
 }
 
 size_t cod::string::length() const
 {
-    return _size;
+    return _size; // size of current values stored
 }
 
 size_t cod::string::max_size() const
 {
-    return _maxSize;
+    return _maxSize; // maximum possible size of string
 }
 
 size_t cod::string::words()
@@ -365,6 +386,11 @@ void cod::string::resize(size_t n, char c)
 {
     if (n > _capacity)
     {
+        // If n is grater than capacity, means we need to increased the capacity of the string
+        // to store larger chars. So based on value of n, we calculate value of capacity
+        // update the string with new size restore the values back and for c not equals null
+        // fill the remaining values of string from char c.
+
         string temp(*this);
 
         delete[] str;
@@ -386,6 +412,9 @@ void cod::string::resize(size_t n, char c)
     }
     else
     {
+        // If n is less than capacity and size, simply insert null to position n
+        // and update the size to n
+
         if (n < _size)
             str[n] = '\0';
 
@@ -400,6 +429,9 @@ size_t cod::string::capacity() const
 
 void cod::string::reserve(size_t n)
 {
+    // reserve, allocates n number of bytes to the string
+    // If greater than capacity it adds remaining free spaces to the string
+    // for new chars to add in constant time
 
     if (n > _capacity)
     {
@@ -417,21 +449,23 @@ void cod::string::reserve(size_t n)
 
 void cod::string::clear()
 {
-    delete[] str;
+    delete[] str; // deallocate the string
 
+    // reset the values to default
     _capacity = 15;
     _size = 0;
     str = new char[_capacity + 1];
-    str[0] = '\0';
+    str[_size] = '\0';
 }
 
 bool cod::string::empty() const
 {
-    return (_size == 0);
+    return (_size == 0); // returns true if string is empty
 }
 
 void cod::string::shrink_to_fit()
 {
+    // It removes extra space by deallocating previous memory and by adding new memory by capacity equals size
     string temp(*this);
 
     delete[] str;
@@ -444,51 +478,51 @@ void cod::string::shrink_to_fit()
 /***************************************************** ELEMENT ACCESS ***************************************************/
 char &cod::string::operator[](size_t pos)
 {
-    return str[pos];
+    return str[pos]; // returns value at index pos
 }
 
 const char &cod::string::operator[](size_t pos) const
 {
-    return str[pos];
+    return str[pos]; // returns const value at index pos
 }
 
 char &cod::string::at(size_t pos)
 {
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
     return str[pos];
 }
 
 const char &cod::string::at(size_t pos) const
 {
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
     return str[pos];
 }
 
 char &cod::string::back()
 {
-    return str[_size - 1];
+    return str[_size - 1]; // returns the second last value of array of chars, i.e last letter of string
 }
 
 const char &cod::string::back() const
 {
-    return str[_size - 1];
+    return str[_size - 1]; // const last value is returned
 }
 
 char &cod::string::front()
 {
-    return str[0];
+    return str[0]; // first char is returned
 }
 
 const char &cod::string::front() const
 {
-    return str[0];
+    return str[0]; // const first char is returned
 }
 
 /******************************************************* MODIFIERS ******************************************************/
+
+// Adds new string after the current string
 cod::string &cod::string::operator+=(const string &rhs)
 {
     if (rhs._size > (_capacity - _size))
@@ -581,6 +615,7 @@ cod::string &cod::string::operator+=(const std::initializer_list<char> &list)
     return *this;
 }
 
+// append function equals operator+=()
 cod::string &cod::string::append(const string &rhs)
 {
     return (*this += rhs);
@@ -669,6 +704,7 @@ cod::string &cod::string::append(const std::initializer_list<char> &list)
     return (*this += list);
 }
 
+// Insert a character at last position
 void cod::string::push_back(char c)
 {
 
@@ -689,6 +725,7 @@ void cod::string::push_back(char c)
     str[_size] = '\0';
 }
 
+// assing equals operator=()
 cod::string &cod::string::assign(const string &rhs)
 {
     return (*this = rhs);
@@ -708,29 +745,17 @@ cod::string &cod::string::assign(const string &rhs, size_t pos, size_t len)
         str = new char[_capacity + 1];
     }
 
-    size_t i{0};
-
-    for (; i < refSize; ++i)
-    {
+    for (size_t i{0}; i < refSize; ++i)
         str[i] = rhs.str[pos + i];
-    }
 
-    str[i] = '\0';
+    str[_size] = '\0';
 
     return *this;
 }
 
 cod::string &cod::string::assign(string &&rhs)
 {
-    delete[] str;
-
-    _capacity = rhs._capacity;
-    _size = rhs._size;
-
-    str = rhs.str;
-    rhs.str = nullptr;
-
-    return *this;
+    return (*this = string(rhs));
 }
 
 cod::string &cod::string::assign(const char *s)
@@ -781,10 +806,10 @@ cod::string &cod::string::assign(const std::initializer_list<char> &list)
     return (*this = list);
 }
 
+// Insert substring at position pos of current string
 cod::string &cod::string::insert(size_t pos, const string &rhs)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t newSize = _size + rhs._size;
 
@@ -832,8 +857,7 @@ cod::string &cod::string::insert(size_t pos, const string &rhs)
 
 cod::string &cod::string::insert(size_t pos, const string &rhs, size_t subpos, size_t sublen)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t refSize = (sublen == npos) ? (rhs._size - subpos) : (cod::min(rhs._size - subpos, sublen));
 
@@ -888,8 +912,7 @@ cod::string &cod::string::insert(size_t pos, const string &rhs, size_t subpos, s
 
 cod::string &cod::string::insert(size_t pos, const char *s)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t strSize = strlen(s);
     size_t newSize = _size + strSize;
@@ -938,8 +961,7 @@ cod::string &cod::string::insert(size_t pos, const char *s)
 
 cod::string &cod::string::insert(size_t pos, const char *s, size_t n)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t newSize = _size + n;
 
@@ -988,8 +1010,7 @@ cod::string &cod::string::insert(size_t pos, const char *s, size_t n)
 
 cod::string &cod::string::insert(size_t pos, size_t n, char c)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t newSize = _size + n;
 
@@ -1040,10 +1061,10 @@ cod::string &cod::string::insert(size_t pos, size_t n, char c)
     return *this;
 }
 
+// Remove a part of string
 cod::string cod::string::erase(size_t pos, size_t len)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t refSize = (len == npos) ? (_size - pos) : (cod::min(_size - pos, len));
 
@@ -1058,10 +1079,10 @@ cod::string cod::string::erase(size_t pos, size_t len)
     return remStr;
 }
 
+// Replace a part of string
 cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t validLength = cod::min(len, _size);
     size_t newSize = _size - validLength + rhs._size;
@@ -1103,8 +1124,7 @@ cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs)
 
 cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t refSize = (sublen == npos) ? (rhs._size - subpos) : (cod::min(rhs._size - subpos, sublen));
     size_t validLength = cod::min(len, _size);
@@ -1157,8 +1177,7 @@ cod::string &cod::string::replace(size_t pos, size_t len, const string &rhs, siz
 
 cod::string &cod::string::replace(size_t pos, size_t len, const char *s)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t rhsSize = strlen(s);
     size_t validLength = cod::min(len, _size);
@@ -1201,8 +1220,7 @@ cod::string &cod::string::replace(size_t pos, size_t len, const char *s)
 
 cod::string &cod::string::replace(size_t pos, size_t len, const char *s, size_t n)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t refSize = cod::min(strlen(s), n);
     size_t validLength = cod::min(len, _size);
@@ -1246,8 +1264,7 @@ cod::string &cod::string::replace(size_t pos, size_t len, const char *s, size_t 
 
 cod::string &cod::string::replace(size_t pos, size_t len, size_t n, char c)
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t validLength = cod::min(len, _size);
     size_t newSize = _size - validLength + n;
@@ -1311,10 +1328,10 @@ void cod::string::swap(string &rhs)
     rhs = string(temp);
 }
 
+// Reverse a part of string
 void cod::string::reverse(size_t pos, size_t len) const
 {
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
 
@@ -1324,10 +1341,10 @@ void cod::string::reverse(size_t pos, size_t len) const
     }
 }
 
+// Checking for palindrome
 bool cod::string::ispalindrome(size_t pos, size_t len) const
 {
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
 
@@ -1340,6 +1357,7 @@ bool cod::string::ispalindrome(size_t pos, size_t len) const
     return true;
 }
 
+// Checking for anagram
 bool cod::string::isanagram(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen) const
 {
     if (pos < 0 || pos >= _size || subpos < 0 || subpos >= rhs._size)
@@ -1362,10 +1380,10 @@ bool cod::string::isanagram(size_t pos, size_t len, const string &rhs, size_t su
     return (!x);
 }
 
+// Checking for permutations
 void cod::string::permutation(size_t pos, size_t len)
 {
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
 
@@ -1379,10 +1397,10 @@ void cod::string::permutation(size_t pos, size_t len)
     this->perm(str, 0, lSize - 1);
 }
 
+// Finding duplicates
 std::vector<cod::pair<char, int>> cod::string::find_duplicates(size_t pos, size_t len)
 {
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     std::vector<cod::pair<char, int>> vec;
@@ -1404,10 +1422,10 @@ std::vector<cod::pair<char, int>> cod::string::find_duplicates(size_t pos, size_
     return vec;
 }
 
+// Find uniques
 std::vector<char> cod::string::find_unique(size_t pos, size_t len)
 {
-    if (pos < 0 || pos >= _size)
-        throw InvalidPositionException();
+    this->validate(pos, true);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     std::vector<char> vec;
@@ -1432,18 +1450,18 @@ std::vector<char> cod::string::find_unique(size_t pos, size_t len)
 /**************************************************** STRING OPERATIONS *************************************************/
 const char *cod::string::c_str() const
 {
-    return str;
+    return str; // return the char*
 }
 
 const char *cod::string::data() const
 {
-    return str;
+    return str; // same as above
 }
 
+// Copy a part of char array to current string
 size_t cod::string::copy(char *s, size_t len, size_t pos) const
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t validLength = cod::min(len, _size);
 
@@ -1455,6 +1473,7 @@ size_t cod::string::copy(char *s, size_t len, size_t pos) const
     return validLength;
 }
 
+// Find a substring from start of string
 size_t cod::string::find(const string &rhs, size_t pos) const
 {
     for (size_t i{pos}, j{0}; i < _size; i++, j = 0)
@@ -1528,6 +1547,7 @@ size_t cod::string::find(char c, size_t pos) const
     return npos;
 }
 
+// Find a substring from last
 size_t cod::string::rfind(const string &rhs, size_t pos) const
 {
     size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
@@ -1608,6 +1628,7 @@ size_t cod::string::rfind(char c, size_t pos) const
     return npos;
 }
 
+// Returns the index of the first char find in current string from rhs string
 size_t cod::string::find_first_of(const string &rhs, size_t pos) const
 {
     for (size_t i{pos}; i < _size; i++)
@@ -1657,6 +1678,7 @@ size_t cod::string::find_first_of(char c, size_t pos) const
     return (this->find(c, pos));
 }
 
+// Find substring from last position
 size_t cod::string::find_last_of(const string &rhs, size_t pos) const
 {
     size_t validPos = (pos == npos) ? _size : cod::min(pos, _size);
@@ -1711,6 +1733,7 @@ size_t cod::string::find_last_of(char c, size_t pos) const
     return (this->rfind(c, pos));
 }
 
+// Find char not in rhs string
 size_t cod::string::find_first_not_of(const string &rhs, size_t pos) const
 {
     for (size_t i{pos}; i < _size; i++)
@@ -1833,6 +1856,7 @@ cod::string cod::string::substr(size_t pos, size_t len) const
     return string(*this, pos, len);
 }
 
+// Compare both string
 int cod::string::compare(const string &rhs) const
 {
     size_t validLength = cod::min(_size, rhs._size);
@@ -1854,8 +1878,7 @@ int cod::string::compare(const string &rhs) const
 
 int cod::string::compare(size_t pos, size_t len, const string &rhs) const
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t validLength = cod::min(lSize, rhs._size);
@@ -1877,8 +1900,7 @@ int cod::string::compare(size_t pos, size_t len, const string &rhs) const
 
 int cod::string::compare(size_t pos, size_t len, const string &rhs, size_t subpos, size_t sublen) const
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t rSize = (sublen == npos) ? rhs._size - pos : cod::min(rhs._size - pos, sublen);
@@ -1922,8 +1944,7 @@ int cod::string::compare(const char *s) const
 
 int cod::string::compare(size_t pos, size_t len, const char *s) const
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos); // validate the position
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t rSize = strlen(s);
@@ -1946,8 +1967,7 @@ int cod::string::compare(size_t pos, size_t len, const char *s) const
 
 int cod::string::compare(size_t pos, size_t len, const char *s, size_t n) const
 {
-    if (pos < 0 || pos > _size)
-        throw InvalidPositionException();
+    this->validate(pos);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
     size_t rSize = cod::min(n, strlen(s));
@@ -1970,5 +1990,5 @@ int cod::string::compare(size_t pos, size_t len, const char *s, size_t n) const
 
 cod::string::~string()
 {
-    delete[] str;
+    delete[] str; // free the memory allocated
 }

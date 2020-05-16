@@ -20,6 +20,7 @@ void about()
         system(std::string("start " + Url::source).c_str()); // this code will open github source code in default browser
 }
 
+// Help screen for new users to guide them through the shortcuts available in the software
 void help()
 {
     header(std::string{" HELP "});
@@ -52,8 +53,7 @@ void help()
     else if (shortcutStats == ADV)
         message = std::string{"*Enable shortcuts from setting!!"};
 
-    print_message(message);
-    press_key(NIL);
+    print_message(message, true, NIL);
 }
 
 void update()
@@ -71,10 +71,10 @@ void update()
 
             switch (ch)
             {
-            case 1:
+            case 1: // Downloads the latest stable release
                 system(std::string("start " + Url::iStable).c_str());
                 return;
-            case 2:
+            case 2: // Downloads the latest beta release
                 system(std::string("start " + Url::iBeta).c_str());
                 return;
             default:
@@ -141,8 +141,11 @@ void changelog()
 
     for (const auto &vInfo : SmallMenu::logVersionData)
     {
+        // version info is printed
         std::cout << std::setw(Ui::widthIndex + 2) << std::left << vInfo;
 
+        // A loop iterating the version description prints each feature detail to console
+        // if it reads '\n' it breaks the inner loop to print next version features
         for (; i < SmallMenu::logVersionDesc.size(); ++i)
         {
             if (SmallMenu::logVersionDesc.at(i) == "\n")
@@ -152,14 +155,17 @@ void changelog()
                 break;
             }
 
+            // Extra spaces are printed to seprate different versions
             if (i > 0 && SmallMenu::logVersionDesc.at(i - 1) != "\n")
                 std::cout << std::setw(Ui::widthIndex + 2) << "";
 
             std::cout << "-> " << SmallMenu::logVersionDesc.at(i);
 
+            // Except last version, all prints a new line
             if (vInfo != std::string{"1.0"})
                 std::cout << std::endl;
         }
     }
+
     press_key(NIL);
 }

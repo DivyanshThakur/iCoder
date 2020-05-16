@@ -15,7 +15,6 @@
  * *********************************************************************************************************************/
 
 #include <iostream>
-#include <fstream>
 #include <windows.h>
 #include <dir.h>
 #include "iCoder.hpp"

@@ -9,6 +9,7 @@ void restore_saved_changes()
 {
     std::ifstream file(Path::fSetting);
 
+    // Assigns default values to unInitialized variables
     Global::signedUserID = std::string{"NULL"};
     Global::sleepTime = 25;
     lSearchStats = DEFAULT;
@@ -19,6 +20,7 @@ void restore_saved_changes()
     Global::showQuit = true;
     Global::showHint = true;
 
+    // If the settings file doen't exists it prints the above variable to the file for future uses
     if (!file)
     {
         std::ofstream outFile(Path::fSetting);
@@ -41,6 +43,7 @@ void restore_saved_changes()
     std::string title;
     int c;
 
+    // If the file already exists, it assigns the saved values to the above variables
     while (file >> title)
     {
         if (title == File::CURRENT_USER)
@@ -75,6 +78,7 @@ void restore_saved_changes()
     file.close();
 }
 
+// Common function to update the Status enum variables
 void update_stats(enum Status &stats, int c)
 {
     switch (c)
@@ -93,6 +97,7 @@ void update_stats(enum Status &stats, int c)
     }
 }
 
+// It checks the default state of settings file by comparing the saved values with the default values
 bool check_default_settings()
 {
     std::ifstream file(Path::fSetting);
@@ -136,6 +141,7 @@ void save_active_user(const std::string &userID)
 {
     Global::signedUserID = userID;
 
+    // save the current user to the file for automatically log in
     save_to_file(Path::fSetting, File::CURRENT_USER, Global::signedUserID);
 }
 
@@ -152,6 +158,7 @@ void save_to_file(const std::string &fileName, const std::string &title, const T
         return;
     }
 
+    // Scans and appends the data from the settings file to the file_str variable
     while (std::getline(in_file, line))
     {
         file_str += line;
@@ -163,26 +170,28 @@ void save_to_file(const std::string &fileName, const std::string &title, const T
     std::stringstream ss{file_str};
     bool isSaved{false};
 
-    while (ss >> file_title)
+    // stringstream helps in checking string line by line
+    while (ss >> file_title) // scan the title
     {
-        ss >> val;
+        ss >> val; // scan the value stored
 
-        if (file_title == title)
-        {
+        if (file_title == title) // if scanned title equals the title whose value we changed
+        {                        // will print the changed value to file and update it
             print_to_file(outFile, title, data);
-            isSaved = true;
+            isSaved = true; // checks for new titles i.e. new setting feature for older version of files
         }
         else
-            print_to_file(outFile, file_title, val);
+            print_to_file(outFile, file_title, val); // print again without change
     }
 
-    if (!isSaved)
+    if (!isSaved) // adds new setting to the end of file
         print_to_file(outFile, title, data);
 }
 
 template <typename T>
 void print_to_file(std::ofstream &outFile, const std::string &title, const T &data)
 {
+    // print values to file with titles
     outFile << std::setw(Ui::widthUsername * 2) << std::left << title
             << std::setw(Ui::widthUsername) << std::left << data << std::endl;
 }

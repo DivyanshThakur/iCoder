@@ -7,21 +7,21 @@
 
 void load()
 {
-    // srand(time(nullptr)); // It will generate unique random numbers each time
+    srand(time(nullptr)); // It will generate unique random numbers each time
 
-    // std::string loader{"LOADING..."};
-    // size_t loadLimit = loader.size(); // It will return the length of the string "loader"
+    std::string loader{"LOADING..."};
+    size_t loadLimit = loader.size(); // It will return the length of the string "loader"
 
-    // // Here, it prints the text from loader to console in time gaps
-    // // and on reaching the length of string it erases the text and loops again for random times
-    // for (size_t i{0}; i <= rand() % (2 * loadLimit) + (rand() % loadLimit) * 2 + loadLimit; ++i)
-    // {
-    //     if (i % loadLimit == 0) // Checks, if all letters are printed or not
-    //         std::cout << "\r" << std::setw(loadLimit) << " "
-    //                   << "\r";                 // Erasing current line
-    //     std::cout << loader.at(i % loadLimit); // Display char one by one
-    //     Sleep(150);                            // Delay
-    // }
+    // Here, it prints the text from loader to console in time gaps
+    // and on reaching the length of string it erases the text and loops again for random times
+    for (size_t i{0}; i <= rand() % (2 * loadLimit) + (rand() % loadLimit) * 2 + loadLimit; ++i)
+    {
+        if (i % loadLimit == 0) // Checks, if all letters are printed or not
+            std::cout << "\r" << std::setw(loadLimit) << " "
+                      << "\r";                 // Erasing current line
+        std::cout << loader.at(i % loadLimit); // Display char one by one
+        Sleep(150);                            // Delay
+    }
 }
 
 void title()
@@ -100,6 +100,7 @@ std::string stats_selector(const enum Status &stats, const std::vector<std::stri
 
 void update_last_screen()
 {
+    // The last screen is updated from current string
     switch (opnScreen)
     {
     case CUR_ARRAY:
@@ -300,6 +301,7 @@ void erase_line(size_t len)
               << "\r";
 }
 
+// Adds extra text to the message based on the condition below
 std::string s_or_not_s(size_t num, const std::string &message, const std::string &extra, const std::string &updateFirst)
 {
     auto temp = message;
