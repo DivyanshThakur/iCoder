@@ -5,6 +5,13 @@
 #include "../header/FileHandler.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
+#include "../namespace/header/cod_algorithm.hpp"
+
+/*******************************************************************************************************************
+ * 
+ *                                               SETTINGS FUNCTIONS                                             
+ * 
+ ******************************************************************************************************************/
 
 void restore_saved_changes()
 {
@@ -146,6 +153,12 @@ void save_active_user(const std::string &userID)
     save_to_file(Path::fSetting, File::CURRENT_USER, Global::signedUserID);
 }
 
+/*******************************************************************************************************************
+ * 
+ *                                               USER DATA FUNCTIONS                                             
+ * 
+ ******************************************************************************************************************/
+
 std::string get_file_str(const std::string &fileName)
 {
     std::ifstream inFile(fileName);
@@ -170,18 +183,41 @@ std::string generate_filename(const std::string &fileName, const std::string &ti
 {
     std::ifstream inFile(fileName);
 
-    std::string fileStr, line;
+    std::string fileStr, fileTitle, line;
+    int minIndex = 1, fileIndex;
 
     if (!inFile)
         throw FileNotOpenedException();
 
     while (std::getline(inFile, line))
     {
-        fileStr += line;
+        std::stringstream ss{line};
+
+        ss >> fileTitle;
+
+        if (fileTitle == title)
+        {
+            while (ss >> fileIndex)
+            {
+                if (minIndex == fileIndex)
+                {
+                    minIndex++;
+                    break;
+                }
+            }
+        }
     }
 
     inFile.close();
+
+    return (title.at(0) + cod::tolower(title, 1) + std::to_string(minIndex));
 }
+
+/*******************************************************************************************************************
+ * 
+ *                                               FILE I/O FUNCTIONS                                             
+ * 
+ ******************************************************************************************************************/
 
 template <typename T>
 void save_to_file(const std::string &fileName, const std::string &title, const T &data)

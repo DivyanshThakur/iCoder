@@ -70,22 +70,32 @@ void cod::toggle(cod::string &str, size_t pos, size_t len)
     }
 }
 
-std::string cod::toupper(const std::string &str)
+std::string cod::toupper(const std::string &str, size_t pos, size_t len)
 {
+    if (pos < 0 || pos >= str.size())
+        throw InvalidPositionException();
+
+    size_t refSize = (static_cast<int>(len) == -1) ? (str.size() - pos) : (cod::min(str.size() - pos, len));
+
     std::string temp;
 
-    for (const auto &c : str)
-        temp.push_back(::toupper(c));
+    for (size_t i{0}; i < refSize; i++)
+        temp.push_back(::toupper(str[pos + i]));
 
     return temp;
 }
 
-std::string cod::tolower(const std::string &str)
+std::string cod::tolower(const std::string &str, size_t pos, size_t len)
 {
+    if (pos < 0 || pos >= str.size())
+        throw InvalidPositionException();
+
+    size_t refSize = (static_cast<int>(len) == -1) ? (str.size() - pos) : (cod::min(str.size() - pos, len));
+
     std::string temp;
 
-    for (const auto &c : str)
-        temp.push_back(::tolower(c));
+    for (size_t i{0}; i < refSize; i++)
+        temp.push_back(::tolower(str[pos + i]));
 
     return temp;
 }

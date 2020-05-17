@@ -20,8 +20,8 @@ namespace cod
     void tolower(cod::string &str, size_t pos = 0, size_t len = -1);
     void toggle(cod::string &str, size_t pos = 0, size_t len = -1);
 
-    std::string toupper(const std::string &str);
-    std::string tolower(const std::string &str);
+    std::string toupper(const std::string &str, size_t pos = 0, size_t len = -1);
+    std::string tolower(const std::string &str, size_t pos = 0, size_t len = -1);
 } // namespace cod
 
 #endif
