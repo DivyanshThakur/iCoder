@@ -41,10 +41,10 @@ void InvalidUser::what(bool isPressKeyEnabled) const noexcept
     print_message("Invalid UserID/Password!", isPressKeyEnabled, NIL);
 }
 
-void FileNotOpenedException::what(bool isPressKeyEnabled) const noexcept
-{
-    print_message("Error fetching data!", isPressKeyEnabled, NIL);
-}
+// void FileNotOpenedException::what(bool isPressKeyEnabled) const noexcept
+// {
+//     print_message("Error fetching data!", isPressKeyEnabled, NIL);
+// }
 
 void ArrayFullException::what(bool isPressKeyEnabled) const noexcept
 {

@@ -41,10 +41,6 @@ void login()
 
         login();
     }
-    catch (const FileNotOpenedException &e)
-    {
-        e.what();
-    }
     catch (...)
     {
         print_message("(Log In) Unknown error occured!", true);
@@ -92,10 +88,6 @@ void create_account()
     {
         e.what();
     }
-    catch (const FileNotOpenedException &e)
-    {
-        e.what();
-    }
     catch (const UsernameAlreadyExistsException &e)
     {
         e.what(false);
@@ -112,15 +104,15 @@ void create_account()
 
 void display_users()
 {
-    header(" USERS ");
-
     std::ifstream file(Path::fUser);
 
     if (!file)
     {
-        std::cout << "No user in database!";
+        print_message("No user in database!", true);
         return;
     }
+
+    header(" USERS ");
 
     auto acc = std::make_unique<Account>();
 
@@ -146,6 +138,8 @@ void display_users()
     border(Ui::widthIndex * 3 + Ui::widthUsername + Ui::widthPassword - 1);
 
     file.close();
+
+    press_key();
 }
 
 std::string pass_to_asteric(const std::string &pass)

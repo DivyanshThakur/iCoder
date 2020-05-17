@@ -14,6 +14,7 @@ namespace cod
 
         virtual std::vector<cod::pair<std::string, std::string>> save() const override;
         virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) override;
+        virtual bool generate() const override;
 
         /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
 
@@ -266,6 +267,7 @@ namespace cod
         size_t size(size_t pos = 0, size_t len = npos) const;
         size_t length() const;
         size_t max_size() const;
+        std::string name() const;
         size_t words();
         size_t vowels();
         size_t consonants();

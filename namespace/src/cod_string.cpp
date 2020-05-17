@@ -1,4 +1,6 @@
+#include <iostream>
 #include <cstring>
+#include <fstream>
 #include "../header/cod_limits.hpp"
 #include "../header/cod_algorithm.hpp" // cod_string is included in cod_algorithm
 
@@ -18,6 +20,24 @@ void cod::string::load(const std::vector<cod::pair<std::string, std::string>> &v
         if (pair.first() == DataFile::NAME)
             std::cout << 'H';
     }
+}
+
+bool cod::string::generate() const
+{
+    std::ifstream inFile(this->_fileName);
+
+    if (inFile)
+    {
+        inFile.close();
+        return false;
+    }
+
+    std::ofstream outFile(this->_fileName);
+
+    // FileHandler::print();
+
+    outFile.close();
+    return true;
 }
 
 /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
@@ -369,6 +389,11 @@ size_t cod::string::length() const
 size_t cod::string::max_size() const
 {
     return _maxSize; // maximum possible size of string
+}
+
+std::string cod::string::name() const
+{
+    return _fileName;
 }
 
 size_t cod::string::words()

@@ -60,7 +60,6 @@ public:
 class DataFile
 {
 public:
-    static const std::string LAST_NUM;
     static const std::string TITLE;
     static const std::string NAME;
     static const std::string DATA;
@@ -81,6 +80,17 @@ public:
     static const std::string SHOW_QUIT_MESSAGE;
     static const std::string SHOW_HINT;
     static const std::string SHOW_ONE_TIME_HINT;
+};
+
+class Tag
+{
+public:
+    // DATA STRUCTURE
+    static const std::string ARRAY;
+    static const std::string STRING;
+
+    // GAMES
+    static const std::string TIK_TAC_TOE;
 };
 
 class Ui // Ui Constant

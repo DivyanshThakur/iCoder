@@ -7,6 +7,26 @@
 #include "../header/Security.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
+/************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+
+std::vector<cod::pair<std::string, std::string>> Account::save() const
+{
+    std::vector<cod::pair<std::string, std::string>> vecData;
+
+    return vecData;
+}
+
+void Account::load(const std::vector<cod::pair<std::string, std::string>> &vecData)
+{
+    // for (const auto &pair : vecData)
+    // {
+    //     if (pair.first() == DataFile::NAME)
+    //         std::cout << 'H';
+    // }
+}
+
+/************************************** MEMBER FUNCTION OVERLOADS *******************************************/
+
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
     os << std::endl

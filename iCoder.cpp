@@ -182,7 +182,6 @@ void main_menu_controller(int ch)
 
     case 5:              // show saved user details
         display_users(); // fetches user details and display it
-        press_key();     // getch()
         break;
 
     case 6: // help for shortcuts

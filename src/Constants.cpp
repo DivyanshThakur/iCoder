@@ -46,7 +46,6 @@ std::string Path::fSetting;
  * *******************************************************************************************************************/
 
 /************************************************* Data File Constant ************************************************/
-const std::string DataFile::LAST_NUM{"__LAST_NUM__"};
 const std::string DataFile::TITLE{"__TITLE__"};
 const std::string DataFile::NAME{"__NAME__"};
 const std::string DataFile::DATA{"__DATA__"};
@@ -64,6 +63,15 @@ const std::string File::SHOW_WELCOME_MESSAGE{"SHOW_WELCOME_MESSAGE"};
 const std::string File::SHOW_QUIT_MESSAGE{"SHOW_QUIT_MESSAGE"};
 const std::string File::SHOW_HINT{"SHOW_HINT"};
 const std::string File::SHOW_ONE_TIME_HINT{"SHOW_ONE_TIME_HINT"};
+
+/************************************************ FILE TAG Constant **************************************************/
+
+// DATA STRUCTURE
+const std::string Tag::ARRAY{"ARRAY"};
+const std::string Tag::STRING{"STRING"};
+
+// GAMES
+const std::string Tag::TIK_TAC_TOE{"TIC_TAC_TOE"};
 
 /*************************************************** Ui Constant *****************************************************/
 const int Ui::consoleWidth = 850;

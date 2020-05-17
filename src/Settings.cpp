@@ -1,49 +1,108 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
 #include "../header/FileHandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
-void show_me_first(const std::string &message, int repeatFor)
+// This function initilizes the StringHandler class and start it
+void settings()
 {
-    title();
+    Settings s;
+    s.start();
+}
 
-    update_screen(std::string{" SETTINGS "});
+/************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
 
-    if (Global::showHint) // display hint in every screen
-        show_hint();
+std::vector<cod::pair<std::string, std::string>> Settings::save() const
+{
+}
 
-    header(std::string{" SETTINGS "}, false);
+void Settings::load(const std::vector<cod::pair<std::string, std::string>> &vecData)
+{
+    int c;
 
-    while (repeatFor--)
+    if (generate()) // Create a new file if not created
+        return;
+
+    for (const auto &pair : vecData)
     {
-        std::cout << message;
-        Sleep(250);
+        std::stringstream ss(pair.second());
 
-        if (repeatFor == 0)
-            break;
-
-        size_t i{0};
-        while (i < message.size())
+        if (pair.first() == File::CURRENT_USER)
+            ss >> Global::signedUserID;
+        else if (pair.first() == File::ANIMATION_SPEED)
+            ss >> Global::sleepTime;
+        else if (pair.first() == File::LSEARCH_STATUS)
         {
-            std::cout << "\b \b";
-            ++i;
+            ss >> c;
+            update_stats(lSearchStats, c);
         }
+        else if (pair.first() == File::SHORTCUT_STATUS)
+        {
+            ss >> c;
+            update_stats(shortcutStats, c);
+        }
+        else if (pair.first() == File::ANIME_SIGN_OUT_STATUS)
+        {
+            ss >> c;
+            update_stats(animeSignOutStats, c);
+        }
+        else if (pair.first() == File::SHOW_ONE_TIME_HINT)
+            ss >> showedOneTime;
+        else if (pair.first() == File::SHOW_WELCOME_MESSAGE)
+            ss >> Global::showWelcome;
+        else if (pair.first() == File::SHOW_QUIT_MESSAGE)
+            ss >> Global::showQuit;
+        else if (pair.first() == File::SHOW_HINT)
+            ss >> Global::showHint;
+    }
+}
 
-        std::cout << std::endl;
+bool Settings::generate() const
+{
+    std::ifstream inFile(Path::fSetting);
+
+    if (inFile)
+    {
+        inFile.close();
+        return false;
     }
 
-    Sleep(300);
-    settings();
+    // Assigns default values to unInitialized variables
+    Global::signedUserID = std::string{"NULL"};
+    Global::sleepTime = 25;
+    lSearchStats = DEFAULT;
+    shortcutStats = DEFAULT;
+    animeSignOutStats = DEFAULT;
+    showedOneTime = true;
+    Global::showWelcome = true;
+    Global::showQuit = true;
+    Global::showHint = true;
+
+    // If the settings file doen't exists it prints the above variable to the file for future uses
+
+    std::ofstream outFile(Path::fSetting);
+
+    print_to_file(outFile, File::CURRENT_USER, Global::signedUserID);
+    print_to_file(outFile, File::ANIMATION_SPEED, Global::sleepTime);
+    print_to_file(outFile, File::LSEARCH_STATUS, lSearchStats);
+    print_to_file(outFile, File::SHORTCUT_STATUS, shortcutStats);
+    print_to_file(outFile, File::ANIME_SIGN_OUT_STATUS, animeSignOutStats);
+    print_to_file(outFile, File::SHOW_ONE_TIME_HINT, showedOneTime);
+    print_to_file(outFile, File::SHOW_WELCOME_MESSAGE, Global::showWelcome);
+    print_to_file(outFile, File::SHOW_QUIT_MESSAGE, Global::showQuit);
+    print_to_file(outFile, File::SHOW_HINT, Global::showHint);
+
+    outFile.close();
+
+    return true;
 }
 
-std::string state_selector(bool isTrue)
-{
-    return (isTrue ? std::string{"Disable "} : std::string{"Enable "});
-}
+/******************************************* MEMBER FUNCTIONS ***********************************************/
 
-void settings()
+void Settings::start()
 {
     cod::scan sc;
     int ch;
@@ -122,7 +181,86 @@ void settings()
     } while (1); // true
 }
 
-void settings_controller(char ch)
+bool Settings::isDefault() const
+{
+    std::ifstream file(Path::fSetting);
+    std::string title, usr_signed;
+    int time, c, s, aso;
+    bool sothint, wlcome, hint, quit;
+
+    if (!file)
+        return true;
+
+    // It checks the default state of settings file by comparing the saved values with the default values
+
+    while (file >> title)
+    {
+        if (title == File::CURRENT_USER)
+            file >> usr_signed;
+        else if (title == File::ANIMATION_SPEED)
+            file >> time;
+        else if (title == File::LSEARCH_STATUS)
+            file >> c;
+        else if (title == File::SHORTCUT_STATUS)
+            file >> s;
+        else if (title == File::ANIME_SIGN_OUT_STATUS)
+            file >> aso;
+        else if (title == File::SHOW_ONE_TIME_HINT)
+            file >> sothint;
+        else if (title == File::SHOW_WELCOME_MESSAGE)
+            file >> wlcome;
+        else if (title == File::SHOW_QUIT_MESSAGE)
+            file >> quit;
+        else if (title == File::SHOW_HINT)
+            file >> hint;
+    }
+
+    if (usr_signed == std::string{"NULL"} && time == 25 && !c && !s && !aso && sothint && wlcome && quit && hint)
+        return true;
+
+    file.close();
+    return false;
+}
+
+void Settings::show_me_first(const std::string &message, int repeatFor)
+{
+    title();
+
+    update_screen(std::string{" SETTINGS "});
+
+    if (Global::showHint) // display hint in every screen
+        show_hint();
+
+    header(std::string{" SETTINGS "}, false);
+
+    while (repeatFor--)
+    {
+        std::cout << message;
+        Sleep(250);
+
+        if (repeatFor == 0)
+            break;
+
+        size_t i{0};
+        while (i < message.size())
+        {
+            std::cout << "\b \b";
+            ++i;
+        }
+
+        std::cout << std::endl;
+    }
+
+    Sleep(300);
+    settings();
+}
+
+std::string Settings::state_selector(bool isTrue)
+{
+    return (isTrue ? std::string{"Disable "} : std::string{"Enable "});
+}
+
+void Settings::settings_controller(char ch)
 {
     switch (ch)
     {
@@ -175,7 +313,7 @@ void settings_controller(char ch)
     print_message(std::string{"Changes saved!"}, true, temp);
 }
 
-std::vector<std::string> settings_screen_selector()
+std::vector<std::string> Settings::settings_screen_selector()
 {
     // select the correct menu to display as per need
 
@@ -199,7 +337,7 @@ std::vector<std::string> settings_screen_selector()
     return menu_to_display;
 }
 
-void change_text_anime_speed()
+void Settings::change_text_anime_speed()
 {
     cod::scan sc;
     int speed;
@@ -220,7 +358,7 @@ void change_text_anime_speed()
     save_to_file(Path::fSetting, File::ANIMATION_SPEED, speed);
 }
 
-void change_lsearch_type()
+void Settings::change_lsearch_type()
 {
     cod::scan sc;
     int ch;
@@ -248,7 +386,7 @@ void change_lsearch_type()
     } while (1);
 }
 
-void change_shortcuts_type()
+void Settings::change_shortcuts_type()
 {
     cod::scan sc;
     int ch;
@@ -276,12 +414,12 @@ void change_shortcuts_type()
     } while (1);
 }
 
-void change_theme_type()
+void Settings::change_theme_type()
 {
     print_message();
 }
 
-void change_anime_style()
+void Settings::change_anime_style()
 {
     cod::scan sc;
     int ch;
@@ -309,33 +447,33 @@ void change_anime_style()
     } while (1);
 }
 
-void change_display_style()
+void Settings::change_display_style()
 {
     print_message();
 }
 
-void welcome_message()
+void Settings::welcome_message()
 {
     Global::showWelcome = (!Global::showWelcome); // reverse the state
 
     save_to_file(Path::fSetting, File::SHOW_WELCOME_MESSAGE, Global::showWelcome);
 }
 
-void quit_message()
+void Settings::quit_message()
 {
     Global::showQuit = (!Global::showQuit); // reverse the state
 
     save_to_file(Path::fSetting, File::SHOW_QUIT_MESSAGE, Global::showQuit);
 }
 
-void hint_message()
+void Settings::hint_message()
 {
     Global::showHint = (!Global::showHint); // reverse the state
 
     save_to_file(Path::fSetting, File::SHOW_HINT, Global::showHint);
 }
 
-void reset()
+void Settings::reset()
 {
     if (check_default_settings())
     {
