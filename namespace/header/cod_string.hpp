@@ -13,7 +13,7 @@ namespace cod
         /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
 
         virtual std::vector<cod::pair<std::string, std::string>> save() const override;
-        virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
+        virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) override;
 
         /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
 
@@ -232,6 +232,7 @@ namespace cod
 
         char *str;
         long long index;
+        std::string _fileName;
         size_t _size, _capacity, _maxSize, _words, _vowels, _consonants;
 
     public:
@@ -345,7 +346,7 @@ namespace cod
         bool ispalindrome(size_t pos = 0, size_t len = npos) const;
         bool isanagram(size_t pos, size_t len, const string &rhs, size_t subpos = 0, size_t sublen = npos) const;
         void permutation(size_t pos = 0, size_t len = npos);
-        std::vector<cod::pair<char, int>> find_duplicates(size_t pos = 0, size_t len = npos);
+        std::vector<cod::pair<int, char>> find_duplicates(size_t pos = 0, size_t len = npos);
         std::vector<char> find_unique(size_t pos = 0, size_t len = npos);
 
         /*************************************************** STRING OPERATIONS **************************************/

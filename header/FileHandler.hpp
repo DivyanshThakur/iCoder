@@ -11,7 +11,7 @@ class ISaveable
 {
 public:
     virtual std::vector<cod::pair<std::string, std::string>> save() const = 0;
-    virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) = 0;
+    virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) = 0;
 
     virtual ~ISaveable() = default;
 };

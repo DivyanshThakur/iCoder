@@ -11,8 +11,13 @@ std::vector<cod::pair<std::string, std::string>> cod::string::save() const
     return vecData;
 }
 
-void cod::string::load(const std::vector<std::pair<std::string, std::string>> &vecData)
+void cod::string::load(const std::vector<cod::pair<std::string, std::string>> &vecData)
 {
+    for (const auto &pair : vecData)
+    {
+        if (pair.first() == DataFile::NAME)
+            std::cout << 'H';
+    }
 }
 
 /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
@@ -149,7 +154,7 @@ cod::string::string() : string(nullptr)
 {
 }
 
-cod::string::string(const char *s) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s) : str(nullptr), index{0}, _fileName(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     if (s == nullptr)
     {
@@ -1398,12 +1403,12 @@ void cod::string::permutation(size_t pos, size_t len)
 }
 
 // Finding duplicates
-std::vector<cod::pair<char, int>> cod::string::find_duplicates(size_t pos, size_t len)
+std::vector<cod::pair<int, char>> cod::string::find_duplicates(size_t pos, size_t len)
 {
     this->validate(pos, true);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
-    std::vector<cod::pair<char, int>> vec;
+    std::vector<cod::pair<int, char>> vec;
 
     int H[26]{0};
 
@@ -1416,7 +1421,7 @@ std::vector<cod::pair<char, int>> cod::string::find_duplicates(size_t pos, size_
     for (size_t i{0}; i < 26; i++)
     {
         if (H[i] > 1)
-            vec.push_back(cod::pair<char, int>{static_cast<char>(97 + i), H[i]});
+            vec.push_back(cod::pair<int, char>{H[i], static_cast<char>(97 + i)});
     }
 
     return vec;

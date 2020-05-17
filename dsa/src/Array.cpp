@@ -979,7 +979,7 @@ void ArrayHandler<T>::find_dup_val_arr()
     int ch;
     bool toStop;
     size_t start, end;
-    std::vector<cod::pair<T, int>> vec;
+    std::vector<cod::pair<int, T>> vec;
 
     do
     {

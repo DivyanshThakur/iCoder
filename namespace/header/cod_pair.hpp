@@ -5,26 +5,26 @@
 
 namespace cod
 {
-template <typename T1, typename T2>
-class pair
-{
-
-    friend std::ostream &operator<<(std::ostream &os, const pair &pair)
+    template <typename T1, typename T2>
+    class pair
     {
-        os << std::setw(12) << std::left << pair.second() << pair.first();
-        return os;
-    }
 
-    T1 val1;
-    T2 val2;
+        friend std::ostream &operator<<(std::ostream &os, const pair &pair)
+        {
+            os << std::setw(12) << std::left << pair.first() << pair.second();
+            return os;
+        }
 
-public:
-    pair();
-    pair(const T1 &first, const T2 &second);
+        T1 val1;
+        T2 val2;
 
-    T1 first() const;
-    T2 second() const;
-};
+    public:
+        pair();
+        pair(const T1 &first, const T2 &second);
+
+        T1 first() const;
+        T2 second() const;
+    };
 } // namespace cod
 
 #endif

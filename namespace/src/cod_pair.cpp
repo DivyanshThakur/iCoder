@@ -25,9 +25,9 @@ T2 cod::pair<T1, T2>::second() const
 }
 
 template class cod::pair<int, int>;
-template class cod::pair<size_t, int>;
-template class cod::pair<long long, int>;
-template class cod::pair<char, int>;
-template class cod::pair<double, int>;
-template class cod::pair<std::string, int>;
+template class cod::pair<int, size_t>;
+template class cod::pair<int, long long>;
+template class cod::pair<int, char>;
+template class cod::pair<int, double>;
+template class cod::pair<int, std::string>;
 template class cod::pair<std::string, std::string>;
