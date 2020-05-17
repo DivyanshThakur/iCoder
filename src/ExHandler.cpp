@@ -6,76 +6,64 @@
 #include "../header/Help.hpp"
 #include "../header/More.hpp"
 
-const char *NegativeValueException::what() const noexcept
+void NegativeValueException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Negative value not allowed!";
+    print_message("Negative value not allowed!", isPressKeyEnabled, NIL);
 }
 
-const char *InvalidChoiceException::what() const noexcept
+void InvalidChoiceException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Invalid choice!";
+    print_message("Invalid choice!", isPressKeyEnabled, NIL);
 }
 
-const char *InvalidInputException::what() const noexcept
+void InvalidInputException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Invalid input!";
+    print_message("Invalid input!", isPressKeyEnabled, NIL);
 }
 
-const char *PasswordNotMatchedException::what() const noexcept
+void PasswordNotMatchedException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Password not matched!";
+    print_message("Password not matched!", isPressKeyEnabled, NIL);
 }
 
-const char *UsernameAlreadyExistsException::what() const noexcept
+void UsernameAlreadyExistsException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Username already exists!";
+    print_message("Username already exists!", isPressKeyEnabled, NIL);
 }
 
-const char *SavingUserException::what() const noexcept
+void SavingUserException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Error saving user details!";
+    print_message("Error saving user details!", isPressKeyEnabled, NIL);
 }
 
-const char *InvalidUser::what() const noexcept
+void InvalidUser::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Invalid UserID/Password!";
+    print_message("Invalid UserID/Password!", isPressKeyEnabled, NIL);
 }
 
-const char *FileNotOpenedException::what() const noexcept
+void FileNotOpenedException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Error fetching data!";
+    print_message("Error fetching data!", isPressKeyEnabled, NIL);
 }
 
-const char *ArrayFullException::what() const noexcept
+void ArrayFullException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Array is full!";
+    print_message("Array is full!", isPressKeyEnabled, NIL);
 }
 
-const char *ArrayEmptyException::what() const noexcept
+void ArrayEmptyException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Array is empty!";
+    print_message("Array is empty!", isPressKeyEnabled, NIL);
 }
 
-const char *InvalidPositionException::what() const noexcept
+void InvalidPositionException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::widthMenu);
-    return "Invalid position!";
+    print_message("Invalid position!", isPressKeyEnabled, NIL);
 }
 
-const char *OutofBoundsException::what() const noexcept
+void OutofBoundsException::what(bool isPressKeyEnabled) const noexcept
 {
-    border(Ui::Ui::widthMenu);
-    return "Invalid position!";
+    print_message("Invalid position!", isPressKeyEnabled, NIL);
 }
 
 void Exit::what() const noexcept

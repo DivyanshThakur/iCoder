@@ -55,8 +55,7 @@ void array_type_selector(int ch)
         break;
 
     default:
-        print_message(std::string{"Invalid choice"});
-        press_key(); // program paused
+        print_message(std::string{"Invalid choice"}, true);
     }
 }
 
@@ -77,13 +76,11 @@ void ArrayHandler<T>::start()
     }
     catch (const InvalidInputException &e)
     {
-        std::cerr << e.what();
-        press_key(NIL);
+        e.what();
     }
     catch (const NegativeValueException &e)
     {
-        std::cerr << e.what();
-        press_key(NIL);
+        e.what();
     }
 
     do
@@ -109,33 +106,27 @@ void ArrayHandler<T>::start()
         }
         catch (const InvalidInputException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const NegativeValueException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const OutofBoundsException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const ArrayFullException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const ArrayEmptyException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const InvalidPositionException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const Exit &e)
         {
@@ -631,8 +622,7 @@ void ArrayHandler<T>::binary_search_arr()
     {
         this->sort(std::string{" BINARY SEARCH "});
 
-        print_message(std::string{"Array Sorted!"});
-        press_key();
+        print_message(std::string{"Array Sorted!"}, true);
     }
 
     header(std::string{" BINARY SEARCH "});
@@ -669,7 +659,6 @@ void ArrayHandler<T>::merge_arr()
     catch (const ArrayFullException &e)
     {
         e.what();
-        press_key();
     }
 
     if (!arr.isSorted())
@@ -711,7 +700,6 @@ void ArrayHandler<T>::set_opn_arr()
     catch (const ArrayFullException &e)
     {
         e.what();
-        press_key();
     }
 
     do
@@ -742,9 +730,8 @@ void ArrayHandler<T>::set_opn_arr()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
@@ -826,9 +813,8 @@ void ArrayHandler<T>::reverse_arr()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
@@ -894,9 +880,8 @@ void ArrayHandler<T>::shift_rotate_arr()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
@@ -948,9 +933,8 @@ void ArrayHandler<T>::find_miss_val_arr()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
@@ -1013,9 +997,8 @@ void ArrayHandler<T>::find_dup_val_arr()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
@@ -1093,9 +1076,8 @@ void ArrayHandler<T>::find_pair_sum_arr()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
@@ -1228,9 +1210,8 @@ void ArrayHandler<T>::average()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 
@@ -1284,9 +1265,8 @@ void ArrayHandler<T>::sum()
             throw EscPressed();
 
         default:
-            print_message(std::string{"Invalid choice"});
-            press_key();
             toStop = false;
+            print_message(std::string{"Invalid choice"}, true);
             break;
         }
 

@@ -46,6 +46,7 @@ std::string Path::fSetting;
  * *******************************************************************************************************************/
 
 /************************************************* Data File Constant ************************************************/
+const std::string DataFile::LAST_NUM{"__LAST_NUM__"};
 const std::string DataFile::TITLE{"__TITLE__"};
 const std::string DataFile::NAME{"__NAME__"};
 const std::string DataFile::DATA{"__DATA__"};

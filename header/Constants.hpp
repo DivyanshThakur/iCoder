@@ -60,6 +60,7 @@ public:
 class DataFile
 {
 public:
+    static const std::string LAST_NUM;
     static const std::string TITLE;
     static const std::string NAME;
     static const std::string DATA;

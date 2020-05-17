@@ -154,7 +154,7 @@ cod::string::string() : string(nullptr)
 {
 }
 
-cod::string::string(const char *s) : str(nullptr), index{0}, _fileName(nullptr), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     if (s == nullptr)
     {
@@ -174,7 +174,7 @@ cod::string::string(const char *s) : str(nullptr), index{0}, _fileName(nullptr),
     }
 }
 
-cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -184,7 +184,7 @@ cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _size(0),
     this->cpy(s, n);
 }
 
-cod::string::string(size_t n, char c) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(size_t n, char c) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -198,7 +198,7 @@ cod::string::string(size_t n, char c) : str(nullptr), index{0}, _size(0), _capac
     str[n] = '\0';
 }
 
-cod::string::string(const string &rhs) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = rhs._size;
     _capacity = rhs._capacity;
@@ -209,7 +209,7 @@ cod::string::string(const string &rhs) : str(nullptr), index{0}, _size(0), _capa
     this->cpy(rhs.str, rhs._size);
 }
 
-cod::string::string(string &&rhs) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(string &&rhs) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _capacity = rhs._capacity;
     _size = rhs._size;
@@ -217,7 +217,7 @@ cod::string::string(string &&rhs) : str(nullptr), index{0}, _size(0), _capacity(
     rhs.str = nullptr;
 }
 
-cod::string::string(const std::initializer_list<char> &list) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const std::initializer_list<char> &list) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = list.size();
 
@@ -233,7 +233,7 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), ind
     str[i] = '\0';
 }
 
-cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     // Initializing valid size by taking references of size and pos with different len condtition
     // if len equals npos, it returns the difference of rhs.size and pos

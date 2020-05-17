@@ -74,18 +74,15 @@ void settings()
         }
         catch (const FileNotOpenedException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const InvalidInputException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const NegativeValueException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const Exit &e)
         {

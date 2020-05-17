@@ -1,114 +1,76 @@
 #ifndef EXHANDLER_HPP
 #define EXHANDLER_HPP
 
-#include <exception>
-
-class NegativeValueException : public std::exception
+class NegativeValueException
 {
 public:
-    NegativeValueException() noexcept = default;
-    ~NegativeValueException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class InvalidChoiceException : public std::exception
+class InvalidChoiceException
 {
 public:
-    InvalidChoiceException() noexcept = default;
-    ~InvalidChoiceException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class InvalidInputException : public std::exception
+class InvalidInputException
 {
 public:
-    InvalidInputException() noexcept = default;
-    ~InvalidInputException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class PasswordNotMatchedException : public std::exception
+class PasswordNotMatchedException
 {
 public:
-    PasswordNotMatchedException() noexcept = default;
-    ~PasswordNotMatchedException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class UsernameAlreadyExistsException : public std::exception
+class UsernameAlreadyExistsException
 {
 public:
-    UsernameAlreadyExistsException() noexcept = default;
-    ~UsernameAlreadyExistsException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class SavingUserException : public std::exception
+class SavingUserException
 {
 public:
-    SavingUserException() noexcept = default;
-    ~SavingUserException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class InvalidUser : public std::exception
+class InvalidUser
 {
 public:
-    InvalidUser() noexcept = default;
-    ~InvalidUser() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class FileNotOpenedException : public std::exception
+class FileNotOpenedException
 {
 public:
-    FileNotOpenedException() noexcept = default;
-    ~FileNotOpenedException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class ArrayFullException : public std::exception
+class ArrayFullException
 {
 public:
-    ArrayFullException() noexcept = default;
-    ~ArrayFullException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class ArrayEmptyException : public std::exception
+class ArrayEmptyException
 {
 public:
-    ArrayEmptyException() noexcept = default;
-    ~ArrayEmptyException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class InvalidPositionException : public std::exception
+class InvalidPositionException
 {
 public:
-    InvalidPositionException() noexcept = default;
-    ~InvalidPositionException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-class OutofBoundsException : public std::exception
+class OutofBoundsException
 {
 public:
-    OutofBoundsException() noexcept = default;
-    ~OutofBoundsException() = default;
-
-    virtual const char *what() const noexcept;
+    void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
 class EscPressed

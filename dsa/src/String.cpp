@@ -47,13 +47,11 @@ void StringHandler::start()
         }
         catch (const InvalidInputException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const InvalidPositionException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
         catch (const Exit &e)
         {

@@ -47,8 +47,7 @@ int main()
         }
         catch (const FileNotOpenedException &e)
         {
-            std::cerr << e.what();
-            press_key(NIL);
+            e.what();
         }
     }
 
@@ -260,9 +259,9 @@ void create_path()
     }
 
     // assigning path to their respective variables
-    Path::dataPath = std::string(userpath) + "\\Documents\\iCoder";
-    Path::fUser = Path::dataPath + "\\users.dat";
-    Path::fSetting = Path::dataPath + "\\settings.dat";
+    Path::dataPath = std::string(userpath) + "\\Documents\\iCoder\\";
+    Path::fUser = Path::dataPath + "users.dat";
+    Path::fSetting = Path::dataPath + "settings.dat";
 
     if (!isDirectoryExists())          // checking if the directory "data" exists or not
         mkdir(Path::dataPath.c_str()); // these code will create a folder in that specific destination

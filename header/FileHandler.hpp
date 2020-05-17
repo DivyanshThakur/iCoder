@@ -22,8 +22,8 @@ void restore_saved_changes();
 void update_stats(enum Status &stats, int c);
 bool check_default_settings();
 void save_active_user(const std::string &userID);
-
 std::string get_file_str(const std::string &fileName);
+std::string generate_filename(const std::string &fileName, const std::string &title);
 
 template <typename T>
 void save_to_file(const std::string &fileName, const std::string &title, const T &data);

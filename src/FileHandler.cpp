@@ -166,6 +166,23 @@ std::string get_file_str(const std::string &fileName)
     return fileStr;
 }
 
+std::string generate_filename(const std::string &fileName, const std::string &title)
+{
+    std::ifstream inFile(fileName);
+
+    std::string fileStr, line;
+
+    if (!inFile)
+        throw FileNotOpenedException();
+
+    while (std::getline(inFile, line))
+    {
+        fileStr += line;
+    }
+
+    inFile.close();
+}
+
 template <typename T>
 void save_to_file(const std::string &fileName, const std::string &title, const T &data)
 {

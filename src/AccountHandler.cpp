@@ -35,7 +35,7 @@ void login()
     }
     catch (const InvalidUser &e)
     {
-        std::cerr << e.what();
+        e.what(false);
 
         press_key(PRE, "Press ESC to return");
 
@@ -43,13 +43,11 @@ void login()
     }
     catch (const FileNotOpenedException &e)
     {
-        std::cerr << e.what();
-        press_key();
+        e.what();
     }
     catch (...)
     {
-        std::cerr << "(Log In) Unknown error occured!!!" << std::endl;
-        press_key();
+        print_message("(Log In) Unknown error occured!", true);
     }
 }
 
@@ -84,7 +82,7 @@ void create_account()
     }
     catch (const PasswordNotMatchedException &e)
     {
-        std::cerr << e.what();
+        e.what(false);
 
         press_key(PRE, "Press ESC to return");
 
@@ -92,17 +90,15 @@ void create_account()
     }
     catch (const SavingUserException &e)
     {
-        std::cerr << e.what();
-        press_key();
+        e.what();
     }
     catch (const FileNotOpenedException &e)
     {
-        std::cerr << e.what();
-        press_key();
+        e.what();
     }
     catch (const UsernameAlreadyExistsException &e)
     {
-        std::cerr << e.what();
+        e.what(false);
 
         press_key(PRE, "Press ESC to return");
 
@@ -110,8 +106,7 @@ void create_account()
     }
     catch (...)
     {
-        std::cerr << "(Create Account) Unknown error occured!!!" << std::endl;
-        press_key();
+        print_message("(Create Account) Unknown error occured!!!", true);
     }
 }
 
