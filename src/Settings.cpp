@@ -72,6 +72,11 @@ void settings()
         {
             return; // returns to last screen
         }
+        catch (const FileNotOpenedException &e)
+        {
+            std::cerr << e.what();
+            press_key(NIL);
+        }
         catch (const InvalidInputException &e)
         {
             std::cerr << e.what();

@@ -37,10 +37,19 @@ int main()
     // It is executed for only 1 time after installing the software
     if (showedOneTime) // if the showdOneTime is enabled, it displays below message
     {
-        title();                                                               // Display title
-        emessage(std::string{" HINT --> See HELP section for shortcuts!"});    // Show 1 time message to user
-        showedOneTime = false;                                                 // Set to false to not show next time
-        save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime); // saves the changes to the file
+        title();                                                            // Display title
+        emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // Show 1 time message to user
+        showedOneTime = false;                                              // Set to false to not show next time
+
+        try
+        {
+            save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime); // saves the changes to the file
+        }
+        catch (const FileNotOpenedException &e)
+        {
+            std::cerr << e.what();
+            press_key(NIL);
+        }
     }
 
     if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user

@@ -30,3 +30,4 @@ template class cod::pair<long long, int>;
 template class cod::pair<char, int>;
 template class cod::pair<double, int>;
 template class cod::pair<std::string, int>;
+template class cod::pair<std::string, std::string>;

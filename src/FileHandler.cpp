@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include "../header/FileHandler.hpp"
+#include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 
 void restore_saved_changes()
@@ -145,47 +146,77 @@ void save_active_user(const std::string &userID)
     save_to_file(Path::fSetting, File::CURRENT_USER, Global::signedUserID);
 }
 
+std::string get_file_str(const std::string &fileName)
+{
+    std::ifstream inFile(fileName);
+
+    std::string fileStr, line;
+
+    if (!inFile)
+        throw FileNotOpenedException();
+
+    // Scans and appends the data from the settings file to the fileStr variable
+    while (std::getline(inFile, line))
+    {
+        fileStr += line;
+    }
+
+    inFile.close();
+
+    return fileStr;
+}
+
 template <typename T>
 void save_to_file(const std::string &fileName, const std::string &title, const T &data)
 {
-    std::ifstream in_file(fileName);
-
-    std::string file_str, file_title, line, val;
-
-    if (!in_file)
-    {
-        std::cerr << "Error saving user details!" << std::endl;
-        return;
-    }
-
-    // Scans and appends the data from the settings file to the file_str variable
-    while (std::getline(in_file, line))
-    {
-        file_str += line;
-    }
-
-    in_file.close();
+    std::stringstream ss{get_file_str(fileName)};
 
     std::ofstream outFile(fileName);
-    std::stringstream ss{file_str};
+    std::string fileTitle, val;
     bool isSaved{false};
 
     // stringstream helps in checking string line by line
-    while (ss >> file_title) // scan the title
+    while (ss >> fileTitle) // scan the title
     {
         ss >> val; // scan the value stored
 
-        if (file_title == title) // if scanned title equals the title whose value we changed
-        {                        // will print the changed value to file and update it
+        if (fileTitle == title) // if scanned title equals the title whose value we changed
+        {                       // will print the changed value to file and update it
             print_to_file(outFile, title, data);
             isSaved = true; // checks for new titles i.e. new setting feature for older version of files
         }
         else
-            print_to_file(outFile, file_title, val); // print again without change
+            print_to_file(outFile, fileTitle, val); // print again without change
     }
 
     if (!isSaved) // adds new setting to the end of file
         print_to_file(outFile, title, data);
+}
+
+void save_to_file(const std::string &fileName, const std::string &title, const ISaveable &iSave)
+{
+    std::stringstream ss{get_file_str(fileName)};
+
+    // std::ofstream outFile(fileName);
+    // std::string fileTitle, val;
+    // bool isSaved{false};
+
+    // // stringstream helps in checking string line by line
+    // while (ss >> fileTitle) // scan the title
+    // {
+    //     ss >> val; // scan the value stored
+
+    //     if (fileTitle == title) // if scanned title equals the title whose value we changed
+    //     {                       // will print the changed value to file and update it
+    //         print_to_file(outFile, title, iSave);
+    //         isSaved = true; // checks for new titles i.e. new setting feature for older version of files
+    //     }
+    //     else
+    //         print_to_file(outFile, fileTitle, val); // print again without change
+    // }
+
+    // if (!isSaved) // adds new setting to the end of file
+    // print_to_file(outFile, title, iSave);
 }
 
 template <typename T>
@@ -193,7 +224,14 @@ void print_to_file(std::ofstream &outFile, const std::string &title, const T &da
 {
     // print values to file with titles
     outFile << std::setw(Ui::widthUsername * 2) << std::left << title
-            << std::setw(Ui::widthUsername) << std::left << data << std::endl;
+            << data << std::endl;
+}
+
+void print_to_file(std::ofstream &outFile, const cod::pair<std::string, std::string> &pair)
+{
+    // print values to file with titles
+    outFile << std::setw(Ui::widthUsername * 2) << std::left << pair.first()
+            << pair.second() << std::endl;
 }
 
 template void save_to_file<std::string>(const std::string &fileName, const std::string &title, const std::string &data);

@@ -57,6 +57,17 @@ public:
 
 /***************************************************** CONSTANTS *****************************************************/
 
+class DataFile
+{
+public:
+    static const std::string TITLE;
+    static const std::string NAME;
+    static const std::string DATA;
+    static const std::string SUB_DATA1;
+    static const std::string SUB_DATA2;
+    static const std::string SUB_DATA3;
+};
+
 class File // File Constant
 {
 public:
@@ -70,6 +81,7 @@ public:
     static const std::string SHOW_HINT;
     static const std::string SHOW_ONE_TIME_HINT;
 };
+
 class Ui // Ui Constant
 {
 public:

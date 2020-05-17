@@ -12,8 +12,8 @@ namespace cod
     {
         /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
 
-        virtual std::string save() const override;
-        virtual void load(const std::string &data) override;
+        virtual std::vector<cod::pair<std::string, std::string>> save() const override;
+        virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
 
         /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
 

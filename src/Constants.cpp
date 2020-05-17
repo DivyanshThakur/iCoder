@@ -45,6 +45,14 @@ std::string Path::fSetting;
  * 
  * *******************************************************************************************************************/
 
+/************************************************* Data File Constant ************************************************/
+const std::string DataFile::TITLE{"__TITLE__"};
+const std::string DataFile::NAME{"__NAME__"};
+const std::string DataFile::DATA{"__DATA__"};
+const std::string DataFile::SUB_DATA1{"__SUB_DATA1__"};
+const std::string DataFile::SUB_DATA2{"__SUB_DATA2__"};
+const std::string DataFile::SUB_DATA3{"__SUB_DATA3__"};
+
 /*************************************************** File Constant ***************************************************/
 const std::string File::CURRENT_USER{"CURRENT_USER"};
 const std::string File::ANIMATION_SPEED{"ANIMATION_SPEED"};

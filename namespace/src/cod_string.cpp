@@ -4,14 +4,14 @@
 
 /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
 
-std::string cod::string::save() const
+std::vector<cod::pair<std::string, std::string>> cod::string::save() const
 {
-    std::string data;
+    std::vector<cod::pair<std::string, std::string>> vecData;
 
-    return data;
+    return vecData;
 }
 
-void cod::string::load(const std::string &data)
+void cod::string::load(const std::vector<std::pair<std::string, std::string>> &vecData)
 {
 }
 
