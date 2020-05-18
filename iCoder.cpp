@@ -29,10 +29,12 @@
 
 int main()
 {
+    Settings mySetting;
+
     adjust_console_size(); // Adjust the window size
     create_path();         // Initilize the paths
 
-    restore_saved_changes(); // Restore the settings that was previously changed and saved
+    FileHandler::load(mySetting); // Restore the settings that was previously changed and saved
 
     // It is executed for only 1 time after installing the software
     if (showedOneTime) // if the showdOneTime is enabled, it displays below message
@@ -41,14 +43,7 @@ int main()
         emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // Show 1 time message to user
         showedOneTime = false;                                              // Set to false to not show next time
 
-        try
-        {
-            save_to_file(Path::fSetting, File::SHOW_ONE_TIME_HINT, showedOneTime); // saves the changes to the file
-        }
-        catch (const FileNotOpenedException &e)
-        {
-            e.what();
-        }
+        FileHandler::save(mySetting, File::SHOW_ONE_TIME_HINT); // saves the changes to the file
     }
 
     if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
@@ -165,11 +160,11 @@ void main_menu_controller(int ch)
     switch (ch)
     {
     case 1: // go to log in screen
-        login();
+        AccountHandler::login();
         break;
 
     case 2: // go to create account screen
-        create_account();
+        AccountHandler::create_account();
         break;
 
     case 3: // login Anonymously / Data Structure
@@ -180,8 +175,8 @@ void main_menu_controller(int ch)
         more();
         break;
 
-    case 5:              // show saved user details
-        display_users(); // fetches user details and display it
+    case 5:                              // show saved user details
+        AccountHandler::display_users(); // fetches user details and display it
         break;
 
     case 6: // help for shortcuts
@@ -268,6 +263,8 @@ void create_path()
 
 void sign_out()
 {
-    save_active_user(std::string{"NULL"});
+    FileHandler::save_active_user(std::string{"NULL"});
+    Path::userFilePath.clear();
+
     signout_anime_switcher();
 }

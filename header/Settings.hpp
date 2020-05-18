@@ -5,16 +5,18 @@
 
 void settings();
 
-class Settings : ISaveable
+class Settings : public ISaveable
 {
 public:
     /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
 
     virtual std::vector<cod::pair<std::string, std::string>> save() const override;
     virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) override;
+    virtual std::string filename() const override;
     virtual bool generate() const override;
 
     /******************************************* MEMBER FUNCTIONS ***********************************************/
+    cod::pair<std::string, std::string> pairBuffer;
 
     void start();
     bool isDefault() const;

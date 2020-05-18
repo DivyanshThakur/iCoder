@@ -8,17 +8,11 @@
 #include "../header/Settings.hpp"
 #include "../namespace/header/cod_algorithm.hpp"
 
-/*******************************************************************************************************************
- * 
- *                                               FILE HANDLER                                            
- * 
- ******************************************************************************************************************/
-
-std::string FileHandler::file_str(const std::string &fileName, const ISaveable &iSave)
+std::string FileHandler::file_str(const ISaveable &iSaver)
 {
-    iSave.generate();
+    iSaver.generate();
 
-    std::ifstream inFile(fileName);
+    std::ifstream inFile(iSaver.filename());
 
     std::string fileStr, line;
 
@@ -33,6 +27,17 @@ std::string FileHandler::file_str(const std::string &fileName, const ISaveable &
     return fileStr;
 }
 
+void FileHandler::print(std::ofstream &outFile, const std::vector<cod::pair<std::string, std::string>> &vec)
+{
+    for (const auto &pair : vec)
+    {
+        outFile << std::setw(Ui::widthUsername * 2) << std::left << pair.first()
+                << pair.second() << std::endl;
+    }
+
+    outFile << "~" << std::endl;
+}
+
 void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std::string> &pair)
 {
     outFile << std::setw(Ui::widthUsername * 2) << std::left << pair.first()
@@ -40,112 +45,106 @@ void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std
             << "~" << std::endl;
 }
 
-void FileHandler::save(const std::string &fileName, const std::string &title, const ISaveable &iSave)
+void FileHandler::save(const ISaveable &iSaver, const std::string &name)
 {
-    std::stringstream ss{file_str(fileName, iSave)};
+    std::stringstream ss{file_str(iSaver)};
 
-    std::ofstream outFile(fileName);
-    std::string fileTitle, val;
+    std::ofstream outFile(iSaver.filename());
+    std::string line, word;
     bool isSaved{false};
 
-    // stringstream helps in checking string line by line
-    while (ss >> fileTitle) // scan the title
+    while (!ss.eof())
     {
-        ss >> val; // scan the value stored
+        std::stringstream ssLine;
+        std::vector<cod::pair<std::string, std::string>> vec;
 
-        if (fileTitle == title) // if scanned title equals the title whose value we changed
-        {                       // will print the changed value to file and update it
-            print_to_file(outFile, title, data);
-            isSaved = true; // checks for new titles i.e. new setting feature for older version of files
+        // creating the vector for scanning
+        while (ss >> line)
+        {
+            if (line == "~")
+                break;
+
+            std::string title, val;
+
+            ssLine << line;
+            ss >> title;
+
+            while (ssLine >> word)
+            {
+                val += (word + " ");
+            }
+
+            val.pop_back();
+            vec.push_back(cod::pair<std::string, std::string>(title, val));
+        }
+
+        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == name);
+        bool isSettings = (vec.at(0).first() == name);
+
+        if (isSettings || isDataStructure)
+        {
+            print(outFile, iSaver.save());
+            isSaved = true;
         }
         else
-            print_to_file(outFile, fileTitle, val); // print again without change
+            print(outFile, vec);
     }
 
     if (!isSaved) // adds new setting to the end of file
-        print_to_file(outFile, title, data);
+        print(outFile, iSaver.save());
 }
 
-// void create_settings_file()
-// {
-//     // Assigns default values to unInitialized variables
-//     Global::signedUserID = std::string{"NULL"};
-//     Global::sleepTime = 25;
-//     lSearchStats = DEFAULT;
-//     shortcutStats = DEFAULT;
-//     animeSignOutStats = DEFAULT;
-//     showedOneTime = true;
-//     Global::showWelcome = true;
-//     Global::showQuit = true;
-//     Global::showHint = true;
+void FileHandler::load(ISaveable &iSaver, const std::string &name)
+{
+    std::stringstream ss{file_str(iSaver)};
+    std::string line, word;
 
-//     // If the settings file doen't exists it prints the above variable to the file for future uses
+    while (!ss.eof())
+    {
+        std::stringstream ssLine;
+        std::vector<cod::pair<std::string, std::string>> vec;
 
-//     std::ofstream outFile(Path::fSetting);
+        // creating the vector for scanning
+        while (ss >> line)
+        {
+            if (line == "~")
+                break;
 
-//     print_to_file(outFile, File::CURRENT_USER, Global::signedUserID);
-//     print_to_file(outFile, File::ANIMATION_SPEED, Global::sleepTime);
-//     print_to_file(outFile, File::LSEARCH_STATUS, lSearchStats);
-//     print_to_file(outFile, File::SHORTCUT_STATUS, shortcutStats);
-//     print_to_file(outFile, File::ANIME_SIGN_OUT_STATUS, animeSignOutStats);
-//     print_to_file(outFile, File::SHOW_ONE_TIME_HINT, showedOneTime);
-//     print_to_file(outFile, File::SHOW_WELCOME_MESSAGE, Global::showWelcome);
-//     print_to_file(outFile, File::SHOW_QUIT_MESSAGE, Global::showQuit);
-//     print_to_file(outFile, File::SHOW_HINT, Global::showHint);
+            std::string title, val;
 
-//     outFile.close();
-// }
+            ssLine << line;
+            ss >> title;
 
-// void restore_saved_changes()
-// {
-//     std::ifstream file(Path::fSetting);
+            while (ssLine >> word)
+            {
+                val += (word + " ");
+            }
 
-//     if (!file)
-//     {
-//         create_settings_file();
-//         return;
-//     }
+            val.pop_back();
+            vec.push_back(cod::pair<std::string, std::string>(title, val));
+        }
 
-//     std::string title;
-//     int c;
+        // NULL means the reference is of settings
+        // not NUll means the references are of
+        // data structures and other main datas
 
-//     // If the file already exists, it assigns the saved values to the above variables
-//     while (file >> title)
-//     {
-//         if (title == File::CURRENT_USER)
-//             file >> Global::signedUserID;
-//         else if (title == File::ANIMATION_SPEED)
-//             file >> Global::sleepTime;
-//         else if (title == File::LSEARCH_STATUS)
-//         {
-//             file >> c;
-//             update_stats(lSearchStats, c);
-//         }
-//         else if (title == File::SHORTCUT_STATUS)
-//         {
-//             file >> c;
-//             update_stats(shortcutStats, c);
-//         }
-//         else if (title == File::ANIME_SIGN_OUT_STATUS)
-//         {
-//             file >> c;
-//             update_stats(animeSignOutStats, c);
-//         }
-//         else if (title == File::SHOW_ONE_TIME_HINT)
-//             file >> showedOneTime;
-//         else if (title == File::SHOW_WELCOME_MESSAGE)
-//             file >> Global::showWelcome;
-//         else if (title == File::SHOW_QUIT_MESSAGE)
-//             file >> Global::showQuit;
-//         else if (title == File::SHOW_HINT)
-//             file >> Global::showHint;
-//     }
+        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == name);
+        bool isSettings = (name == "NULL");
 
-//     file.close();
-// }
+        if (isSettings)
+        {
+            iSaver.load(vec);
+        }
+        else if (isDataStructure)
+        {
+            iSaver.load(vec);
+            break;
+        }
+    }
+}
 
 // Common function to update the Status enum variables
-void update_stats(enum Status &stats, int c)
+void FileHandler::update_stats(enum Status &stats, int c)
 {
     switch (c)
     {
@@ -163,86 +162,20 @@ void update_stats(enum Status &stats, int c)
     }
 }
 
-// bool check_default_settings()
-// {
-//     std::ifstream file(Path::fSetting);
-//     std::string title, usr_signed;
-//     int time, c, s, aso;
-//     bool sothint, wlcome, hint, quit;
-
-//     if (!file)
-//         return true;
-
-//     while (file >> title)
-//     {
-//         if (title == File::CURRENT_USER)
-//             file >> usr_signed;
-//         else if (title == File::ANIMATION_SPEED)
-//             file >> time;
-//         else if (title == File::LSEARCH_STATUS)
-//             file >> c;
-//         else if (title == File::SHORTCUT_STATUS)
-//             file >> s;
-//         else if (title == File::ANIME_SIGN_OUT_STATUS)
-//             file >> aso;
-//         else if (title == File::SHOW_ONE_TIME_HINT)
-//             file >> sothint;
-//         else if (title == File::SHOW_WELCOME_MESSAGE)
-//             file >> wlcome;
-//         else if (title == File::SHOW_QUIT_MESSAGE)
-//             file >> quit;
-//         else if (title == File::SHOW_HINT)
-//             file >> hint;
-//     }
-
-//     if (usr_signed == std::string{"NULL"} && time == 25 && !c && !s && !aso && sothint && wlcome && quit && hint)
-//         return true;
-
-//     file.close();
-//     return false;
-// }
-
-void save_active_user(const std::string &userID)
+void FileHandler::save_active_user(const std::string &userID)
 {
     Settings setting;
 
     Global::signedUserID = userID;
 
     // save the current user to the file for automatically log in
-    save_to_file(Path::fSetting, File::CURRENT_USER, Global::signedUserID);
+    save(setting, File::CURRENT_USER); //, Global::signedUserID);
 }
 
-/*******************************************************************************************************************
- * 
- *                                               USER DATA FUNCTIONS                                             
- * 
- ******************************************************************************************************************/
-
-// // Returns the string form of the data stored in file
-// std::string get_file_str(const std::string &fileName)
-// {
-//     std::ifstream inFile(fileName);
-
-//     std::string fileStr, line;
-
-//     if (!inFile)
-//         create_settings_file();
-
-//     // Scans and appends the data from the settings file to the fileStr variable
-//     while (std::getline(inFile, line))
-//     {
-//         fileStr += line;
-//     }
-
-//     inFile.close();
-
-//     return fileStr;
-// }
-
 // Generate default name of the file by checking available name from the user file
-std::string generate_filename(const std::string &fileName, const std::string &title)
+std::string FileHandler::name_generator(const ISaveable &iSaver, const std::string &title)
 {
-    std::ifstream inFile(fileName);
+    iSaver.generate();
 
     // minIndex contains the number which is to be given to the file
     // fileIndex stores the temporary index
@@ -250,8 +183,7 @@ std::string generate_filename(const std::string &fileName, const std::string &ti
     int minIndex = 1, fileIndex;
     bool toStop = false;
 
-    if (!inFile)
-        create_data_file(fileName);
+    std::ifstream inFile(iSaver.filename());
 
     // scan each line from file
     while (!toStop && (std::getline(inFile, line)))
@@ -284,82 +216,3 @@ std::string generate_filename(const std::string &fileName, const std::string &ti
     // eg. Array1 or String3
     return (title.at(0) + cod::tolower(title, 1) + std::to_string(minIndex));
 }
-
-/*******************************************************************************************************************
- * 
- *                                               FILE I/O FUNCTIONS                                             
- * 
- ******************************************************************************************************************/
-
-template <typename T>
-void save_to_file(const std::string &fileName, const std::string &title, const T &data)
-{
-    std::stringstream ss{get_file_str(fileName)};
-
-    std::ofstream outFile(fileName);
-    std::string fileTitle, val;
-    bool isSaved{false};
-
-    // stringstream helps in checking string line by line
-    while (ss >> fileTitle) // scan the title
-    {
-        ss >> val; // scan the value stored
-
-        if (fileTitle == title) // if scanned title equals the title whose value we changed
-        {                       // will print the changed value to file and update it
-            print_to_file(outFile, title, data);
-            isSaved = true; // checks for new titles i.e. new setting feature for older version of files
-        }
-        else
-            print_to_file(outFile, fileTitle, val); // print again without change
-    }
-
-    if (!isSaved) // adds new setting to the end of file
-        print_to_file(outFile, title, data);
-}
-
-void save_to_file(const std::string &fileName, const std::string &title, const ISaveable &iSave)
-{
-    std::stringstream ss{get_file_str(fileName)};
-
-    // std::ofstream outFile(fileName);
-    // std::string fileTitle, val;
-    // bool isSaved{false};
-
-    // // stringstream helps in checking string line by line
-    // while (ss >> fileTitle) // scan the title
-    // {
-    //     ss >> val; // scan the value stored
-
-    //     if (fileTitle == title) // if scanned title equals the title whose value we changed
-    //     {                       // will print the changed value to file and update it
-    //         print_to_file(outFile, title, iSave);
-    //         isSaved = true; // checks for new titles i.e. new setting feature for older version of files
-    //     }
-    //     else
-    //         print_to_file(outFile, fileTitle, val); // print again without change
-    // }
-
-    // if (!isSaved) // adds new setting to the end of file
-    // print_to_file(outFile, title, iSave);
-}
-
-template <typename T>
-void print_to_file(std::ofstream &outFile, const std::string &title, const T &data)
-{
-    // print values to file with titles
-    outFile << std::setw(Ui::widthUsername * 2) << std::left << title
-            << data << std::endl;
-}
-
-// void print_to_file(std::ofstream &outFile, const cod::pair<std::string, std::string> &pair)
-// {
-//     // print values to file with titles
-//     outFile << std::setw(Ui::widthUsername * 2) << std::left << pair.first()
-//             << pair.second() << std::endl;
-// }
-
-template void save_to_file<std::string>(const std::string &fileName, const std::string &title, const std::string &data);
-template void save_to_file<int>(const std::string &fileName, const std::string &title, const int &data);
-template void save_to_file<bool>(const std::string &fileName, const std::string &title, const bool &data);
-template void save_to_file<Status>(const std::string &fileName, const std::string &title, const Status &data);

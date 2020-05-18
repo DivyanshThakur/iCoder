@@ -36,6 +36,7 @@ const std::string Url::iBeta{"https://github.com/DivyanshThakur/iCoder/raw/Devel
 /****************************************************** DATA PATH *****************************************************/
 
 std::string Path::dataPath;
+std::string Path::userFilePath;
 std::string Path::fUser;
 std::string Path::fSetting;
 
@@ -53,6 +54,15 @@ const std::string DataFile::SUB_DATA1{"__SUB_DATA1__"};
 const std::string DataFile::SUB_DATA2{"__SUB_DATA2__"};
 const std::string DataFile::SUB_DATA3{"__SUB_DATA3__"};
 
+/************************************************ FILE TAG Constant **************************************************/
+
+// DATA STRUCTURE
+const std::string Tag::ARRAY{"ARRAY"};
+const std::string Tag::STRING{"STRING"};
+
+// GAMES
+const std::string Tag::TIK_TAC_TOE{"TIC_TAC_TOE"};
+
 /*************************************************** File Constant ***************************************************/
 const std::string File::CURRENT_USER{"CURRENT_USER"};
 const std::string File::ANIMATION_SPEED{"ANIMATION_SPEED"};
@@ -63,15 +73,6 @@ const std::string File::SHOW_WELCOME_MESSAGE{"SHOW_WELCOME_MESSAGE"};
 const std::string File::SHOW_QUIT_MESSAGE{"SHOW_QUIT_MESSAGE"};
 const std::string File::SHOW_HINT{"SHOW_HINT"};
 const std::string File::SHOW_ONE_TIME_HINT{"SHOW_ONE_TIME_HINT"};
-
-/************************************************ FILE TAG Constant **************************************************/
-
-// DATA STRUCTURE
-const std::string Tag::ARRAY{"ARRAY"};
-const std::string Tag::STRING{"STRING"};
-
-// GAMES
-const std::string Tag::TIK_TAC_TOE{"TIC_TAC_TOE"};
 
 /*************************************************** Ui Constant *****************************************************/
 const int Ui::consoleWidth = 850;

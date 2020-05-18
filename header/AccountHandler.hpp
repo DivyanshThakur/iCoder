@@ -3,9 +3,14 @@
 
 /*********************************************** FUNCTION PROTOTYPES ***********************************************/
 
-void login();
-void create_account();
-void display_users();
-std::string pass_to_asteric(const std::string &pass);
+class AccountHandler
+{
+    static std::string pass_to_asteric(const std::string &pass);
+
+public:
+    static void login();
+    static void create_account();
+    static void display_users();
+};
 
 #endif

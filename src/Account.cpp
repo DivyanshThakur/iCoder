@@ -54,30 +54,30 @@ void Account::input_data()
 
     animater(username);
 
-    userID = sc.username(); // taking username from user
+    this->userID = sc.username(); // taking username from user
 
     animater(password);
 
-    pass = sc.password(); // scanning password
+    this->pass = sc.password(); // scanning password
 }
 
 void Account::display_remember_me() const
 {
     cod::scan sc;
+    char c;
 
     border(Ui::widthMenu);
-
     animater(std::string{"Remember me? (Y/N): "});
 
     // scanning character
-    char c;
-
     sc >> c;
 
+    Path::userFilePath = Path::dataPath + this->userID + ".dat";
+
     if (::tolower(c) == 'y')
-        save_active_user(userID); // save the current user
+        save_active_user(this->userID); // save the current user
     else
-        Global::signedUserID = userID;
+        Global::signedUserID = this->userID;
 }
 
 void Account::check_account() const
@@ -91,7 +91,7 @@ void Account::check_account() const
 
     while (file >> fusername && file >> fpassword)
     {
-        if (userID == fusername && pass == dc.decrypt(fpassword))
+        if (this->userID == fusername && this->pass == dc.decrypt(fpassword))
         {
             file.close();
             return;
@@ -104,9 +104,9 @@ void Account::check_account() const
 
 std::string Account::get_userID() const
 {
-    return userID;
+    return this->userID;
 }
 std::string Account::get_pass() const
 {
-    return pass;
+    return this->pass;
 }

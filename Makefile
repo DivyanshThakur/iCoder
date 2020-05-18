@@ -1,7 +1,7 @@
 OBJDS = obj\Array.o obj\DataStructure.o  obj\String.o
 OBJGAMES= obj\Games.o obj\TicTacToe.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
-OBJS = obj\Account.o obj\AccountHandler.o obj\AnimeHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\More.o obj\Security.o obj\Settings.o obj\UIhandler.o obj\iCoder.o
+OBJS = obj\Account.o obj\AccountHandler.o obj\AnimeHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\ISaveable.o obj\More.o obj\Security.o obj\Settings.o obj\UIhandler.o obj\iCoder.o
 OBJF = obj/*.o
 LIBS = -static
 CC = g++
@@ -83,6 +83,9 @@ obj\FileHandler.o: src\FileHandler.cpp header\FileHandler.hpp
 
 obj\Help.o: src\Help.cpp header\Help.hpp
 	$(CC) $(CFLAGS) src\Help.cpp -o obj\Help.o
+
+obj\ISaveable.o: src\ISaveable.cpp header\ISaveable.hpp
+	$(CC) $(CFLAGS) src\ISaveable.cpp -o obj\ISaveable.o
 
 obj\More.o: src\More.cpp header\More.hpp
 	$(CC) $(CFLAGS) src\More.cpp -o obj\More.o

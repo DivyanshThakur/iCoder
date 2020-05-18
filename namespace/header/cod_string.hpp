@@ -4,18 +4,20 @@
 #include <iostream>
 #include "cod_scan.hpp"
 #include "cod_pair.hpp"
-#include "../../header/FileHandler.hpp"
+#include "../../header/FileHandler.hpp" // including both ISaveable & FileHandler
 
 namespace cod
 {
     class string : public ISaveable
     {
+    public:
         /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
 
         virtual std::vector<cod::pair<std::string, std::string>> save() const override;
-        virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) override;
-        virtual bool generate() const override;
+        virtual void load(const std::vector<cod::pair<std::string, std::string>> &vec) override;
+        virtual std::string filename() const override;
 
+    private:
         /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
 
         friend void swap(string &lhs, string &rhs)
@@ -222,7 +224,6 @@ namespace cod
             return (lhs.compare(rhs) >= 0);
         }
 
-    private:
         void capacity_selecter();
         void capacity_updater(size_t n);
         void validate(size_t pos, bool cmpSize = false) const;
@@ -233,7 +234,7 @@ namespace cod
 
         char *str;
         long long index;
-        std::string _fileName;
+        std::string _name;
         size_t _size, _capacity, _maxSize, _words, _vowels, _consonants;
 
     public:

@@ -51,6 +51,7 @@ class Path
 {
 public:
     static std::string dataPath;
+    static std::string userFilePath;
     static std::string fUser;
     static std::string fSetting;
 };
@@ -68,6 +69,17 @@ public:
     static const std::string SUB_DATA3;
 };
 
+class Tag
+{
+public:
+    // DATA STRUCTURE
+    static const std::string ARRAY;
+    static const std::string STRING;
+
+    // GAMES
+    static const std::string TIK_TAC_TOE;
+};
+
 class File // File Constant
 {
 public:
@@ -80,17 +92,6 @@ public:
     static const std::string SHOW_QUIT_MESSAGE;
     static const std::string SHOW_HINT;
     static const std::string SHOW_ONE_TIME_HINT;
-};
-
-class Tag
-{
-public:
-    // DATA STRUCTURE
-    static const std::string ARRAY;
-    static const std::string STRING;
-
-    // GAMES
-    static const std::string TIK_TAC_TOE;
 };
 
 class Ui // Ui Constant

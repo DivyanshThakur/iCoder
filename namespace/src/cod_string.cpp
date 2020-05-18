@@ -8,36 +8,46 @@
 
 std::vector<cod::pair<std::string, std::string>> cod::string::save() const
 {
-    std::vector<cod::pair<std::string, std::string>> vecData;
+    std::vector<cod::pair<std::string, std::string>> vec;
 
-    return vecData;
+    vec.push_back(cod::pair<std::string, std::string>(DataFile::NAME, this->_name));
+    vec.push_back(cod::pair<std::string, std::string>(DataFile::TITLE, Tag::STRING));
+    vec.push_back(cod::pair<std::string, std::string>(DataFile::SUB_DATA1, std::to_string(this->_capacity)));
+    vec.push_back(cod::pair<std::string, std::string>(DataFile::SUB_DATA2, std::to_string(this->_size)));
+    vec.push_back(cod::pair<std::string, std::string>(DataFile::DATA, this->str));
+
+    return vec;
 }
 
-void cod::string::load(const std::vector<cod::pair<std::string, std::string>> &vecData)
+void cod::string::load(const std::vector<cod::pair<std::string, std::string>> &vec)
 {
-    for (const auto &pair : vecData)
+    for (const auto &pair : vec)
     {
-        if (pair.first() == DataFile::NAME)
-            std::cout << 'H';
+        std::stringstream ss(pair.second());
+
+        if (pair.first() == DataFile::DATA)
+        {
+            delete[] str;
+
+            this->str = new char[_capacity + 1];
+
+            std::string tempStr;
+            std::getline(ss, tempStr);
+
+            this->cpy(tempStr.c_str());
+        }
+        else if (pair.first() == DataFile::NAME)
+            ss >> this->_name;
+        else if (pair.first() == DataFile::SUB_DATA1)
+            ss >> this->_capacity;
+        else if (pair.first() == DataFile::SUB_DATA2)
+            ss >> this->_size;
     }
 }
 
-bool cod::string::generate() const
+std::string cod::string::filename() const
 {
-    std::ifstream inFile(this->_fileName);
-
-    if (inFile)
-    {
-        inFile.close();
-        return false;
-    }
-
-    std::ofstream outFile(this->_fileName);
-
-    // FileHandler::print();
-
-    outFile.close();
-    return true;
+    return Path::userFilePath;
 }
 
 /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
@@ -174,7 +184,7 @@ cod::string::string() : string(nullptr)
 {
 }
 
-cod::string::string(const char *s) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     if (s == nullptr)
     {
@@ -194,7 +204,7 @@ cod::string::string(const char *s) : str(nullptr), index{0}, _fileName(generate_
     }
 }
 
-cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -204,7 +214,7 @@ cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _fileName
     this->cpy(s, n);
 }
 
-cod::string::string(size_t n, char c) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(size_t n, char c) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -218,7 +228,7 @@ cod::string::string(size_t n, char c) : str(nullptr), index{0}, _fileName(genera
     str[n] = '\0';
 }
 
-cod::string::string(const string &rhs) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = rhs._size;
     _capacity = rhs._capacity;
@@ -229,7 +239,7 @@ cod::string::string(const string &rhs) : str(nullptr), index{0}, _fileName(gener
     this->cpy(rhs.str, rhs._size);
 }
 
-cod::string::string(string &&rhs) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(string &&rhs) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _capacity = rhs._capacity;
     _size = rhs._size;
@@ -237,7 +247,7 @@ cod::string::string(string &&rhs) : str(nullptr), index{0}, _fileName(generate_f
     rhs.str = nullptr;
 }
 
-cod::string::string(const std::initializer_list<char> &list) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const std::initializer_list<char> &list) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = list.size();
 
@@ -253,7 +263,7 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), ind
     str[i] = '\0';
 }
 
-cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _fileName(generate_filename(Path::dataPath + Global::signedUserID + ".dat", "ARRAY")), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     // Initializing valid size by taking references of size and pos with different len condtition
     // if len equals npos, it returns the difference of rhs.size and pos
@@ -393,7 +403,7 @@ size_t cod::string::max_size() const
 
 std::string cod::string::name() const
 {
-    return _fileName;
+    return this->_name;
 }
 
 size_t cod::string::words()

@@ -7,7 +7,7 @@
 #include "../header/ExHandler.hpp"
 #include "../header/CreateAccount.hpp"
 
-void login()
+void AccountHandler::login()
 {
     header(std::string{" LOGIN "});
 
@@ -47,7 +47,7 @@ void login()
     }
 }
 
-void create_account()
+void AccountHandler::create_account()
 {
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
@@ -102,7 +102,7 @@ void create_account()
     }
 }
 
-void display_users()
+void AccountHandler::display_users()
 {
     std::ifstream file(Path::fUser);
 
@@ -142,7 +142,7 @@ void display_users()
     press_key();
 }
 
-std::string pass_to_asteric(const std::string &pass)
+std::string AccountHandler::pass_to_asteric(const std::string &pass)
 {
     std::string ast;
     for (size_t i{0}; i < pass.length(); ++i)
