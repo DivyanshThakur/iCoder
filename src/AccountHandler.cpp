@@ -141,11 +141,3 @@ void AccountHandler::display_users()
 
     press_key();
 }
-
-std::string AccountHandler::pass_to_asteric(const std::string &pass)
-{
-    std::string ast;
-    for (size_t i{0}; i < pass.length(); ++i)
-        ast += "*";
-    return ast;
-}

@@ -11,6 +11,9 @@ class Account : ISaveable
 
 private:
     int index;
+    cod::pair<std::string, std::string> pairBuffer;
+
+    std::string pass_to_asteric() const;
 
 protected:
     std::string userID, pass;
@@ -19,7 +22,9 @@ public:
     /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
 
     virtual std::vector<cod::pair<std::string, std::string>> save() const override;
-    virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) override;
+    virtual void load(const std::vector<cod::pair<std::string, std::string>> &vec) override;
+    virtual std::string filename() const override;
+    virtual bool generate() const override;
 
     /************************************** MEMBER FUNCTION OVERLOADS *******************************************/
 

@@ -2,7 +2,6 @@
 #include <iomanip>
 #include <fstream>
 #include "../header/Account.hpp"
-#include "../header/AccountHandler.hpp"
 #include "../header/FileHandler.hpp"
 #include "../header/Security.hpp"
 #include "../namespace/header/cod_scan.hpp"
@@ -11,28 +10,57 @@
 
 std::vector<cod::pair<std::string, std::string>> Account::save() const
 {
-    std::vector<cod::pair<std::string, std::string>> vecData;
-
-    return vecData;
+    std::vector<cod::pair<std::string, std::string>> vec;
+    vec.push_back(pairBuffer);
+    return vec;
 }
 
-void Account::load(const std::vector<cod::pair<std::string, std::string>> &vecData)
+void Account::load(const std::vector<cod::pair<std::string, std::string>> &vec)
 {
-    // for (const auto &pair : vecData)
-    // {
-    //     if (pair.first() == DataFile::NAME)
-    //         std::cout << 'H';
-    // }
+    this->userID = vec.at(0).first();
+    this->pass = vec.at(0).second();
+}
+
+std::string Account::filename() const
+{
+    return Path::fUser;
+}
+
+bool Account::generate() const
+{
+    std::ifstream inFile(Path::fUser);
+
+    if (inFile) // if file already exists returns else create a new file
+    {
+        inFile.close();
+        return false;
+    }
+
+    std::ofstream outFile(Path::fUser);
+
+    outFile.close();
+
+    return true;
 }
 
 /************************************** MEMBER FUNCTION OVERLOADS *******************************************/
+
+std::string Account::pass_to_asteric() const
+{
+    std::string ast;
+
+    for (size_t i{0}; i < this->pass.length(); ++i)
+        ast += "*";
+
+    return ast;
+}
 
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
     os << std::endl
        << " " << std::setw(Ui::widthIndex) << std::left << ++acc.index
        << " | " << std::setw(Ui::widthUsername) << std::left << acc.userID
-       << " | " << std::setw(Ui::widthPassword) << std::left << pass_to_asteric(acc.pass)
+       << " | " << std::setw(Ui::widthPassword) << std::left << acc.pass_to_asteric()
        << " |";
     return os;
 }
@@ -59,6 +87,8 @@ void Account::input_data()
     animater(password);
 
     this->pass = sc.password(); // scanning password
+
+    this->pairBuffer = cod::pair<std::string, std::string>(this->userID, this->pass);
 }
 
 void Account::display_remember_me() const
@@ -75,7 +105,7 @@ void Account::display_remember_me() const
     Path::userFilePath = Path::dataPath + this->userID + ".dat";
 
     if (::tolower(c) == 'y')
-        save_active_user(this->userID); // save the current user
+        FileHandler::save_active_user(this->userID); // save the current user
     else
         Global::signedUserID = this->userID;
 }
@@ -86,8 +116,7 @@ void Account::check_account() const
     std::string fusername, fpassword;
     Decrypter dc;
 
-    if (!file)
-        throw FileNotOpenedException();
+    this->generate();
 
     while (file >> fusername && file >> fpassword)
     {
