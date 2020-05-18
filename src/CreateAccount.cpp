@@ -44,12 +44,9 @@ void CreateAccount::upload_account()
 
 void CreateAccount::isValidUser()
 {
-    std::ifstream file(Path::fUser);
+    this->generate();
 
-    if (!file)
-    {
-        throw FileNotOpenedException();
-    }
+    std::ifstream file(Path::fUser);
 
     std::string fname, fpass;
 

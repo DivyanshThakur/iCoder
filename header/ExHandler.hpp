@@ -43,12 +43,6 @@ public:
     void what(bool isPressKeyEnabled = true) const noexcept;
 };
 
-// class FileNotOpenedException
-// {
-// public:
-//     void what(bool isPressKeyEnabled = true) const noexcept;
-// };
-
 class ArrayFullException
 {
 public:

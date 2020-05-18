@@ -41,11 +41,6 @@ void InvalidUser::what(bool isPressKeyEnabled) const noexcept
     print_message("Invalid UserID/Password!", isPressKeyEnabled, NIL);
 }
 
-// void FileNotOpenedException::what(bool isPressKeyEnabled) const noexcept
-// {
-//     print_message("Error fetching data!", isPressKeyEnabled, NIL);
-// }
-
 void ArrayFullException::what(bool isPressKeyEnabled) const noexcept
 {
     print_message("Array is full!", isPressKeyEnabled, NIL);
@@ -126,5 +121,6 @@ void OpenAnimeSetting::what() const noexcept
     std::string message{". Disable "};
     message += Menu::settings.at(pos - 1);
 
-    show_me_first(std::to_string(pos) + message, pos);
+    Settings mySetting;
+    mySetting.show_me_first(std::to_string(pos) + message, pos);
 }

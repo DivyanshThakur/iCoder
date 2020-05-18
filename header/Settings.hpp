@@ -2,6 +2,8 @@
 #define SETTINGS_HPP
 
 #include <vector>
+#include "ISaveable.hpp"
+#include "../namespace/header/cod_pair.hpp"
 
 void settings();
 
@@ -21,6 +23,8 @@ public:
     void start();
     bool isDefault() const;
     void show_me_first(const std::string &message, int repeatFor);
+
+    virtual ~Settings() = default;
 
 private:
     std::string state_selector(bool isTrue);

@@ -112,11 +112,12 @@ void Account::display_remember_me() const
 
 void Account::check_account() const
 {
+    this->generate();
+
     std::ifstream file(Path::fUser);
+
     std::string fusername, fpassword;
     Decrypter dc;
-
-    this->generate();
 
     while (file >> fusername && file >> fpassword)
     {

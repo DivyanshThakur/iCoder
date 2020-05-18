@@ -34,6 +34,8 @@ public:
 
     std::string get_userID() const;
     std::string get_pass() const;
+
+    virtual ~Account() = default;
 };
 
 #endif

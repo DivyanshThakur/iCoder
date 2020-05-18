@@ -396,7 +396,7 @@ namespace cod
         int compare(size_t pos, size_t len, const char *s) const;
         int compare(size_t pos, size_t len, const char *s, size_t n) const; // buffer
 
-        ~string();
+        virtual ~string();
     };
 
     cod::scan &getline(cod::scan &sc, cod::string &s);
