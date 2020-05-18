@@ -69,6 +69,7 @@ std::string Settings::filename() const
 
 bool Settings::generate() const
 {
+
     std::ifstream inFile(Path::fSetting);
 
     if (inFile) // if file already exists returns else create a new file
@@ -229,6 +230,13 @@ bool Settings::isDefault() const
     return false;
 }
 
+void Settings::set_pair(const cod::pair<std::string, std::string> &pair)
+{
+    this->pairBuffer = pair;
+
+    FileHandler::save(*this); // saves the changes to the file
+}
+
 void Settings::show_me_first(const std::string &message, int repeatFor)
 {
     title();
@@ -362,9 +370,7 @@ void Settings::change_text_anime_speed()
 
     Global::sleepTime = speed;
 
-    pairBuffer = cod::pair<std::string, std::string>(File::ANIMATION_SPEED, std::to_string(speed));
-
-    FileHandler::save(*this, File::ANIMATION_SPEED);
+    this->set_pair(cod::pair<std::string, std::string>(File::ANIMATION_SPEED, std::to_string(speed)));
 }
 
 void Settings::change_lsearch_type()
@@ -384,8 +390,8 @@ void Settings::change_lsearch_type()
         case 2:
         case 3:
             FileHandler::update_stats(lSearchStats, ch - 1);
-            pairBuffer = cod::pair<std::string, std::string>(File::LSEARCH_STATUS, std::to_string(lSearchStats));
-            FileHandler::save(*this, File::LSEARCH_STATUS);
+            this->set_pair(cod::pair<std::string, std::string>(File::LSEARCH_STATUS, std::to_string(lSearchStats)));
+
             return;
 
         default:
@@ -413,8 +419,8 @@ void Settings::change_shortcuts_type()
         case 2:
         case 3:
             FileHandler::update_stats(shortcutStats, ch - 1);
-            pairBuffer = cod::pair<std::string, std::string>(File::SHORTCUT_STATUS, std::to_string(shortcutStats));
-            FileHandler::save(*this, File::SHORTCUT_STATUS);
+            this->set_pair(cod::pair<std::string, std::string>(File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
+
             return;
 
         default:
@@ -447,8 +453,8 @@ void Settings::change_anime_style()
         case 2:
         case 3:
             FileHandler::update_stats(animeSignOutStats, ch - 1);
-            pairBuffer = cod::pair<std::string, std::string>(File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats));
-            FileHandler::save(*this, File::ANIME_SIGN_OUT_STATUS);
+            this->set_pair(cod::pair<std::string, std::string>(File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
+
             return;
 
         default:
@@ -468,24 +474,21 @@ void Settings::welcome_message()
 {
     Global::showWelcome = (!Global::showWelcome); // reverse the state
 
-    pairBuffer = cod::pair<std::string, std::string>(File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome));
-    FileHandler::save(*this, File::SHOW_WELCOME_MESSAGE);
+    this->set_pair(cod::pair<std::string, std::string>(File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
 }
 
 void Settings::quit_message()
 {
     Global::showQuit = (!Global::showQuit); // reverse the state
 
-    pairBuffer = cod::pair<std::string, std::string>(File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit));
-    FileHandler::save(*this, File::SHOW_QUIT_MESSAGE);
+    this->set_pair(cod::pair<std::string, std::string>(File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
 }
 
 void Settings::hint_message()
 {
     Global::showHint = (!Global::showHint); // reverse the state
 
-    pairBuffer = cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint));
-    FileHandler::save(*this, File::SHOW_HINT);
+    this->set_pair(cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
 }
 
 void Settings::reset()

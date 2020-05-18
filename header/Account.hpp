@@ -28,6 +28,7 @@ public:
 
     /************************************** MEMBER FUNCTION OVERLOADS *******************************************/
 
+    Account();
     void input_data();
     void display_remember_me() const;
     void check_account() const;

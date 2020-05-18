@@ -76,6 +76,10 @@ std::ifstream &operator>>(std::ifstream &ifs, Account &acc)
     return ifs;
 }
 
+Account::Account() : index(0)
+{
+}
+
 void Account::input_data()
 {
     cod::scan sc;

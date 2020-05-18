@@ -10,8 +10,8 @@ class FileHandler
     static std::string file_str(const ISaveable &iSaver);
 
 public:
-    static void save(const ISaveable &iSaver, const std::string &name);
-    static void load(ISaveable &iSaver, const std::string &name = "NULL");
+    static void save(const ISaveable &iSaver);
+    static void load(ISaveable &iSaver);
     static void print(std::ofstream &outFile, const std::vector<cod::pair<std::string, std::string>> &vec);
     static void print(std::ofstream &outFile, const cod::pair<std::string, std::string> &pair);
     static std::string name_generator(const ISaveable &iSaver, const std::string &title);

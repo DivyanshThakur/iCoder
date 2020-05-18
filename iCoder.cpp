@@ -43,7 +43,8 @@ int main()
         emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // Show 1 time message to user
         showedOneTime = false;                                              // Set to false to not show next time
 
-        FileHandler::save(mySetting, File::SHOW_ONE_TIME_HINT); // saves the changes to the file
+        // save the showHint to file
+        mySetting.set_pair(cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
     }
 
     if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user

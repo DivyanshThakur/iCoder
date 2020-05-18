@@ -18,15 +18,17 @@ public:
     virtual bool generate() const override;
 
     /******************************************* MEMBER FUNCTIONS ***********************************************/
-    cod::pair<std::string, std::string> pairBuffer;
 
     void start();
     bool isDefault() const;
+    void set_pair(const cod::pair<std::string, std::string> &pair);
     void show_me_first(const std::string &message, int repeatFor);
 
     virtual ~Settings() = default;
 
 private:
+    cod::pair<std::string, std::string> pairBuffer;
+
     std::string state_selector(bool isTrue);
     void settings_controller(char ch);
     std::vector<std::string> settings_screen_selector();

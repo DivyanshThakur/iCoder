@@ -45,25 +45,24 @@ void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std
             << "~" << std::endl;
 }
 
-void FileHandler::save(const ISaveable &iSaver, const std::string &name)
+void FileHandler::save(const ISaveable &iSaver)
 {
     std::stringstream ss{file_str(iSaver)};
 
     std::ofstream outFile(iSaver.filename());
+    auto iVector = iSaver.save();
+
     std::string line, word;
     bool isSaved{false};
 
-    while (!ss.eof())
+    while (ss.eof())
     {
         std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> vec;
 
         // creating the vector for scanning
-        while (ss >> line)
+        while (std::getline(ss, line) && (line != "~"))
         {
-            if (line == "~")
-                break;
-
             std::string title, val;
 
             ssLine << line;
@@ -78,12 +77,12 @@ void FileHandler::save(const ISaveable &iSaver, const std::string &name)
             vec.push_back(cod::pair<std::string, std::string>(title, val));
         }
 
-        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == name);
-        bool isSettings = (vec.at(0).first() == name);
+        bool isSettings = (vec.at(0).first() == iVector.at(0).first());
+        bool isDataStructure = (vec.at(0).first() == iVector.at(0).first()) && (vec.at(0).second() == iVector.at(0).second());
 
         if (isSettings || isDataStructure)
         {
-            print(outFile, iSaver.save());
+            print(outFile, iVector);
             isSaved = true;
         }
         else
@@ -91,25 +90,23 @@ void FileHandler::save(const ISaveable &iSaver, const std::string &name)
     }
 
     if (!isSaved) // adds new setting to the end of file
-        print(outFile, iSaver.save());
+        print(outFile, iVector);
 }
 
-void FileHandler::load(ISaveable &iSaver, const std::string &name)
+void FileHandler::load(ISaveable &iSaver)
 {
     std::stringstream ss{file_str(iSaver)};
+    auto iVector = iSaver.save();
     std::string line, word;
 
-    while (!ss.eof())
+    while (ss.eof())
     {
         std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> vec;
 
         // creating the vector for scanning
-        while (ss >> line)
+        while (std::getline(ss, line) && (line != "~"))
         {
-            if (line == "~")
-                break;
-
             std::string title, val;
 
             ssLine << line;
@@ -128,8 +125,8 @@ void FileHandler::load(ISaveable &iSaver, const std::string &name)
         // not NUll means the references are of
         // data structures and other main datas
 
-        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == name);
-        bool isSettings = (name == "NULL");
+        bool isDataStructure = (vec.at(0).first() == iVector.at(0).first()) && (vec.at(0).second() == iVector.at(0).second());
+        bool isSettings = (vec.at(0).first() == iVector.at(0).first());
 
         if (isSettings)
         {
@@ -169,7 +166,7 @@ void FileHandler::save_active_user(const std::string &userID)
     Global::signedUserID = userID;
 
     // save the current user to the file for automatically log in
-    save(setting, File::CURRENT_USER); //, Global::signedUserID);
+    save(setting); //, Global::signedUserID);
 }
 
 // Generate default name of the file by checking available name from the user file
