@@ -118,23 +118,18 @@ void Account::display_remember_me() const
 
 void Account::check_account() const
 {
-    this->generate();
-
-    std::ifstream file(Path::fUser);
-
-    std::string fusername, fpassword;
     Decrypter dc;
 
-    while (file >> fusername && file >> fpassword)
+    this->generate();
+
+    auto vec = FileHandler::search_all(*this);
+
+    for (const auto &pair : vec)
     {
-        if (this->userID == fusername && this->pass == dc.decrypt(fpassword))
-        {
-            file.close();
+        if (pair.first() == this->userID && dc.decrypt(pair.second()) == this->pass)
             return;
-        }
     }
 
-    file.close();
     throw InvalidUser();
 }
 

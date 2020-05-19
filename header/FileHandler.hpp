@@ -8,6 +8,7 @@
 class FileHandler
 {
     static std::string file_str(const ISaveable &iSaver);
+    static cod::pair<std::string, std::string> get_pair(const std::string &line);
 
 public:
     static void save(const ISaveable &iSaver);

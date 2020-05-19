@@ -27,6 +27,23 @@ std::string FileHandler::file_str(const ISaveable &iSaver)
     return fileStr;
 }
 
+cod::pair<std::string, std::string> FileHandler::get_pair(const std::string &line)
+{
+    std::stringstream ssLine(line);
+    std::string word, title, val;
+
+    ssLine >> title;
+
+    while (ssLine >> word)
+    {
+        val += (word + " ");
+    }
+
+    val.pop_back();
+
+    return cod::pair<std::string, std::string>(title, val);
+}
+
 void FileHandler::print(std::ofstream &outFile, const std::vector<cod::pair<std::string, std::string>> &vec)
 {
     for (const auto &pair : vec)
@@ -52,41 +69,30 @@ void FileHandler::save(const ISaveable &iSaver)
     std::ofstream outFile(iSaver.filename());
     auto iVector = iSaver.save();
 
-    std::string line, word;
+    std::string line;
     bool isSaved{false};
 
-    while (!ss.eof())
+    while (std::getline(ss, line))
     {
-        std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> vec;
 
-        // creating the vector for scanning
-        while (std::getline(ss, line) && (line != "~"))
+        if (line != "~")
         {
-            std::string title, val;
-
-            ssLine << line;
-            ss >> title;
-
-            while (ssLine >> word)
-            {
-                val += (word + " ");
-            }
-
-            val.pop_back();
-            vec.push_back(cod::pair<std::string, std::string>(title, val));
-        }
-
-        bool isSettingsOrUser = (vec.at(0).first() == iVector.at(0).first());
-        bool isDataStructure = (vec.at(0).first() == iVector.at(0).first()) && (vec.at(0).second() == iVector.at(0).second());
-
-        if (isSettingsOrUser || isDataStructure)
-        {
-            print(outFile, iVector);
-            isSaved = true;
+            vec.push_back(get_pair(line));
         }
         else
-            print(outFile, vec);
+        {
+            bool isSettingsOrUser = (vec.at(0).first() == iVector.at(0).first());
+            bool isDataStructure = (vec.at(0).first() == iVector.at(0).first()) && (vec.at(0).second() == iVector.at(0).second());
+
+            if (isSettingsOrUser || isDataStructure)
+            {
+                print(outFile, iVector);
+                isSaved = true;
+            }
+            else
+                print(outFile, vec);
+        }
     }
 
     if (!isSaved) // adds new setting to the end of file
@@ -96,45 +102,34 @@ void FileHandler::save(const ISaveable &iSaver)
 void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{file_str(iSaver)};
-    std::string line, word;
+    std::string line;
 
-    while (!ss.eof())
+    while (std::getline(ss, line))
     {
-        std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> vec;
 
-        // creating the vector for scanning
-        while (std::getline(ss, line) && (line != "~"))
+        if (line != "~")
         {
-            std::string title, val;
+            vec.push_back(get_pair(line));
+        }
+        else
+        {
+            // NULL means the reference is of settings or
+            // user file not NUll means the references are
+            // of data structures and other main data stored
 
-            ssLine << line;
-            ss >> title;
+            bool isSettingsOrUser = (tag == "");
+            bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
 
-            while (ssLine >> word)
+            if (isSettingsOrUser)
             {
-                val += (word + " ");
+                iSaver.load(vec);
             }
-
-            val.pop_back();
-            vec.push_back(cod::pair<std::string, std::string>(title, val));
-        }
-
-        // NULL means the reference is of settings
-        // not NUll means the references are of
-        // data structures and other main datas
-
-        bool isSettingsOrUser = (tag == "");
-        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
-
-        if (isSettingsOrUser)
-        {
-            iSaver.load(vec);
-        }
-        else if (isDataStructure)
-        {
-            iSaver.load(vec);
-            break;
+            else if (isDataStructure)
+            {
+                iSaver.load(vec);
+                break;
+            }
         }
     }
 }
@@ -142,35 +137,24 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{file_str(iSaver)};
-    std::string line, word;
+    std::string line;
 
-    while (!ss.eof())
+    while (std::getline(ss, line))
     {
-        std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> vec;
 
-        // creating the vector for scanning
-        while (std::getline(ss, line) && (line != "~"))
+        if (line != "~")
         {
-            std::string title, val;
-
-            ssLine << line;
-            ss >> title;
-
-            while (ssLine >> word)
-            {
-                val += (word + " ");
-            }
-
-            val.pop_back();
-            vec.push_back(cod::pair<std::string, std::string>(title, val));
+            vec.push_back(get_pair(line));
         }
+        else
+        {
+            bool isSettingsOrUser = (vec.at(0).first() == tag);
+            bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
 
-        bool isSettingsOrUser = (vec.at(0).first() == tag);
-        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
-
-        if (isSettingsOrUser || isDataStructure)
-            return true;
+            if (isSettingsOrUser || isDataStructure)
+                return true;
+        }
     }
 
     return false;
@@ -191,31 +175,16 @@ std::vector<cod::pair<std::string, std::string>> FileHandler::search_all(const I
 {
     std::vector<cod::pair<std::string, std::string>> vec;
     std::stringstream ss{file_str(iSaver)};
-    std::string line, word;
+    std::string line;
 
-    while (!ss.eof())
+    while (std::getline(ss, line))
     {
-        std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> fileVector;
 
-        // creating the vector for scanning
-        while (std::getline(ss, line) && (line != "~"))
-        {
-            std::string title, val;
-
-            ssLine << line;
-            ss >> title;
-
-            while (ssLine >> word)
-            {
-                val += (word + " ");
-            }
-
-            val.pop_back();
-            fileVector.push_back(cod::pair<std::string, std::string>(title, val));
-        }
-
-        vec.push_back(fileVector.at(0));
+        if (line != "~")
+            fileVector.push_back(get_pair(line));
+        else
+            vec.push_back(fileVector.at(0));
     }
 
     return vec;
