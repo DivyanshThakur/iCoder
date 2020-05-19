@@ -19,7 +19,7 @@ std::string FileHandler::file_str(const ISaveable &iSaver)
     // Scans and appends the data from the settings file to the fileStr variable
     while (std::getline(inFile, line))
     {
-        fileStr += line;
+        fileStr += (line + "\n");
     }
 
     inFile.close();
@@ -65,7 +65,7 @@ void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std
 void FileHandler::save(const ISaveable &iSaver)
 {
     std::stringstream ss{file_str(iSaver)};
-
+    std::vector<cod::pair<std::string, std::string>> vec;
     std::ofstream outFile(iSaver.filename());
     auto iVector = iSaver.save();
 
@@ -74,8 +74,6 @@ void FileHandler::save(const ISaveable &iSaver)
 
     while (std::getline(ss, line))
     {
-        std::vector<cod::pair<std::string, std::string>> vec;
-
         if (line != "~")
         {
             vec.push_back(get_pair(line));
@@ -92,6 +90,8 @@ void FileHandler::save(const ISaveable &iSaver)
             }
             else
                 print(outFile, vec);
+
+            vec.clear();
         }
     }
 
@@ -102,11 +102,11 @@ void FileHandler::save(const ISaveable &iSaver)
 void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{file_str(iSaver)};
+    std::vector<cod::pair<std::string, std::string>> vec;
     std::string line;
 
     while (std::getline(ss, line))
     {
-        std::vector<cod::pair<std::string, std::string>> vec;
 
         if (line != "~")
         {
@@ -130,6 +130,8 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
                 iSaver.load(vec);
                 break;
             }
+
+            vec.clear();
         }
     }
 }
@@ -137,11 +139,11 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{file_str(iSaver)};
+    std::vector<cod::pair<std::string, std::string>> vec;
     std::string line;
 
     while (std::getline(ss, line))
     {
-        std::vector<cod::pair<std::string, std::string>> vec;
 
         if (line != "~")
         {
@@ -154,6 +156,8 @@ bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
 
             if (isSettingsOrUser || isDataStructure)
                 return true;
+
+            vec.clear();
         }
     }
 
@@ -174,17 +178,20 @@ bool FileHandler::is_empty(const ISaveable &iSaver)
 std::vector<cod::pair<std::string, std::string>> FileHandler::search_all(const ISaveable &iSaver)
 {
     std::vector<cod::pair<std::string, std::string>> vec;
+    std::vector<cod::pair<std::string, std::string>> fileVector;
     std::stringstream ss{file_str(iSaver)};
     std::string line;
 
     while (std::getline(ss, line))
     {
-        std::vector<cod::pair<std::string, std::string>> fileVector;
 
         if (line != "~")
             fileVector.push_back(get_pair(line));
         else
+        {
             vec.push_back(fileVector.at(0));
+            fileVector.clear();
+        }
     }
 
     return vec;
@@ -211,12 +218,13 @@ void FileHandler::update_stats(enum Status &stats, int c)
 
 void FileHandler::save_active_user(const std::string &userID)
 {
-    Settings setting;
+    Settings mySetting;
 
     Global::signedUserID = userID;
 
-    // save the current user to the file for automatically log in
-    save(setting); //, Global::signedUserID);
+    // save the current user to
+    //the file for automatically log in
+    mySetting.save(cod::pair<std::string, std::string>(File::CURRENT_USER, Global::signedUserID));
 }
 
 // Generate default name of the file by checking available name from the user file

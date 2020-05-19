@@ -189,44 +189,43 @@ void Settings::start()
 
 bool Settings::isDefault() const
 {
-    std::ifstream file(Path::fSetting);
-    std::string title, usr_signed;
+    std::string usr_signed;
     int time, c, s, aso;
     bool sothint, wlcome, hint, quit;
 
-    if (!file)
+    if (this->generate())
         return true;
 
-    // It checks the default state of settings file by comparing the saved values with the default values
+    auto vec = FileHandler::search_all(*this);
 
-    while (file >> title)
+    for (const auto &pair : vec)
     {
-        if (title == File::CURRENT_USER)
-            file >> usr_signed;
-        else if (title == File::ANIMATION_SPEED)
-            file >> time;
-        else if (title == File::LSEARCH_STATUS)
-            file >> c;
-        else if (title == File::SHORTCUT_STATUS)
-            file >> s;
-        else if (title == File::ANIME_SIGN_OUT_STATUS)
-            file >> aso;
-        else if (title == File::SHOW_ONE_TIME_HINT)
-            file >> sothint;
-        else if (title == File::SHOW_WELCOME_MESSAGE)
-            file >> wlcome;
-        else if (title == File::SHOW_QUIT_MESSAGE)
-            file >> quit;
-        else if (title == File::SHOW_HINT)
-            file >> hint;
+        std::stringstream ss(pair.second());
 
-        file >> title; // scanning the '~'
+        if (pair.first() == File::CURRENT_USER)
+            ss >> usr_signed;
+        else if (pair.first() == File::ANIMATION_SPEED)
+            ss >> time;
+        else if (pair.first() == File::LSEARCH_STATUS)
+            ss >> c;
+        else if (pair.first() == File::SHORTCUT_STATUS)
+            ss >> s;
+        else if (pair.first() == File::ANIME_SIGN_OUT_STATUS)
+            ss >> aso;
+        else if (pair.first() == File::SHOW_ONE_TIME_HINT)
+            ss >> sothint;
+        else if (pair.first() == File::SHOW_WELCOME_MESSAGE)
+            ss >> wlcome;
+        else if (pair.first() == File::SHOW_QUIT_MESSAGE)
+            ss >> quit;
+        else if (pair.first() == File::SHOW_HINT)
+            ss >> hint;
     }
 
+    // It checks the default state of settings file by comparing the saved values with the default values
     if (usr_signed == std::string{"NULL"} && time == 25 && !c && !s && !aso && sothint && wlcome && quit && hint)
         return true;
 
-    file.close();
     return false;
 }
 
@@ -495,7 +494,7 @@ void Settings::reset()
 {
     if (this->isDefault())
     {
-        print_message(std::string{"Already in default settings"});
+        print_message(std::string{"Already in default settings"}, true);
         return;
     }
 
@@ -515,7 +514,7 @@ void Settings::reset()
             exit(0);
         }
 
-        print_message(std::string{"Successfully deleted!"});
+        print_message(std::string{"Successfully deleted!"}, true);
         this->generate();
     }
 }
