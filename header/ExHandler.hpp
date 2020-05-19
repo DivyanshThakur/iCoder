@@ -1,6 +1,8 @@
 #ifndef EXHANDLER_HPP
 #define EXHANDLER_HPP
 
+#include <exception>
+
 class NegativeValueException
 {
 public:

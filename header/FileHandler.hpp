@@ -11,7 +11,10 @@ class FileHandler
 
 public:
     static void save(const ISaveable &iSaver);
-    static void load(ISaveable &iSaver);
+    static void load(ISaveable &iSaver, const std::string &tag = "");
+    static bool find(const ISaveable &iSaver, const std::string &tag);
+    static bool is_empty(const ISaveable &iSaver);
+    static std::vector<cod::pair<std::string, std::string>> search_all(const ISaveable &iSaver);
     static void print(std::ofstream &outFile, const std::vector<cod::pair<std::string, std::string>> &vec);
     static void print(std::ofstream &outFile, const cod::pair<std::string, std::string> &pair);
     static std::string name_generator(const ISaveable &iSaver, const std::string &title);

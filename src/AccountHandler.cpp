@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <iomanip>
 #include "../header/AccountHandler.hpp"
 #include "../iCoder.hpp"
@@ -11,19 +10,19 @@ void AccountHandler::login()
 {
     header(std::string{" LOGIN "});
 
-    auto acc = std::make_unique<Account>();
+    Account acc;
 
     try
     {
-        acc->input_data(); // taking username and password
+        acc.input_data(); // taking username and password
 
-        acc->check_account();
+        acc.check_account();
 
-        acc->display_remember_me(); // it will display remember me message
+        acc.display_remember_me(); // it will display remember me message
 
-        border(Ui::widthMenu);   // display the border
-        load();                  // animate loading screen
-        home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
+        border(Ui::widthMenu);  // display the border
+        load();                 // animate loading screen
+        home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
     }
     catch (const EscPressed &e)
     {
@@ -41,9 +40,9 @@ void AccountHandler::login()
 
         login();
     }
-    catch (...)
+    catch (const std::exception &e)
     {
-        print_message("(Log In) Unknown error occured!", true);
+        print_message(e.what(), true);
     }
 }
 
@@ -51,22 +50,22 @@ void AccountHandler::create_account()
 {
     header(std::string{" CREATE ACCOUNT "}); // display the header
 
-    auto acc = std::make_unique<CreateAccount>(); // pointer to CreateAccount class
+    CreateAccount acc;
 
     try
     {
-        acc->input_data(); // taking userID, pass and confirmed password from the user
+        acc.input_data(); // taking userID, pass and confirmed password from the user
 
-        if (acc->get_pass() != acc->get_pass2()) // validating same password or not
+        if (acc.get_pass() != acc.get_pass2()) // validating same password or not
             throw PasswordNotMatchedException();
 
-        acc->upload_account();
+        acc.upload_account();
 
-        acc->display_remember_me(); // it will display remember me message
+        acc.display_remember_me(); // it will display remember me message
 
-        border(Ui::widthMenu);   // display the border
-        load();                  // animate loading screen
-        home(acc->get_userID()); // calling the main menu (HOME) screen to show all program list
+        border(Ui::widthMenu);  // display the border
+        load();                 // animate loading screen
+        home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
     }
     catch (const EscPressed &e)
     {
@@ -96,25 +95,23 @@ void AccountHandler::create_account()
 
         create_account();
     }
-    catch (...)
+    catch (const std::exception &e)
     {
-        print_message("(Create Account) Unknown error occured!!!", true);
+        print_message(e.what(), true);
     }
 }
 
 void AccountHandler::display_users()
 {
-    std::ifstream file(Path::fUser);
+    Account acc;
 
-    if (!file)
+    if (FileHandler::is_empty(acc))
     {
         print_message("No user in database!", true);
         return;
     }
 
     header(" USERS ");
-
-    auto acc = std::make_unique<Account>();
 
     border(Ui::widthIndex * 3 + Ui::widthUsername + Ui::widthPassword - 1);
 
@@ -130,14 +127,17 @@ void AccountHandler::display_users()
               << " | " << std::setw(Ui::widthPassword) << ""
               << " |";
 
-    while (file >> *acc) // taking userID and pass from file to account class
+    auto vec = FileHandler::search_all(acc);
+
+    for (const auto &pair : vec)
     {
-        std::cout << *acc; // display the id,pass to console using operator<< overloading
+        std::vector<cod::pair<std::string, std::string>> vec;
+        vec.push_back(pair);
+        acc.load(vec);
+        std::cout << acc;
     }
 
     border(Ui::widthIndex * 3 + Ui::widthUsername + Ui::widthPassword - 1);
-
-    file.close();
 
     press_key();
 }

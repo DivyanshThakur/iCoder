@@ -230,7 +230,7 @@ bool Settings::isDefault() const
     return false;
 }
 
-void Settings::set_pair(const cod::pair<std::string, std::string> &pair)
+void Settings::save(const cod::pair<std::string, std::string> &pair)
 {
     this->pairBuffer = pair;
 
@@ -370,7 +370,7 @@ void Settings::change_text_anime_speed()
 
     Global::sleepTime = speed;
 
-    this->set_pair(cod::pair<std::string, std::string>(File::ANIMATION_SPEED, std::to_string(speed)));
+    this->save(cod::pair<std::string, std::string>(File::ANIMATION_SPEED, std::to_string(speed)));
 }
 
 void Settings::change_lsearch_type()
@@ -390,7 +390,7 @@ void Settings::change_lsearch_type()
         case 2:
         case 3:
             FileHandler::update_stats(lSearchStats, ch - 1);
-            this->set_pair(cod::pair<std::string, std::string>(File::LSEARCH_STATUS, std::to_string(lSearchStats)));
+            this->save(cod::pair<std::string, std::string>(File::LSEARCH_STATUS, std::to_string(lSearchStats)));
 
             return;
 
@@ -419,7 +419,7 @@ void Settings::change_shortcuts_type()
         case 2:
         case 3:
             FileHandler::update_stats(shortcutStats, ch - 1);
-            this->set_pair(cod::pair<std::string, std::string>(File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
+            this->save(cod::pair<std::string, std::string>(File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
 
             return;
 
@@ -453,7 +453,7 @@ void Settings::change_anime_style()
         case 2:
         case 3:
             FileHandler::update_stats(animeSignOutStats, ch - 1);
-            this->set_pair(cod::pair<std::string, std::string>(File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
+            this->save(cod::pair<std::string, std::string>(File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
 
             return;
 
@@ -474,21 +474,21 @@ void Settings::welcome_message()
 {
     Global::showWelcome = (!Global::showWelcome); // reverse the state
 
-    this->set_pair(cod::pair<std::string, std::string>(File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
+    this->save(cod::pair<std::string, std::string>(File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
 }
 
 void Settings::quit_message()
 {
     Global::showQuit = (!Global::showQuit); // reverse the state
 
-    this->set_pair(cod::pair<std::string, std::string>(File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
+    this->save(cod::pair<std::string, std::string>(File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
 }
 
 void Settings::hint_message()
 {
     Global::showHint = (!Global::showHint); // reverse the state
 
-    this->set_pair(cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
+    this->save(cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
 }
 
 void Settings::reset()

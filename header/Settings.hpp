@@ -21,7 +21,7 @@ public:
 
     void start();
     bool isDefault() const;
-    void set_pair(const cod::pair<std::string, std::string> &pair);
+    void save(const cod::pair<std::string, std::string> &pair);
     void show_me_first(const std::string &message, int repeatFor);
 
     virtual ~Settings() = default;

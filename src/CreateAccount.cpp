@@ -21,45 +21,19 @@ void CreateAccount::input_data()
 
 void CreateAccount::upload_account()
 {
-    std::ofstream file{Path::fUser, std::ios::app};
-    Encrypter ec;
+    this->generate();
 
-    if (!file)
-        throw SavingUserException();
+    isValidUser();
 
-    try
-    {
-        isValidUser();
-    }
-    catch (...)
-    {
-        file.close();
-        throw;
-    }
-
-    file << std::setw(Ui::widthUsername) << std::left << userID << std::setw(Ui::widthPassword) << std::left << ec.encrypt(pass) << std::endl;
-
-    file.close();
+    FileHandler::save(*this);
 }
 
 void CreateAccount::isValidUser()
 {
-    this->generate();
+    bool isUserExist = FileHandler::find(*this, userID);
 
-    std::ifstream file(Path::fUser);
-
-    std::string fname, fpass;
-
-    while (file >> fname && file >> fpass) // if the name matches in file return false
-    {
-        if (fname == userID)
-        {
-            file.close();
-            throw UsernameAlreadyExistsException();
-        }
-    }
-
-    file.close(); /// close the file
+    if (isUserExist)
+        throw UsernameAlreadyExistsException();
 }
 
 std::string CreateAccount::get_pass2() const

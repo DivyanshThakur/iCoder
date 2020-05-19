@@ -44,7 +44,7 @@ int main()
         showedOneTime = false;                                              // Set to false to not show next time
 
         // save the showHint to file
-        mySetting.set_pair(cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
+        mySetting.save(cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
     }
 
     if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user

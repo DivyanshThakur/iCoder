@@ -55,7 +55,7 @@ void FileHandler::save(const ISaveable &iSaver)
     std::string line, word;
     bool isSaved{false};
 
-    while (ss.eof())
+    while (!ss.eof())
     {
         std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> vec;
@@ -77,10 +77,10 @@ void FileHandler::save(const ISaveable &iSaver)
             vec.push_back(cod::pair<std::string, std::string>(title, val));
         }
 
-        bool isSettings = (vec.at(0).first() == iVector.at(0).first());
+        bool isSettingsOrUser = (vec.at(0).first() == iVector.at(0).first());
         bool isDataStructure = (vec.at(0).first() == iVector.at(0).first()) && (vec.at(0).second() == iVector.at(0).second());
 
-        if (isSettings || isDataStructure)
+        if (isSettingsOrUser || isDataStructure)
         {
             print(outFile, iVector);
             isSaved = true;
@@ -93,13 +93,12 @@ void FileHandler::save(const ISaveable &iSaver)
         print(outFile, iVector);
 }
 
-void FileHandler::load(ISaveable &iSaver)
+void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{file_str(iSaver)};
-    auto iVector = iSaver.save();
     std::string line, word;
 
-    while (ss.eof())
+    while (!ss.eof())
     {
         std::stringstream ssLine;
         std::vector<cod::pair<std::string, std::string>> vec;
@@ -125,10 +124,10 @@ void FileHandler::load(ISaveable &iSaver)
         // not NUll means the references are of
         // data structures and other main datas
 
-        bool isDataStructure = (vec.at(0).first() == iVector.at(0).first()) && (vec.at(0).second() == iVector.at(0).second());
-        bool isSettings = (vec.at(0).first() == iVector.at(0).first());
+        bool isSettingsOrUser = (tag == "");
+        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
 
-        if (isSettings)
+        if (isSettingsOrUser)
         {
             iSaver.load(vec);
         }
@@ -138,6 +137,88 @@ void FileHandler::load(ISaveable &iSaver)
             break;
         }
     }
+}
+
+bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
+{
+    std::stringstream ss{file_str(iSaver)};
+    std::string line, word;
+
+    while (!ss.eof())
+    {
+        std::stringstream ssLine;
+        std::vector<cod::pair<std::string, std::string>> vec;
+
+        // creating the vector for scanning
+        while (std::getline(ss, line) && (line != "~"))
+        {
+            std::string title, val;
+
+            ssLine << line;
+            ss >> title;
+
+            while (ssLine >> word)
+            {
+                val += (word + " ");
+            }
+
+            val.pop_back();
+            vec.push_back(cod::pair<std::string, std::string>(title, val));
+        }
+
+        bool isSettingsOrUser = (vec.at(0).first() == tag);
+        bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
+
+        if (isSettingsOrUser || isDataStructure)
+            return true;
+    }
+
+    return false;
+}
+
+bool FileHandler::is_empty(const ISaveable &iSaver)
+{
+    std::stringstream ss{file_str(iSaver)};
+    std::string word;
+
+    if (ss >> word)
+        return false;
+
+    return true;
+}
+
+std::vector<cod::pair<std::string, std::string>> FileHandler::search_all(const ISaveable &iSaver)
+{
+    std::vector<cod::pair<std::string, std::string>> vec;
+    std::stringstream ss{file_str(iSaver)};
+    std::string line, word;
+
+    while (!ss.eof())
+    {
+        std::stringstream ssLine;
+        std::vector<cod::pair<std::string, std::string>> fileVector;
+
+        // creating the vector for scanning
+        while (std::getline(ss, line) && (line != "~"))
+        {
+            std::string title, val;
+
+            ssLine << line;
+            ss >> title;
+
+            while (ssLine >> word)
+            {
+                val += (word + " ");
+            }
+
+            val.pop_back();
+            fileVector.push_back(cod::pair<std::string, std::string>(title, val));
+        }
+
+        vec.push_back(fileVector.at(0));
+    }
+
+    return vec;
 }
 
 // Common function to update the Status enum variables

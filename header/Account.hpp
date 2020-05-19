@@ -4,10 +4,9 @@
 #include <string>
 #include "FileHandler.hpp"
 
-class Account : ISaveable
+class Account : public ISaveable
 {
     friend std::ostream &operator<<(std::ostream &os, Account &acc);
-    friend std::ifstream &operator>>(std::ifstream &is, Account &acc);
 
 private:
     int index;
@@ -32,6 +31,7 @@ public:
     void input_data();
     void display_remember_me() const;
     void check_account() const;
+    std::string pass_to_asteric(const std::string &pass) const;
 
     std::string get_userID() const;
     std::string get_pass() const;

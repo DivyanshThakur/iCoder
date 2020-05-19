@@ -17,8 +17,10 @@ std::vector<cod::pair<std::string, std::string>> Account::save() const
 
 void Account::load(const std::vector<cod::pair<std::string, std::string>> &vec)
 {
+    Decrypter dc;
+
     this->userID = vec.at(0).first();
-    this->pass = vec.at(0).second();
+    this->pass = dc.decrypt(vec.at(0).second());
 }
 
 std::string Account::filename() const
@@ -55,6 +57,16 @@ std::string Account::pass_to_asteric() const
     return ast;
 }
 
+std::string Account::pass_to_asteric(const std::string &pass) const
+{
+    std::string ast;
+
+    for (size_t i{0}; i < pass.length(); ++i)
+        ast += "*";
+
+    return ast;
+}
+
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
     os << std::endl
@@ -65,17 +77,6 @@ std::ostream &operator<<(std::ostream &os, Account &acc)
     return os;
 }
 
-std::ifstream &operator>>(std::ifstream &ifs, Account &acc)
-{
-    std::string key;
-    Decrypter dc;
-
-    ifs >> acc.userID >> key;
-    acc.pass = dc.decrypt(key);
-
-    return ifs;
-}
-
 Account::Account() : index(0)
 {
 }
@@ -83,6 +84,7 @@ Account::Account() : index(0)
 void Account::input_data()
 {
     cod::scan sc;
+    Encrypter ec;
 
     animater(username);
 
@@ -92,7 +94,7 @@ void Account::input_data()
 
     this->pass = sc.password(); // scanning password
 
-    this->pairBuffer = cod::pair<std::string, std::string>(this->userID, this->pass);
+    this->pairBuffer = cod::pair<std::string, std::string>(this->userID, ec.encrypt(this->pass));
 }
 
 void Account::display_remember_me() const
