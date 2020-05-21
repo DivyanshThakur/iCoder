@@ -86,7 +86,6 @@ std::vector<std::string> Main::Menu::selector()
  * if the input is between the menuIndex size range, it calculates which function to call
  * Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::main
  * Since, the index of Menu::main is stored in menuIndex and thus is passed in menu controller
- * 
  **/
 
 void Main::Menu::caller() const
@@ -179,9 +178,9 @@ void Main::load()
     // It is executed for only 1 time after installing the software
     if (showedOneTime) // if the showdOneTime is enabled, it displays below message
     {
-        logo();                                                             // Display logo
-        emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // Show 1 time message to user
-        showedOneTime = false;                                              // Set to false to not show next time
+        logo();                                                            // Display logo
+        emessage(std::string{" HINT -> See HELP section for shortcuts!"}); // Show 1 time message to user
+        showedOneTime = false;                                             // Set to false to not show next time
 
         // save the showHint to file
         mySetting.save(cod::pair<std::string, std::string>(File::SHOW_ONE_TIME_HINT, std::to_string(showedOneTime)));
@@ -189,6 +188,20 @@ void Main::load()
 
     if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
         home();                                      // if the user is saved in file it will automatically sign in the active user
+}
+
+void Main::home()
+{
+    if (welcomeFlag && Global::showWelcome)
+    {
+        std::string userID = (Global::signedUserID == "NULL") ? "User" : Global::signedUserID;
+        welcomeFlag = false;
+
+        logo();                                  // display the logo - iCoder
+        emessage("--> Welcome " + userID + "!"); // display the welcome message
+    }
+
+    data_structure();
 }
 
 void Main::sign_out()
@@ -207,7 +220,7 @@ void Main::create_path()
 
     if (userpath == nullptr)
     {
-        std::cerr << "No user path";
+        print_message("No user path found!", true, NIL);
         return;
     }
 
@@ -239,19 +252,4 @@ void Main::adjust_console_size()
     GetWindowRect(console, &r); //stores the console's current dimensions
 
     MoveWindow(console, r.left, r.top, Ui::consoleWidth, Ui::consoleHeight, TRUE); // 850 width, 600 height
-}
-
-void Main::home()
-{
-    if (welcomeFlag && Global::showWelcome)
-    {
-        std::string userID = (Global::signedUserID == "NULL") ? "User" : Global::signedUserID;
-
-        welcomeFlag = false;
-        logo();                                  // display the logo = iCoder
-        emessage("--> Welcome " + userID + "!"); // display the welcome message
-        showedOneTime = false;
-    }
-
-    data_structure();
 }

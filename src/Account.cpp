@@ -70,9 +70,9 @@ std::string Account::pass_to_asteric(const std::string &pass) const
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
     os << std::endl
-       << " " << std::setw(Ui::widthIndex) << std::left << ++acc.index
-       << " | " << std::setw(Ui::widthUsername) << std::left << acc.userID
-       << " | " << std::setw(Ui::widthPassword) << std::left << acc.pass_to_asteric()
+       << " " << std::setw(Constant::Ui::widthIndex) << std::left << ++acc.index
+       << " | " << std::setw(Constant::Ui::widthUsername) << std::left << acc.userID
+       << " | " << std::setw(Constant::Ui::widthPassword) << std::left << acc.pass_to_asteric()
        << " |";
     return os;
 }
