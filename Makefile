@@ -1,7 +1,8 @@
-OBJDS = obj\Array.o obj\DataStructure.o  obj\String.o
+OBJANIME = obj\AnimeHandler.o obj\LoadAnime.o obj\SignOutAnime.o
+OBJDS = obj\Array.o obj\DataStructure.o obj\String.o
 OBJGAMES= obj\Games.o obj\TicTacToe.o
 OBJCOD = obj\cod_algorithm.o obj\cod_array.o obj\cod_limits.o obj\cod_pair.o obj\cod_scan.o obj\cod_string.o
-OBJS = obj\Account.o obj\AccountHandler.o obj\AnimeHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\ISaveable.o obj\More.o obj\Security.o obj\Settings.o obj\UIhandler.o obj\iCoder.o
+OBJS = obj\Account.o obj\AccountHandler.o obj\Constants.o obj\CreateAccount.o obj\ExHandler.o obj\FileHandler.o obj\Help.o obj\IMenu.o obj\ISaveable.o obj\More.o obj\Security.o obj\Settings.o obj\UIhandler.o obj\iCoder.o
 OBJF = obj/*.o
 LIBS = -static
 CC = g++
@@ -13,7 +14,16 @@ CFLAGS = -Wall -c
 all: $(OBJA) $(OBJDS) $(OBJGAMES) $(OBJCOD) $(OBJS)
 	$(CC) $(LFLAG) $(OBJF) $(LIBS) -o iCoder
 
-### Code Analysis files are compiled from below
+### Animation files are compiled from below
+
+obj\AnimeHandler.o: animation\src\AnimeHandler.cpp animation\header\AnimeHandler.hpp
+	$(CC) $(CFLAGS) animation\src\AnimeHandler.cpp -o obj\AnimeHandler.o
+	
+obj\LoadAnime.o: animation\src\LoadAnime.cpp animation\header\LoadAnime.hpp
+	$(CC) $(CFLAGS) animation\src\LoadAnime.cpp -o obj\LoadAnime.o
+
+obj\SignOutAnime.o: animation\src\SignOutAnime.cpp animation\header\SignOutAnime.hpp
+	$(CC) $(CFLAGS) animation\src\SignOutAnime.cpp -o obj\SignOutAnime.o
 
 ### Data Structure files are compiled from below
 
@@ -66,9 +76,6 @@ obj\Account.o: src\Account.cpp header\Account.hpp
 obj\AccountHandler.o: src\AccountHandler.cpp header\AccountHandler.hpp
 	$(CC) $(CFLAGS) src\AccountHandler.cpp -o obj\AccountHandler.o
 
-obj\AnimeHandler.o: src\AnimeHandler.cpp header\AnimeHandler.hpp
-	$(CC) $(CFLAGS) src\AnimeHandler.cpp -o obj\AnimeHandler.o
-
 obj\Constants.o: src\Constants.cpp header\Constants.hpp
 	$(CC) $(CFLAGS) src\Constants.cpp -o obj\Constants.o
 
@@ -83,6 +90,9 @@ obj\FileHandler.o: src\FileHandler.cpp header\FileHandler.hpp
 
 obj\Help.o: src\Help.cpp header\Help.hpp
 	$(CC) $(CFLAGS) src\Help.cpp -o obj\Help.o
+
+obj\IMenu.o: src\IMenu.cpp header\IMenu.hpp
+	$(CC) $(CFLAGS) src\IMenu.cpp -o obj\IMenu.o
 
 obj\ISaveable.o: src\ISaveable.cpp header\ISaveable.hpp
 	$(CC) $(CFLAGS) src\ISaveable.cpp -o obj\ISaveable.o

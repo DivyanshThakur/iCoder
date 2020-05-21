@@ -87,9 +87,6 @@ std::vector<std::string> Main::Menu::selector()
 
 void Main::start()
 {
-    adjust_console_size(); // Adjust the window size
-    create_path();         // Initilize the paths
-
     load();
 
     cod::scan sc;
@@ -262,6 +259,8 @@ void home(const std::string &userID)
 
 void Main::load()
 {
+    adjust_console_size(); // Adjust the window size
+    create_path();         // Initilize the paths
 
     Settings mySetting;
     FileHandler::load(mySetting); // Restore the settings that was previously changed and saved
