@@ -238,7 +238,7 @@ void Settings::save(const cod::pair<std::string, std::string> &pair)
 
 void Settings::show_me_first(const std::string &message, int repeatFor)
 {
-    title();
+    logo();
 
     update_screen(std::string{" SETTINGS "});
 

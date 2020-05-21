@@ -1,38 +1,9 @@
 #include <iostream>
 #include <iomanip>
 #include <windows.h>
+#include "../header/SignOutAnime.hpp"
 #include "../header/AnimeHandler.hpp"
-#include "../header/UIhandler.hpp"
-
-void signout_anime_switcher()
-{
-    switch (animeSignOutStats)
-    {
-    case DEFAULT:
-        SignOutAnime1::start();
-        break;
-
-    case EASY:
-        SignOutAnime2::start();
-        break;
-
-    case ADV:
-        break;
-    }
-}
-
-void speed_updater(int &speed)
-{
-    SYSTEM_POWER_STATUS status;
-
-    GetSystemPowerStatus(&status); // checking different state of battery
-
-    if (status.Reserved1 == 1) // if battery saver is ON the speed is increased to 10
-        speed = 10;
-
-    if (status.ACLineStatus == 1) // if AC power supper is enabled, speed is decreased by 20%
-        speed += (0.5 * speed);
-}
+#include "../../header/UIhandler.hpp"
 
 /***********************************************************************************************************************
  * 
@@ -72,7 +43,7 @@ void SignOutAnime1::start()
 
 void SignOutAnime1::print()
 {
-    title();
+    logo();
 
     if (Global::showHint) // display hint in every screen
         show_hint();
@@ -82,12 +53,12 @@ void SignOutAnime1::print()
     size_t index;
 
     // Here, the index is started from startPos, i.e. 2 and from 1 at next iteration
-    for (index = startPos; index < Menu::main.size(); ++index)
+    for (index = startPos; index < Constant::Menu::main.size(); ++index)
     {
         // Print the index starting 1 till menu size
-        std::cout << std::setw(2) << std::right << index - startPos + 1 << ". " << Menu::main.at(index);
+        std::cout << std::setw(2) << std::right << index - startPos + 1 << ". " << Constant::Menu::main.at(index);
 
-        if (index < Menu::main.size() - 1) // New line is not printed at last menu option
+        if (index < Constant::Menu::main.size() - 1) // New line is not printed at last menu option
             std::cout << std::endl;
     }
 
@@ -128,13 +99,13 @@ void SignOutAnime2::start()
     speed = 25;
     startPos = 2;
     count = 1;
-    animeIndex = Menu::main.size() - 1;
+    animeIndex = Constant::Menu::main.size() - 1;
 
-    speed_updater(speed);
+    AnimeHandler::speed_updater(speed);
 
-    for (size_t i{1}; i < Menu::main.size(); i++, count = 1, animeIndex--)
+    for (size_t i{1}; i < Constant::Menu::main.size(); i++, count = 1, animeIndex--)
     {
-        if (Menu::main.size() - i < 2)
+        if (Constant::Menu::main.size() - i < 2)
         {
             startPos--;
             count--;
@@ -169,14 +140,14 @@ void SignOutAnime2::start()
 
 void SignOutAnime2::print()
 {
-    title();
+    logo();
 
     if (Global::showHint) // display hint in every screen
         show_hint();
 
     header(std::string{" MENU "}, false);
 
-    for (size_t index{startPos}, num = 1; index < Menu::main.size(); index++, num++)
+    for (size_t index{startPos}, num = 1; index < Constant::Menu::main.size(); index++, num++)
     {
         if (index == animeIndex && count)
         {
@@ -186,12 +157,12 @@ void SignOutAnime2::print()
                 std::cout << std::setw(2) << std::right << num++ << ". " << std::endl;
         }
 
-        std::cout << std::setw(2) << std::right << num << ". " << Menu::main.at(index);
+        std::cout << std::setw(2) << std::right << num << ". " << Constant::Menu::main.at(index);
 
-        if (index < Menu::main.size() - 1) // New line is not printed at last menu option
+        if (index < Constant::Menu::main.size() - 1) // New line is not printed at last menu option
             std::cout << std::endl;
 
-        if (index == animeIndex && animeIndex != Menu::main.size() - 1)
+        if (index == animeIndex && animeIndex != Constant::Menu::main.size() - 1)
         {
             size_t temp = startPos - count;
 

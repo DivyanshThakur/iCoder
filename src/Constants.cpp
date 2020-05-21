@@ -88,17 +88,17 @@ const std::string Ui::txtUsername{"Username"};
 const std::string Ui::txtChar{"Char"};
 const std::string Ui::txtString{"String"};
 
-/*************************************************** Menu Constant **************************************************/
-const std::vector<std::string> Menu::main{"Log In", "Create Account", "Try (Anonymous)", "More Features", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
-const std::vector<std::string> Menu::more{"Games"};
-const std::vector<std::string> Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Animation style", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
-const std::vector<std::string> Menu::dataType{"Int", "Long", "Double", "Char", "String"};
-const std::vector<std::string> Menu::games{"Tic Tac Toe"};
-const std::vector<std::string> Menu::dataStructure{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more..."};
-const std::vector<std::string> Menu::array{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
-const std::vector<std::string> Menu::string{"Update string", "Add string", "Insert sub-string", "Delete sub-string", "Change case", "Display string", "Reverse", "Compare", "Merge", "Anagram", "Palindrome", "Permutation", "Find unique", "Find duplicates"};
+/*************************************************** Constant::Menu Constant **************************************************/
+const std::vector<std::string> Constant::Menu::main{"Log In", "Create Account", "Try (Anonymous)", "More Features", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
+const std::vector<std::string> Constant::Menu::more{"Games"};
+const std::vector<std::string> Constant::Menu::settings{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Animation style", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
+const std::vector<std::string> Constant::Menu::dataType{"Int", "Long", "Double", "Char", "String"};
+const std::vector<std::string> Constant::Menu::games{"Tic Tac Toe"};
+const std::vector<std::string> Constant::Menu::dataStructure{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more..."};
+const std::vector<std::string> Constant::Menu::array{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
+const std::vector<std::string> Constant::Menu::string{"Update string", "Add string", "Insert sub-string", "Delete sub-string", "Change case", "Display string", "Reverse", "Compare", "Merge", "Anagram", "Palindrome", "Permutation", "Find unique", "Find duplicates"};
 
-/************************************************ Small Menu Constant ************************************************/
+/************************************************ Small Constant::Menu Constant ************************************************/
 // info
 const std::vector<std::string> SmallMenu::updates{"Stable Version", "Beta Version"};
 const std::vector<std::string> SmallMenu::logVersionData{"1.8", "1.6", "1.4", "1.2", "1.0"};

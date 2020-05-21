@@ -1,8 +1,5 @@
-#ifndef ANIME_HANDLER_HPP
-#define ANIME_HANDLER_HPP
-
-void signout_anime_switcher();
-void speed_updater(int &speed);
+#ifndef SIGN_OUT_ANIME_HPP
+#define SIGN_OUT_ANIME_HPP
 
 class SignOutAnime1
 {

@@ -112,19 +112,22 @@ public:
     static const std::string txtString;
 };
 
-class Menu // Menu Constant
+class Constant
 {
 public:
-    static const std::vector<std::string> main;
-    static const std::vector<std::string> more;
-    static const std::vector<std::string> settings;
-    static const std::vector<std::string> dataType;
-    static const std::vector<std::string> games;
-    static const std::vector<std::string> dataStructure;
-    static const std::vector<std::string> array;
-    static const std::vector<std::string> string;
+    class Menu // Menu Constant
+    {
+    public:
+        static const std::vector<std::string> main;
+        static const std::vector<std::string> more;
+        static const std::vector<std::string> settings;
+        static const std::vector<std::string> dataType;
+        static const std::vector<std::string> games;
+        static const std::vector<std::string> dataStructure;
+        static const std::vector<std::string> array;
+        static const std::vector<std::string> string;
+    };
 };
-
 class SmallMenu // Menu Constant
 {
 public:

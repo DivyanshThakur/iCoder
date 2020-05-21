@@ -29,35 +29,76 @@
 
 int main()
 {
-    Settings mySetting;
+    Main::start();
 
+    return 0;
+}
+
+/**************************************************************************************************************
+ * 
+ *                                           IMENU IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+std::string Main::Menu::title() const
+{
+    return std::string(" MAIN ");
+}
+
+std::vector<std::string> Main::Menu::selector()
+{
+    this->menuIndex.clear(); // clear the previous saved index
+
+    if (Global::signedUserID == std::string{"NULL"}) // if singed user is null, run this code
+    {
+        for (size_t i{0}; i < Constant::Menu::main.size(); i++)
+            this->menuIndex.push_back(i + 1);
+
+        return Constant::Menu::main;
+    }
+
+    // if a user is signed in then leaving singing options display other options
+
+    // select the correct menu to display as per need
+    std::vector<std::string> toDisplayMenu;
+    size_t i;
+
+    // Data Structure option is added for signed user to return back to DS screen
+    toDisplayMenu.push_back(std::string{"Data Structure"});
+    this->menuIndex.push_back(3);
+
+    for (i = 3; i < Constant::Menu::main.size(); ++i) // push back common options
+    {
+        toDisplayMenu.push_back(Constant::Menu::main.at(i));
+        this->menuIndex.push_back(i + 1);
+    }
+
+    toDisplayMenu.push_back(std::string{"Sign Out"}); // add sign out option for the user
+    this->menuIndex.push_back(i + 1);
+
+    return toDisplayMenu;
+}
+
+/**************************************************************************************************************
+ * 
+ *                                           MAIN IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+void Main::start()
+{
     adjust_console_size(); // Adjust the window size
     create_path();         // Initilize the paths
 
-    FileHandler::load(mySetting); // Restore the settings that was previously changed and saved
-
-    // It is executed for only 1 time after installing the software
-    if (showedOneTime) // if the showdOneTime is enabled, it displays below message
-    {
-        title();                                                            // Display title
-        emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // Show 1 time message to user
-        showedOneTime = false;                                              // Set to false to not show next time
-
-        // save the showHint to file
-        mySetting.save(cod::pair<std::string, std::string>(File::SHOW_ONE_TIME_HINT, std::to_string(showedOneTime)));
-    }
-
-    if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
-        home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
+    load();
 
     cod::scan sc;
     int ch;
 
     do
     {
-        std::vector<int> menuIndex; // It stored the index of the string to display
-
-        menu(menu_screen_selector(menuIndex)); // display the startup menu
+        Main::Menu myMenu;
+        Main::Menu::player(myMenu); // display the startup menu
 
         try
         {
@@ -103,43 +144,41 @@ int main()
         }
 
     } while (1); // The program always run and can only be exited when user presses 'q'
-
-    return 0;
 }
 
-std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex)
-{
-    // select the correct menu to display as per need
-    std::vector<std::string> toDisplayMenu;
+// std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex)
+// {
+//     // select the correct menu to display as per need
+//     std::vector<std::string> toDisplayMenu;
 
-    size_t i;
+//     size_t i;
 
-    if (Global::signedUserID == std::string{"NULL"}) // if singed user is null, perform this
-    {
-        toDisplayMenu = Menu::main;
+//     if (Global::signedUserID == std::string{"NULL"}) // if singed user is null, perform this
+//     {
+//         toDisplayMenu = Menu::main;
 
-        for (i = 0; i < Menu::main.size(); i++)
-            menuIndex.push_back(i + 1);
-    }
-    else
-    { // if a user is signed in then leaving singing options display other options
+//         for (i = 0; i < Menu::main.size(); i++)
+//             menuIndex.push_back(i + 1);
+//     }
+//     else
+//     { // if a user is signed in then leaving singing options display other options
 
-        // Data Structure option is added for signed user to return back to DS screen
-        toDisplayMenu.push_back(std::string{"Data Structure"});
-        menuIndex.push_back(3);
+//         // Data Structure option is added for signed user to return back to DS screen
+//         toDisplayMenu.push_back(std::string{"Data Structure"});
+//         menuIndex.push_back(3);
 
-        for (i = 3; i < Menu::main.size(); ++i) // push back common options
-        {
-            toDisplayMenu.push_back(Menu::main.at(i));
-            menuIndex.push_back(i + 1);
-        }
+//         for (i = 3; i < Menu::main.size(); ++i) // push back common options
+//         {
+//             toDisplayMenu.push_back(Menu::main.at(i));
+//             menuIndex.push_back(i + 1);
+//         }
 
-        toDisplayMenu.push_back(std::string{"Sign Out"}); // add sign out option for the user
-        menuIndex.push_back(i + 1);
-    }
+//         toDisplayMenu.push_back(std::string{"Sign Out"}); // add sign out option for the user
+//         menuIndex.push_back(i + 1);
+//     }
 
-    return toDisplayMenu;
-}
+//     return toDisplayMenu;
+// }
 
 // The menuIndex stores the index of the menu options that is currently displayed in the screen
 // fn_caller calls the required function by using below logic
@@ -213,7 +252,7 @@ void home(const std::string &userID)
     if (flag && Global::showWelcome)
     {
         flag = 0;
-        title();                                 // display the title = iCoder
+        logo();                                  // display the logo = iCoder
         emessage("--> Welcome " + userID + "!"); // display the welcome message
         showedOneTime = false;
     }
@@ -221,7 +260,28 @@ void home(const std::string &userID)
     data_structure();
 }
 
-bool isDirectoryExists()
+void Main::load()
+{
+
+    Settings mySetting;
+    FileHandler::load(mySetting); // Restore the settings that was previously changed and saved
+
+    // It is executed for only 1 time after installing the software
+    if (showedOneTime) // if the showdOneTime is enabled, it displays below message
+    {
+        logo();                                                             // Display logo
+        emessage(std::string{" HINT --> See HELP section for shortcuts!"}); // Show 1 time message to user
+        showedOneTime = false;                                              // Set to false to not show next time
+
+        // save the showHint to file
+        mySetting.save(cod::pair<std::string, std::string>(File::SHOW_ONE_TIME_HINT, std::to_string(showedOneTime)));
+    }
+
+    if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
+        home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
+}
+
+bool Main::check_directory()
 {
     // code to check if a Directory exists or not
     DWORD attribs = ::GetFileAttributesA(Path::dataPath.c_str());
@@ -232,7 +292,7 @@ bool isDirectoryExists()
     return (attribs & FILE_ATTRIBUTE_DIRECTORY);
 }
 
-void adjust_console_size()
+void Main::adjust_console_size()
 {
     // code to ajust the console size to fix for all the screens
     HWND console = GetConsoleWindow();
@@ -243,7 +303,7 @@ void adjust_console_size()
 }
 
 // It creates a path to the user's document folder for storing the user data
-void create_path()
+void Main::create_path()
 {
     char *userpath = getenv("USERPROFILE"); // stores the path to userProfile
 
@@ -258,14 +318,14 @@ void create_path()
     Path::fUser = Path::dataPath + "users.dat";
     Path::fSetting = Path::dataPath + "settings.dat";
 
-    if (!isDirectoryExists())          // checking if the directory "data" exists or not
+    if (!check_directory())            // checking if the directory "data" exists or not
         mkdir(Path::dataPath.c_str()); // these code will create a folder in that specific destination
 }
 
-void sign_out()
+void Main::sign_out()
 {
     FileHandler::save_active_user(std::string{"NULL"});
     Path::userFilePath.clear();
 
-    signout_anime_switcher();
+    AnimeHandler::sign_out();
 }

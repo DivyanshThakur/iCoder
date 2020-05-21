@@ -5,36 +5,17 @@
 #include "../namespace/header/cod_algorithm.hpp"
 #include "../namespace/header/cod_scan.hpp" // UiHandler already included in cod_scan
 
-void load()
-{
-    srand(time(nullptr)); // It will generate unique random numbers each time
-
-    std::string loader{"LOADING..."};
-    size_t loadLimit = loader.size(); // It will return the length of the string "loader"
-
-    // Here, it prints the text from loader to console in time gaps
-    // and on reaching the length of string it erases the text and loops again for random times
-    for (size_t i{0}; i <= rand() % (2 * loadLimit) + (rand() % loadLimit) * 2 + loadLimit; ++i)
-    {
-        if (i % loadLimit == 0) // Checks, if all letters are printed or not
-            std::cout << "\r" << std::setw(loadLimit) << " "
-                      << "\r";                 // Erasing current line
-        std::cout << loader.at(i % loadLimit); // Display char one by one
-        Sleep(150);                            // Delay
-    }
-}
-
-void title()
+void logo() /*********** LOGO ********/
 {
     system("cls"); // clear the screen each time
 
-    const std::string title{"iCoder"}; // this display the title at top of screen
+    const std::string logo{"iCoder"}; // this display the logo at top of screen
 
     std::cout << std::setw(Ui::relativeTitleWidth) << ""
               << std::setw(Ui::widthTitle) << std::setfill('=') << ""
               << std::setfill(' ') << std::endl
-              << std::setw(Ui::relativeTitleWidth + Ui::widthTitle / 2 - title.size() / 2) << ""
-              << title << std::endl
+              << std::setw(Ui::relativeTitleWidth + Ui::widthTitle / 2 - logo.size() / 2) << ""
+              << logo << std::endl
               << std::setw(Ui::relativeTitleWidth) << ""
               << std::setw(Ui::widthTitle) << std::setfill('=') << ""
               << std::setfill(' ')
@@ -45,14 +26,14 @@ void title()
 void menu(const std::vector<std::string> &vecMenu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
 { // show the specific menu
 
-    title(); // display title - "iCoder"
+    logo(); // display logo - "iCoder"
 
     update_screen(heading); // It will update the current screen enum variable
 
     if (Global::showHint) // checks if showHint is enabled or not
         show_hint();      // if enabled, it shows different hints based on the current screeen
 
-    header(heading, false); // It prints the heading to console, accepts boolean to display title or not
+    header(heading, false); // It prints the heading to console, accepts boolean to display logo or not
 
     if (showStatus)                      // It checks if it has access to show the current state of the specific screen
         show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
@@ -148,7 +129,7 @@ void update_screen(const std::string &heading)
         opnScreen = CUR_DS;
     else if (heading == std::string{" GAMES "})
         opnScreen = CUR_GAMES;
-    else if (heading == std::string{" MENU "})
+    else if (heading == std::string{" MAIN "})
         opnScreen = CUR_MENU;
     else if (heading == std::string{" MORE "})
         opnScreen = CUR_MORE;
@@ -162,8 +143,8 @@ void update_screen(const std::string &heading)
 
 void header(const std::string &menuTitle, bool showTitle)
 {
-    if (showTitle) // displays title ,if true
-        title();
+    if (showTitle) // displays logo ,if true
+        logo();
 
     std::cout << std::setfill('-')
               << std::setw(2) << ""

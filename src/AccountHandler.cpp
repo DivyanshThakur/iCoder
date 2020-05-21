@@ -20,9 +20,9 @@ void AccountHandler::login()
 
         acc.display_remember_me(); // it will display remember me message
 
-        border(Ui::widthMenu);  // display the border
-        load();                 // animate loading screen
-        home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
+        border(Ui::widthMenu);        // display the border
+        load();                       // animate loading screen
+        Main::home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
     }
     catch (const EscPressed &e)
     {
@@ -63,9 +63,9 @@ void AccountHandler::create_account()
 
         acc.display_remember_me(); // it will display remember me message
 
-        border(Ui::widthMenu);  // display the border
-        load();                 // animate loading screen
-        home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
+        border(Ui::widthMenu);        // display the border
+        load();                       // animate loading screen
+        Main::home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
     }
     catch (const EscPressed &e)
     {
