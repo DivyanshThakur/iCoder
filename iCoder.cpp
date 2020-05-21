@@ -22,10 +22,10 @@
 #include "header/Help.hpp"
 #include "header/Settings.hpp"
 #include "header/FileHandler.hpp"
-#include "header/AnimeHandler.hpp"
 #include "header/AccountHandler.hpp"
 #include "dsa/header/DataStructure.hpp"
 #include "namespace/header/cod_scan.hpp"
+#include "animation/header/AnimeHandler.hpp"
 
 int main()
 {
@@ -79,122 +79,29 @@ std::vector<std::string> Main::Menu::selector()
     return toDisplayMenu;
 }
 
-/**************************************************************************************************************
+/**
+ * The menuIndex stores the index of the menu options that is currently displayed in the screen
+ * fn_caller calls the required function by using below logic
+ * Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
+ * if the input is between the menuIndex size range, it calculates which function to call
+ * Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::main
+ * Since, the index of Menu::main is stored in menuIndex and thus is passed in menu controller
  * 
- *                                           MAIN IMPLEMENTATIONS
- * 
- * ***********************************************************************************************************/
+ **/
 
-void Main::start()
+void Main::Menu::caller() const
 {
-    load();
+    this->sc >> this->ch;
 
-    cod::scan sc;
-    int ch;
-
-    do
-    {
-        Main::Menu myMenu;
-        Main::Menu::player(myMenu); // display the startup menu
-
-        try
-        {
-            sc.choice(ch); // scan user's choice
-
-            fn_caller(ch, menuIndex); // start as per user choice
-        }
-        catch (const EscPressed &e)
-        {
-            // do nothing
-        }
-        catch (const Exit &e)
-        {
-            e.what(); // call exit function
-        }
-        catch (const OpenSettings &e)
-        {
-            e.what();
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what(); // open about screen
-        }
-        catch (const OpenHelp &e)
-        {
-            e.what(); // open help screen
-        }
-        catch (const OpenUpdate &e)
-        {
-            e.what();
-        }
-        catch (const OpenChangelog &e)
-        {
-            e.what(); // open changelog
-        }
-        catch (const OpenMoreScreen &e)
-        {
-            e.what(); // open home screen
-        }
-        catch (const OpenAnimeSetting &e)
-        {
-            e.what(); // open settings with animation
-        }
-
-    } while (1); // The program always run and can only be exited when user presses 'q'
-}
-
-// std::vector<std::string> menu_screen_selector(std::vector<int> &menuIndex)
-// {
-//     // select the correct menu to display as per need
-//     std::vector<std::string> toDisplayMenu;
-
-//     size_t i;
-
-//     if (Global::signedUserID == std::string{"NULL"}) // if singed user is null, perform this
-//     {
-//         toDisplayMenu = Menu::main;
-
-//         for (i = 0; i < Menu::main.size(); i++)
-//             menuIndex.push_back(i + 1);
-//     }
-//     else
-//     { // if a user is signed in then leaving singing options display other options
-
-//         // Data Structure option is added for signed user to return back to DS screen
-//         toDisplayMenu.push_back(std::string{"Data Structure"});
-//         menuIndex.push_back(3);
-
-//         for (i = 3; i < Menu::main.size(); ++i) // push back common options
-//         {
-//             toDisplayMenu.push_back(Menu::main.at(i));
-//             menuIndex.push_back(i + 1);
-//         }
-
-//         toDisplayMenu.push_back(std::string{"Sign Out"}); // add sign out option for the user
-//         menuIndex.push_back(i + 1);
-//     }
-
-//     return toDisplayMenu;
-// }
-
-// The menuIndex stores the index of the menu options that is currently displayed in the screen
-// fn_caller calls the required function by using below logic
-// Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
-// if the input is between the menuIndex size range, it calculates which function to call
-// Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::main
-// Since, the index of Menu::main is stored in menuIndex and thus is passed in menu controller
-
-void fn_caller(int ch, const std::vector<int> &menuIndex)
-{
-    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
-        main_menu_controller(menuIndex.at(ch - 1));
+    if (this->ch > 0 && this->ch <= static_cast<int>(this->menuIndex.size()))
+        this->controller();
     else
         print_message(std::string{"Invalid choice"}, true);
 }
 
-void main_menu_controller(int ch)
+void Main::Menu::controller() const
 {
-    switch (ch)
+    switch (this->menuIndex.at(ch - 1))
     {
     case 1: // go to log in screen
         AccountHandler::login();
@@ -205,7 +112,7 @@ void main_menu_controller(int ch)
         break;
 
     case 3: // login Anonymously / Data Structure
-        (Global::signedUserID == std::string{"NULL"}) ? home(std::string{"User"}) : data_structure();
+        home();
         break;
 
     case 4: // open more features screen
@@ -242,19 +149,23 @@ void main_menu_controller(int ch)
     }
 }
 
-void home(const std::string &userID)
+/**************************************************************************************************************
+ * 
+ *                                           MAIN IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+bool Main::welcomeFlag = true;
+
+void Main::start()
 {
-    int flag{1};
+    load();
 
-    if (flag && Global::showWelcome)
+    do
     {
-        flag = 0;
-        logo();                                  // display the logo = iCoder
-        emessage("--> Welcome " + userID + "!"); // display the welcome message
-        showedOneTime = false;
-    }
+        Main::Menu myMenu;
+        Main::Menu::player(myMenu); // display the startup menu
 
-    data_structure();
+    } while (1); // The program always run and can only be exited when user presses 'q'
 }
 
 void Main::load()
@@ -277,7 +188,36 @@ void Main::load()
     }
 
     if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
-        home(Global::signedUserID);                  // if the user is saved in file it will automatically sign in the active user
+        home();                                      // if the user is saved in file it will automatically sign in the active user
+}
+
+void Main::sign_out()
+{
+    FileHandler::save_active_user(std::string{"NULL"});
+    Path::userFilePath.clear();
+    welcomeFlag = true;
+
+    AnimeHandler::sign_out();
+}
+
+// It creates a path to the user's document folder for storing the user data
+void Main::create_path()
+{
+    char *userpath = getenv("USERPROFILE"); // stores the path to userProfile
+
+    if (userpath == nullptr)
+    {
+        std::cerr << "No user path";
+        return;
+    }
+
+    // assigning path to their respective variables
+    Path::dataPath = std::string(userpath) + "\\Documents\\iCoder\\";
+    Path::fUser = Path::dataPath + "users.dat";
+    Path::fSetting = Path::dataPath + "settings.dat";
+
+    if (!check_directory())            // checking if the directory "data" exists or not
+        mkdir(Path::dataPath.c_str()); // these code will create a folder in that specific destination
 }
 
 bool Main::check_directory()
@@ -301,30 +241,17 @@ void Main::adjust_console_size()
     MoveWindow(console, r.left, r.top, Ui::consoleWidth, Ui::consoleHeight, TRUE); // 850 width, 600 height
 }
 
-// It creates a path to the user's document folder for storing the user data
-void Main::create_path()
+void Main::home()
 {
-    char *userpath = getenv("USERPROFILE"); // stores the path to userProfile
-
-    if (userpath == nullptr)
+    if (welcomeFlag && Global::showWelcome)
     {
-        std::cerr << "No user path";
-        return;
+        std::string userID = (Global::signedUserID == "NULL") ? "User" : Global::signedUserID;
+
+        welcomeFlag = false;
+        logo();                                  // display the logo = iCoder
+        emessage("--> Welcome " + userID + "!"); // display the welcome message
+        showedOneTime = false;
     }
 
-    // assigning path to their respective variables
-    Path::dataPath = std::string(userpath) + "\\Documents\\iCoder\\";
-    Path::fUser = Path::dataPath + "users.dat";
-    Path::fSetting = Path::dataPath + "settings.dat";
-
-    if (!check_directory())            // checking if the directory "data" exists or not
-        mkdir(Path::dataPath.c_str()); // these code will create a folder in that specific destination
-}
-
-void Main::sign_out()
-{
-    FileHandler::save_active_user(std::string{"NULL"});
-    Path::userFilePath.clear();
-
-    AnimeHandler::sign_out();
+    data_structure();
 }

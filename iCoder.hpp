@@ -5,7 +5,7 @@
 
 class Main
 {
-public:
+private:
     class Menu : public IMenu
     {
         virtual std::string title() const override;
@@ -15,15 +15,17 @@ public:
         virtual void controller() const override;
     };
 
-    static void start();
-    static void home(const std::string &userID);
+    static bool welcomeFlag;
 
-private:
     static void load();
     static void sign_out();
     static void create_path();
     static bool check_directory();
     static void adjust_console_size();
+    static void home();
+
+public:
+    static void start();
 };
 
 /************************************************ FUNCTION PROTOTYPES **************************************************/
