@@ -10,9 +10,10 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:\\mingw-w64\\mingw32\\bin\\gcc.exe",
+            "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
             "cStandard": "c11",
-            "intelliSenseMode": "clang-x86"
+            "intelliSenseMode": "clang-x86",
+            "cppStandard": "c++20"
         },
         {
             "name": "Win32",
@@ -28,6 +29,30 @@
             "cStandard": "c11",
             "intelliSenseMode": "gcc-x64",
             "cppStandard": "c++17"
+        },
+        {
+            "name": "Windows",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "msvc-x64"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "msvc-x64"
         }
     ],
     "version": 4
