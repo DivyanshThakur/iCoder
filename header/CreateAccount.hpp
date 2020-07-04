@@ -9,11 +9,11 @@ private:
     std::string pass2;
 
 public:
-    void input_data();
-    void upload_account();
+    void input();
+    void upload();
     void isValidUser();
 
-    std::string get_pass2() const;
+    std::string getPass2() const;
 };
 
 #endif
