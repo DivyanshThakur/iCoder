@@ -1,13 +1,13 @@
 #ifndef UIHANDLER_HPP
 #define UIHANDLER_HPP
 
-#include "Constants.hpp"
+#include "../constant/Constants.hpp"
 
 class Ui
 {
 public:
     static void logo();
-    static void menu(const std::vector<std::string> &vecMenu, const std::string &heading = " MENU ", bool showStatus = false, const std::string &statsVal = "Default", const std::string &statsStr = "Current Status: ");
+    static void menu(const std::vector<std::string> &vecMenu, const std::string &heading = "MENU", bool showStatus = false, const std::string &statsVal = "Default", const std::string &statsStr = "Current Status: ");
     static void show_status(const std::string &statsStr, const std::string &statsVal, bool isFinal = true);
     static std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData);
     static void update_last_screen();

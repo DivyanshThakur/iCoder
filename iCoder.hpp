@@ -30,10 +30,10 @@ private:
 
     static void load();
     static void home();
-    static void sign_out();
-    static void create_path();
-    static bool check_directory();
-    static void adjust_console_size();
+    static void signOut();
+    static void createPath();
+    static bool checkDirectory();
+    static void adjustConsoleSize();
 
 public:
     /**

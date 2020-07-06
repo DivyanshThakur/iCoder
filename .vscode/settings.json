@@ -84,6 +84,9 @@
         "ios": "cpp",
         "locale": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "any": "cpp",
+        "bit": "cpp",
+        "variant": "cpp"
     }
 }

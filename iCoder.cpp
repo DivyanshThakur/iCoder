@@ -27,6 +27,8 @@
 #include "namespace/header/cod_scan.hpp"
 #include "animation/header/AnimeHandler.hpp"
 
+#include "constant/Constants.hpp"
+
 int main()
 {
     Main::start();
@@ -42,7 +44,7 @@ int main()
 
 std::string Main::Menu::title() const
 {
-    return std::string(" MAIN ");
+    return std::string(Constant::Tag::MAIN);
 }
 
 std::vector<std::string> Main::Menu::selector()
@@ -51,10 +53,10 @@ std::vector<std::string> Main::Menu::selector()
 
     if (Global::signedUserID == std::string{"NULL"}) // if singed user is null, run this code
     {
-        for (size_t i{0}; i < Constant::Menu::main.size(); i++)
+        for (size_t i{0}; i < Constant::Menu::MAIN.size(); i++)
             this->menuIndex.push_back(i + 1);
 
-        return Constant::Menu::main;
+        return Constant::Menu::MAIN;
     }
 
     // if a user is signed in then leaving singing options display other options
@@ -67,7 +69,7 @@ std::vector<std::string> Main::Menu::selector()
     toDisplayMenu.push_back(std::string{"Data Structure"});
     this->menuIndex.push_back(3);
 
-    for (i = 3; i < Constant::Menu::main.size(); ++i) // push back common options
+    for (i = 3; i < Constant::Menu::MAIN.size(); ++i) // push back common options
     {
         toDisplayMenu.push_back(Constant::Menu::main.at(i));
         this->menuIndex.push_back(i + 1);
@@ -143,7 +145,7 @@ void Main::Menu::controller() const
         break;
 
     case 11: // sign out
-        sign_out();
+        signOut();
         break;
     }
 }
@@ -170,7 +172,7 @@ void Main::start()
 void Main::load()
 {
     adjust_console_size(); // Adjust the window size
-    create_path();         // Initilize the paths
+    create_path();         // Initialize the paths
 
     Settings mySetting;
     FileHandler::load(mySetting); // Restore the settings that was previously changed and saved

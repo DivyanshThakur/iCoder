@@ -147,8 +147,8 @@ void header(const std::string &menuTitle, bool showTitle)
         logo();
 
     std::cout << std::setfill('-')
-              << std::setw(2) << ""
-              << menuTitle
+              << std::setw(2) << " "
+              << menuTitle << " "
               << std::setw(Ui::widthMenu - (menuTitle.size() + 2)) << ""
               << std::setfill(' ')
               << std::endl;
