@@ -71,7 +71,7 @@ std::vector<std::string> Main::Menu::selector()
 
     for (i = 3; i < Constant::Menu::MAIN.size(); ++i) // push back common options
     {
-        toDisplayMenu.push_back(Constant::Menu::main.at(i));
+        toDisplayMenu.push_back(Constant::Menu::MAIN.at(i));
         this->menuIndex.push_back(i + 1);
     }
 
