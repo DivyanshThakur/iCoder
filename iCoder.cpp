@@ -51,7 +51,7 @@ std::vector<std::string> Main::Menu::selector()
 {
     this->menuIndex.clear(); // clear the previous saved index
 
-    if (Global::signedUserID == std::string{"NULL"}) // if singed user is null, run this code
+    if (Global::activeUser == Constant::NULL_STR) // if singed user is null, run this code
     {
         for (size_t i{0}; i < Constant::Menu::MAIN.size(); i++)
             this->menuIndex.push_back(i + 1);
@@ -171,8 +171,8 @@ void Main::start()
 
 void Main::load()
 {
-    adjust_console_size(); // Adjust the window size
-    create_path();         // Initialize the paths
+    adjustConsoleSize(); // Adjust the window size
+    createPath();        // Initialize the paths
 
     Settings mySetting;
     FileHandler::load(mySetting); // Restore the settings that was previously changed and saved
@@ -185,18 +185,18 @@ void Main::load()
         showedOneTime = false;                                             // Set to false to not show next time
 
         // save the showHint to file
-        mySetting.save(cod::pair<std::string, std::string>(File::SHOW_ONE_TIME_HINT, std::to_string(showedOneTime)));
+        mySetting.save(cod::pair<std::string, std::string>(Constant::File::SHOW_ONE_TIME_HINT, std::to_string(showedOneTime)));
     }
 
-    if (Global::signedUserID != std::string{"NULL"}) // checking for current signed user
-        home();                                      // if the user is saved in file it will automatically sign in the active user
+    if (Global::activeUser != Constant::NULL_STR) // checking for current signed user
+        home();                                   // if the user is saved in file it will automatically sign in the active user
 }
 
 void Main::home()
 {
     if (welcomeFlag && Global::showWelcome)
     {
-        std::string userID = (Global::signedUserID == "NULL") ? "User" : Global::signedUserID;
+        std::string userID = (Global::activeUser == Constant::NULL_STR) ? "User" : Global::activeUser;
         welcomeFlag = false;
 
         logo();                                  // display the logo - iCoder
@@ -206,17 +206,17 @@ void Main::home()
     data_structure();
 }
 
-void Main::sign_out()
+void Main::signOut()
 {
     FileHandler::save_active_user(std::string{"NULL"});
-    Path::userFilePath.clear();
+    Constant::Path::USER.clear();
     welcomeFlag = true;
 
     AnimeHandler::sign_out();
 }
 
 // It creates a path to the user's document folder for storing the user data
-void Main::create_path()
+void Main::createPath()
 {
     char *userpath = getenv("USERPROFILE"); // stores the path to userProfile
 
@@ -227,18 +227,18 @@ void Main::create_path()
     }
 
     // assigning path to their respective variables
-    Path::dataPath = std::string(userpath) + "\\Documents\\iCoder\\";
-    Path::fUser = Path::dataPath + "users.dat";
-    Path::fSetting = Path::dataPath + "settings.dat";
+    Constant::Path::PATH = std::string(userpath) + "\\Documents\\iCoder\\";
+    Constant::Path::DB = Constant::Path::PATH + "users.dat";
+    Constant::Path::SETTINGS = Constant::Path::PATH + "settings.dat";
 
-    if (!check_directory())            // checking if the directory "data" exists or not
-        mkdir(Path::dataPath.c_str()); // these code will create a folder in that specific destination
+    if (!checkDirectory())                   // checking if the directory "data" exists or not
+        mkdir(Constant::Path::PATH.c_str()); // these code will create a folder in that specific destination
 }
 
-bool Main::check_directory()
+bool Main::checkDirectory()
 {
     // code to check if a Directory exists or not
-    DWORD attribs = ::GetFileAttributesA(Path::dataPath.c_str());
+    DWORD attribs = ::GetFileAttributesA(Constant::Path::PATH.c_str());
 
     if (attribs == INVALID_FILE_ATTRIBUTES)
         return false;
@@ -246,12 +246,12 @@ bool Main::check_directory()
     return (attribs & FILE_ATTRIBUTE_DIRECTORY);
 }
 
-void Main::adjust_console_size()
+void Main::adjustConsoleSize()
 {
-    // code to ajust the console size to fix for all the screens
+    // code to adjust the console size to fix for all the screens
     HWND console = GetConsoleWindow();
     RECT r;
     GetWindowRect(console, &r); //stores the console's current dimensions
 
-    MoveWindow(console, r.left, r.top, Ui::consoleWidth, Ui::consoleHeight, TRUE); // 850 width, 600 height
+    MoveWindow(console, r.left, r.top, Constant::Ui::CONSOLE_WIDTH, Constant::Ui::CONSOLE_HEIGHT, TRUE); // 850 width, 600 height
 }

@@ -17,26 +17,26 @@ bool isquitConditionEnabled{false};
 // const std::string RePassword{"Re-enter Password: "};
 
 /*************************************************** GLOBAL CLASS ****************************************************/
-std::string Constant::Global::signedUserID;
-int Constant::Global::sleepTime;
-bool Constant::Global::showWelcome;
-bool Constant::Global::showHint;
-bool Constant::Global::showQuit;
+std::string Global::activeUser;
+int Global::sleepTime;
+bool Global::showWelcome;
+bool Global::showHint;
+bool Global::showQuit;
 
 /*************************************************** ICODER CLASS ****************************************************/
 
-const std::string Constant::iCoder::devName{"Divyansh Singh Thakur"};
-const std::string Constant::iCoder::versionInfo{"1.9.20.5.20-beta"};
+const std::string Constant::iCoder::DEV{"Divyansh Singh Thakur"};
+const std::string Constant::iCoder::VERSION{"1.9.20.5.20-beta"};
 
 /***************************************************** REMOTE URL ****************************************************/
 
-const std::string Constant::Url::source{"https://github.com/DivyanshThakur/iCoder"};
-const std::string Constant::Url::iStable{"https://github.com/DivyanshThakur/iCoder/raw/master/iCoder.exe"};
-const std::string Constant::Url::iBeta{"https://github.com/DivyanshThakur/iCoder/raw/Development/iCoder.exe"};
+const std::string Constant::Url::SRC{"https://github.com/DivyanshThakur/iCoder"};
+const std::string Constant::Url::STABLE{"https://github.com/DivyanshThakur/iCoder/raw/master/iCoder.exe"};
+const std::string Constant::Url::BETA{"https://github.com/DivyanshThakur/iCoder/raw/Development/iCoder.exe"};
 
 /****************************************************** DATA PATH *****************************************************/
 
-std::string Constant::Path::dataPath;
-std::string Constant::Path::userFilePath;
-std::string Constant::Path::fUser;
-std::string Constant::Path::fSetting;
+std::string Constant::Path::PATH;
+std::string Constant::Path::USER;
+std::string Constant::Path::DB;
+std::string Constant::Path::SETTINGS;

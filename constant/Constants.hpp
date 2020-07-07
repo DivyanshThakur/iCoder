@@ -4,26 +4,25 @@
 #include <vector>
 #include <string>
 
+class Global
+{
+public:
+    static std::string activeUser;
+    static int sleepTime;
+    static bool showWelcome;
+    static bool showHint;
+    static bool showQuit;
+};
 class Constant
 {
 public:
     static const std::string NULL_STR;
 
-    class Global
-    {
-    public:
-        static std::string signedUserID;
-        static int sleepTime;
-        static bool showWelcome;
-        static bool showHint;
-        static bool showQuit;
-    };
-
     class iCoder
     {
     public:
-        static const std::string devName;
-        static const std::string versionInfo;
+        static const std::string DEV;
+        static const std::string VERSION;
     };
 
     /***************************************************** REMOTE URL ****************************************************/
@@ -31,9 +30,9 @@ public:
     class Url
     {
     public:
-        static const std::string source;
-        static const std::string iStable;
-        static const std::string iBeta;
+        static const std::string SRC;
+        static const std::string STABLE;
+        static const std::string BETA;
     };
 
     /****************************************************** DATA PATH *****************************************************/
@@ -41,10 +40,10 @@ public:
     class Path
     {
     public:
-        static std::string dataPath;
-        static std::string userFilePath;
-        static std::string fUser;
-        static std::string fSetting;
+        static std::string PATH;
+        static std::string USER;
+        static std::string DB;
+        static std::string SETTINGS;
     };
 
     class Menu
@@ -62,30 +61,29 @@ public:
     class SubMenu // Menu Constant
     {
     public:
-        // info
+        // help
         static const std::vector<std::string> UPDATES;
-        static const std::vector<std::string> logVersionData;
-        static const std::vector<std::string> logVersionDesc;
-        static const std::vector<std::string> helpCharData;
-        static const std::vector<std::string> helpCharDesc;
+        static const std::vector<std::string> VERSION_DATA;
+        static const std::vector<std::string> VERSION_DESC;
+        static const std::vector<std::string> HELP_DATA;
+        static const std::vector<std::string> HELP_DESC;
 
         // settings
-        static const std::vector<std::string> lSearchType;
-        static const std::vector<std::string> shortcutsType;
-        static const std::vector<std::string> animeSignOutStyle;
+        static const std::vector<std::string> LSEARCH_TYPE;
+        static const std::vector<std::string> ANIME_SO_STYLE;
 
         // array
-        static const std::vector<std::string> average;
-        static const std::vector<std::string> sum;
-        static const std::vector<std::string> set;
-        static const std::vector<std::string> reverse;
-        static const std::vector<std::string> shiftRotate;
-        static const std::vector<std::string> findValue;
+        static const std::vector<std::string> AVERAGE;
+        static const std::vector<std::string> SUM;
+        static const std::vector<std::string> SET;
+        static const std::vector<std::string> REVERSE;
+        static const std::vector<std::string> SHIFT_ROTATE;
+        static const std::vector<std::string> FIND_VALUE;
 
         // string
-        static const std::vector<std::string> updateString;
-        static const std::vector<std::string> changeCaseString;
-        static const std::vector<std::string> rangeString;
+        static const std::vector<std::string> UPDATE_STRING;
+        static const std::vector<std::string> CHANGE_CASE_STRING;
+        static const std::vector<std::string> RANGE_STRING;
     };
 
     class Ui // Ui Constant
