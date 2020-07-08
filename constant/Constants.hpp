@@ -111,7 +111,6 @@ public:
         static const std::string SHOW_WELCOME_MESSAGE;
         static const std::string SHOW_QUIT_MESSAGE;
         static const std::string SHOW_HINT;
-        static const std::string SHOW_ONE_TIME_HINT;
     };
 
     class DataFile

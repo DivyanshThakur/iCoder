@@ -49,12 +49,12 @@ std::string Main::Menu::title() const
 
 std::vector<std::string> Main::Menu::selector()
 {
-    this->menuIndex.clear(); // clear the previous saved index
+    menuIndex.clear(); // clear the previous saved index
 
-    if (Global::activeUser == Constant::NULL_STR) // if singed user is null, run this code
+    if (Global::activeUser == Constant::NULL_STR) // if active user is null, run this code
     {
         for (size_t i{0}; i < Constant::Menu::MAIN.size(); i++)
-            this->menuIndex.push_back(i + 1);
+            menuIndex.push_back(i + 1);
 
         return Constant::Menu::MAIN;
     }
@@ -67,16 +67,16 @@ std::vector<std::string> Main::Menu::selector()
 
     // Data Structure option is added for signed user to return back to DS screen
     toDisplayMenu.push_back(std::string{"Data Structure"});
-    this->menuIndex.push_back(3);
+    menuIndex.push_back(3);
 
     for (i = 3; i < Constant::Menu::MAIN.size(); ++i) // push back common options
     {
         toDisplayMenu.push_back(Constant::Menu::MAIN.at(i));
-        this->menuIndex.push_back(i + 1);
+        menuIndex.push_back(i + 1);
     }
 
     toDisplayMenu.push_back(std::string{"Sign Out"}); // add sign out option for the user
-    this->menuIndex.push_back(i + 1);
+    menuIndex.push_back(i + 1);
 
     return toDisplayMenu;
 }
@@ -92,17 +92,17 @@ std::vector<std::string> Main::Menu::selector()
 
 void Main::Menu::caller() const
 {
-    this->sc >> this->ch;
+    scan >> ch;
 
-    if (this->ch > 0 && this->ch <= static_cast<int>(this->menuIndex.size()))
-        this->controller();
+    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
+        controller();
     else
         print_message(std::string{"Invalid choice"}, true);
 }
 
 void Main::Menu::controller() const
 {
-    switch (this->menuIndex.at(ch - 1))
+    switch (menuIndex.at(ch - 1))
     {
     case 1: // go to log in screen
         AccountHandler::login();
@@ -163,8 +163,8 @@ void Main::start()
 
     do
     {
-        Main::Menu myMenu;
-        Main::Menu::player(myMenu); // display the startup menu
+        // Main::Menu myMenu;
+        Main::Menu::player(Main::Menu()); // display the startup menu
 
     } while (1); // The program always run and can only be exited when user presses 'q'
 }
@@ -176,17 +176,6 @@ void Main::load()
 
     Settings mySetting;
     FileHandler::load(mySetting); // Restore the settings that was previously changed and saved
-
-    // It is executed for only 1 time after installing the software
-    if (showedOneTime) // if the showdOneTime is enabled, it displays below message
-    {
-        logo();                                                            // Display logo
-        emessage(std::string{" HINT -> See HELP section for shortcuts!"}); // Show 1 time message to user
-        showedOneTime = false;                                             // Set to false to not show next time
-
-        // save the showHint to file
-        mySetting.save(cod::pair<std::string, std::string>(Constant::File::SHOW_ONE_TIME_HINT, std::to_string(showedOneTime)));
-    }
 
     if (Global::activeUser != Constant::NULL_STR) // checking for current signed user
         home();                                   // if the user is saved in file it will automatically sign in the active user
@@ -208,7 +197,7 @@ void Main::home()
 
 void Main::signOut()
 {
-    FileHandler::save_active_user(std::string{"NULL"});
+    FileHandler::save_active_user(Constant::NULL_STR);
     Constant::Path::USER.clear();
     welcomeFlag = true;
 
@@ -223,7 +212,7 @@ void Main::createPath()
     if (userpath == nullptr)
     {
         print_message("No user path found!", true, NIL);
-        return;
+        exit(1);
     }
 
     // assigning path to their respective variables

@@ -1,7 +1,6 @@
 #ifndef FILE_HANDLER_HPP
 #define FILE_HANDLER_HPP
 
-#include "Constants.hpp"
 #include "ISaveable.hpp"
 #include "../namespace/header/cod_pair.hpp"
 

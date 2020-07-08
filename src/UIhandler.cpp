@@ -9,15 +9,15 @@ void logo() /*********** LOGO ********/
 {
     system("cls"); // clear the screen each time
 
-    const std::string logo{"iCoder"}; // this display the logo at top of screen
+    const std::string TITLE{"iCoder"}; // this display the logo at top of screen
 
-    std::cout << std::setw(Ui::relativeTitleWidth) << ""
-              << std::setw(Ui::widthTitle) << std::setfill('=') << ""
+    std::cout << std::setw(Constant::Ui::RELATIVE_TITLE_WIDTH) << ""
+              << std::setw(Constant::Ui::TITLE_WIDTH) << std::setfill('=') << ""
               << std::setfill(' ') << std::endl
-              << std::setw(Ui::relativeTitleWidth + Ui::widthTitle / 2 - logo.size() / 2) << ""
-              << logo << std::endl
-              << std::setw(Ui::relativeTitleWidth) << ""
-              << std::setw(Ui::widthTitle) << std::setfill('=') << ""
+              << std::setw(Constant::Ui::RELATIVE_TITLE_WIDTH + Constant::Ui::TITLE_WIDTH / 2 - TITLE.size() / 2) << ""
+              << TITLE << std::endl
+              << std::setw(Constant::Ui::RELATIVE_TITLE_WIDTH) << ""
+              << std::setw(Constant::Ui::TITLE_WIDTH) << std::setfill('=') << ""
               << std::setfill(' ')
               << std::endl
               << std::endl;
@@ -232,7 +232,7 @@ void animater(const std::string &anime)
     }
 }
 
-void print_message(const std::string &message, bool pressKey, const ReturnTo &rt)
+void print(const std::string &message, bool pressKey, const ReturnTo &rt)
 { // prints a border of "-" with a message for user
     border(Ui::widthMenu);
 

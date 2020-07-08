@@ -10,7 +10,7 @@ void settings();
 class Settings : public ISaveable
 {
 public:
-    /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+    /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
     virtual std::vector<cod::pair<std::string, std::string>> save() const override;
     virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) override;

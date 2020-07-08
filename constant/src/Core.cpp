@@ -8,7 +8,6 @@
  * *******************************************************************************************************************/
 
 // used for temporary conditions
-bool showedOneTime{true};
 bool isquitConditionEnabled{false};
 
 //accounthandler.h

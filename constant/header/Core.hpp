@@ -7,7 +7,6 @@
 /************ THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES ************/
 
 // used for temporary conditions
-extern bool showedOneTime;
 extern bool isquitConditionEnabled;
 
 //accounthandler.h

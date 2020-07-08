@@ -7,7 +7,7 @@ class IMenu
 {
 protected:
     std::vector<int> menuIndex; // It stored the index of the string to display
-    static cod::scan sc;
+    static cod::scan scan;
     static int ch;
 
     virtual void check() const;
@@ -18,7 +18,7 @@ public:
     virtual void caller() const = 0;
     virtual void controller() const = 0;
 
-    static void player(IMenu &iMenu);
+    static void player(IMenu &&iMenu);
 
     virtual ~IMenu() = default;
 };

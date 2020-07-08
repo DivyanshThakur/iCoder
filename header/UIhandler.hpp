@@ -1,5 +1,5 @@
-#ifndef UIHANDLER_HPP
-#define UIHANDLER_HPP
+#ifndef UI_HANDLER_HPP
+#define UI_HANDLER_HPP
 
 #include "../constant/Constants.hpp"
 
@@ -18,7 +18,7 @@ public:
     static void emessage(const std::string &emessage);
     static void animater(const std::string &anime);
     static void igetch();
-    static void print_message(const std::string &message = std::string{"TO BE IMPLEMENTED..."}, bool pressKey = false, const ReturnTo &rt = PRE);
+    static void print(const std::string &message = std::string{"TO BE IMPLEMENTED..."}, bool pressKey = false, const ReturnTo &rt = PRE);
     static void press_key(const ReturnTo &rt = PRE, const std::string &message = "Press any key to continue");
     bool press_i(const std::string &message);
     static void erase_line(size_t len = Ui::widthMenu);

@@ -9,7 +9,6 @@ const std::string Constant::File::ANIME_SIGN_OUT_STATUS{"ANIME_SIGN_OUT_STATUS"}
 const std::string Constant::File::SHOW_WELCOME_MESSAGE{"SHOW_WELCOME_MESSAGE"};
 const std::string Constant::File::SHOW_QUIT_MESSAGE{"SHOW_QUIT_MESSAGE"};
 const std::string Constant::File::SHOW_HINT{"SHOW_HINT"};
-const std::string Constant::File::SHOW_ONE_TIME_HINT{"SHOW_ONE_TIME_HINT"};
 
 /************************************************* Data File Constant ************************************************/
 const std::string Constant::DataFile::TITLE{"__TITLE__"};
