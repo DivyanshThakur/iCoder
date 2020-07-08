@@ -17,6 +17,7 @@ public:
     virtual std::vector<std::string> selector() = 0;
     virtual void caller() const = 0;
     virtual void controller() const = 0;
+    virtual void stats() const;
 
     static void player(IMenu &&iMenu);
 

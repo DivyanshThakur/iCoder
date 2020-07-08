@@ -5,6 +5,8 @@
 #include "../namespace/header/cod_algorithm.hpp"
 #include "../namespace/header/cod_scan.hpp" // UiHandler already included in cod_scan
 
+#include "../constant/enum.hpp"
+
 void logo() /*********** LOGO ********/
 {
     system("cls"); // clear the screen each time
@@ -28,7 +30,7 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
 
     logo(); // display logo - "iCoder"
 
-    update_screen(heading); // It will update the current screen enum variable
+    updateScreen(heading); // It will update the current screen enum variable
 
     if (Global::showHint) // checks if showHint is enabled or not
         show_hint();      // if enabled, it shows different hints based on the current screeen
@@ -48,7 +50,7 @@ void menu(const std::vector<std::string> &vecMenu, const std::string &heading, b
             std::cout << std::endl;
     }
 
-    print_message(std::string{"Your Choice: "}); // ask user for input
+    print(std::string{"Your Choice: "}); // ask user for input
 }
 
 void show_status(const std::string &statsStr, const std::string &statsVal, bool isFinal)
@@ -79,7 +81,7 @@ std::string stats_selector(const enum Status &stats, const std::vector<std::stri
     }
 }
 
-void update_last_screen()
+void updateLastScreen()
 {
     // The last screen is updated from current string
     switch (opnScreen)
@@ -118,14 +120,14 @@ void update_last_screen()
     }
 }
 
-void update_screen(const std::string &heading)
+void updateScreen(const std::string &heading)
 {
-    update_last_screen();
+    updateLastScreen();
 
     // This function updates the current screen
     if (heading == std::string{" ARRAY "})
         opnScreen = CUR_ARRAY;
-    else if (heading == std::string{" DATA STRUCTURE "})
+    else if (heading == std::string{"  "})
         opnScreen = CUR_DS;
     else if (heading == std::string{" GAMES "})
         opnScreen = CUR_GAMES;
@@ -133,7 +135,8 @@ void update_screen(const std::string &heading)
         opnScreen = CUR_MENU;
     else if (heading == std::string{" MORE "})
         opnScreen = CUR_MORE;
-    else if (heading == std::string{" SETTINGS "} || heading == std::string{" CHANGE LINEAR SEARCH TYPE "} || heading == std::string{" CHANGE SHORTCUT ACCESS "})
+    else if (heading == std::string{" SETTINGS "} || heading == std::string{" CHANGE LINEAR SEARCH TYPE "})
+        // || heading == std::string{" CHANGE SHORTCUT ACCESS "})
         opnScreen = CUR_SETTINGS;
     else if (heading == std::string{" STRING "})
         opnScreen = CUR_STRING;
@@ -149,14 +152,14 @@ void header(const std::string &menuTitle, bool showTitle)
     std::cout << std::setfill('-')
               << std::setw(2) << " "
               << menuTitle << " "
-              << std::setw(Ui::widthMenu - (menuTitle.size() + 2)) << ""
+              << std::setw(Constant::Ui::MENU_WIDTH - (menuTitle.size() + 2)) << ""
               << std::setfill(' ')
               << std::endl;
 }
 
-void show_hint()
+void Ui::showHint()
 {
-    header(std::string{" HINT "}, false); // print heading as " HINT "
+    header(Constant::Tag::HINT, false); // print heading as " HINT "
 
     // Assigning correct shortcut key text based on user settings
     std::string hlp = (shortcutStats == EASY) ? " Ctrl + h " : " h ";
@@ -232,78 +235,62 @@ void animater(const std::string &anime)
     }
 }
 
-void print(const std::string &message, bool pressKey, const ReturnTo &rt)
-{ // prints a border of "-" with a message for user
-    border(Ui::widthMenu);
+void Ui::print(const std::string &message)
+{
+    border(Constant::Ui::MENU_WIDTH);
 
     std::cout << message;
-
-    if (pressKey || message == std::string{"TO BE IMPLEMENTED..."}) // run press_key()
-        press_key(rt);
 }
 
-void press_key(const ReturnTo &rt, const std::string &message)
+void Ui::printnPress(const std::string &message)
 {
-    char ch;
+    print(message);
+    pressKey();
+}
 
-    print_message(message);
-    ch = getch();
+void Ui::pressKey(const std::string &message)
+{
+    print(message);
 
     // Asks user to press any key to continue, if user presses Esc, below code is executed
-    if (ch == Ui::ESC)
+    if (getch() == Constant::ESC)
     {
-        switch (rt)
-        {
-        case PRE: // Default - normal EscPressed exception thrown
-            throw EscPressed();
-        case HOME: // It will return to the Specific Home screen of the program.Eg-Data structure, Games, etc.
-            throw ReturnHome();
-        case NIL: // Nothing happens on pressing Esc, the current screen is loops again
-            break;
-        }
+        throw EscPressed();
     }
 }
 
-bool press_i(const std::string &message)
+bool Ui::isIPressed(const std::string &message)
 { // Ask user to press i to run specific task
-    print_message(std::string{message});
+    print(message);
 
-    char ch = getch();
-
-    if (::tolower(ch) == 'i')
-        return true;
-
-    return false;
+    return (::tolower(getch()) == 'i');
 }
 
-void erase_line(size_t len)
+// void erase_line(size_t len)
+// {
+//     std::cout << "\r" << std::setw(len) << ""
+//               << "\r";
+// }
+
+// // Adds extra text to the message based on the condition below
+// std::string s_or_not_s(size_t num, const std::string &message, const std::string &extra, const std::string &updateFirst)
+// {
+//     auto temp = message;
+//     temp += (num < 2) ? updateFirst : extra;
+
+//     return temp;
+// }
+
+void Ui::waitMessage(const std::string &message)
 {
-    std::cout << "\r" << std::setw(len) << ""
-              << "\r";
-}
-
-// Adds extra text to the message based on the condition below
-std::string s_or_not_s(size_t num, const std::string &message, const std::string &extra, const std::string &updateFirst)
-{
-    auto temp = message;
-    temp += (num < 2) ? updateFirst : extra;
-
-    return temp;
-}
-
-void wait_message(const std::string &message)
-{ // Simple wait message tells user that some large operations are performed in background
-
-    border(Ui::widthMenu);
-
-    std::cout << message;
+    print(message);
     Sleep(1000);
 }
 
 bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
 { // Asks user for confirmation, if the changes are to be accepted or rejected
     if (message != std::string{""})
-        print_message(message);
+        print(message);
 
     border(Ui::widthMenu);
 

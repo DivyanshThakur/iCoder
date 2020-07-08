@@ -97,7 +97,7 @@ void Main::Menu::caller() const
     if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
         controller();
     else
-        print_message(std::string{"Invalid choice"}, true);
+        Ui::print(std::string{"Invalid choice"}, true);
 }
 
 void Main::Menu::controller() const
@@ -163,10 +163,9 @@ void Main::start()
 
     do
     {
-        // Main::Menu myMenu;
         Main::Menu::player(Main::Menu()); // display the startup menu
 
-    } while (1); // The program always run and can only be exited when user presses 'q'
+    } while (1);
 }
 
 void Main::load()
@@ -188,8 +187,8 @@ void Main::home()
         std::string userID = (Global::activeUser == Constant::NULL_STR) ? "User" : Global::activeUser;
         welcomeFlag = false;
 
-        logo();                                  // display the logo - iCoder
-        emessage("--> Welcome " + userID + "!"); // display the welcome message
+        Ui::logo();                                  // display the logo - iCoder
+        Ui::emessage("--> Welcome " + userID + "!"); // display the welcome message
     }
 
     data_structure();
@@ -211,7 +210,7 @@ void Main::createPath()
 
     if (userpath == nullptr)
     {
-        print_message("No user path found!", true, NIL);
+        Ui::print("No user path found!", true);
         exit(1);
     }
 

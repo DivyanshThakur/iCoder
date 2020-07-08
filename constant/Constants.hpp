@@ -17,6 +17,7 @@ class Constant
 {
 public:
     static const std::string NULL_STR;
+    static constexpr int ESC = 27;
 
     class iCoder
     {
@@ -89,7 +90,6 @@ public:
     class Ui // Ui Constant
     {
     public:
-        static constexpr int ESC = 27;
         static const int CONSOLE_HEIGHT;
         static const int CONSOLE_WIDTH;
         static const int INDEX_WIDTH;
@@ -128,8 +128,17 @@ public:
     {
     public:
         // DATA STRUCTURE
-        static const std::string MAIN;
         static const std::string ARRAY;
+
+        static const std::string DATA_STRUCTURE;
+        static const std::string GAMES;
+        static const std::string SETTINGS;
+        static const std::string MORE;
+        static const std::string CHANGE_LINEAR_SEARCH_TYPE;
+        static const std::string UPDATES;
+        static const std::string HINT;
+
+        static const std::string MAIN;
         static const std::string STRING;
 
         // GAMES

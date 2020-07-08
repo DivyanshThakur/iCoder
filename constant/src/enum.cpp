@@ -1,4 +1,4 @@
-#include "../header/enum.hpp"
+#include "../enum.hpp"
 
 LastScreen lstScreen;
 OpenedScreen opnScreen;

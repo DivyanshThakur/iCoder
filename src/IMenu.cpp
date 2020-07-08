@@ -2,14 +2,17 @@
 #include "../header/IMenu.hpp"
 #include "../header/UIhandler.hpp"
 
-// void menu(const std::vector<std::string> &vecMenu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
+void IMenu::stats() const
+{
+}
+
 void IMenu::player(IMenu &&iMenu)
 {
     // show the specific menu
 
     Ui::logo(); // display logo - "iCoder"
 
-    Ui::update_screen(iMenu.title()); // It will update the current screen enum variable
+    Ui::updateScreen(iMenu.title()); // It will update the current screen enum variable
 
     if (Global::showHint) // checks if showHint is enabled or not
         Ui::show_hint();  // if enabled, it shows different hints based on the current screen
@@ -30,7 +33,7 @@ void IMenu::player(IMenu &&iMenu)
             std::cout << std::endl;
     }
 
-    Ui::print_message(std::string{"Your Choice: "}); // ask user for input
+    Ui::print(std::string{"Your Choice: "}); // ask user for input
 
     iMenu.check();
 }
