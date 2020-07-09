@@ -7,11 +7,11 @@
 
 #include "../constant/enum.hpp"
 
-void logo() /*********** LOGO ********/
+void Ui::logo()
 {
-    system("cls"); // clear the screen each time
+    system("cls");
 
-    const std::string TITLE{"iCoder"}; // this display the logo at top of screen
+    const std::string TITLE{"iCoder"};
 
     std::cout << std::setw(Constant::Ui::RELATIVE_TITLE_WIDTH) << ""
               << std::setw(Constant::Ui::TITLE_WIDTH) << std::setfill('=') << ""
@@ -25,43 +25,43 @@ void logo() /*********** LOGO ********/
               << std::endl;
 }
 
-void menu(const std::vector<std::string> &vecMenu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
-{ // show the specific menu
+// void menu(const std::vector<std::string> &vecMenu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
+// { // show the specific menu
 
-    logo(); // display logo - "iCoder"
+//     logo(); // display logo - "iCoder"
 
-    updateScreen(heading); // It will update the current screen enum variable
+//     updateScreen(heading); // It will update the current screen enum variable
 
-    if (Global::showHint) // checks if showHint is enabled or not
-        show_hint();      // if enabled, it shows different hints based on the current screeen
+//     if (Global::showHint) // checks if showHint is enabled or not
+//         show_hint();      // if enabled, it shows different hints based on the current screeen
 
-    header(heading, false); // It prints the heading to console, accepts boolean to display logo or not
+//     header(heading, false); // It prints the heading to console, accepts boolean to display logo or not
 
-    if (showStatus)                      // It checks if it has access to show the current state of the specific screen
-        show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
+//     if (showStatus)                      // It checks if it has access to show the current state of the specific screen
+//         show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
 
-    // Here, the vecMenu passed from function contains the menu options in vector of string
-    for (size_t index{0}; index < vecMenu.size(); ++index)
-    {
-        // Print the index starting 1 till vector size
-        std::cout << std::setw(2) << std::right << index + 1 << ". " << vecMenu.at(index);
+//     // Here, the vecMenu passed from function contains the menu options in vector of string
+//     for (size_t index{0}; index < vecMenu.size(); ++index)
+//     {
+//         // Print the index starting 1 till vector size
+//         std::cout << std::setw(2) << std::right << index + 1 << ". " << vecMenu.at(index);
 
-        if (index < vecMenu.size() - 1) // New line is not printed at last menu option
-            std::cout << std::endl;
-    }
+//         if (index < vecMenu.size() - 1) // New line is not printed at last menu option
+//             std::cout << std::endl;
+//     }
 
-    print(std::string{"Your Choice: "}); // ask user for input
-}
+//     print(std::string{"Your Choice: "}); // ask user for input
+// }
 
-void show_status(const std::string &statsStr, const std::string &statsVal, bool isFinal)
-{
-    std::cout << statsStr << statsVal; // It prints the status to console
+// void show_status(const std::string &statsStr, const std::string &statsVal, bool isFinal)
+// {
+//     std::cout << statsStr << statsVal; // It prints the status to console
 
-    if (isFinal) // checks if 1 or more status is to be printed or not
-        border(Ui::widthMenu);
-    else
-        std::cout << std::endl; // print new line at last status printed
-}
+//     if (isFinal) // checks if 1 or more status is to be printed or not
+//         border(Ui::widthMenu);
+//     else
+//         std::cout << std::endl; // print new line at last status printed
+// }
 
 std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData)
 { // The status enum is passed and the specific stats is selected
@@ -81,7 +81,7 @@ std::string stats_selector(const enum Status &stats, const std::vector<std::stri
     }
 }
 
-void updateLastScreen()
+void Ui::updateLastScreen()
 {
     // The last screen is updated from current string
     switch (opnScreen)
@@ -120,129 +120,121 @@ void updateLastScreen()
     }
 }
 
-void updateScreen(const std::string &heading)
+void Ui::updateScreen(const std::string &heading)
 {
     updateLastScreen();
 
-    // This function updates the current screen
-    if (heading == std::string{" ARRAY "})
+    if (heading == Constant::Tag::ARRAY)
         opnScreen = CUR_ARRAY;
-    else if (heading == std::string{"  "})
+    else if (heading == Constant::Tag::DATA_STRUCTURE)
         opnScreen = CUR_DS;
-    else if (heading == std::string{" GAMES "})
+    else if (heading == Constant::Tag::GAMES)
         opnScreen = CUR_GAMES;
-    else if (heading == std::string{" MAIN "})
+    else if (heading == Constant::Tag::MAIN)
         opnScreen = CUR_MENU;
-    else if (heading == std::string{" MORE "})
+    else if (heading == Constant::Tag::MORE)
         opnScreen = CUR_MORE;
-    else if (heading == std::string{" SETTINGS "} || heading == std::string{" CHANGE LINEAR SEARCH TYPE "})
-        // || heading == std::string{" CHANGE SHORTCUT ACCESS "})
+    else if (heading == Constant::Tag::SETTINGS || heading == Constant::Tag::CHANGE_LINEAR_SEARCH_TYPE)
         opnScreen = CUR_SETTINGS;
-    else if (heading == std::string{" STRING "})
+    else if (heading == Constant::Tag::STRING)
         opnScreen = CUR_STRING;
-    else if (heading == std::string{" UPDATES "})
+    else if (heading == Constant::Tag::UPDATES)
         opnScreen = CUR_UPDATES;
 }
 
-void header(const std::string &menuTitle, bool showTitle)
+void Ui::header(const std::string &heading)
 {
-    if (showTitle) // displays logo ,if true
-        logo();
+    logo();
+    subHeader(heading);
+}
 
+void Ui::subHeader(const std::string &heading)
+{
     std::cout << std::setfill('-')
               << std::setw(2) << " "
-              << menuTitle << " "
-              << std::setw(Constant::Ui::MENU_WIDTH - (menuTitle.size() + 2)) << ""
+              << heading << " "
+              << std::setw(Constant::Ui::MENU_WIDTH - (heading.size() + 2)) << ""
               << std::setfill(' ')
               << std::endl;
 }
 
-void Ui::showHint()
+std::vector<std::string> Ui::getHint()
 {
-    header(Constant::Tag::HINT, false); // print heading as " HINT "
+    std::vector<std::string> vec;
 
-    // Assigning correct shortcut key text based on user settings
-    std::string hlp = (shortcutStats == EASY) ? " Ctrl + h " : " h ";
-    std::string hme = (shortcutStats == EASY) ? " Ctrl + m " : " m ";
-    std::string dsb = (shortcutStats == EASY) ? " Ctrl + d " : " d ";
-    int wdth = (shortcutStats == EASY) ? 12 : 8;
+    vec.emplace_back(Constant::Tag::HINT);
 
-    if (opnScreen != CUR_MENU) // It displays last screen shortcut,except when the main menu screen is opened
-    {
-        std::cout << std::setw(wdth) << std::left << " Esc "
-                  << "Last Screen" << std::endl;
-    }
+    if (opnScreen != CUR_MENU)
+        vec.emplace_back(" ESC    Last Screen");
 
-    if (shortcutStats != ADV) // If shortcuts are disabled, below codes are not executed
-    {
-        std::cout << std::setw(wdth) << std::left << hlp
-                  << "Help screen" << std::endl;
+    vec.emplace_back(" h      Help Screen");
 
-        if (opnScreen != CUR_MORE) // It displays more screen shortcut,except when the more screen is opened
-        {
-            std::cout << std::setw(wdth) << std::left << hme
-                      << "More features" << std::endl;
-        }
+    if (opnScreen != CUR_MORE)
+        vec.emplace_back(" m      More features");
 
-        if (opnScreen != CUR_SETTINGS) // It displays disable hint shortcut,except when settings is opened
-        {
-            std::cout << std::setw(wdth) << std::left << dsb
-                      << "Disable this hint" << std::endl;
-        }
-    }
+    if (opnScreen != CUR_SETTINGS)
+        vec.emplace_back(" d      Disable this hint");
 
-    std::cout << std::endl; // 1 line gap between Hints and Menu
+    return vec;
 }
 
-void border(int size)
+void Ui::border()
 { // This function displays the border
     std::cout << std::endl
               << std::setfill('-')
-              << std::setw(size) << ""
+              << std::setw(Constant::Ui::MENU_WIDTH) << ""
               << std::setfill(' ')
               << std::endl;
 }
 
-void emessage(const std::string &message)
+void Ui::popUp(const std::string &message)
 {
     animater(message); // Animated text is printed for user to get attention
 
-    igetch(); // Accepts Esc,Enter, Space or Backspace key to continue
+    getchForced(); // Accepts Esc,Enter, Space or Backspace key to continue
 
     for (size_t i{0}; i < message.size(); ++i)
     {
-        std::cout << "\b \b";     // It erases 1 character at a time
-        Sleep(Global::sleepTime); // time gap is based on user choice
+        std::cout << "\b \b";       // It erases 1 character at a time
+        Sleep(Constant::sleepTime); // time gap is based on user choice
     }
 }
 
-void igetch()
+void Ui::getchForced()
 {
     char c;
 
-    // This whilc loop only exits if the user presses, Esc, Enter, Space or Backspace
+    // This while loop only exits if the user presses, Esc, Enter, Space or Backspace
     while ((c = getch()))
-        if (c == '\r' || c == ' ' || c == '\b' || c == 27)
+        if (c == '\r' || c == ' ' || c == '\b' || c == Constant::ESC)
             return;
 }
 
-void animater(const std::string &anime)
-{ // Prints text in animation, time delay based on user choice
-    for (const auto &c : anime)
+void Ui::animater(const std::string &anime)
+{
+    for (const auto c : anime)
     {
         std::cout << c;
-        Sleep(Global::sleepTime);
+        Sleep(Constant::sleepTime);
     }
 }
 
 void Ui::print(const std::string &message)
 {
-    border(Constant::Ui::MENU_WIDTH);
-
+    border();
     std::cout << message;
 }
 
-void Ui::printnPress(const std::string &message)
+void Ui::print(const std::vector<std::string> &vec)
+{
+    subHeader(vec.at(0));
+
+    for (auto it = vec.begin() + 1; it != vec.end(); it++)
+        std::cout << *it << std::endl;
+    std::cout << std::endl;
+}
+
+void Ui::println(const std::string &message)
 {
     print(message);
     pressKey();
@@ -287,12 +279,12 @@ void Ui::waitMessage(const std::string &message)
     Sleep(1000);
 }
 
-bool confirm_the_change(const std::string &message, const std::string &txtConfirm)
+bool Ui::confirmChange(const std::string &message, const std::string &txtConfirm)
 { // Asks user for confirmation, if the changes are to be accepted or rejected
     if (message != std::string{""})
         print(message);
 
-    border(Ui::widthMenu);
+    border();
 
     animater(txtConfirm + std::string{" (Y/N): "});
 

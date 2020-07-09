@@ -97,7 +97,7 @@ void Main::Menu::caller() const
     if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
         controller();
     else
-        Ui::print(std::string{"Invalid choice"}, true);
+        Ui::println(std::string{"Invalid choice"});
 }
 
 void Main::Menu::controller() const
@@ -187,8 +187,8 @@ void Main::home()
         std::string userID = (Global::activeUser == Constant::NULL_STR) ? "User" : Global::activeUser;
         welcomeFlag = false;
 
-        Ui::logo();                                  // display the logo - iCoder
-        Ui::emessage("--> Welcome " + userID + "!"); // display the welcome message
+        Ui::logo();                               // display the logo - iCoder
+        Ui::popUp("--> Welcome " + userID + "!"); // display the welcome message
     }
 
     data_structure();
@@ -210,7 +210,7 @@ void Main::createPath()
 
     if (userpath == nullptr)
     {
-        Ui::print("No user path found!", true);
+        Ui::println("No user path found!");
         exit(1);
     }
 

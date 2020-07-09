@@ -2,27 +2,30 @@
 #include "../header/IMenu.hpp"
 #include "../header/UIhandler.hpp"
 
-void IMenu::stats() const
+#include "../constant/Constants.hpp"
+
+void IMenu::stats(const std::vector<std::string> &vec) const
 {
 }
 
 void IMenu::player(IMenu &&iMenu)
 {
-    // show the specific menu
-
-    Ui::logo(); // display logo - "iCoder"
+    Ui::logo();
 
     Ui::updateScreen(iMenu.title()); // It will update the current screen enum variable
 
-    if (Global::showHint) // checks if showHint is enabled or not
-        Ui::show_hint();  // if enabled, it shows different hints based on the current screen
+    if (Global::showHint)
+        Ui::print(Ui::getHint());
 
-    Ui::header(iMenu.title(), false); // It prints the heading to console, accepts boolean to display logo or not
+    print(iMenu.getStats());
 
-    if (showStatus)                          // It checks if it has access to show the current state of the specific screen
-        Ui::show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
+    Ui::subHeader(iMenu.title()); // It prints the heading to console, accepts boolean to display logo or not
+
+    // if (showStatus)                          // It checks if it has access to show the current state of the specific screen
+    //     Ui::show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
 
     auto menuToDisplay = iMenu.selector();
+
     // Here, the vecMenu passed from function contains the menu options in vector of string
     for (size_t index{0}; index < menuToDisplay.size(); ++index)
     {
@@ -42,10 +45,7 @@ void IMenu::check() const
 {
     try
     {
-        this->controller();
-        // sc.choice(ch); // scan user's choice
-
-        // fn_caller(ch, menuIndex); // start as per user choice
+        this->caller();
     }
     catch (const EscPressed &e)
     {

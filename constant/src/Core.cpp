@@ -17,7 +17,6 @@ bool isquitConditionEnabled{false};
 
 /*************************************************** GLOBAL CLASS ****************************************************/
 std::string Global::activeUser;
-int Global::sleepTime;
 bool Global::showWelcome;
 bool Global::showHint;
 bool Global::showQuit;

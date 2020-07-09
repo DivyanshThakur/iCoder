@@ -6,14 +6,14 @@
 #include "../header/FileHandler.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
-// This function initilizes the StringHandler class and start it
+// This function initializes the StringHandler class and start it
 void settings()
 {
     Settings s;
     s.start();
 }
 
-/************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+/************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
 std::vector<cod::pair<std::string, std::string>> Settings::save() const
 {

@@ -8,7 +8,6 @@ class Global
 {
 public:
     static std::string activeUser;
-    static int sleepTime;
     static bool showWelcome;
     static bool showHint;
     static bool showQuit;
@@ -17,6 +16,7 @@ class Constant
 {
 public:
     static const std::string NULL_STR;
+    static const int sleepTime = 25;
     static constexpr int ESC = 27;
 
     class iCoder
