@@ -4,10 +4,6 @@
 
 #include "../constant/Constants.hpp"
 
-void IMenu::stats(const std::vector<std::string> &vec) const
-{
-}
-
 void IMenu::player(IMenu &&iMenu)
 {
     Ui::logo();
@@ -17,12 +13,9 @@ void IMenu::player(IMenu &&iMenu)
     if (Global::showHint)
         Ui::print(Ui::getHint());
 
-    print(iMenu.getStats());
+    Ui::print(iMenu.getStats());
 
-    Ui::subHeader(iMenu.title()); // It prints the heading to console, accepts boolean to display logo or not
-
-    // if (showStatus)                          // It checks if it has access to show the current state of the specific screen
-    //     Ui::show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
+    Ui::subHeader(iMenu.title()); // It prints the heading to console
 
     auto menuToDisplay = iMenu.selector();
 

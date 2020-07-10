@@ -44,7 +44,20 @@ int main()
 
 std::string Main::Menu::title() const
 {
-    return std::string(Constant::Tag::MAIN);
+    return std::string(Constant::Title::MAIN);
+}
+
+std::vector<std::string> Main::Menu::getStats() const
+{
+    std::vector<std::string> vec;
+    vec.emplace_back(Constant::Title::STATS);
+
+    if (Global::activeUser != Constant::NULL_STR)
+        vec.emplace_back("User: " + Global::activeUser);
+
+    vec.emplace_back("Version: " + Constant::iCoder::VERSION);
+
+    return vec;
 }
 
 std::vector<std::string> Main::Menu::selector()

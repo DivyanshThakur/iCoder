@@ -25,61 +25,23 @@ void Ui::logo()
               << std::endl;
 }
 
-// void menu(const std::vector<std::string> &vecMenu, const std::string &heading, bool showStatus, const std::string &statsVal, const std::string &statsStr)
-// { // show the specific menu
-
-//     logo(); // display logo - "iCoder"
-
-//     updateScreen(heading); // It will update the current screen enum variable
-
-//     if (Global::showHint) // checks if showHint is enabled or not
-//         show_hint();      // if enabled, it shows different hints based on the current screeen
-
-//     header(heading, false); // It prints the heading to console, accepts boolean to display logo or not
-
-//     if (showStatus)                      // It checks if it has access to show the current state of the specific screen
-//         show_status(statsStr, statsVal); // It accepts 2 strings that is displayed below heading
-
-//     // Here, the vecMenu passed from function contains the menu options in vector of string
-//     for (size_t index{0}; index < vecMenu.size(); ++index)
+// std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData)
+// { // The status enum is passed and the specific stats is selected
+//     switch (stats)
 //     {
-//         // Print the index starting 1 till vector size
-//         std::cout << std::setw(2) << std::right << index + 1 << ". " << vecMenu.at(index);
+//     case DEFAULT:
+//         return cod::toupper(statsData.at(0));
 
-//         if (index < vecMenu.size() - 1) // New line is not printed at last menu option
-//             std::cout << std::endl;
+//     case EASY:
+//         return cod::toupper(statsData.at(1));
+
+//     case ADV:
+//         return cod::toupper(statsData.at(2));
+
+//     default:
+//         return "";
 //     }
-
-//     print(std::string{"Your Choice: "}); // ask user for input
 // }
-
-// void show_status(const std::string &statsStr, const std::string &statsVal, bool isFinal)
-// {
-//     std::cout << statsStr << statsVal; // It prints the status to console
-
-//     if (isFinal) // checks if 1 or more status is to be printed or not
-//         border(Ui::widthMenu);
-//     else
-//         std::cout << std::endl; // print new line at last status printed
-// }
-
-std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData)
-{ // The status enum is passed and the specific stats is selected
-    switch (stats)
-    {
-    case DEFAULT:
-        return cod::toupper(statsData.at(0));
-
-    case EASY:
-        return cod::toupper(statsData.at(1));
-
-    case ADV:
-        return cod::toupper(statsData.at(2));
-
-    default:
-        return "";
-    }
-}
 
 void Ui::updateLastScreen()
 {
@@ -124,21 +86,21 @@ void Ui::updateScreen(const std::string &heading)
 {
     updateLastScreen();
 
-    if (heading == Constant::Tag::ARRAY)
+    if (heading == Constant::Title::ARRAY)
         opnScreen = CUR_ARRAY;
-    else if (heading == Constant::Tag::DATA_STRUCTURE)
+    else if (heading == Constant::Title::DATA_STRUCTURE)
         opnScreen = CUR_DS;
-    else if (heading == Constant::Tag::GAMES)
+    else if (heading == Constant::Title::GAMES)
         opnScreen = CUR_GAMES;
-    else if (heading == Constant::Tag::MAIN)
+    else if (heading == Constant::Title::MAIN)
         opnScreen = CUR_MENU;
-    else if (heading == Constant::Tag::MORE)
+    else if (heading == Constant::Title::MORE)
         opnScreen = CUR_MORE;
-    else if (heading == Constant::Tag::SETTINGS || heading == Constant::Tag::CHANGE_LINEAR_SEARCH_TYPE)
+    else if (heading == Constant::Title::SETTINGS || heading == Constant::Title::CHANGE_LINEAR_SEARCH_TYPE)
         opnScreen = CUR_SETTINGS;
-    else if (heading == Constant::Tag::STRING)
+    else if (heading == Constant::Title::STRING)
         opnScreen = CUR_STRING;
-    else if (heading == Constant::Tag::UPDATES)
+    else if (heading == Constant::Title::UPDATES)
         opnScreen = CUR_UPDATES;
 }
 
@@ -151,7 +113,7 @@ void Ui::header(const std::string &heading)
 void Ui::subHeader(const std::string &heading)
 {
     std::cout << std::setfill('-')
-              << std::setw(2) << " "
+              << std::setw(3) << " "
               << heading << " "
               << std::setw(Constant::Ui::MENU_WIDTH - (heading.size() + 2)) << ""
               << std::setfill(' ')
@@ -162,7 +124,7 @@ std::vector<std::string> Ui::getHint()
 {
     std::vector<std::string> vec;
 
-    vec.emplace_back(Constant::Tag::HINT);
+    vec.emplace_back(Constant::Title::HINT);
 
     if (opnScreen != CUR_MENU)
         vec.emplace_back(" ESC    Last Screen");
@@ -179,7 +141,7 @@ std::vector<std::string> Ui::getHint()
 }
 
 void Ui::border()
-{ // This function displays the border
+{
     std::cout << std::endl
               << std::setfill('-')
               << std::setw(Constant::Ui::MENU_WIDTH) << ""

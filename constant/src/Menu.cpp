@@ -37,7 +37,25 @@ const std::vector<std::string> Constant::SubMenu::UPDATE_STRING{"Add new string"
 const std::vector<std::string> Constant::SubMenu::CHANGE_CASE_STRING{"Toggle case", "To lower", "To upper"};
 const std::vector<std::string> Constant::SubMenu::RANGE_STRING{"Full string", "Select a range"};
 
-// const std::string array_data_titleView{"  2. Display array\n  3. Home\n  4. Exit\n\nInsertion & Deletion\n  5. Add elements\n  6. Insert at a position\n  7. Delete multiple elements\n  8. Delete from a position\n\nSearch\n  9. Linear Search\n 10. Binary Search"};
+/*************************************** TITLE *****************************************/
+
+// DATA STRUCTURE
+const std::string Constant::Title::ARRAY{"ARRAY"};
+const std::string Constant::Title::TIP{"TIP"};
+const std::string Constant::Title::TIP{"STATS"};
+const std::string Constant::Title::CHANGE_LINEAR_SEARCH_TYPE{"CHANGE LINEAR SEARCH TYPE"};
+const std::string Constant::Title::DATA_STRUCTURE{"DATA STRUCTURE"};
+
+const std::string Constant::Title::MAIN{"MAIN"};
+const std::string Constant::Title::GAMES{"GAMES"};
+const std::string Constant::Title::MORE{"MORE"};
+const std::string Constant::Title::STRING{"STRING"};
+const std::string Constant::Title::SETTINGS{"SETTINGS"};
+const std::string Constant::Title::UPDATES{"UPDATES"};
+const std::string Constant::Title::HINT{"HINT"};
+
+// GAMES
+const std::string Constant::Title::TIC_TAC_TOE{"TIC_TAC_TOE"};
 
 /*************************************************** Constant::Ui Constant *****************************************************/
 const int Constant::Ui::CONSOLE_HEIGHT = 600;

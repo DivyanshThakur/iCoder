@@ -11,10 +11,10 @@ protected:
     static int ch;
 
     virtual void check() const;
-    virtual void stats(const std::vector<std::string> &vec) const;
 
 public:
     virtual std::string title() const = 0;
+    virtual std::vector<std::string> getStats() const = 0;
     virtual std::vector<std::string> selector() = 0;
     virtual void caller() const = 0;
     virtual void controller() const = 0;

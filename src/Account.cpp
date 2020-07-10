@@ -6,7 +6,7 @@
 #include "../header/Security.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
-/************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+/************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
 std::vector<cod::pair<std::string, std::string>> Account::save() const
 {
@@ -25,12 +25,12 @@ void Account::load(const std::vector<cod::pair<std::string, std::string>> &vec)
 
 std::string Account::filename() const
 {
-    return Path::fUser;
+    return Constant::Path::DB;
 }
 
 bool Account::generate() const
 {
-    std::ifstream inFile(Path::fUser);
+    std::ifstream inFile(Constant::Path::DB);
 
     if (inFile) // if file already exists returns else create a new file
     {
@@ -38,7 +38,7 @@ bool Account::generate() const
         return false;
     }
 
-    std::ofstream outFile(Path::fUser);
+    std::ofstream outFile(Constant::Path::DB);
 
     outFile.close();
 
