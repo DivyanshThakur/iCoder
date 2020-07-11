@@ -3,6 +3,7 @@
 
 #include "ISaveable.hpp"
 #include "../namespace/header/cod_pair.hpp"
+#include "../constant/enum.hpp"
 
 class FileHandler
 {

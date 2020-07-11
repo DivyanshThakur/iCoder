@@ -43,7 +43,12 @@ const std::vector<std::string> Constant::SubMenu::RANGE_STRING{"Full string", "S
 const std::string Constant::Title::ARRAY{"ARRAY"};
 const std::string Constant::Title::TIP{"TIP"};
 const std::string Constant::Title::TIP{"STATS"};
+const std::string Constant::Title::LOGIN{"LOGIN"};
+
+const std::string Constant::Title::USERS{"USERS"};
+
 const std::string Constant::Title::CHANGE_LINEAR_SEARCH_TYPE{"CHANGE LINEAR SEARCH TYPE"};
+const std::string Constant::Title::CREATE_ACCOUNT{"CREATE ACCOUNT"};
 const std::string Constant::Title::DATA_STRUCTURE{"DATA STRUCTURE"};
 
 const std::string Constant::Title::MAIN{"MAIN"};

@@ -94,6 +94,9 @@ public:
         static const std::string ARRAY;
         static const std::string TIP;
         static const std::string STATS;
+        static const std::string LOGIN;
+        static const std::string CREATE_ACCOUNT;
+        static const std::string USERS;
 
         static const std::string DATA_STRUCTURE;
         static const std::string GAMES;

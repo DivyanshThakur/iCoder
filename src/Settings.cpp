@@ -33,44 +33,44 @@ void Settings::load(const std::vector<cod::pair<std::string, std::string>> &vecD
 
     std::stringstream ss(pair.second());
 
-    if (pair.first() == File::CURRENT_USER)
-        ss >> Global::signedUserID;
-    else if (pair.first() == File::ANIMATION_SPEED)
+    if (pair.first() == Constant::File::CURRENT_USER)
+        ss >> Global::activeUser;
+    else if (pair.first() == Constant::File::ANIMATION_SPEED)
         ss >> Global::sleepTime;
-    else if (pair.first() == File::LSEARCH_STATUS)
+    else if (pair.first() == Constant::File::LSEARCH_STATUS)
     {
         ss >> c;
         FileHandler::update_stats(lSearchStats, c);
     }
-    else if (pair.first() == File::SHORTCUT_STATUS)
+    else if (pair.first() == Constant::File::SHORTCUT_STATUS)
     {
         ss >> c;
         FileHandler::update_stats(shortcutStats, c);
     }
-    else if (pair.first() == File::ANIME_SIGN_OUT_STATUS)
+    else if (pair.first() == Constant::File::ANIME_SIGN_OUT_STATUS)
     {
         ss >> c;
         FileHandler::update_stats(animeSignOutStats, c);
     }
-    else if (pair.first() == File::SHOW_ONE_TIME_HINT)
+    else if (pair.first() == Constant::File::SHOW_ONE_TIME_HINT)
         ss >> showedOneTime;
-    else if (pair.first() == File::SHOW_WELCOME_MESSAGE)
+    else if (pair.first() == Constant::File::SHOW_WELCOME_MESSAGE)
         ss >> Global::showWelcome;
-    else if (pair.first() == File::SHOW_QUIT_MESSAGE)
+    else if (pair.first() == Constant::File::SHOW_QUIT_MESSAGE)
         ss >> Global::showQuit;
-    else if (pair.first() == File::SHOW_HINT)
+    else if (pair.first() == Constant::File::SHOW_HINT)
         ss >> Global::showHint;
 }
 
-std::string Settings::filename() const
+std::string Settings::getPath() const
 {
-    return Path::fSetting;
+    return Constant::Path::SETTINGS;
 }
 
 bool Settings::generate() const
 {
 
-    std::ifstream inFile(Path::fSetting);
+    std::ifstream inFile(Constant::Path::SETTINGS);
 
     if (inFile) // if file already exists returns else create a new file
     {
@@ -79,31 +79,26 @@ bool Settings::generate() const
     }
 
     // Assigns default values to unInitialized variables
-    Global::signedUserID = std::string{"NULL"};
-    Global::sleepTime = 25;
+    Global::activeUser = Constant::NULL_STR;
     lSearchStats = DEFAULT;
-    shortcutStats = DEFAULT;
     animeSignOutStats = DEFAULT;
-    showedOneTime = true;
     Global::showWelcome = true;
     Global::showQuit = true;
     Global::showHint = true;
 
-    // If the settings file doen't exists it prints the above variable to the file for future uses
+    // If the settings file dosent exists it prints the above variable to the file for future uses
 
-    std::ofstream outFile(Path::fSetting);
+    std::ofstream outFile(Constant::Path::SETTINGS);
 
     std::vector<cod::pair<std::string, std::string>> vec;
 
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::CURRENT_USER, Global::signedUserID));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::ANIMATION_SPEED, std::to_string(Global::sleepTime)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::LSEARCH_STATUS, std::to_string(lSearchStats)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::SHOW_ONE_TIME_HINT, std::to_string(showedOneTime)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
+    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::CURRENT_USER, Global::activeUser));
+    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
+    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
+    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
+    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
+    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
+    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHOW_HINT, std::to_string(Global::showHint)));
 
     outFile.close();
 
@@ -202,23 +197,23 @@ bool Settings::isDefault() const
     {
         std::stringstream ss(pair.second());
 
-        if (pair.first() == File::CURRENT_USER)
+        if (pair.first() == Constant::File::CURRENT_USER)
             ss >> usr_signed;
-        else if (pair.first() == File::ANIMATION_SPEED)
+        else if (pair.first() == Constant::File::ANIMATION_SPEED)
             ss >> time;
-        else if (pair.first() == File::LSEARCH_STATUS)
+        else if (pair.first() == Constant::File::LSEARCH_STATUS)
             ss >> c;
-        else if (pair.first() == File::SHORTCUT_STATUS)
+        else if (pair.first() == Constant::File::SHORTCUT_STATUS)
             ss >> s;
-        else if (pair.first() == File::ANIME_SIGN_OUT_STATUS)
+        else if (pair.first() == Constant::File::ANIME_SIGN_OUT_STATUS)
             ss >> aso;
-        else if (pair.first() == File::SHOW_ONE_TIME_HINT)
+        else if (pair.first() == Constant::File::SHOW_ONE_TIME_HINT)
             ss >> sothint;
-        else if (pair.first() == File::SHOW_WELCOME_MESSAGE)
+        else if (pair.first() == Constant::File::SHOW_WELCOME_MESSAGE)
             ss >> wlcome;
-        else if (pair.first() == File::SHOW_QUIT_MESSAGE)
+        else if (pair.first() == Constant::File::SHOW_QUIT_MESSAGE)
             ss >> quit;
-        else if (pair.first() == File::SHOW_HINT)
+        else if (pair.first() == Constant::File::SHOW_HINT)
             ss >> hint;
     }
 
@@ -369,7 +364,7 @@ void Settings::change_text_anime_speed()
 
     Global::sleepTime = speed;
 
-    this->save(cod::pair<std::string, std::string>(File::ANIMATION_SPEED, std::to_string(speed)));
+    this->save(cod::pair<std::string, std::string>(Constant::File::ANIMATION_SPEED, std::to_string(speed)));
 }
 
 void Settings::change_lsearch_type()
@@ -389,7 +384,7 @@ void Settings::change_lsearch_type()
         case 2:
         case 3:
             FileHandler::update_stats(lSearchStats, ch - 1);
-            this->save(cod::pair<std::string, std::string>(File::LSEARCH_STATUS, std::to_string(lSearchStats)));
+            this->save(cod::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
 
             return;
 
@@ -418,7 +413,7 @@ void Settings::change_shortcuts_type()
         case 2:
         case 3:
             FileHandler::update_stats(shortcutStats, ch - 1);
-            this->save(cod::pair<std::string, std::string>(File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
+            this->save(cod::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
 
             return;
 
@@ -452,7 +447,7 @@ void Settings::change_anime_style()
         case 2:
         case 3:
             FileHandler::update_stats(animeSignOutStats, ch - 1);
-            this->save(cod::pair<std::string, std::string>(File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
+            this->save(cod::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
 
             return;
 
@@ -473,21 +468,21 @@ void Settings::welcome_message()
 {
     Global::showWelcome = (!Global::showWelcome); // reverse the state
 
-    this->save(cod::pair<std::string, std::string>(File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
+    this->save(cod::pair<std::string, std::string>(Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
 }
 
 void Settings::quit_message()
 {
     Global::showQuit = (!Global::showQuit); // reverse the state
 
-    this->save(cod::pair<std::string, std::string>(File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
+    this->save(cod::pair<std::string, std::string>(Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
 }
 
 void Settings::hint_message()
 {
     Global::showHint = (!Global::showHint); // reverse the state
 
-    this->save(cod::pair<std::string, std::string>(File::SHOW_HINT, std::to_string(Global::showHint)));
+    this->save(cod::pair<std::string, std::string>(Constant::File::SHOW_HINT, std::to_string(Global::showHint)));
 }
 
 void Settings::reset()
@@ -502,10 +497,10 @@ void Settings::reset()
 
     if (toProceed)
     {
-        std::remove(Path::fSetting.c_str());
+        std::remove(Constant::Path::SETTINGS.c_str());
         std::remove(Path::fUser.c_str());
 
-        if (Global::signedUserID != std::string{"NULL"})
+        if (Global::activeUser != std::string{"NULL"})
         {
             header(std::string{" SETTINGS "});
 

@@ -12,7 +12,7 @@ std::string FileHandler::file_str(const ISaveable &iSaver)
 {
     iSaver.generate();
 
-    std::ifstream inFile(iSaver.filename());
+    std::ifstream inFile(iSaver.getPath());
 
     std::string fileStr, line;
 
@@ -48,7 +48,7 @@ void FileHandler::print(std::ofstream &outFile, const std::vector<cod::pair<std:
 {
     for (const auto &pair : vec)
     {
-        outFile << std::setw(Ui::widthUsername * 2) << std::left << pair.first()
+        outFile << std::setw(Constant::Ui::USERNAME_WIDTH * 2) << std::left << pair.first()
                 << pair.second() << std::endl;
     }
 
@@ -57,7 +57,7 @@ void FileHandler::print(std::ofstream &outFile, const std::vector<cod::pair<std:
 
 void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std::string> &pair)
 {
-    outFile << std::setw(Ui::widthUsername * 2) << std::left << pair.first()
+    outFile << std::setw(Constant::Ui::USERNAME_WIDTH * 2) << std::left << pair.first()
             << pair.second() << std::endl
             << "~" << std::endl;
 }
@@ -66,7 +66,7 @@ void FileHandler::save(const ISaveable &iSaver)
 {
     std::stringstream ss{file_str(iSaver)};
     std::vector<cod::pair<std::string, std::string>> vec;
-    std::ofstream outFile(iSaver.filename());
+    std::ofstream outFile(iSaver.getPath());
     auto iVector = iSaver.save();
 
     std::string line;
@@ -119,7 +119,7 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
             // of data structures and other main data stored
 
             bool isSettingsOrUser = (tag == "");
-            bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
+            bool isDataStructure = (vec.at(0).first() == Constant::DataFile::NAME) && (vec.at(0).second() == tag);
 
             if (isSettingsOrUser)
             {
@@ -152,7 +152,7 @@ bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
         else
         {
             bool isSettingsOrUser = (vec.at(0).first() == tag);
-            bool isDataStructure = (vec.at(0).first() == DataFile::NAME) && (vec.at(0).second() == tag);
+            bool isDataStructure = (vec.at(0).first() == Constant::DataFile::NAME) && (vec.at(0).second() == tag);
 
             if (isSettingsOrUser || isDataStructure)
                 return true;
@@ -220,11 +220,11 @@ void FileHandler::save_active_user(const std::string &userID)
 {
     Settings mySetting;
 
-    Global::signedUserID = userID;
+    Global::activeUser = userID;
 
     // save the current user to
     //the file for automatically log in
-    mySetting.save(cod::pair<std::string, std::string>(File::CURRENT_USER, Global::signedUserID));
+    mySetting.save(cod::pair<std::string, std::string>(Constant::File::CURRENT_USER, Global::activeUser));
 }
 
 // Generate default name of the file by checking available name from the user file
@@ -238,7 +238,7 @@ std::string FileHandler::name_generator(const ISaveable &iSaver, const std::stri
     int minIndex = 1, fileIndex;
     bool toStop = false;
 
-    std::ifstream inFile(iSaver.filename());
+    std::ifstream inFile(iSaver.getPath());
 
     // scan each line from file
     while (!toStop && (std::getline(inFile, line)))
@@ -256,7 +256,7 @@ std::string FileHandler::name_generator(const ISaveable &iSaver, const std::stri
                 // if the file number matches with minimum index it checks
                 // next number by incrementing minIndex and  again scanning
                 // fileIndex. Loops till the two values are not equal and
-                // then breaks the loop and returns the generated fileName
+                // then breaks the loop and returns the generated getPath
 
                 if (minIndex == fileIndex)
                     minIndex++;

@@ -4,7 +4,7 @@
 
 bool ISaveable::generate() const
 {
-    std::ifstream inFile(Path::userFilePath);
+    std::ifstream inFile(Constant::Path::USER);
 
     if (inFile)
     {
@@ -12,11 +12,11 @@ bool ISaveable::generate() const
         return false;
     }
 
-    std::ofstream outFile(Path::userFilePath);
+    std::ofstream outFile(Constant::Path::USER);
 
     std::vector<cod::pair<std::string, std::string>> vec;
-    vec.push_back(cod::pair<std::string, std::string>(Tag::ARRAY, ""));
-    vec.push_back(cod::pair<std::string, std::string>(Tag::STRING, ""));
+    vec.push_back(cod::pair<std::string, std::string>(Constant::Title::ARRAY, ""));
+    vec.push_back(cod::pair<std::string, std::string>(Constant::Title::STRING, ""));
 
     // create file with default data
     FileHandler::print(outFile, vec);

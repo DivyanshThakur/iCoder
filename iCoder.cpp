@@ -53,7 +53,7 @@ std::vector<std::string> Main::Menu::getStats() const
     vec.emplace_back(Constant::Title::STATS);
 
     if (Global::activeUser != Constant::NULL_STR)
-        vec.emplace_back("User: " + Global::activeUser);
+        vec.emplace_back("User:    " + Global::activeUser);
 
     vec.emplace_back("Version: " + Constant::iCoder::VERSION);
 
@@ -122,7 +122,7 @@ void Main::Menu::controller() const
         break;
 
     case 2: // go to create account screen
-        AccountHandler::create_account();
+        AccountHandler::createAccount();
         break;
 
     case 3: // login Anonymously / Data Structure
@@ -133,8 +133,8 @@ void Main::Menu::controller() const
         more();
         break;
 
-    case 5:                              // show saved user details
-        AccountHandler::display_users(); // fetches user details and display it
+    case 5:                          // show saved user details
+        AccountHandler::showUsers(); // fetches user details and display it
         break;
 
     case 6: // help for shortcuts
@@ -204,7 +204,7 @@ void Main::home()
         Ui::popUp("--> Welcome " + userID + "!"); // display the welcome message
     }
 
-    data_structure();
+    // data_structure();
 }
 
 void Main::signOut()

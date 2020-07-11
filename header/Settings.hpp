@@ -14,7 +14,7 @@ public:
 
     virtual std::vector<cod::pair<std::string, std::string>> save() const override;
     virtual void load(const std::vector<cod::pair<std::string, std::string>> &vecData) override;
-    virtual std::string filename() const override;
+    virtual std::string getPath() const override;
     virtual bool generate() const override;
 
     /******************************************* MEMBER FUNCTIONS ***********************************************/

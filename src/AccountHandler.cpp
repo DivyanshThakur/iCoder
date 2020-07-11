@@ -6,9 +6,11 @@
 #include "../header/ExHandler.hpp"
 #include "../header/CreateAccount.hpp"
 
+#include "../constant/Constants.hpp"
+
 void AccountHandler::login()
 {
-    header(std::string{" LOGIN "});
+    Ui::header(Constant::Title::LOGIN);
 
     Account acc;
 
@@ -46,9 +48,9 @@ void AccountHandler::login()
     }
 }
 
-void AccountHandler::create_account()
+void AccountHandler::createAccount()
 {
-    header(std::string{" CREATE ACCOUNT "}); // display the header
+    Ui::header(Constant::Title::CREATE_ACCOUNT);
 
     CreateAccount acc;
 
@@ -101,7 +103,7 @@ void AccountHandler::create_account()
     }
 }
 
-void AccountHandler::display_users()
+void AccountHandler::showUsers()
 {
     Account acc;
 
@@ -111,7 +113,7 @@ void AccountHandler::display_users()
         return;
     }
 
-    header(" USERS ");
+    Ui::header(Constant::Title::USERS);
 
     border(Ui::widthIndex * 3 + Ui::widthUsername + Ui::widthPassword - 1);
 

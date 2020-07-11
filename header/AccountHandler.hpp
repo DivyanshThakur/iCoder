@@ -7,8 +7,8 @@ class AccountHandler
 {
 public:
     static void login();
-    static void create_account();
-    static void display_users();
+    static void createAccount();
+    static void showUsers();
 };
 
 #endif
