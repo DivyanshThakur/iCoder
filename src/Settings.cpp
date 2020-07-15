@@ -16,14 +16,14 @@ void settings()
 
 /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
-std::vector<cod::pair<std::string, std::string>> Settings::save() const
+std::vector<std::pair<std::string, std::string>> Settings::save() const
 {
-    std::vector<cod::pair<std::string, std::string>> vec;
+    std::vector<std::pair<std::string, std::string>> vec;
     vec.push_back(pairBuffer);
     return vec;
 }
 
-void Settings::load(const std::vector<cod::pair<std::string, std::string>> &vecData)
+void Settings::load(const std::vector<std::pair<std::string, std::string>> &vecData)
 {
     int c;
 
@@ -222,7 +222,7 @@ bool Settings::isDefault() const
     return false;
 }
 
-void Settings::save(const cod::pair<std::string, std::string> &pair)
+void Settings::save(const std::pair<std::string, std::string> &pair)
 {
     this->pairBuffer = pair;
 
@@ -362,7 +362,7 @@ void Settings::change_text_anime_speed()
 
     Global::sleepTime = speed;
 
-    this->save(cod::pair<std::string, std::string>(Constant::File::ANIMATION_SPEED, std::to_string(speed)));
+    this->save(std::pair<std::string, std::string>(Constant::File::ANIMATION_SPEED, std::to_string(speed)));
 }
 
 void Settings::change_lsearch_type()
@@ -382,7 +382,7 @@ void Settings::change_lsearch_type()
         case 2:
         case 3:
             FileHandler::update_stats(lSearchStats, ch - 1);
-            this->save(cod::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
+            this->save(std::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
 
             return;
 
@@ -411,7 +411,7 @@ void Settings::change_shortcuts_type()
         case 2:
         case 3:
             FileHandler::update_stats(shortcutStats, ch - 1);
-            this->save(cod::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
+            this->save(std::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
 
             return;
 
@@ -445,7 +445,7 @@ void Settings::change_anime_style()
         case 2:
         case 3:
             FileHandler::update_stats(animeSignOutStats, ch - 1);
-            this->save(cod::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
+            this->save(std::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
 
             return;
 
@@ -466,21 +466,21 @@ void Settings::welcome_message()
 {
     Global::showWelcome = (!Global::showWelcome); // reverse the state
 
-    this->save(cod::pair<std::string, std::string>(Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
+    this->save(std::pair<std::string, std::string>(Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
 }
 
 void Settings::quit_message()
 {
     Global::showQuit = (!Global::showQuit); // reverse the state
 
-    this->save(cod::pair<std::string, std::string>(Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
+    this->save(std::pair<std::string, std::string>(Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
 }
 
 void Settings::hint_message()
 {
     Global::showHint = (!Global::showHint); // reverse the state
 
-    this->save(cod::pair<std::string, std::string>(Constant::File::SHOW_HINT, std::to_string(Global::showHint)));
+    this->save(std::pair<std::string, std::string>(Constant::File::SHOW_HINT, std::to_string(Global::showHint)));
 }
 
 void Settings::reset()

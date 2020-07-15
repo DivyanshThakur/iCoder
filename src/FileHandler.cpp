@@ -28,7 +28,7 @@ std::string FileHandler::toString(const ISaveable &iSaver)
     return fileStr;
 }
 
-cod::pair<std::string, std::string> FileHandler::getPair(const std::string &line)
+std::pair<std::string, std::string> FileHandler::getPair(const std::string &line)
 {
     std::stringstream ssLine(line);
     std::string word, title, val;
@@ -41,7 +41,7 @@ cod::pair<std::string, std::string> FileHandler::getPair(const std::string &line
     return {title, val};
 }
 
-void FileHandler::print(std::ofstream &outFile, const std::vector<cod::pair<std::string, std::string>> &vec)
+void FileHandler::print(std::ofstream &outFile, const std::vector<std::pair<std::string, std::string>> &vec)
 {
     for (const auto &pair : vec)
     {
@@ -52,7 +52,7 @@ void FileHandler::print(std::ofstream &outFile, const std::vector<cod::pair<std:
     outFile << "~" << std::endl;
 }
 
-void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std::string> &pair)
+void FileHandler::print(std::ofstream &outFile, const std::pair<std::string, std::string> &pair)
 {
     outFile << std::setw(Constant::Ui::USERNAME_WIDTH * 2) << std::left << pair.first()
             << pair.second() << std::endl
@@ -62,7 +62,7 @@ void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std
 void FileHandler::save(const ISaveable &iSaver)
 {
     std::stringstream ss{toString(iSaver)};
-    std::vector<cod::pair<std::string, std::string>> vec;
+    std::vector<std::pair<std::string, std::string>> vec;
     std::ofstream outFile(iSaver.getPath());
     auto iVector = iSaver.save();
 
@@ -99,7 +99,7 @@ void FileHandler::save(const ISaveable &iSaver)
 void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{toString(iSaver)};
-    std::vector<cod::pair<std::string, std::string>> vec;
+    std::vector<std::pair<std::string, std::string>> vec;
     std::string line;
 
     while (std::getline(ss, line))
@@ -136,7 +136,7 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{toString(iSaver)};
-    std::vector<cod::pair<std::string, std::string>> vec;
+    std::vector<std::pair<std::string, std::string>> vec;
     std::string line;
 
     while (std::getline(ss, line))
@@ -172,10 +172,10 @@ bool FileHandler::empty(const ISaveable &iSaver)
     return true;
 }
 
-std::vector<cod::pair<std::string, std::string>> FileHandler::searchAll(const ISaveable &iSaver)
+std::vector<std::pair<std::string, std::string>> FileHandler::searchAll(const ISaveable &iSaver)
 {
-    std::vector<cod::pair<std::string, std::string>> vec;
-    std::vector<cod::pair<std::string, std::string>> fileVector;
+    std::vector<std::pair<std::string, std::string>> vec;
+    std::vector<std::pair<std::string, std::string>> fileVector;
     std::stringstream ss{toString(iSaver)};
     std::string line;
 
@@ -221,7 +221,7 @@ void FileHandler::saveActiveUser(const std::string &userID)
 
     // save the current user to
     //the file for automatically log in
-    mySetting.save(cod::pair<std::string, std::string>(Constant::File::CURRENT_USER, Global::activeUser));
+    mySetting.save(std::pair<std::string, std::string>(Constant::File::CURRENT_USER, Global::activeUser));
 }
 
 // Generate default name of the file by checking available name from the user file

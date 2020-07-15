@@ -674,7 +674,7 @@ void StringHandler::find_duplicates()
     if (isRangeSelected)
         this->input_data(std::string{" FIND DUPLICATES "}, pos, len);
 
-    std::vector<cod::pair<int, char>> vec = str.find_duplicates(pos - 1, len);
+    std::vector<std::pair<int, char>> vec = str.find_duplicates(pos - 1, len);
 
     wait_message(std::string{"Finding..."});
 

@@ -8,14 +8,14 @@
 
 /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
-std::vector<cod::pair<std::string, std::string>> Account::save() const
+std::vector<std::pair<std::string, std::string>> Account::save() const
 {
-    std::vector<cod::pair<std::string, std::string>> vec;
+    std::vector<std::pair<std::string, std::string>> vec;
     vec.push_back(pairBuffer);
     return vec;
 }
 
-void Account::load(const std::vector<cod::pair<std::string, std::string>> &vec)
+void Account::load(const std::vector<std::pair<std::string, std::string>> &vec)
 {
     Decrypter dc;
 
@@ -94,7 +94,7 @@ void Account::input_data()
 
     this->pass = sc.password(); // scanning password
 
-    this->pairBuffer = cod::pair<std::string, std::string>(this->userID, ec.encrypt(this->pass));
+    this->pairBuffer = std::pair<std::string, std::string>(this->userID, ec.encrypt(this->pass));
 }
 
 void Account::display_remember_me() const

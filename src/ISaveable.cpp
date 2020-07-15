@@ -1,4 +1,5 @@
 #include <fstream>
+#include <utility>
 #include "../header/ISaveable.hpp"
 #include "../constant/Constants.hpp"
 #include "../header/FileHandler.hpp"
@@ -15,9 +16,9 @@ bool ISaveable::generate() const
 
     std::ofstream outFile(Constant::Path::USER);
 
-    std::vector<cod::pair<std::string, std::string>> vec;
-    vec.push_back(cod::pair<std::string, std::string>(Constant::Title::ARRAY, ""));
-    vec.push_back(cod::pair<std::string, std::string>(Constant::Title::STRING, ""));
+    std::vector<std::pair<std::string, std::string>> vec;
+    vec.push_back({Constant::Title::ARRAY, ""});
+    vec.push_back({Constant::Title::STRING, ""});
 
     // create file with default data
     FileHandler::print(outFile, vec);

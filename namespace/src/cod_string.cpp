@@ -1,31 +1,35 @@
 #include <iostream>
+#include <vector>
 #include <cstring>
 #include <fstream>
+#include "../header/cod_string.hpp"
 #include "../header/cod_limits.hpp"
-#include "../header/cod_algorithm.hpp" // cod_string is included in cod_algorithm
+#include "../../constant/Constants.hpp"
 
-/************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+// #include "../header/cod_algorithm.hpp" // cod_string is included in cod_algorithm
 
-std::vector<cod::pair<std::string, std::string>> cod::string::save() const
+/************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
+
+std::vector<std::pair<std::string, std::string>> cod::string::save() const
 {
-    std::vector<cod::pair<std::string, std::string>> vec;
+    std::vector<std::pair<std::string, std::string>> vec;
 
-    vec.push_back(cod::pair<std::string, std::string>(DataFile::NAME, this->_name));
-    vec.push_back(cod::pair<std::string, std::string>(DataFile::TITLE, Tag::STRING));
-    vec.push_back(cod::pair<std::string, std::string>(DataFile::SUB_DATA1, std::to_string(this->_capacity)));
-    vec.push_back(cod::pair<std::string, std::string>(DataFile::SUB_DATA2, std::to_string(this->_size)));
-    vec.push_back(cod::pair<std::string, std::string>(DataFile::DATA, this->str));
+    vec.push_back({Constant::DataFile::NAME, this->_name});
+    vec.push_back({Constant::DataFile::TITLE, Constant::Title::STRING});
+    vec.push_back({Constant::DataFile::SUB_DATA1, std::to_string(this->_capacity)});
+    vec.push_back({Constant::DataFile::SUB_DATA2, std::to_string(this->_size)});
+    vec.push_back({Constant::DataFile::DATA, this->str});
 
     return vec;
 }
 
-void cod::string::load(const std::vector<cod::pair<std::string, std::string>> &vec)
+void cod::string::load(const std::vector<std::pair<std::string, std::string>> &vec)
 {
     for (const auto &pair : vec)
     {
         std::stringstream ss(pair.second());
 
-        if (pair.first() == DataFile::DATA)
+        if (pair.first() == Constant::DataFile::DATA)
         {
             delete[] str;
 
@@ -36,18 +40,18 @@ void cod::string::load(const std::vector<cod::pair<std::string, std::string>> &v
 
             this->cpy(tempStr.c_str());
         }
-        else if (pair.first() == DataFile::NAME)
+        else if (pair.first() == Constant::DataFile::NAME)
             ss >> this->_name;
-        else if (pair.first() == DataFile::SUB_DATA1)
+        else if (pair.first() == Constant::DataFile::SUB_DATA1)
             ss >> this->_capacity;
-        else if (pair.first() == DataFile::SUB_DATA2)
+        else if (pair.first() == Constant::DataFile::SUB_DATA2)
             ss >> this->_size;
     }
 }
 
 std::string cod::string::filename() const
 {
-    return Path::userFilePath;
+    return Constant::Path::USER;
 }
 
 /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
@@ -147,9 +151,9 @@ void cod::string::perm(string &str, size_t l, size_t h)
 
     for (size_t i{l}; i <= h; i++)
     {
-        cod::swap(str[l], str[i]);
+        std::swap(str[l], str[i]);
         perm(str, l + 1, h);
-        cod::swap(str[l], str[i]);
+        std::swap(str[l], str[i]);
     }
 }
 
@@ -184,7 +188,7 @@ cod::string::string() : string(nullptr)
 {
 }
 
-cod::string::string(const char *s) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Constant::Title::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     if (s == nullptr)
     {
@@ -204,7 +208,7 @@ cod::string::string(const char *s) : str(nullptr), index{0}, _name(FileHandler::
     }
 }
 
-cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Constant::Title::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -214,7 +218,7 @@ cod::string::string(const char *s, size_t n) : str(nullptr), index{0}, _name(Fil
     this->cpy(s, n);
 }
 
-cod::string::string(size_t n, char c) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(size_t n, char c) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Constant::Title::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = n;
 
@@ -228,7 +232,7 @@ cod::string::string(size_t n, char c) : str(nullptr), index{0}, _name(FileHandle
     str[n] = '\0';
 }
 
-cod::string::string(const string &rhs) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Constant::Title::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = rhs._size;
     _capacity = rhs._capacity;
@@ -239,7 +243,7 @@ cod::string::string(const string &rhs) : str(nullptr), index{0}, _name(FileHandl
     this->cpy(rhs.str, rhs._size);
 }
 
-cod::string::string(string &&rhs) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(string &&rhs) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Constant::Title::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _capacity = rhs._capacity;
     _size = rhs._size;
@@ -247,7 +251,7 @@ cod::string::string(string &&rhs) : str(nullptr), index{0}, _name(FileHandler::n
     rhs.str = nullptr;
 }
 
-cod::string::string(const std::initializer_list<char> &list) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const std::initializer_list<char> &list) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Constant::Title::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     _size = _capacity = list.size();
 
@@ -263,7 +267,7 @@ cod::string::string(const std::initializer_list<char> &list) : str(nullptr), ind
     str[i] = '\0';
 }
 
-cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Tag::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
+cod::string::string(const string &rhs, size_t pos, size_t len) : str(nullptr), index{0}, _name(FileHandler::name_generator(*this, Constant::Title::STRING)), _size(0), _capacity(0), _maxSize(cod::limits<size_t>::max()), _words(0), _vowels(0), _consonants(0)
 {
     // Initializing valid size by taking references of size and pos with different len condtition
     // if len equals npos, it returns the difference of rhs.size and pos
@@ -1438,12 +1442,12 @@ void cod::string::permutation(size_t pos, size_t len)
 }
 
 // Finding duplicates
-std::vector<cod::pair<int, char>> cod::string::find_duplicates(size_t pos, size_t len)
+std::vector<std::pair<int, char>> cod::string::find_duplicates(size_t pos, size_t len)
 {
     this->validate(pos, true);
 
     size_t lSize = (len == npos) ? _size - pos : cod::min(_size - pos, len);
-    std::vector<cod::pair<int, char>> vec;
+    std::vector<std::pair<int, char>> vec;
 
     int H[26]{0};
 
@@ -1456,7 +1460,7 @@ std::vector<cod::pair<int, char>> cod::string::find_duplicates(size_t pos, size_
     for (size_t i{0}; i < 26; i++)
     {
         if (H[i] > 1)
-            vec.push_back(cod::pair<int, char>{H[i], static_cast<char>(97 + i)});
+            vec.push_back(std::pair<int, char>{H[i], static_cast<char>(97 + i)});
     }
 
     return vec;

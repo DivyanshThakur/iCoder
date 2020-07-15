@@ -192,7 +192,7 @@ namespace cod
         array Difference(const array &rhs);
 
         /**************************************************** FIND VALUES ***************************************************/
-        std::vector<cod::pair<int, T>> find_duplicates(size_t start, size_t end);
+        std::vector<std::pair<int, T>> find_duplicates(size_t start, size_t end);
         std::vector<T> find_missing(size_t start, size_t end);
         std::vector<array<T>> find_pair_sum(size_t start, size_t end, T &k);
 

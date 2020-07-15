@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "cod_scan.hpp"
-#include "cod_pair.hpp"
 #include "../../header/FileHandler.hpp" // including both ISaveable & FileHandler
 
 namespace cod
@@ -11,18 +10,18 @@ namespace cod
     class string : public ISaveable
     {
     public:
-        /************************************ ISAVABLE PURE VIRTUAL FUNCTION ****************************************/
+        /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
-        virtual std::vector<cod::pair<std::string, std::string>> save() const override;
-        virtual void load(const std::vector<cod::pair<std::string, std::string>> &vec) override;
-        virtual std::string filename() const override;
+        virtual std::vector<std::pair<std::string, std::string>> save() const override;
+        virtual void load(const std::vector<std::pair<std::string, std::string>> &vec) override;
+        virtual std::string getPath() const override;
 
     private:
         /************************************* NON MEMBER FUNCTION OVERLOADS ****************************************/
 
         friend void swap(string &lhs, string &rhs)
         {
-            lhs.swap(rhs); // calls the swap mwmber function
+            lhs.swap(rhs); // calls the swap member function
         }
 
         friend std::ostream &operator<<(std::ostream &os, const string &obj)
@@ -349,7 +348,7 @@ namespace cod
         bool ispalindrome(size_t pos = 0, size_t len = npos) const;
         bool isanagram(size_t pos, size_t len, const string &rhs, size_t subpos = 0, size_t sublen = npos) const;
         void permutation(size_t pos = 0, size_t len = npos);
-        std::vector<cod::pair<int, char>> find_duplicates(size_t pos = 0, size_t len = npos);
+        std::vector<std::pair<int, char>> find_duplicates(size_t pos = 0, size_t len = npos);
         std::vector<char> find_unique(size_t pos = 0, size_t len = npos);
 
         /*************************************************** STRING OPERATIONS **************************************/

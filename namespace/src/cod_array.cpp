@@ -1065,7 +1065,7 @@ cod::array<T> cod::array<T>::Difference(const array &rhs)
 /**************************************************** FIND VALUES ******************************************************/
 
 template <typename T>
-std::vector<cod::pair<int, T>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
+std::vector<std::pair<int, T>> cod::array<T>::find_duplicates(size_t start, size_t end) // all
 {
     if (_size == 0)
         throw ArrayEmptyException();
@@ -1076,7 +1076,7 @@ std::vector<cod::pair<int, T>> cod::array<T>::find_duplicates(size_t start, size
     if (start < 0 || end >= _size)
         throw InvalidInputException();
 
-    std::vector<cod::pair<int, T>> vec;
+    std::vector<std::pair<int, T>> vec;
     size_t i{start};
 
     if (this->isSorted())
@@ -1090,7 +1090,7 @@ std::vector<cod::pair<int, T>> cod::array<T>::find_duplicates(size_t start, size
                     ++count;
                     ++i;
                 }
-                vec.push_back(cod::pair<int, T>{count, A[i]});
+                vec.push_back(std::pair<int, T>{count, A[i]});
             }
         }
     }
@@ -1109,7 +1109,7 @@ std::vector<cod::pair<int, T>> cod::array<T>::find_duplicates(size_t start, size
                 if (count > 1)
                 {
                     dup.push_back(A[i]);
-                    vec.push_back(cod::pair<int, T>{count, A[i]});
+                    vec.push_back(std::pair<int, T>{count, A[i]});
                 }
             }
         }
