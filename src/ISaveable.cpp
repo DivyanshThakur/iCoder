@@ -1,5 +1,6 @@
 #include <fstream>
 #include "../header/ISaveable.hpp"
+#include "../constant/Constants.hpp"
 #include "../header/FileHandler.hpp"
 
 bool ISaveable::generate() const

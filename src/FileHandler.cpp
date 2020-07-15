@@ -6,9 +6,10 @@
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Settings.hpp"
+#include "../constant/Constants.hpp"
 #include "../namespace/header/cod_algorithm.hpp"
 
-std::string FileHandler::file_str(const ISaveable &iSaver)
+std::string FileHandler::toString(const ISaveable &iSaver)
 {
     iSaver.generate();
 
@@ -27,21 +28,17 @@ std::string FileHandler::file_str(const ISaveable &iSaver)
     return fileStr;
 }
 
-cod::pair<std::string, std::string> FileHandler::get_pair(const std::string &line)
+cod::pair<std::string, std::string> FileHandler::getPair(const std::string &line)
 {
     std::stringstream ssLine(line);
     std::string word, title, val;
 
-    ssLine >> title;
+    ssLine >> title >> val;
 
     while (ssLine >> word)
-    {
-        val += (word + " ");
-    }
+        val += (" " + word);
 
-    val.pop_back();
-
-    return cod::pair<std::string, std::string>(title, val);
+    return {title, val};
 }
 
 void FileHandler::print(std::ofstream &outFile, const std::vector<cod::pair<std::string, std::string>> &vec)
@@ -64,7 +61,7 @@ void FileHandler::print(std::ofstream &outFile, const cod::pair<std::string, std
 
 void FileHandler::save(const ISaveable &iSaver)
 {
-    std::stringstream ss{file_str(iSaver)};
+    std::stringstream ss{toString(iSaver)};
     std::vector<cod::pair<std::string, std::string>> vec;
     std::ofstream outFile(iSaver.getPath());
     auto iVector = iSaver.save();
@@ -76,7 +73,7 @@ void FileHandler::save(const ISaveable &iSaver)
     {
         if (line != "~")
         {
-            vec.push_back(get_pair(line));
+            vec.push_back(getPair(line));
         }
         else
         {
@@ -101,7 +98,7 @@ void FileHandler::save(const ISaveable &iSaver)
 
 void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 {
-    std::stringstream ss{file_str(iSaver)};
+    std::stringstream ss{toString(iSaver)};
     std::vector<cod::pair<std::string, std::string>> vec;
     std::string line;
 
@@ -110,7 +107,7 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 
         if (line != "~")
         {
-            vec.push_back(get_pair(line));
+            vec.push_back(getPair(line));
         }
         else
         {
@@ -138,7 +135,7 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 
 bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
 {
-    std::stringstream ss{file_str(iSaver)};
+    std::stringstream ss{toString(iSaver)};
     std::vector<cod::pair<std::string, std::string>> vec;
     std::string line;
 
@@ -147,7 +144,7 @@ bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
 
         if (line != "~")
         {
-            vec.push_back(get_pair(line));
+            vec.push_back(getPair(line));
         }
         else
         {
@@ -164,9 +161,9 @@ bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
     return false;
 }
 
-bool FileHandler::is_empty(const ISaveable &iSaver)
+bool FileHandler::empty(const ISaveable &iSaver)
 {
-    std::stringstream ss{file_str(iSaver)};
+    std::stringstream ss{toString(iSaver)};
     std::string word;
 
     if (ss >> word)
@@ -175,18 +172,18 @@ bool FileHandler::is_empty(const ISaveable &iSaver)
     return true;
 }
 
-std::vector<cod::pair<std::string, std::string>> FileHandler::search_all(const ISaveable &iSaver)
+std::vector<cod::pair<std::string, std::string>> FileHandler::searchAll(const ISaveable &iSaver)
 {
     std::vector<cod::pair<std::string, std::string>> vec;
     std::vector<cod::pair<std::string, std::string>> fileVector;
-    std::stringstream ss{file_str(iSaver)};
+    std::stringstream ss{toString(iSaver)};
     std::string line;
 
     while (std::getline(ss, line))
     {
 
         if (line != "~")
-            fileVector.push_back(get_pair(line));
+            fileVector.push_back(getPair(line));
         else
         {
             vec.push_back(fileVector.at(0));
@@ -198,7 +195,7 @@ std::vector<cod::pair<std::string, std::string>> FileHandler::search_all(const I
 }
 
 // Common function to update the Status enum variables
-void FileHandler::update_stats(enum Status &stats, int c)
+void FileHandler::updateStats(enum Status &stats, int c)
 {
     switch (c)
     {
@@ -216,7 +213,7 @@ void FileHandler::update_stats(enum Status &stats, int c)
     }
 }
 
-void FileHandler::save_active_user(const std::string &userID)
+void FileHandler::saveActiveUser(const std::string &userID)
 {
     Settings mySetting;
 
@@ -228,7 +225,7 @@ void FileHandler::save_active_user(const std::string &userID)
 }
 
 // Generate default name of the file by checking available name from the user file
-std::string FileHandler::name_generator(const ISaveable &iSaver, const std::string &title)
+std::string FileHandler::nameGenerator(const ISaveable &iSaver, const std::string &title)
 {
     iSaver.generate();
 

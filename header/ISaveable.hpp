@@ -1,7 +1,6 @@
 #ifndef ISAVEABLE_HPP
 #define ISAVEABLE_HPP
 
-#include "Constants.hpp"
 #include "../namespace/header/cod_pair.hpp"
 
 class ISaveable

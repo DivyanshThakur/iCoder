@@ -4,6 +4,7 @@
 #include <windows.h>
 #include "../header/Settings.hpp"
 #include "../header/FileHandler.hpp"
+#include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
 // This function initializes the StringHandler class and start it
@@ -69,7 +70,6 @@ std::string Settings::getPath() const
 
 bool Settings::generate() const
 {
-
     std::ifstream inFile(Constant::Path::SETTINGS);
 
     if (inFile) // if file already exists returns else create a new file
@@ -90,15 +90,13 @@ bool Settings::generate() const
 
     std::ofstream outFile(Constant::Path::SETTINGS);
 
-    std::vector<cod::pair<std::string, std::string>> vec;
-
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::CURRENT_USER, Global::activeUser));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
-    FileHandler::print(outFile, cod::pair<std::string, std::string>(Constant::File::SHOW_HINT, std::to_string(Global::showHint)));
+    FileHandler::print(outFile, {Constant::File::CURRENT_USER, Global::activeUser});
+    FileHandler::print(outFile, {Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)});
+    FileHandler::print(outFile, {Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)});
+    FileHandler::print(outFile, {Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)});
+    FileHandler::print(outFile, {Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)});
+    FileHandler::print(outFile, {Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)});
+    FileHandler::print(outFile, {Constant::File::SHOW_HINT, std::to_string(Global::showHint)});
 
     outFile.close();
 

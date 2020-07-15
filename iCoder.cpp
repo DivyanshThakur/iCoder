@@ -209,7 +209,7 @@ void Main::home()
 
 void Main::signOut()
 {
-    FileHandler::save_active_user(Constant::NULL_STR);
+    FileHandler::saveActiveUser(Constant::NULL_STR);
     Constant::Path::USER.clear();
     welcomeFlag = true;
 
