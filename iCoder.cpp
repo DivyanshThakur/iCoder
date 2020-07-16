@@ -96,7 +96,7 @@ std::vector<std::string> Main::Menu::selector()
 
 /**
  * The menuIndex stores the index of the menu options that is currently displayed in the screen
- * fn_caller calls the required function by using below logic
+ * Menu::caller() calls the required function by using below logic
  * Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
  * if the input is between the menuIndex size range, it calculates which function to call
  * Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::main
@@ -174,7 +174,7 @@ void Main::start()
 
     do
     {
-        Main::Menu::player(Main::Menu()); // display the startup menu
+        Menu::player(Main::Menu()); // display the startup menu
 
     } while (1);
 }
@@ -201,7 +201,7 @@ void Main::home()
         Ui::popUp("--> Welcome " + userID + "!"); // display the welcome message
     }
 
-    // data_structure();
+    DataStructure::start();
 }
 
 void Main::signOut()

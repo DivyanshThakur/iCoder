@@ -130,9 +130,7 @@ public:
     {
     public:
         static const std::string CURRENT_USER;
-        static const std::string ANIMATION_SPEED;
         static const std::string LSEARCH_STATUS;
-        static const std::string SHORTCUT_STATUS;
         static const std::string ANIME_SIGN_OUT_STATUS;
         static const std::string SHOW_WELCOME_MESSAGE;
         static const std::string SHOW_QUIT_MESSAGE;

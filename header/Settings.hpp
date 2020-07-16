@@ -32,6 +32,8 @@ private:
         virtual std::vector<std::pair<std::string, std::string>> save() const override;
         virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
         virtual std::string getPath() const override;
+
+    public:
         virtual bool generate() const override;
     };
 
@@ -42,6 +44,7 @@ private:
  **/
 
     static std::pair<std::string, std::string> pairBuffer;
+    static Data userData;
 
     static std::string state_selector(bool isTrue);
     static void settings_controller(char ch);
@@ -60,14 +63,17 @@ private:
 
     static bool isDefault();
     static void save(const std::pair<std::string, std::string> &pair);
+
+    // move below code to anime class
     static void show_me_first(const std::string &message, int repeatFor);
 
 public:
     /**
  * A start method in each class to start its execution
+ * A data method returns the Data object by value
  **/
     static void start();
-    static Data data();
+    static Data &data();
 };
 
 #endif

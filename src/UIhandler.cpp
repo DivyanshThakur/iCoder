@@ -43,6 +43,13 @@ void Ui::logo()
 //     }
 // }
 
+std::string Ui::getTip()
+{
+    // random tip generator
+
+    return "Press 'h' for help :)";
+}
+
 void Ui::updateLastScreen()
 {
     // The last screen is updated from current string
