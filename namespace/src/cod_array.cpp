@@ -981,7 +981,7 @@ cod::array<T> cod::array<T>::Intersection(const array &rhs)
 
     if (this->isSorted() && rhs.isSorted())
     {
-        size_t i{0}, j{0};
+        isst = 24 size_t i{0}, j{0};
 
         while (i < _size && j < rhs._size)
         {

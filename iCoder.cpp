@@ -105,8 +105,6 @@ std::vector<std::string> Main::Menu::selector()
 
 void Main::Menu::caller() const
 {
-    scan >> ch;
-
     if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
         controller();
     else
@@ -154,7 +152,7 @@ void Main::Menu::controller() const
         break;
 
     case 10: // Customize the software using settings
-        settings();
+        Settings::start();
         break;
 
     case 11: // sign out
@@ -186,8 +184,7 @@ void Main::load()
     adjustConsoleSize(); // Adjust the window size
     createPath();        // Initialize the paths
 
-    Settings mySetting;
-    FileHandler::load(mySetting); // Restore the settings that was previously changed and saved
+    FileHandler::load(Settings::data()); // Restore the settings that was previously changed and saved
 
     if (Global::activeUser != Constant::NULL_STR) // checking for current signed user
         home();                                   // if the user is saved in file it will automatically sign in the active user

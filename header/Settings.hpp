@@ -2,47 +2,72 @@
 #define SETTINGS_HPP
 
 #include <vector>
+#include "IMenu.hpp"
 #include "ISaveable.hpp"
-#include "../namespace/header/cod_pair.hpp"
 
-void settings();
-
-class Settings : public ISaveable
+class Settings
 {
-public:
-    /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
-
-    virtual std::vector<std::pair<std::string, std::string>> save() const override;
-    virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
-    virtual std::string getPath() const override;
-    virtual bool generate() const override;
-
-    /******************************************* MEMBER FUNCTIONS ***********************************************/
-
-    void start();
-    bool isDefault() const;
-    void save(const std::pair<std::string, std::string> &pair);
-    void show_me_first(const std::string &message, int repeatFor);
-
-    virtual ~Settings() = default;
-
 private:
-    std::pair<std::string, std::string> pairBuffer;
+    /**
+ * Menu has all the methods necessary for showing menu
+ * and controlling the flow of program as per user choice
+ * It inherit the IMenu abstract class.
+ **/
+    class Menu : public IMenu
+    {
+        virtual std::string title() const override;
+        virtual std::vector<std::string> getStats() const override;
+        virtual std::vector<std::string> selector() override;
+        virtual void caller() const override;
+        virtual void controller() const override;
+    };
 
-    std::string state_selector(bool isTrue);
-    void settings_controller(char ch);
-    std::vector<std::string> settings_screen_selector();
-    void change_text_anime_speed();
-    void change_lsearch_type();
-    void change_shortcuts_type();
-    void change_home_screen();
-    void change_theme_type();
-    void change_anime_style();
-    void change_display_style();
-    void welcome_message();
-    void quit_message();
-    void hint_message();
-    void reset();
+    /**
+ * Data has all the methods necessary for saving
+ * and retreiving user data from the files
+ * It inherit the ISaveable abstract class.
+ **/
+    class Data : public ISaveable
+    {
+        virtual std::vector<std::pair<std::string, std::string>> save() const override;
+        virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
+        virtual std::string getPath() const override;
+        virtual bool generate() const override;
+    };
+
+    /**
+ * Settings class static fields and methods are declared here
+ * These change the Ui & working of the software based on the
+ * user choices and provide the user with many customizations.
+ **/
+
+    static std::pair<std::string, std::string> pairBuffer;
+
+    static std::string state_selector(bool isTrue);
+    static void settings_controller(char ch);
+    static std::vector<std::string> settings_screen_selector();
+    static void change_text_anime_speed();
+    static void change_lsearch_type();
+    static void change_shortcuts_type();
+    static void change_home_screen();
+    static void change_theme_type();
+    static void change_anime_style();
+    static void change_display_style();
+    static void welcome_message();
+    static void quit_message();
+    static void hint_message();
+    static void reset();
+
+    static bool isDefault();
+    static void save(const std::pair<std::string, std::string> &pair);
+    static void show_me_first(const std::string &message, int repeatFor);
+
+public:
+    /**
+ * A start method in each class to start its execution
+ **/
+    static void start();
+    static Data data();
 };
 
 #endif

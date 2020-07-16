@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <fstream>
 #include <windows.h>
@@ -7,23 +8,127 @@
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
-// This function initializes the StringHandler class and start it
-void settings()
+/**************************************************************************************************************
+ * 
+ *                                           IMENU IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+std::string Settings::Menu::title() const
 {
-    Settings s;
-    s.start();
+    return std::string(Constant::Title::SETTINGS);
 }
+
+std::vector<std::string> Settings::Menu::getStats() const
+{
+    std::vector<std::string> vec;
+    vec.emplace_back(Constant::Title::TIP);
+    show tips in settings menu
+        // if (Global::activeUser != Constant::NULL_STR)
+        //     vec.emplace_back("User:    " + Global::activeUser);
+
+        // vec.emplace_back("Version: " + Constant::iCoder::VERSION);
+
+        return vec;
+}
+
+std::vector<std::string> Settings::Menu::selector()
+{
+    menuIndex.clear(); // clear the previous saved index
+
+    for (size_t i{0}; i < Constant::Menu::SETTINGS.size(); i++)
+        menuIndex.push_back(i + 1);
+
+    return Constant::Menu::SETTINGS;
+}
+
+/**
+ * The menuIndex stores the index of the menu options that is currently displayed in the screen
+ * fn_caller calls the required function by using below logic
+ * Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
+ * if the input is between the menuIndex size range, it calculates which function to call
+ * Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::main
+ * Since, the index of Menu::main is stored in menuIndex and thus is passed in menu controller
+ **/
+
+void Settings::Menu::caller() const
+{
+    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
+        controller();
+    else
+        Ui::println(std::string{"Invalid choice"});
+}
+
+void Settings::Menu::controller() const
+{
+    switch (menuIndex.at(ch - 1))
+    {
+    case 1: // change the animation speed of the menu
+        change_text_anime_speed();
+        break;
+
+    case 2: // change linear search type
+        change_lsearch_type();
+        break;
+
+    case 3: // change shortcuts access type
+        change_shortcuts_type();
+        break;
+
+    case 4: // change theme type
+        change_theme_type();
+        return;
+
+    case 5: // change animation style
+        change_anime_style();
+        break;
+
+    case 6: // change display style
+        change_display_style();
+        return;
+
+    case 7: // welcome message enable/disable
+        welcome_message();
+        break;
+
+    case 8: // quit message enable/disable
+        quit_message();
+        break;
+
+    case 9: // hint message enable/disable
+        hint_message();
+        break;
+
+    case 10: // reset the settings and delete users
+        reset();
+        return;
+
+    default:
+        print_message(std::string{"Invalid choice"}, true, HOME);
+        return;
+    }
+
+    ReturnTo temp = ((ch > 6) ? HOME : PRE);
+    print_message(std::string{"Changes saved!"}, true, temp);
+}
+
+// This function initializes the StringHandler class and start it
+// void settings()
+// {
+//     Settings s;
+//     s.start();
+// }
 
 /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
-std::vector<std::pair<std::string, std::string>> Settings::save() const
+std::vector<std::pair<std::string, std::string>> Settings::Data::save() const
 {
     std::vector<std::pair<std::string, std::string>> vec;
     vec.push_back(pairBuffer);
     return vec;
 }
 
-void Settings::load(const std::vector<std::pair<std::string, std::string>> &vecData)
+void Settings::Data::load(const std::vector<std::pair<std::string, std::string>> &vecData)
 {
     int c;
 
@@ -32,43 +137,34 @@ void Settings::load(const std::vector<std::pair<std::string, std::string>> &vecD
 
     auto pair = vecData.at(0);
 
-    std::stringstream ss(pair.second());
+    std::stringstream ss(pair.second);
 
-    if (pair.first() == Constant::File::CURRENT_USER)
+    if (pair.first == Constant::File::CURRENT_USER)
         ss >> Global::activeUser;
-    else if (pair.first() == Constant::File::ANIMATION_SPEED)
-        ss >> Global::sleepTime;
-    else if (pair.first() == Constant::File::LSEARCH_STATUS)
+    else if (pair.first == Constant::File::LSEARCH_STATUS)
     {
         ss >> c;
-        FileHandler::update_stats(lSearchStats, c);
+        FileHandler::updateStats(lSearchStats, c);
     }
-    else if (pair.first() == Constant::File::SHORTCUT_STATUS)
+    else if (pair.first == Constant::File::ANIME_SIGN_OUT_STATUS)
     {
         ss >> c;
-        FileHandler::update_stats(shortcutStats, c);
+        FileHandler::updateStats(animeSignOutStats, c);
     }
-    else if (pair.first() == Constant::File::ANIME_SIGN_OUT_STATUS)
-    {
-        ss >> c;
-        FileHandler::update_stats(animeSignOutStats, c);
-    }
-    else if (pair.first() == Constant::File::SHOW_ONE_TIME_HINT)
-        ss >> showedOneTime;
-    else if (pair.first() == Constant::File::SHOW_WELCOME_MESSAGE)
+    else if (pair.first == Constant::File::SHOW_WELCOME_MESSAGE)
         ss >> Global::showWelcome;
-    else if (pair.first() == Constant::File::SHOW_QUIT_MESSAGE)
+    else if (pair.first == Constant::File::SHOW_QUIT_MESSAGE)
         ss >> Global::showQuit;
-    else if (pair.first() == Constant::File::SHOW_HINT)
+    else if (pair.first == Constant::File::SHOW_HINT)
         ss >> Global::showHint;
 }
 
-std::string Settings::getPath() const
+std::string Settings::Data::getPath() const
 {
     return Constant::Path::SETTINGS;
 }
 
-bool Settings::generate() const
+bool Settings::Data::generate() const
 {
     std::ifstream inFile(Constant::Path::SETTINGS);
 
@@ -104,6 +200,11 @@ bool Settings::generate() const
 }
 
 /******************************************* MEMBER FUNCTIONS ***********************************************/
+Settings::Data Settings::data()
+{
+    Data data;
+    return data;
+}
 
 void Settings::start()
 {
@@ -180,16 +281,16 @@ void Settings::start()
     } while (1); // true
 }
 
-bool Settings::isDefault() const
+bool Settings::isDefault()
 {
     std::string usr_signed;
     int time, c, s, aso;
     bool sothint, wlcome, hint, quit;
 
-    if (this->generate())
+    if (generate())
         return true;
 
-    auto vec = FileHandler::search_all(*this);
+    auto vec = FileHandler::searchAll(*this);
 
     for (const auto &pair : vec)
     {
@@ -269,55 +370,6 @@ std::string Settings::state_selector(bool isTrue)
 
 void Settings::settings_controller(char ch)
 {
-    switch (ch)
-    {
-    case 1: // change the animation speed of the menu
-        change_text_anime_speed();
-        break;
-
-    case 2: // change linear search type
-        change_lsearch_type();
-        break;
-
-    case 3: // change shortcuts access type
-        change_shortcuts_type();
-        break;
-
-    case 4: // change theme type
-        change_theme_type();
-        return;
-
-    case 5: // change animation style
-        change_anime_style();
-        break;
-
-    case 6: // change display style
-        change_display_style();
-        return;
-
-    case 7: // welcome message enable/disable
-        welcome_message();
-        break;
-
-    case 8: // quit message enable/disable
-        quit_message();
-        break;
-
-    case 9: // hint message enable/disable
-        hint_message();
-        break;
-
-    case 10: // reset the settings and delete users
-        reset();
-        return;
-
-    default:
-        print_message(std::string{"Invalid choice"}, true, HOME);
-        return;
-    }
-
-    ReturnTo temp = ((ch > 6) ? HOME : PRE);
-    print_message(std::string{"Changes saved!"}, true, temp);
 }
 
 std::vector<std::string> Settings::settings_screen_selector()

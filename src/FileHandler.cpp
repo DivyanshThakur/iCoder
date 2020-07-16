@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <utility>
 #include "../header/FileHandler.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
@@ -45,8 +46,8 @@ void FileHandler::print(std::ofstream &outFile, const std::vector<std::pair<std:
 {
     for (const auto &pair : vec)
     {
-        outFile << std::setw(Constant::Ui::USERNAME_WIDTH * 2) << std::left << pair.first()
-                << pair.second() << std::endl;
+        outFile << std::setw(Constant::Ui::USERNAME_WIDTH * 2) << std::left << pair.first
+                << pair.second << std::endl;
     }
 
     outFile << "~" << std::endl;
@@ -54,8 +55,8 @@ void FileHandler::print(std::ofstream &outFile, const std::vector<std::pair<std:
 
 void FileHandler::print(std::ofstream &outFile, const std::pair<std::string, std::string> &pair)
 {
-    outFile << std::setw(Constant::Ui::USERNAME_WIDTH * 2) << std::left << pair.first()
-            << pair.second() << std::endl
+    outFile << std::setw(Constant::Ui::USERNAME_WIDTH * 2) << std::left << pair.first
+            << pair.second << std::endl
             << "~" << std::endl;
 }
 
@@ -77,8 +78,8 @@ void FileHandler::save(const ISaveable &iSaver)
         }
         else
         {
-            bool isSettingsOrUser = (vec.at(0).first() == iVector.at(0).first());
-            bool isDataStructure = (vec.at(0).first() == iVector.at(0).first()) && (vec.at(0).second() == iVector.at(0).second());
+            bool isSettingsOrUser = (vec.at(0).first == iVector.at(0).first);
+            bool isDataStructure = isSettingsOrUser && (vec.at(0).second == iVector.at(0).second);
 
             if (isSettingsOrUser || isDataStructure)
             {
@@ -116,7 +117,7 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
             // of data structures and other main data stored
 
             bool isSettingsOrUser = (tag == "");
-            bool isDataStructure = (vec.at(0).first() == Constant::DataFile::NAME) && (vec.at(0).second() == tag);
+            bool isDataStructure = (vec.at(0).first == Constant::DataFile::NAME) && (vec.at(0).second == tag);
 
             if (isSettingsOrUser)
             {
@@ -148,8 +149,8 @@ bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
         }
         else
         {
-            bool isSettingsOrUser = (vec.at(0).first() == tag);
-            bool isDataStructure = (vec.at(0).first() == Constant::DataFile::NAME) && (vec.at(0).second() == tag);
+            bool isSettingsOrUser = (vec.at(0).first == tag);
+            bool isDataStructure = (vec.at(0).first == Constant::DataFile::NAME) && (vec.at(0).second == tag);
 
             if (isSettingsOrUser || isDataStructure)
                 return true;

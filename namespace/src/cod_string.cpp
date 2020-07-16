@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 #include <cstring>
 #include <fstream>
+#include <sstream>
 #include "../header/cod_string.hpp"
 #include "../header/cod_limits.hpp"
 #include "../../constant/Constants.hpp"
@@ -27,9 +29,9 @@ void cod::string::load(const std::vector<std::pair<std::string, std::string>> &v
 {
     for (const auto &pair : vec)
     {
-        std::stringstream ss(pair.second());
+        std::stringstream ss(pair.second);
 
-        if (pair.first() == Constant::DataFile::DATA)
+        if (pair.first == Constant::DataFile::DATA)
         {
             delete[] str;
 
@@ -40,16 +42,16 @@ void cod::string::load(const std::vector<std::pair<std::string, std::string>> &v
 
             this->cpy(tempStr.c_str());
         }
-        else if (pair.first() == Constant::DataFile::NAME)
+        else if (pair.first == Constant::DataFile::NAME)
             ss >> this->_name;
-        else if (pair.first() == Constant::DataFile::SUB_DATA1)
+        else if (pair.first == Constant::DataFile::SUB_DATA1)
             ss >> this->_capacity;
-        else if (pair.first() == Constant::DataFile::SUB_DATA2)
+        else if (pair.first == Constant::DataFile::SUB_DATA2)
             ss >> this->_size;
     }
 }
 
-std::string cod::string::filename() const
+std::string cod::string::getPath() const
 {
     return Constant::Path::USER;
 }

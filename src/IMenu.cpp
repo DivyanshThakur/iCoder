@@ -38,6 +38,7 @@ void IMenu::check() const
 {
     try
     {
+        scan >> ch;
         this->caller();
     }
     catch (const EscPressed &e)
