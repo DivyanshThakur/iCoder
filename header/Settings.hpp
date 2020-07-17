@@ -4,6 +4,7 @@
 #include <vector>
 #include "IMenu.hpp"
 #include "ISaveable.hpp"
+#include "../constant/enum.hpp"
 
 class Settings
 {
@@ -46,6 +47,8 @@ private:
     static std::pair<std::string, std::string> pairBuffer;
     static Data userData;
 
+    static void updateStats(enum Status &stats, int c);
+
     static std::string state_selector(bool isTrue);
     static void settings_controller(char ch);
     static std::vector<std::string> settings_screen_selector();
@@ -74,6 +77,8 @@ public:
  **/
     static void start();
     static Data &data();
+
+    static void saveActiveUser();
 };
 
 #endif

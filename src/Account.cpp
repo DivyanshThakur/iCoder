@@ -1,9 +1,12 @@
 #include <iostream>
+#include <vector>
 #include <iomanip>
 #include <fstream>
 #include "../header/Account.hpp"
+#include "../header/Settings.hpp"
 #include "../header/FileHandler.hpp"
 #include "../header/Security.hpp"
+#include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
 /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
@@ -19,8 +22,8 @@ void Account::load(const std::vector<std::pair<std::string, std::string>> &vec)
 {
     Decrypter dc;
 
-    this->userID = vec.at(0).first();
-    this->pass = dc.decrypt(vec.at(0).second());
+    this->userID = vec.at(0).first;
+    this->pass = dc.decrypt(vec.at(0).second);
 }
 
 std::string Account::filename() const
@@ -70,9 +73,9 @@ std::string Account::pass_to_asteric(const std::string &pass) const
 std::ostream &operator<<(std::ostream &os, Account &acc)
 {
     os << std::endl
-       << " " << std::setw(Constant::Ui::widthIndex) << std::left << ++acc.index
-       << " | " << std::setw(Constant::Ui::widthUsername) << std::left << acc.userID
-       << " | " << std::setw(Constant::Ui::widthPassword) << std::left << acc.pass_to_asteric()
+       << " " << std::setw(Constant::Ui::INDEX_WIDTH) << std::left << ++acc.index
+       << " | " << std::setw(Constant::Ui::USERNAME_WIDTH) << std::left << acc.userID
+       << " | " << std::setw(Constant::Ui::PASSWORD_WIDTH) << std::left << acc.pass_to_asteric()
        << " |";
     return os;
 }
@@ -110,10 +113,10 @@ void Account::display_remember_me() const
 
     Path::userFilePath = Path::dataPath + this->userID + ".dat";
 
+    Global::activeUser = this->userID;
+
     if (::tolower(c) == 'y')
-        FileHandler::save_active_user(this->userID); // save the current user
-    else
-        Global::signedUserID = this->userID;
+        Settings::saveActiveUser();
 }
 
 void Account::check_account() const
@@ -122,11 +125,11 @@ void Account::check_account() const
 
     this->generate();
 
-    auto vec = FileHandler::search_all(*this);
+    auto vec = FileHandler::searchTag(*this);
 
     for (const auto &pair : vec)
     {
-        if (pair.first() == this->userID && dc.decrypt(pair.second()) == this->pass)
+        if (pair.first == this->userID && dc.decrypt(pair.second) == this->pass)
             return;
     }
 

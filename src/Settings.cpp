@@ -184,6 +184,12 @@ bool Settings::Data::generate() const
 }
 
 /******************************************* MEMBER FUNCTIONS ***********************************************/
+
+void Settings::saveActiveUser()
+{
+    save({Constant::File::CURRENT_USER, Global::activeUser});
+}
+
 Settings::Data &Settings::data()
 {
     return userData;
@@ -239,6 +245,25 @@ void Settings::save(const std::pair<std::string, std::string> &pair)
     pairBuffer = pair;
 
     FileHandler::save(data()); // saves the changes to the file
+}
+
+// Common function to update the Status enum variables
+void Settings::updateStats(enum Status &stats, int c)
+{
+    switch (c)
+    {
+    case 0:
+        stats = DEFAULT;
+        break;
+
+    case 1:
+        stats = EASY;
+        break;
+
+    case 2:
+        stats = ADV;
+        break;
+    }
 }
 
 void Settings::show_me_first(const std::string &message, int repeatFor)
@@ -407,7 +432,7 @@ void Settings::change_anime_style()
         case 1:
         case 2:
         case 3:
-            FileHandler::update_stats(animeSignOutStats, ch - 1);
+            FileHandler::updateStats(animeSignOutStats, ch - 1);
             this->save(std::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
 
             return;

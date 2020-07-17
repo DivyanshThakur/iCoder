@@ -16,12 +16,13 @@ bool ISaveable::generate() const
 
     std::ofstream outFile(Constant::Path::USER);
 
-    // std::vector<std::pair<std::string, std::string>> vec;
-    // vec.push_back({Constant::Title::ARRAY, ""});
-    // vec.push_back({Constant::Title::STRING, ""});
+    // These default values are stored for name generation
+    std::vector<std::pair<std::string, std::string>> vec;
+    vec.push_back({Constant::Title::ARRAY, ""});
+    vec.push_back({Constant::Title::STRING, ""});
 
-    // // create file with default data
-    // FileHandler::print(outFile, vec);
+    // create file with default data
+    FileHandler::print(outFile, vec);
 
     outFile.close();
     return true;

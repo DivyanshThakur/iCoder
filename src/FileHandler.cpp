@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <utility>
+#include <algorithm>
 #include "../header/FileHandler.hpp"
 #include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
@@ -60,76 +61,76 @@ void FileHandler::print(std::ofstream &outFile, const std::pair<std::string, std
             << "~" << std::endl;
 }
 
-void FileHandler::save(const ISaveable &iSaver)
+std::vector<std::pair<std::string, std::string>> FileHandler::toVector(std::stringstream &ss)
 {
-    std::stringstream ss{toString(iSaver)};
     std::vector<std::pair<std::string, std::string>> vec;
-    std::ofstream outFile(iSaver.getPath());
-    auto iVector = iSaver.save();
-
     std::string line;
-    bool isSaved{false};
 
     while (std::getline(ss, line))
     {
-        if (line != "~")
-        {
-            vec.push_back(getPair(line));
-        }
-        else
-        {
-            bool isSettingsOrUser = (vec.at(0).first == iVector.at(0).first);
-            bool isDataStructure = isSettingsOrUser && (vec.at(0).second == iVector.at(0).second);
+        if (line == "~")
+            break;
 
-            if (isSettingsOrUser || isDataStructure)
-            {
-                print(outFile, iVector);
-                isSaved = true;
-            }
-            else
-                print(outFile, vec);
-
-            vec.clear();
-        }
+        vec.emplace_back(getPair(line));
     }
 
-    if (!isSaved) // adds new setting to the end of file
-        print(outFile, iVector);
+    return vec;
+}
+
+void FileHandler::save(const ISaveable &iSaver)
+{
+    std::stringstream ss{toString(iSaver)};
+    std::ofstream outFile(iSaver.getPath());
+    auto dataToSave = iSaver.save();
+
+    bool isSaved{false};
+
+    while (true)
+    {
+        auto fileData = toVector(ss);
+
+        if (fileData.empty())
+            break;
+
+        bool isSettingsOrUser = (fileData.at(0).first == dataToSave.at(0).first);
+        // check name of data structure
+        bool isDataStructure = isSettingsOrUser && (fileData.at(0).second == dataToSave.at(0).second);
+
+        if (isSettingsOrUser || isDataStructure)
+        {
+            print(outFile, dataToSave);
+            isSaved = true;
+        }
+        else
+            print(outFile, fileData);
+    }
+
+    if (!isSaved) // adds new setting or user data to the end of file
+        print(outFile, dataToSave);
 }
 
 void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{toString(iSaver)};
-    std::vector<std::pair<std::string, std::string>> vec;
-    std::string line;
 
-    while (std::getline(ss, line))
+    while (true)
     {
+        auto fileData = toVector(ss);
 
-        if (line != "~")
+        if (fileData.empty())
+            break;
+
+        bool isSettingsOrUser = (tag == "");
+        bool isDataStructure = (fileData.at(0).first == Constant::DataFile::NAME) && (fileData.at(0).second == tag);
+
+        if (isSettingsOrUser)
         {
-            vec.push_back(getPair(line));
+            iSaver.load(fileData);
         }
-        else
+        else if (isDataStructure)
         {
-            // NULL means the reference is of settings or
-            // user file not NUll means the references are
-            // of data structures and other main data stored
-
-            bool isSettingsOrUser = (tag == "");
-            bool isDataStructure = (vec.at(0).first == Constant::DataFile::NAME) && (vec.at(0).second == tag);
-
-            if (isSettingsOrUser)
-            {
-                iSaver.load(vec);
-            }
-            else if (isDataStructure)
-            {
-                iSaver.load(vec);
-                break;
-            }
-
-            vec.clear();
+            iSaver.load(fileData);
+            break;
         }
     }
 }
@@ -137,26 +138,19 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
 bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{toString(iSaver)};
-    std::vector<std::pair<std::string, std::string>> vec;
-    std::string line;
 
-    while (std::getline(ss, line))
+    while (true)
     {
+        auto fileData = toVector(ss);
 
-        if (line != "~")
-        {
-            vec.push_back(getPair(line));
-        }
-        else
-        {
-            bool isSettingsOrUser = (vec.at(0).first == tag);
-            bool isDataStructure = (vec.at(0).first == Constant::DataFile::NAME) && (vec.at(0).second == tag);
+        if (fileData.empty())
+            break;
 
-            if (isSettingsOrUser || isDataStructure)
-                return true;
+        bool isSettingsOrUser = (fileData.at(0).first == tag);
+        bool isDataStructure = (fileData.at(0).first == Constant::DataFile::NAME) && (fileData.at(0).second == tag);
 
-            vec.clear();
-        }
+        if (isSettingsOrUser || isDataStructure)
+            return true;
     }
 
     return false;
@@ -173,56 +167,22 @@ bool FileHandler::empty(const ISaveable &iSaver)
     return true;
 }
 
-std::vector<std::pair<std::string, std::string>> FileHandler::searchAll(const ISaveable &iSaver)
+std::vector<std::pair<std::string, std::string>> FileHandler::searchTag(const ISaveable &iSaver)
 {
-    std::vector<std::pair<std::string, std::string>> vec;
-    std::vector<std::pair<std::string, std::string>> fileVector;
+    std::vector<std::pair<std::string, std::string>> tags;
     std::stringstream ss{toString(iSaver)};
-    std::string line;
 
-    while (std::getline(ss, line))
+    while (true)
     {
+        auto fileData = toVector(ss);
 
-        if (line != "~")
-            fileVector.push_back(getPair(line));
-        else
-        {
-            vec.push_back(fileVector.at(0));
-            fileVector.clear();
-        }
+        if (fileData.empty())
+            break;
+
+        tags.push_back(fileData.at(0));
     }
 
-    return vec;
-}
-
-// Common function to update the Status enum variables
-void FileHandler::updateStats(enum Status &stats, int c)
-{
-    switch (c)
-    {
-    case 0:
-        stats = DEFAULT;
-        break;
-
-    case 1:
-        stats = EASY;
-        break;
-
-    case 2:
-        stats = ADV;
-        break;
-    }
-}
-
-void FileHandler::saveActiveUser(const std::string &userID)
-{
-    Settings mySetting;
-
-    Global::activeUser = userID;
-
-    // save the current user to
-    //the file for automatically log in
-    mySetting.save(std::pair<std::string, std::string>(Constant::File::CURRENT_USER, Global::activeUser));
+    return tags;
 }
 
 // Generate default name of the file by checking available name from the user file
@@ -230,42 +190,35 @@ std::string FileHandler::nameGenerator(const ISaveable &iSaver, const std::strin
 {
     iSaver.generate();
 
-    // minIndex contains the number which is to be given to the file
-    // fileIndex stores the temporary index
-    std::string fileStr, fileTitle, line;
-    int minIndex = 1, fileIndex;
-    bool toStop = false;
+    std::stringstream ss(toString(iSaver));
+    int num = 0, minVal = 1;
 
-    std::ifstream inFile(iSaver.getPath());
+    auto fileData = toVector(ss);
+    ss.clear();
 
-    // scan each line from file
-    while (!toStop && (std::getline(inFile, line)))
+    for (const auto &pair : fileData)
     {
-        std::stringstream ss{line};
-
-        ss >> fileTitle; // scan title from stringstream
-
-        // if the fileTitle equals the given title. eg. ARRAY == ARRAY
-        // it then scans the numbers availabe
-        if (fileTitle == title)
+        if (pair.first == title)
         {
-            while (!toStop && (ss >> fileIndex)) // scan each number from same line
+            ss << pair.second;
+            while (ss >> num)
             {
                 // if the file number matches with minimum index it checks
-                // next number by incrementing minIndex and  again scanning
+                // next number by incrementing minVal and  again scanning
                 // fileIndex. Loops till the two values are not equal and
                 // then breaks the loop and returns the generated getPath
 
-                if (minIndex == fileIndex)
-                    minIndex++;
+                if (minVal == num)
+                    minVal++;
                 else
-                    toStop = true;
+                    break;
             }
         }
     }
 
-    inFile.close();
+    std::string name(title);
+    std::transform(name.begin(), name.end(), name.begin() + 1, ::tolower);
 
     // eg. Array1 or String3
-    return (title.at(0) + cod::tolower(title, 1) + std::to_string(minIndex));
+    return (name + std::to_string(minVal));
 }
