@@ -18,10 +18,7 @@ void CreateAccount::input()
 
 void CreateAccount::upload()
 {
-    Account::data().generate();
-
     isValidUser();
-
     FileHandler::save(Account::data());
 }
 

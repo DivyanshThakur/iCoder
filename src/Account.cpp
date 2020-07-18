@@ -27,10 +27,8 @@ void Account::Data::load(const std::vector<std::pair<std::string, std::string>> 
     if (generate()) // Create a new file if not created
         return;
 
-    Decrypter dc;
-
-    userId = vec.at(0).first;
-    pass = dc.decrypt(vec.at(0).second);
+    userId = vecData.at(0).first;
+    pass = Decrypter::decrypt(vecData.at(0).second);
 }
 
 std::string Account::Data::getPath() const
@@ -97,23 +95,20 @@ void Account::rememberMe()
 
 void Account::check()
 {
-    if (!data().generate())
-    {
-        auto vec = FileHandler::searchTag(data());
+    auto vec = FileHandler::searchTag(data());
 
-        for (const auto &pair : vec)
-            if (pair.first == userId && Decrypter::decrypt(pair.second) == pass)
-                return;
-    }
+    for (const auto &pair : vec)
+        if (pair.first == userId && Decrypter::decrypt(pair.second) == pass)
+            return;
 
     throw InvalidUser();
 }
 
-std::string Account::get_userId() const
+std::string Account::username()
 {
     return userId;
 }
-std::string Account::get_pass() const
+std::string Account::password()
 {
     return pass;
 }

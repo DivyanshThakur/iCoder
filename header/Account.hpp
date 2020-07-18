@@ -18,8 +18,6 @@ class Account
         virtual std::vector<std::pair<std::string, std::string>> save() const override;
         virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
         virtual std::string getPath() const override;
-
-    public:
         virtual bool generate() const override;
     };
 
