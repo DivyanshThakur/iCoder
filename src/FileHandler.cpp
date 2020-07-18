@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <utility>
+#include <queue>
 #include <algorithm>
 #include "../header/FileHandler.hpp"
 #include "../header/ExHandler.hpp"
@@ -77,13 +78,61 @@ std::vector<std::pair<std::string, std::string>> FileHandler::toVector(std::stri
     return vec;
 }
 
+void FileHandler::updateSavedNumbers(std::string &numbers, int dig)
+{
+    std::stringstream ss(numbers);
+    std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
+    int n;
+
+    while (ss >> n)
+    {
+        pq.push(n);
+    }
+
+    pq.push(dig);
+
+    numbers = std::to_string(pq.top());
+    pq.pop();
+
+    while (!pq.empty())
+    {
+        numbers += (" " + std::to_string(pq.top()));
+        pq.pop();
+    }
+}
+
+void FileHandler::saveDefName(std::ofstream &outFile, const ISaveable &iSaver, std::stringstream &ss)
+{
+    if (iSaver.getPath() != Constant::Path::USER)
+        return;
+
+    auto fileData = toVector(ss);
+    auto dataToSave = iSaver.save();
+    std::string name = dataToSave.at(0).second;
+    std::string strType = dataToSave.at(1).second;
+    int number;
+
+    size_t firstDigitIndex = std::find_if(name.begin(), name.end(), [](char c) { return isalpha(c); }) - name.begin();
+    std::stringstream ssNum(name.substr(firstDigitIndex));
+    if (!(ssNum >> number))
+        return;
+
+    for (auto &pair : dataToSave)
+        if (strType == pair.first)
+            updateSavedNumbers(pair.second, number);
+
+    print(outFile, dataToSave);
+}
+
 void FileHandler::save(const ISaveable &iSaver)
 {
     std::stringstream ss{toString(iSaver)};
     std::ofstream outFile(iSaver.getPath());
     auto dataToSave = iSaver.save();
 
-    bool isSaved{false};
+    bool isSaved{false}, isSettingsOrUser{false}, isDataStructure{false};
+
+    saveDefName(outFile, iSaver, ss);
 
     while (true)
     {
@@ -92,9 +141,9 @@ void FileHandler::save(const ISaveable &iSaver)
         if (fileData.empty())
             break;
 
-        bool isSettingsOrUser = (fileData.at(0).first == dataToSave.at(0).first);
+        isSettingsOrUser = (fileData.at(0).first == dataToSave.at(0).first);
         // check name of data structure
-        bool isDataStructure = isSettingsOrUser && (fileData.at(0).second == dataToSave.at(0).second);
+        isDataStructure = isSettingsOrUser && (fileData.at(0).second == dataToSave.at(0).second);
 
         if (isSettingsOrUser || isDataStructure)
         {

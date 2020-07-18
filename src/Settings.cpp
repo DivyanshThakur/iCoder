@@ -213,7 +213,7 @@ bool Settings::isDefault()
     if (data().generate())
         return true;
 
-    auto vec = FileHandler::searchAll(data());
+    auto vec = FileHandler::searchTag(data());
 
     for (const auto &pair : vec)
     {
