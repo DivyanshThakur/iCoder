@@ -9,29 +9,36 @@
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
-/************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
+/**************************************************************************************************************
+ * 
+ *                                       ISAVEABLE IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
 
-std::vector<std::pair<std::string, std::string>> Account::save() const
+std::vector<std::pair<std::string, std::string>> Account::Data::save() const
 {
     std::vector<std::pair<std::string, std::string>> vec;
     vec.push_back(pairBuffer);
     return vec;
 }
 
-void Account::load(const std::vector<std::pair<std::string, std::string>> &vec)
+void Account::Data::load(const std::vector<std::pair<std::string, std::string>> &vecData)
 {
+    if (generate()) // Create a new file if not created
+        return;
+
     Decrypter dc;
 
-    this->userID = vec.at(0).first;
-    this->pass = dc.decrypt(vec.at(0).second);
+    userId = vec.at(0).first;
+    pass = dc.decrypt(vec.at(0).second);
 }
 
-std::string Account::filename() const
+std::string Account::Data::getPath() const
 {
     return Constant::Path::DB;
 }
 
-bool Account::generate() const
+bool Account::Data::generate() const
 {
     std::ifstream inFile(Constant::Path::DB);
 
@@ -48,99 +55,65 @@ bool Account::generate() const
     return true;
 }
 
-/************************************** MEMBER FUNCTION OVERLOADS *******************************************/
+/**************************************************************************************************************
+ * 
+ *                                         SETTINGS IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
 
-std::string Account::pass_to_asteric() const
+Account::Data &Account::data()
 {
-    std::string ast;
-
-    for (size_t i{0}; i < this->pass.length(); ++i)
-        ast += "*";
-
-    return ast;
+    return userData;
 }
 
-std::string Account::pass_to_asteric(const std::string &pass) const
-{
-    std::string ast;
-
-    for (size_t i{0}; i < pass.length(); ++i)
-        ast += "*";
-
-    return ast;
-}
-
-std::ostream &operator<<(std::ostream &os, Account &acc)
-{
-    os << std::endl
-       << " " << std::setw(Constant::Ui::INDEX_WIDTH) << std::left << ++acc.index
-       << " | " << std::setw(Constant::Ui::USERNAME_WIDTH) << std::left << acc.userID
-       << " | " << std::setw(Constant::Ui::PASSWORD_WIDTH) << std::left << acc.pass_to_asteric()
-       << " |";
-    return os;
-}
-
-Account::Account() : index(0)
-{
-}
-
-void Account::input_data()
+void Account::input()
 {
     cod::scan sc;
-    Encrypter ec;
 
-    animater(username);
+    Ui::print("Username: ");
+    userId = sc.username(); // taking username from user
 
-    this->userID = sc.username(); // taking username from user
+    Ui::print("Password: ");
+    pass = sc.password(); // scanning password
 
-    animater(password);
-
-    this->pass = sc.password(); // scanning password
-
-    this->pairBuffer = std::pair<std::string, std::string>(this->userID, ec.encrypt(this->pass));
+    pairBuffer = std::pair<std::string, std::string>(userId, Encrypter::encrypt(pass));
 }
 
-void Account::display_remember_me() const
+void Account::rememberMe()
 {
     cod::scan sc;
     char c;
 
-    border(Ui::widthMenu);
-    animater(std::string{"Remember me? (Y/N): "});
+    Constant::Path::USER = Constant::Path::PATH + userId + ".dat";
+    Global::activeUser = userId;
 
-    // scanning character
+    Ui::print("Remember me? (Y/N): ");
+
     sc >> c;
-
-    Path::userFilePath = Path::dataPath + this->userID + ".dat";
-
-    Global::activeUser = this->userID;
 
     if (::tolower(c) == 'y')
         Settings::saveActiveUser();
 }
 
-void Account::check_account() const
+void Account::check()
 {
-    Decrypter dc;
-
-    this->generate();
-
-    auto vec = FileHandler::searchTag(*this);
-
-    for (const auto &pair : vec)
+    if (!data().generate())
     {
-        if (pair.first == this->userID && dc.decrypt(pair.second) == this->pass)
-            return;
+        auto vec = FileHandler::searchTag(data());
+
+        for (const auto &pair : vec)
+            if (pair.first == userId && Decrypter::decrypt(pair.second) == pass)
+                return;
     }
 
     throw InvalidUser();
 }
 
-std::string Account::get_userID() const
+std::string Account::get_userId() const
 {
-    return this->userID;
+    return userId;
 }
 std::string Account::get_pass() const
 {
-    return this->pass;
+    return pass;
 }

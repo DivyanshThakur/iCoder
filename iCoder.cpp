@@ -206,7 +206,8 @@ void Main::home()
 
 void Main::signOut()
 {
-    FileHandler::saveActiveUser(Constant::NULL_STR);
+    Global::activeUser = Constant::NULL_STR;
+    Settings::saveActiveUser();
     Constant::Path::USER.clear();
     welcomeFlag = true;
 

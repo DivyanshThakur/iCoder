@@ -4,39 +4,35 @@
 #include <string>
 #include "FileHandler.hpp"
 
-class Account : public ISaveable
+class Account
 {
-    friend std::ostream &operator<<(std::ostream &os, Account &acc);
+    static std::string userId, pass;
 
-private:
-    int index;
-    std::pair<std::string, std::string> pairBuffer;
+    /**
+ * Data has all the methods necessary for saving
+ * and retreiving user data from the files
+ * It inherit the ISaveable abstract class.
+ **/
+    class Data : public ISaveable
+    {
+        virtual std::vector<std::pair<std::string, std::string>> save() const override;
+        virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
+        virtual std::string getPath() const override;
 
-    std::string pass_to_asteric() const;
+    public:
+        virtual bool generate() const override;
+    };
 
-protected:
-    std::string userID, pass;
+    static Data userData;
+    static std::pair<std::string, std::string> pairBuffer;
 
 public:
-    /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
-
-    virtual std::vector<std::pair<std::string, std::string>> save() const override;
-    virtual void load(const std::vector<std::pair<std::string, std::string>> &vec) override;
-    virtual std::string filename() const override;
-    virtual bool generate() const override;
-
-    /************************************** MEMBER FUNCTION OVERLOADS *******************************************/
-
-    Account();
-    void input_data();
-    void display_remember_me() const;
-    void check_account() const;
-    std::string pass_to_asteric(const std::string &pass) const;
-
-    std::string get_userID() const;
-    std::string get_pass() const;
-
-    virtual ~Account() = default;
+    static Data &data();
+    static void input();
+    static void check();
+    static void rememberMe();
+    static std::string username();
+    static std::string password();
 };
 
 #endif

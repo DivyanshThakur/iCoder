@@ -29,7 +29,6 @@ private:
     static bool welcomeFlag;
 
     static void load();
-    static void home();
     static void signOut();
     static void createPath();
     static bool checkDirectory();
@@ -40,6 +39,7 @@ public:
  * A start method in each class to start its execution
  **/
     static void start();
+    static void home();
 };
 
 #endif

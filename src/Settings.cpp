@@ -129,12 +129,12 @@ void Settings::Data::load(const std::vector<std::pair<std::string, std::string>>
     else if (pair.first == Constant::File::LSEARCH_STATUS)
     {
         ss >> c;
-        FileHandler::updateStats(lSearchStats, c);
+        updateStats(lSearchStats, c);
     }
     else if (pair.first == Constant::File::ANIME_SIGN_OUT_STATUS)
     {
         ss >> c;
-        FileHandler::updateStats(animeSignOutStats, c);
+        updateStats(animeSignOutStats, c);
     }
     else if (pair.first == Constant::File::SHOW_WELCOME_MESSAGE)
         ss >> Global::showWelcome;
@@ -183,7 +183,11 @@ bool Settings::Data::generate() const
     return true;
 }
 
-/******************************************* MEMBER FUNCTIONS ***********************************************/
+/**************************************************************************************************************
+ * 
+ *                                         SETTINGS IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
 
 void Settings::saveActiveUser()
 {

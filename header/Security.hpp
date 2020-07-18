@@ -5,20 +5,20 @@
 
 class Encrypter
 {
-    std::string key;
-    const int noOfChars = 95;
-    const int minChar = 33;
+    static std::string key;
+    static const int noOfChars = 95;
+    static const int minChar = 33;
 
 public:
-    std::string encrypt(const std::string &value);
+    static std::string encrypt(const std::string &value);
 };
 
 class Decrypter
 {
-    std::string value;
+    static std::string value;
 
 public:
-    std::string decrypt(const std::string &value);
+    static std::string decrypt(const std::string &value);
 };
 
 #endif

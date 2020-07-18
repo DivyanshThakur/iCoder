@@ -6,14 +6,14 @@
 class CreateAccount : public Account
 {
 private:
-    std::string pass2;
+    static std::string rePass;
 
 public:
-    void input();
-    void upload();
-    void isValidUser();
+    static void input();
+    static void upload();
+    static void isValidUser();
 
-    std::string getPass2() const;
+    static std::string rePassword();
 };
 
 #endif

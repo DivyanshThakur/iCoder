@@ -6,37 +6,34 @@
 #include "../header/Security.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
-void CreateAccount::input_data()
+void CreateAccount::input()
 {
     cod::scan sc;
 
-    Account::input_data();
+    Account::input();
 
-    std::cout << std::endl;
-
-    animater(RePassword);
-
-    pass2 = sc.password(); // scanning password
+    Ui::print("Confirm Password: ");
+    rePass = sc.password();
 }
 
-void CreateAccount::upload_account()
+void CreateAccount::upload()
 {
-    this->generate();
+    Account::data().generate();
 
     isValidUser();
 
-    FileHandler::save(*this);
+    FileHandler::save(Account::data());
 }
 
 void CreateAccount::isValidUser()
 {
-    bool isUserExist = FileHandler::find(*this, userID);
+    bool isUserExist = FileHandler::find(Account::data(), Account::username());
 
     if (isUserExist)
         throw UsernameAlreadyExistsException();
 }
 
-std::string CreateAccount::get_pass2() const
+std::string CreateAccount::rePassword()
 {
-    return pass2;
+    return rePass;
 }

@@ -2,8 +2,10 @@
 #include <iomanip>
 #include <windows.h>
 #include "../header/Settings.hpp"
+#include "../header/UIhandler.hpp"
+#include "../constant/Constants.hpp"
 #include "../namespace/header/cod_algorithm.hpp"
-#include "../namespace/header/cod_scan.hpp" // UiHandler already included in cod_scan
+// #include "../namespace/header/cod_scan.hpp" // UiHandler already included in cod_scan
 
 #include "../constant/enum.hpp"
 

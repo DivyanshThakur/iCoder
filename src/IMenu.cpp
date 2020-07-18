@@ -41,40 +41,45 @@ void IMenu::check() const
         scan >> ch;
         this->caller();
     }
-    catch (const EscPressed &e)
-    {
-        // do nothing
-    }
-    catch (const Exit &e)
-    {
-        e.what(); // call exit function
-    }
-    catch (const OpenSettings &e)
+    catch (const cod::exception &e)
     {
         e.what();
     }
-    catch (const OpenAbout &e)
-    {
-        e.what(); // open about screen
-    }
-    catch (const OpenHelp &e)
-    {
-        e.what(); // open help screen
-    }
-    catch (const OpenUpdate &e)
-    {
-        e.what();
-    }
-    catch (const OpenChangelog &e)
-    {
-        e.what(); // open changelog
-    }
-    catch (const OpenMoreScreen &e)
-    {
-        e.what(); // open home screen
-    }
-    catch (const OpenAnimeSetting &e)
-    {
-        e.what(); // open settings with animation
-    }
+
+    // catch (const EscPressed &e)
+    // {
+    //     // do nothing
+    // }
+    // catch (const Exit &e)
+    // {
+    //     e.what(); // call exit function
+    // }
+    // catch (const OpenSettings &e)
+    // {
+    //     e.what();
+    // }
+    // catch (const OpenAbout &e)
+    // {
+    //     e.what(); // open about screen
+    // }
+    // catch (const OpenHelp &e)
+    // {
+    //     e.what(); // open help screen
+    // }
+    // catch (const OpenUpdate &e)
+    // {
+    //     e.what();
+    // }
+    // catch (const OpenChangelog &e)
+    // {
+    //     e.what(); // open changelog
+    // }
+    // catch (const OpenMoreScreen &e)
+    // {
+    //     e.what(); // open home screen
+    // }
+    // catch (const OpenAnimeSetting &e)
+    // {
+    //     e.what(); // open settings with animation
+    // }
 }
