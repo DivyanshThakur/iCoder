@@ -24,13 +24,11 @@ void CreateAccount::upload()
 
 void CreateAccount::isValidUser()
 {
+    if (password() != rePass)
+        throw PasswordNotMatchedException();
+
     bool isUserExist = FileHandler::find(Account::data(), Account::username());
 
     if (isUserExist)
         throw UsernameAlreadyExistsException();
-}
-
-std::string CreateAccount::rePassword()
-{
-    return rePass;
 }

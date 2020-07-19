@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <conio.h>
-#include "../../header/ExHandler.hpp"
+#include "cod_exception.hpp"
 #include "../../header/UIhandler.hpp"
 
 namespace cod
@@ -27,17 +27,10 @@ namespace cod
             {
                 sc.isLimitExceed = (sc.value.size() > 0);
 
-                switch (sc.check_char())
+                if (sc.check_char() == -1)
                 {
-                case -1:
                     sc.isLast = true;
                     throw EscPressed();
-
-                case 12: // display quit message
-                    isquitConditionEnabled = false;
-                    if (Global::showQuit)
-                        throw OpenAnimeSetting(8); // quit message
-                    break;
                 }
             }
 

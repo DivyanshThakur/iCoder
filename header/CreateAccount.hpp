@@ -12,8 +12,6 @@ public:
     static void input();
     static void upload();
     static void isValidUser();
-
-    static std::string rePassword();
 };
 
 #endif

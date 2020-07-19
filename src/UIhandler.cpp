@@ -5,8 +5,7 @@
 #include "../header/UIhandler.hpp"
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_algorithm.hpp"
-// #include "../namespace/header/cod_scan.hpp" // UiHandler already included in cod_scan
-
+#include "../namespace/header/cod_exception.hpp"
 #include "../constant/enum.hpp"
 
 void Ui::logo()
@@ -215,34 +214,16 @@ void Ui::pressKey(const std::string &message)
 {
     print(message);
 
-    // Asks user to press any key to continue, if user presses Esc, below code is executed
     if (getch() == Constant::ESC)
-    {
         throw EscPressed();
-    }
 }
 
-bool Ui::isIPressed(const std::string &message)
+bool Ui::isKeyPressed(const std::string &message, char key)
 { // Ask user to press i to run specific task
     print(message);
 
-    return (::tolower(getch()) == 'i');
+    return (::tolower(getch()) == key);
 }
-
-// void erase_line(size_t len)
-// {
-//     std::cout << "\r" << std::setw(len) << ""
-//               << "\r";
-// }
-
-// // Adds extra text to the message based on the condition below
-// std::string s_or_not_s(size_t num, const std::string &message, const std::string &extra, const std::string &updateFirst)
-// {
-//     auto temp = message;
-//     temp += (num < 2) ? updateFirst : extra;
-
-//     return temp;
-// }
 
 void Ui::waitMessage(const std::string &message)
 {
@@ -250,32 +231,14 @@ void Ui::waitMessage(const std::string &message)
     Sleep(1000);
 }
 
-bool Ui::confirmChange(const std::string &message, const std::string &txtConfirm)
-{ // Asks user for confirmation, if the changes are to be accepted or rejected
-    if (message != std::string{""})
-        print(message);
+bool Ui::confirmChange(const std::string &message)
+{
+    print(message + std::string{" (Y/N): "});
 
-    border();
-
-    animater(txtConfirm + std::string{" (Y/N): "});
-
-    // scanning character
     cod::scan sc;
     char c;
 
-    try
-    {
-        sc >> c;
-    }
-    catch (const OpenAnimeSetting &e)
-    {                                  // It will animate quit setting option for user if 'd' is pressed
-        if (opnScreen != CUR_SETTINGS) // while the user is not in settings screen
-            e.what();
-    }
-    catch (...)
-    {
-        return false; // returns false if user presses Esc or for other exception
-    }
+    sc >> c;
 
     return (::tolower(c) == 'y'); // returns true if user presses 'y'
 }

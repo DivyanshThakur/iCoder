@@ -80,7 +80,7 @@ int cod::scan::check_shortcut()
             flag = 11;
             break;
         case 'd':
-            flag = (isquitConditionEnabled) ? 12 : 13;
+            flag = 12;
             break;
         case 'h':
             flag = 14;
@@ -116,7 +116,7 @@ int cod::scan::check_shortcut()
         else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x43) & 0x8000) // ctrl + c
             flag = 11;
         else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x44) & 0x8000) // ctrl + d
-            flag = (isquitConditionEnabled) ? 12 : 13;
+            flag = 12;
         else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x48) & 0x8000) // ctrl + h
             flag = 14;
         else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x49) & 0x8000) // ctrl + i
@@ -152,7 +152,7 @@ void cod::scan::choice(int &choice)
             throw OpenAbout();
         case 11: // c - code screen
             break;
-        case 13: // d - disable hints
+        case 12: // d - disable hints
             if (Global::showHint && opnScreen != CUR_SETTINGS)
                 throw OpenAnimeSetting(9);
             break;

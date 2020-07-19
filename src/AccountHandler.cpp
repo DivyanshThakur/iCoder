@@ -3,10 +3,10 @@
 #include "../header/AccountHandler.hpp"
 #include "../iCoder.hpp"
 #include "../header/UIhandler.hpp"
-#include "../header/ExHandler.hpp"
 #include "../header/CreateAccount.hpp"
 #include "../animation/header/AnimeHandler.hpp"
 #include "../constant/Constants.hpp"
+#include "../namespace/header/cod_exception.hpp"
 
 void AccountHandler::login()
 {
@@ -24,39 +24,6 @@ void AccountHandler::login()
     {
         e.what();
     }
-
-    // try
-    // {
-    //     acc.input_data(); // taking username and password
-
-    //     acc.check_account();
-
-    //     acc.display_remember_me(); // it will display remember me message
-
-    //     border(Ui::widthMenu);        // display the border
-    //     load();                       // animate loading screen
-    //     Main::home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
-    // }
-    // catch (const EscPressed &e)
-    // {
-    //     return;
-    // }
-    // catch (const ReturnMain &e)
-    // {
-    //     return;
-    // }
-    // catch (const InvalidUser &e)
-    // {
-    //     e.what(false);
-
-    //     press_key(PRE, "Press ESC to return");
-
-    //     login();
-    // }
-    // catch (const std::exception &e)
-    // {
-    //     print_message(e.what(), true);
-    // }
 }
 
 void AccountHandler::createAccount()
@@ -66,10 +33,6 @@ void AccountHandler::createAccount()
     try
     {
         CreateAccount::input();
-
-        if (CreateAccount::password() != CreateAccount::rePassword())
-            throw PasswordNotMatchedException();
-
         CreateAccount::upload();
         CreateAccount::rememberMe();
         AnimeHandler::load();
@@ -79,54 +42,6 @@ void AccountHandler::createAccount()
     {
         e.what();
     }
-
-    // try
-    // {
-    //     acc.input_data(); // taking userID, pass and confirmed password from the user
-
-    // if (acc.get_pass() != acc.get_pass2()) // validating same password or not
-    //     throw PasswordNotMatchedException();
-
-    // acc.upload_account();
-
-    // acc.display_remember_me(); // it will display remember me message
-
-    // border(Ui::widthMenu);        // display the border
-    // load();                       // animate loading screen
-    // Main::home(acc.get_userID()); // calling the main menu (HOME) screen to show all program list
-    // }
-    // catch (const EscPressed &e)
-    // {
-    //     return;
-    // }
-    // catch (const ReturnMain &e)
-    // {
-    //     return;
-    // }
-    // catch (const PasswordNotMatchedException &e)
-    // {
-    //     e.what(false);
-
-    //     press_key(PRE, "Press ESC to return");
-
-    //     create_account();
-    // }
-    // catch (const SavingUserException &e)
-    // {
-    //     e.what();
-    // }
-    // catch (const UsernameAlreadyExistsException &e)
-    // {
-    //     e.what(false);
-
-    //     press_key(PRE, "Press ESC to return");
-
-    //     create_account();
-    // }
-    // catch (const std::exception &e)
-    // {
-    //     print_message(e.what(), true);
-    // }
 }
 
 void AccountHandler::showUsers()
