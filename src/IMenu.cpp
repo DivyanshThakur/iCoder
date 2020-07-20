@@ -1,7 +1,6 @@
 #include <iomanip>
 #include "../header/IMenu.hpp"
 #include "../header/UIhandler.hpp"
-
 #include "../constant/Constants.hpp"
 
 void IMenu::player(IMenu &&iMenu)

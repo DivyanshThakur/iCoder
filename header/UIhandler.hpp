@@ -1,6 +1,8 @@
 #ifndef UI_HANDLER_HPP
 #define UI_HANDLER_HPP
 
+#include <vector>
+#include <string>
 class Ui
 {
 public:
@@ -25,9 +27,7 @@ public:
     static void print(const std::vector<std::string> &vec);
     static void println(const std::string &message);
     static void pressKey(const std::string &message = "Press any key to continue");
-    bool isKeyPressed(const std::string &message, char c = 'i');
-    // static void erase_line(size_t len = Ui::widthMenu);
-    static std::string s_or_not_s(size_t num, const std::string &message, const std::string &extra = "s", const std::string &updateFirst = "");
+    static bool isKeyPressed(const std::string &message, char c = 'i');
     static void waitMessage(const std::string &message);
     static bool confirmChange(const std::string &message = "Do you want to proceed?");
 };

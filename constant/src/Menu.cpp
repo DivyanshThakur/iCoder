@@ -16,7 +16,7 @@ const std::vector<std::string> Constant::Menu::STRING{"Update string", "Add stri
 // info
 const std::vector<std::string> Constant::SubMenu::UPDATES{"Stable Version", "Beta Version"};
 const std::vector<std::string> Constant::SubMenu::VERSION_DATA{"1.8", "1.6", "1.4", "1.2", "1.0"};
-const std::vector<std::string> Constant::SubMenu::VERSION_DESC{"Added Strings with advanced operations", "Increased password secuity with encryption", "Ui changes & bug fixes", "Hints-added for new users", "New falling animation added", "More customization in settings", "\n", "Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
+const std::vector<std::string> Constant::SubMenu::VERSION_DESC{"Added Strings with advanced operations", "Increased password security with encryption", "Ui changes & bug fixes", "Hints-added for new users", "New falling animation added", "More customization in settings", "\n", "Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
 const std::vector<std::string> Constant::SubMenu::HELP_DATA{"Esc", "a", /* "c",*/ "d", "h", /* "i",*/ "l", "m", /* "p",*/ "q", "s", "u"};
 const std::vector<std::string> Constant::SubMenu::HELP_DESC{"Return to last screen", "About the software", /* "Show code",*/ "Disable hint/warning", "Help", /* "Analyse the code",*/ "Changelog", "More features", /* "Save",*/ "Quit", "Open settings", "Get Updates"};
 
@@ -25,8 +25,8 @@ const std::vector<std::string> Constant::SubMenu::LSEARCH_TYPE{"Default", "Trans
 const std::vector<std::string> Constant::SubMenu::ANIME_SO_STYLE{"Style 1", "Style 2", "Disable"};
 
 // array
-const std::vector<std::string> Constant::SubMenu::AVERAGE{"Average of all values", "Select a range"}; // array
-const std::vector<std::string> Constant::SubMenu::SUM{"Sum of all values", "Select a range"};         // array
+const std::vector<std::string> Constant::SubMenu::AVERAGE{"Average of all values", "Select a range"};
+const std::vector<std::string> Constant::SubMenu::SUM{"Sum of all values", "Select a range"};
 const std::vector<std::string> Constant::SubMenu::SET{"Union", "Intersection", "Difference"};
 const std::vector<std::string> Constant::SubMenu::REVERSE{"Reverse the array", "Select a range"};
 const std::vector<std::string> Constant::SubMenu::SHIFT_ROTATE{"Left Shift", "Right Shift", "Left Rotation", "Right Rotation"};
@@ -38,29 +38,26 @@ const std::vector<std::string> Constant::SubMenu::CHANGE_CASE_STRING{"Toggle cas
 const std::vector<std::string> Constant::SubMenu::RANGE_STRING{"Full string", "Select a range"};
 
 /*************************************** TITLE *****************************************/
-
-// DATA STRUCTURE
+const std::string Constant::Title::ABOUT{"ABOUT"};
 const std::string Constant::Title::ARRAY{"ARRAY"};
-const std::string Constant::Title::TIP{"TIP"};
-const std::string Constant::Title::TIP{"STATS"};
-const std::string Constant::Title::LOGIN{"LOGIN"};
-
-const std::string Constant::Title::USERS{"USERS"};
-
 const std::string Constant::Title::CHANGE_LINEAR_SEARCH_TYPE{"CHANGE LINEAR SEARCH TYPE"};
+const std::string Constant::Title::CHANGELOG{"CHANGELOG"};
 const std::string Constant::Title::CREATE_ACCOUNT{"CREATE ACCOUNT"};
 const std::string Constant::Title::DATA_STRUCTURE{"DATA STRUCTURE"};
-
-const std::string Constant::Title::MAIN{"MAIN"};
 const std::string Constant::Title::GAMES{"GAMES"};
-const std::string Constant::Title::MORE{"MORE"};
-const std::string Constant::Title::STRING{"STRING"};
-const std::string Constant::Title::SETTINGS{"SETTINGS"};
-const std::string Constant::Title::UPDATES{"UPDATES"};
+const std::string Constant::Title::HELP{"HELP"};
 const std::string Constant::Title::HINT{"HINT"};
-
-// GAMES
-const std::string Constant::Title::TIC_TAC_TOE{"TIC_TAC_TOE"};
+const std::string Constant::Title::LINKS{"LINKS"};
+const std::string Constant::Title::LOGIN{"LOGIN"};
+const std::string Constant::Title::MAIN{"MAIN"};
+const std::string Constant::Title::MORE{"MORE"};
+const std::string Constant::Title::SETTINGS{"SETTINGS"};
+const std::string Constant::Title::STATS{"STATS"};
+const std::string Constant::Title::STRING{"STRING"};
+const std::string Constant::Title::TIC_TAC_TOE{"TIC TAC TOE"};
+const std::string Constant::Title::TIP{"TIP"};
+const std::string Constant::Title::UPDATES{"UPDATES"};
+const std::string Constant::Title::USERS{"USERS"};
 
 /*************************************************** Constant::Ui Constant *****************************************************/
 const int Constant::Ui::CONSOLE_HEIGHT = 600;

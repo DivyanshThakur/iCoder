@@ -90,27 +90,26 @@ public:
     class Title
     {
     public:
-        // DATA STRUCTURE
+        static const std::string ABOUT;
         static const std::string ARRAY;
-        static const std::string TIP;
-        static const std::string STATS;
-        static const std::string LOGIN;
+        static const std::string CHANGE_LINEAR_SEARCH_TYPE;
+        static const std::string CHANGELOG;
         static const std::string CREATE_ACCOUNT;
-        static const std::string USERS;
-
         static const std::string DATA_STRUCTURE;
         static const std::string GAMES;
-        static const std::string SETTINGS;
-        static const std::string MORE;
-        static const std::string CHANGE_LINEAR_SEARCH_TYPE;
-        static const std::string UPDATES;
+        static const std::string HELP;
         static const std::string HINT;
-
+        static const std::string LINKS;
+        static const std::string LOGIN;
         static const std::string MAIN;
+        static const std::string MORE;
+        static const std::string SETTINGS;
+        static const std::string STATS;
         static const std::string STRING;
-
-        // GAMES
         static const std::string TIC_TAC_TOE;
+        static const std::string TIP;
+        static const std::string UPDATES;
+        static const std::string USERS;
     };
 
     class Ui // Ui Constant

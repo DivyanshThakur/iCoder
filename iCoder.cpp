@@ -19,7 +19,7 @@
 #include <dir.h>
 #include "iCoder.hpp"
 #include "header/More.hpp"
-#include "header/Help.hpp"
+#include "header/Extras.hpp"
 #include "header/Settings.hpp"
 #include "header/FileHandler.hpp"
 #include "header/AccountHandler.hpp"
