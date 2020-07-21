@@ -2,7 +2,6 @@
 #include "../header/TicTacToe.hpp"
 #include "../../namespace/header/cod_scan.hpp"
 
-void tic_tac_toe()
+void TicTacToe::start()
 {
-    print_message();
 }

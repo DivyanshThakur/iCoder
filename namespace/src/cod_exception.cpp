@@ -1,7 +1,7 @@
 #include "../header/cod_exception.hpp"
 #include "../../header/UIhandler.hpp"
 #include "../../header/Settings.hpp"
-#include "../../header/Help.hpp"
+#include "../../extras/Extras.hpp"
 #include "../../header/More.hpp"
 #include "../../constant/Constants.hpp"
 
@@ -73,27 +73,27 @@ void OpenSettings::what() const noexcept
 
 void OpenAbout::what() const noexcept
 {
-    about();
+    Extras::about();
 }
 
 void OpenHelp::what() const noexcept
 {
-    help();
+    Extras::help();
 }
 
 void OpenUpdate::what() const noexcept
 {
-    update();
+    Update::start();
 }
 
 void OpenChangelog::what() const noexcept
 {
-    changelog();
+    Changelog::start();
 }
 
 void OpenMoreScreen::what() const noexcept
 {
-    more();
+    More::start();
 }
 
 OpenAnimeSetting::OpenAnimeSetting(size_t pos) : pos(pos)
@@ -106,5 +106,5 @@ void OpenAnimeSetting::what() const noexcept
     message += Constant::Menu::SETTINGS.at(pos - 1);
 
     Settings mySetting;
-    mySetting.show_me_first(std::to_string(pos) + message, pos);
+    // mySetting.show_me_first(std::to_string(pos) + message, pos);
 }

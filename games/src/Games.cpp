@@ -2,73 +2,51 @@
 #include "../header/Games.hpp"
 #include "../header/TicTacToe.hpp"
 #include "../../namespace/header/cod_scan.hpp"
+#include "../../constant/Constants.hpp"
 
-void games()
+/**************************************************************************************************************
+ * 
+ *                                           IMENU IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+std::string Games::Menu::title() const
 {
-    cod::scan sc;
-    int ch;
-
-    do
-    {
-        menu(Menu::games, std::string{" GAMES "}); // display the startup menu
-
-        try
-        {
-            sc.choice(ch);
-
-            game_controller(ch); // start as per user choice
-        }
-        catch (const EscPressed &e)
-        {
-            return;
-        }
-        catch (const Exit &e)
-        {
-            e.what();
-        }
-        catch (const OpenSettings &e)
-        {
-            e.what();
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what();
-        }
-        catch (const OpenHelp &e)
-        {
-            e.what();
-        }
-        catch (const OpenUpdate &e)
-        {
-            e.what();
-        }
-        catch (const OpenChangelog &e)
-        {
-            e.what();
-        }
-        catch (const OpenMoreScreen &e)
-        {
-            return;
-        }
-        catch (const OpenAnimeSetting &e)
-        {
-            e.what();
-        }
-
-    } while (1); // always true
+    return std::string(Constant::Title::GAMES);
 }
 
-void game_controller(int ch)
+std::vector<std::string> Games::Menu::getStats() const
 {
+    Ui::subHeader(Constant::Title::TIP);
 
-    switch (ch)
+    std::vector<std::string> vec;
+    vec.emplace_back(Ui::getTip());
+    return vec;
+}
+
+std::vector<std::string> Games::Menu::selector()
+{
+    menuIndexer(Constant::Menu::GAMES.size());
+    return Constant::Menu::GAMES;
+}
+
+void Games::Menu::controller() const
+{
+    switch (menuIndex.at(ch - 1))
     {
-    case 1: // tic tac toe
-        tic_tac_toe();
-        break;
-
-    default:
-        print_message(std::string{"Invalid choice"}, true);
+    case 1:
+        TicTacToe::start();
         break;
     }
+}
+
+/**************************************************************************************************************
+ * 
+ *                                           MORE IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+void Games::start()
+{
+    Menu::player(Menu());
 }

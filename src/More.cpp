@@ -1,78 +1,51 @@
 #include "../header/More.hpp"
 #include "../games/header/Games.hpp"
 #include "../namespace/header/cod_scan.hpp"
+#include "../constant/Constants.hpp"
 
-void more()
+/**************************************************************************************************************
+ * 
+ *                                           IMENU IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+std::string More::Menu::title() const
 {
-    cod::scan sc;
-    int ch;
-
-    do
-    {
-        menu(Menu::more, std::string{" MORE "}); // display the startup menu
-
-        try
-        {
-            sc.choice(ch);
-
-            more_controller(ch); // start as per user choice
-        }
-        catch (const EscPressed &e)
-        {
-            return;
-        }
-        catch (const Exit &e)
-        {
-            e.what();
-        }
-        catch (const OpenSettings &e)
-        {
-            if (lstScreen == LAST_SETTINGS)
-                return;
-
-            e.what();
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what();
-        }
-        catch (const OpenHelp &e)
-        {
-            e.what();
-        }
-        catch (const OpenUpdate &e)
-        {
-            if (lstScreen == LAST_UPDATES)
-                return;
-
-            e.what();
-        }
-        catch (const OpenChangelog &e)
-        {
-            e.what();
-        }
-        catch (const OpenAnimeSetting &e)
-        {
-            e.what();
-        }
-        catch (const OpenMoreScreen &e)
-        {
-            // do nothing
-        }
-
-    } while (1); // always true
+    return std::string(Constant::Title::MORE);
 }
 
-void more_controller(int ch)
+std::vector<std::string> More::Menu::getStats() const
 {
-    switch (ch)
-    {
-    case 1: // games
-        games();
-        break;
+    Ui::subHeader(Constant::Title::TIP);
 
-    default:
-        print_message(std::string{"Invalid choice"}, true);
+    std::vector<std::string> vec;
+    vec.emplace_back(Ui::getTip());
+    return vec;
+}
+
+std::vector<std::string> More::Menu::selector()
+{
+    menuIndexer(Constant::Menu::MORE.size());
+    return Constant::Menu::MORE;
+}
+
+void More::Menu::controller() const
+{
+    switch (menuIndex.at(ch - 1))
+    {
+    case 1:
+        Games::start();
         break;
     }
+}
+
+/**************************************************************************************************************
+ * 
+ *                                           MORE IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+void More::start()
+{
+    Menu::player(Menu());
 }
