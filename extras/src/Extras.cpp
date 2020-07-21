@@ -1,7 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <iomanip>
-#include "../header/Extras.hpp"
+#include "../Extras.hpp"
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
@@ -47,79 +47,6 @@ void Extras::help()
     }
 
     Ui::println("*Can be used only in menu screen");
-}
-
-void Extras::update()
-{
-    cod::scan sc;
-    int ch;
-
-    do
-    {
-        menu(SmallMenu::updates, std::string{" UPDATES "}, true, iCoder::versionInfo, std::string{"Version: "});
-
-        try
-        {
-            sc.choice(ch);
-
-            switch (ch)
-            {
-            case 1: // Downloads the latest stable release
-                system(std::string("start " + Url::iStable).c_str());
-                return;
-            case 2: // Downloads the latest beta release
-                system(std::string("start " + Url::iBeta).c_str());
-                return;
-            default:
-                print_message(std::string{"Invalid choice"}, true);
-                break;
-            }
-        }
-        catch (const EscPressed &e)
-        {
-            return;
-        }
-        catch (const Exit &e)
-        {
-            e.what();
-        }
-        catch (const OpenSettings &e)
-        {
-
-            if (lstScreen == LAST_SETTINGS)
-                return;
-
-            e.what();
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what();
-        }
-        catch (const OpenHelp &e)
-        {
-            e.what();
-        }
-        catch (const OpenUpdate &e)
-        {
-            // do nothing
-        }
-        catch (const OpenChangelog &e)
-        {
-            e.what();
-        }
-        catch (const OpenMoreScreen &e)
-        {
-            if (lstScreen == LAST_MORE)
-                return;
-
-            e.what();
-        }
-        catch (const OpenAnimeSetting &e)
-        {
-            e.what();
-        }
-
-    } while (1);
 }
 
 void Extras::changelog()

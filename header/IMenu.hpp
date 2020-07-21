@@ -5,6 +5,9 @@
 
 class IMenu
 {
+private:
+    static void play(IMenu &&iMenu);
+
 protected:
     std::vector<int> menuIndex; // It stored the index of the string to display
     static cod::scan scan;

@@ -1,7 +1,7 @@
 #ifndef EXTRAS_HPP
 #define EXTRAS_HPP
 
-#include "IMenu.hpp"
+#include "../header/IMenu.hpp"
 
 class Extras
 {
@@ -9,6 +9,7 @@ public:
     static void about();
     static void help();
 };
+
 class Update
 {
     /**

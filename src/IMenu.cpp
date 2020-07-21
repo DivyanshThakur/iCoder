@@ -3,7 +3,7 @@
 #include "../header/UIhandler.hpp"
 #include "../constant/Constants.hpp"
 
-void IMenu::player(IMenu &&iMenu)
+void IMenu::play(IMenu &&iMenu)
 {
     Ui::logo();
 
@@ -31,6 +31,15 @@ void IMenu::player(IMenu &&iMenu)
     Ui::print(std::string{"Your Choice: "}); // ask user for input
 
     iMenu.check();
+}
+
+void IMenu::player(IMenu &&iMenu)
+{
+    do
+    {
+        play(iMenu);
+
+    } while (1);
 }
 
 void IMenu::check() const

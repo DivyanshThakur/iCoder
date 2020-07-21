@@ -19,14 +19,13 @@
 #include <dir.h>
 #include "iCoder.hpp"
 #include "header/More.hpp"
-#include "header/Extras.hpp"
+#include "extras/Extras.hpp"
 #include "header/Settings.hpp"
 #include "header/FileHandler.hpp"
 #include "header/AccountHandler.hpp"
 #include "dsa/header/DataStructure.hpp"
 #include "namespace/header/cod_scan.hpp"
 #include "animation/header/AnimeHandler.hpp"
-
 #include "constant/Constants.hpp"
 
 int main()
@@ -128,7 +127,7 @@ void Main::Menu::controller() const
         break;
 
     case 4: // open more features screen
-        more();
+        // More::start();
         break;
 
     case 5:                          // show saved user details
@@ -136,19 +135,19 @@ void Main::Menu::controller() const
         break;
 
     case 6: // help for shortcuts
-        help();
+        Extras::help();
         break;
 
     case 7: // details about the software
-        about();
+        Extras::about();
         break;
 
     case 8: // changelog
-        changelog();
+        Changelog::start();
         break;
 
     case 9: // update section to get latest and beta versions
-        update();
+        Update::start();
         break;
 
     case 10: // Customize the software using settings
@@ -171,12 +170,7 @@ bool Main::welcomeFlag = true;
 void Main::start()
 {
     load();
-
-    do
-    {
-        Menu::player(Main::Menu()); // display the startup menu
-
-    } while (1);
+    Menu::player(Menu());
 }
 
 void Main::load()
@@ -201,7 +195,7 @@ void Main::home()
         Ui::popUp("--> Welcome " + userID + "!"); // display the welcome message
     }
 
-    DataStructure::start();
+    // DataStructure::start();
 }
 
 void Main::signOut()

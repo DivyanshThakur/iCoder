@@ -4,6 +4,7 @@ const std::string Constant::NULL_STR{"NULL"};
 
 /*************************************************** Constant::Menu Constant **************************************************/
 const std::vector<std::string> Constant::Menu::ARRAY{"Update max size", "Add max size", "Add values", "Insert at a position", "Delete multiple values", "Delete from a position", "Display array", "Linear Search", "Binary Search", "Merge", "SET", "Check is the array sorted", "Reverse the Array", "Shift/Rotation", "Find duplicate values", "Find missing values", "Find a pair with sum K", "Max and Min value", "Get value", "Set value", "Average", "Sum"};
+const std::vector<std::string> Constant::Menu::CHANGELOG{"2.0", "1.8", "1.6", "1.4", "1.2", "1.0"};
 const std::vector<std::string> Constant::Menu::DATA_STRUCTURE{"Array", "Strings (NEW)", "Matrices", "Sparse Matrix", "Polynomial  Representation", "Linked List and more..."};
 const std::vector<std::string> Constant::Menu::DATA_TYPE{"Int", "Long", "Double", "Char", "String"};
 const std::vector<std::string> Constant::Menu::GAMES{"Tic Tac Toe"};
@@ -11,12 +12,10 @@ const std::vector<std::string> Constant::Menu::MAIN{"Log In", "Create Account", 
 const std::vector<std::string> Constant::Menu::MORE{"Games"};
 const std::vector<std::string> Constant::Menu::SETTINGS{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Animation style", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
 const std::vector<std::string> Constant::Menu::STRING{"Update string", "Add string", "Insert sub-string", "Delete sub-string", "Change case", "Display string", "Reverse", "Compare", "Merge", "Anagram", "Palindrome", "Permutation", "Find unique", "Find duplicates"};
+const std::vector<std::string> Constant::Menu::UPDATES{"Stable", "Beta"};
 
 /************************************************ Constant::SubMenu Constant ************************************************/
 // info
-const std::vector<std::string> Constant::SubMenu::UPDATES{"Stable Version", "Beta Version"};
-const std::vector<std::string> Constant::SubMenu::VERSION_DATA{"1.8", "1.6", "1.4", "1.2", "1.0"};
-const std::vector<std::string> Constant::SubMenu::VERSION_DESC{"Added Strings with advanced operations", "Increased password security with encryption", "Ui changes & bug fixes", "Hints-added for new users", "New falling animation added", "More customization in settings", "\n", "Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub", "\n", "Complete array operations added", "Increased user experience", "\n", "Added code to save changes made by the user for future use", "\n", "Basic array features added"};
 const std::vector<std::string> Constant::SubMenu::HELP_DATA{"Esc", "a", /* "c",*/ "d", "h", /* "i",*/ "l", "m", /* "p",*/ "q", "s", "u"};
 const std::vector<std::string> Constant::SubMenu::HELP_DESC{"Return to last screen", "About the software", /* "Show code",*/ "Disable hint/warning", "Help", /* "Analyse the code",*/ "Changelog", "More features", /* "Save",*/ "Quit", "Open settings", "Get Updates"};
 
@@ -36,6 +35,16 @@ const std::vector<std::string> Constant::SubMenu::FIND_VALUE{"Search the array",
 const std::vector<std::string> Constant::SubMenu::UPDATE_STRING{"Add new string", "Extend current string"};
 const std::vector<std::string> Constant::SubMenu::CHANGE_CASE_STRING{"Toggle case", "To lower", "To upper"};
 const std::vector<std::string> Constant::SubMenu::RANGE_STRING{"Full string", "Select a range"};
+
+/************************************************ Constant::VERSiON Constant ************************************************/
+
+const std::vector<std::string> Constant::Version::UPCOMING{"Games, oops"};
+const std::vector<std::string> Constant::Version::V1_0{"Basic array features added"};
+const std::vector<std::string> Constant::Version::V1_2{"Added code to save changes made by the user for future use"};
+const std::vector<std::string> Constant::Version::V1_4{"Complete array operations added", "Increased user experience"};
+const std::vector<std::string> Constant::Version::V1_6{"Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub"};
+const std::vector<std::string> Constant::Version::V1_8{"Added Strings with advanced operations", "Increased password security with encryption", "Ui changes & bug fixes", "Hints-added for new users", "New falling animation added", "More customization in settings"};
+const std::vector<std::string> Constant::Version::V2_0{"Complete backend transformation"} - ;
 
 /*************************************** TITLE *****************************************/
 const std::string Constant::Title::ABOUT{"ABOUT"};

@@ -51,6 +51,7 @@ public:
     {
     public:
         static const std::vector<std::string> ARRAY;
+        static const std::vector<std::string> CHANGELOG;
         static const std::vector<std::string> DATA_STRUCTURE;
         static const std::vector<std::string> DATA_TYPE;
         static const std::vector<std::string> GAMES;
@@ -58,13 +59,13 @@ public:
         static const std::vector<std::string> MORE;
         static const std::vector<std::string> SETTINGS;
         static const std::vector<std::string> STRING;
+        static const std::vector<std::string> UPDATES;
     };
     class SubMenu // Menu Constant
     {
     public:
         // help
-        static const std::vector<std::string> UPDATES;
-        static const std::vector<std::string> VERSION_DATA;
+
         static const std::vector<std::string> VERSION_DESC;
         static const std::vector<std::string> HELP_DATA;
         static const std::vector<std::string> HELP_DESC;
@@ -85,6 +86,18 @@ public:
         static const std::vector<std::string> UPDATE_STRING;
         static const std::vector<std::string> CHANGE_CASE_STRING;
         static const std::vector<std::string> RANGE_STRING;
+    };
+
+    class Version
+    {
+    public:
+        static const std::vector<std::string> UPCOMING;
+        static const std::vector<std::string> V1_0;
+        static const std::vector<std::string> V1_2;
+        static const std::vector<std::string> V1_4;
+        static const std::vector<std::string> V1_6;
+        static const std::vector<std::string> V1_8;
+        static const std::vector<std::string> V2_0;
     };
 
     class Title
