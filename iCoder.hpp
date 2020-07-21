@@ -16,7 +16,6 @@ private:
         virtual std::string title() const override;
         virtual std::vector<std::string> getStats() const override;
         virtual std::vector<std::string> selector() override;
-        virtual void caller() const override;
         virtual void controller() const override;
     };
 

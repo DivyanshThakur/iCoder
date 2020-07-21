@@ -6,7 +6,6 @@
 #include <queue>
 #include <algorithm>
 #include "../header/FileHandler.hpp"
-#include "../header/ExHandler.hpp"
 #include "../header/UIhandler.hpp"
 #include "../header/Settings.hpp"
 #include "../constant/Constants.hpp"

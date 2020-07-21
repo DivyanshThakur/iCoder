@@ -48,8 +48,9 @@ std::string Main::Menu::title() const
 
 std::vector<std::string> Main::Menu::getStats() const
 {
+    Ui::subHeader(Constant::Title::STATS);
+
     std::vector<std::string> vec;
-    vec.emplace_back(Constant::Title::STATS);
 
     if (Global::activeUser != Constant::NULL_STR)
         vec.emplace_back("User:    " + Global::activeUser);
@@ -61,53 +62,24 @@ std::vector<std::string> Main::Menu::getStats() const
 
 std::vector<std::string> Main::Menu::selector()
 {
-    menuIndex.clear(); // clear the previous saved index
+    // menuIndex.clear(); // clear the previous saved index
+    size_t size = Constant::Menu::MAIN.size();
 
     if (Global::activeUser == Constant::NULL_STR) // if active user is null, run this code
     {
-        for (size_t i{0}; i < Constant::Menu::MAIN.size(); i++)
-            menuIndex.push_back(i + 1);
-
+        menuIndexer(size);
         return Constant::Menu::MAIN;
     }
 
-    // if a user is signed in then leaving singing options display other options
+    menuIndexer(size, 1, 4);
+    menuIndex.at(0) = 3;
+    menuIndex.push_back(size);
 
-    // select the correct menu to display as per need
-    std::vector<std::string> toDisplayMenu;
-    size_t i;
-
-    // Data Structure option is added for signed user to return back to DS screen
-    toDisplayMenu.push_back(std::string{"Data Structure"});
-    menuIndex.push_back(3);
-
-    for (i = 3; i < Constant::Menu::MAIN.size(); ++i) // push back common options
-    {
-        toDisplayMenu.push_back(Constant::Menu::MAIN.at(i));
-        menuIndex.push_back(i + 1);
-    }
-
-    toDisplayMenu.push_back(std::string{"Sign Out"}); // add sign out option for the user
-    menuIndex.push_back(i + 1);
+    std::vector<std::string> toDisplayMenu{"Data Structure"};
+    toDisplayMenu.insert(toDisplayMenu.end(), Constant::Menu::MAIN.begin() + 3, Constant::Menu::MAIN.end());
+    toDisplayMenu.emplace_back("Sign Out");
 
     return toDisplayMenu;
-}
-
-/**
- * The menuIndex stores the index of the menu options that is currently displayed in the screen
- * Menu::caller() calls the required function by using below logic
- * Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
- * if the input is between the menuIndex size range, it calculates which function to call
- * Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::main
- * Since, the index of Menu::main is stored in menuIndex and thus is passed in menu controller
- **/
-
-void Main::Menu::caller() const
-{
-    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
-        controller();
-    else
-        Ui::println(std::string{"Invalid choice"});
 }
 
 void Main::Menu::controller() const

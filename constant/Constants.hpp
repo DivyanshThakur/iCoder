@@ -121,6 +121,7 @@ public:
         static const std::string STRING;
         static const std::string TIC_TAC_TOE;
         static const std::string TIP;
+        static const std::string UPCOMING;
         static const std::string UPDATES;
         static const std::string USERS;
     };
@@ -160,24 +161,16 @@ public:
         static const std::string SUB_DATA3;
     };
 
-    // class Tag
-    // {
-    // public:
-    //     // DATA STRUCTURE
-    //     static const std::string ARRAY;
-    //     static const std::string DATA_STRUCTURE;
-    //     static const std::string GAMES;
-    //     static const std::string SETTINGS;
-    //     static const std::string MORE;
-    //     static const std::string CHANGE_LINEAR_SEARCH_TYPE;
-    //     static const std::string UPDATES;
-    //     static const std::string HINT;
-    //     static const std::string MAIN;
-    //     static const std::string STRING;
-
-    //     // GAMES
-    //     static const std::string TIC_TAC_TOE;
-    // };
+    class Tag
+    {
+    public:
+        static const std::string V1_0;
+        static const std::string V1_2;
+        static const std::string V1_4;
+        static const std::string V1_6;
+        static const std::string V1_8;
+        static const std::string V2_0;
+    };
 };
 
 #endif

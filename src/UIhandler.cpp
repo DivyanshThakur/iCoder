@@ -130,9 +130,9 @@ void Ui::subHeader(const std::string &heading)
 
 std::vector<std::string> Ui::getHint()
 {
-    std::vector<std::string> vec;
+    subHeader(Constant::Title::HINT);
 
-    vec.emplace_back(Constant::Title::HINT);
+    std::vector<std::string> vec;
 
     if (opnScreen != CUR_MENU)
         vec.emplace_back(" ESC    Last Screen");
@@ -197,16 +197,20 @@ void Ui::print(const std::string &message)
 
 void Ui::print(const std::vector<std::string> &vec)
 {
-    subHeader(vec.at(0));
-
-    for (auto it = vec.begin() + 1; it != vec.end(); it++)
-        std::cout << *it << std::endl;
+    for (const auto &str : vec)
+        std::cout << str << std::endl;
     std::cout << std::endl;
 }
 
 void Ui::println(const std::string &message)
 {
     print(message);
+    pressKey();
+}
+
+void Ui::println(const std::vector<std::string> &vec)
+{
+    print(vec);
     pressKey();
 }
 

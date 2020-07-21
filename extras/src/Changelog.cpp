@@ -14,60 +14,55 @@ std::string Changelog::Menu::title() const
 
 std::vector<std::string> Changelog::Menu::getStats() const
 {
-    std::vector<std::string> vec;
-    vec.emplace_back(Constant::Title::STATS);
-
-    if (Global::activeUser != Constant::NULL_STR)
-        vec.emplace_back("User:    " + Global::activeUser);
-
-    vec.emplace_back("Version: " + Constant::iCoder::VERSION);
-
-    return vec;
+    Ui::subHeader(Constant::Title::UPCOMING);
+    return Constant::Version::UPCOMING;
 }
 
 std::vector<std::string> Changelog::Menu::selector()
 {
-    menuIndex.clear(); // clear the previous saved index
-
-    for (size_t i{0}; i < Constant::SubMenu::size(); i++)
-        menuIndex.push_back(i + 1);
-
-    return Constant::SubMenu::UPDATES;
-}
-
-/**
- * The menuIndex stores the index of the menu options that is currently displayed in the screen
- * Menu::caller() calls the required function by using below logic
- * Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
- * if the input is between the menuIndex size range, it calculates which function to call
- * Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::Changelog
- * Since, the index of Menu::Changelog is stored in menuIndex and thus is passed in menu controller
- **/
-
-void Changelog::Menu::caller() const
-{
-    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
-        controller();
-    else
-        Ui::println(std::string{"Invalid choice"});
+    menuIndexer(Constant::Menu::CHANGELOG.size());
+    return Constant::Menu::CHANGELOG;
 }
 
 void Changelog::Menu::controller() const
 {
-    switch (menuIndex.at(ch - 1))
+    switch (Constant::Menu::CHANGELOG.size() - menuIndex.at(ch - 1))
     {
-    case 1: // Downloads the latest stable release
-        system(("start " + Constant::Url::STABLE).c_str());
+    case 1:
+        Ui::header(Constant::Tag::V1_0);
+        Ui::println(Constant::Version::V1_0);
         break;
-    case 2: // Downloads the latest beta release
-        system(("start " + Constant::Url::BETA).c_str());
+
+    case 2:
+        Ui::header(Constant::Tag::V1_2);
+        Ui::println(Constant::Version::V1_2);
+        break;
+
+    case 3:
+        Ui::header(Constant::Tag::V1_4);
+        Ui::println(Constant::Version::V1_4);
+        break;
+
+    case 4:
+        Ui::header(Constant::Tag::V1_6);
+        Ui::println(Constant::Version::V1_6);
+        break;
+
+    case 5:
+        Ui::header(Constant::Tag::V1_8);
+        Ui::println(Constant::Version::V1_8);
+        break;
+
+    case 6:
+        Ui::header(Constant::Tag::V2_0);
+        Ui::println(Constant::Version::V2_0);
         break;
     }
 }
 
 /**************************************************************************************************************
  * 
- *                                           MAIN IMPLEMENTATIONS
+ *                                           CHANGELOG IMPLEMENTATIONS
  * 
  * ***********************************************************************************************************/
 

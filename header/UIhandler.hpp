@@ -26,6 +26,7 @@ public:
     static void print(const std::string &message);
     static void print(const std::vector<std::string> &vec);
     static void println(const std::string &message);
+    static void println(const std::vector<std::string> &vec);
     static void pressKey(const std::string &message = "Press any key to continue");
     static bool isKeyPressed(const std::string &message, char c = 'i');
     static void waitMessage(const std::string &message);

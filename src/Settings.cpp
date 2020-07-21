@@ -21,37 +21,17 @@ std::string Settings::Menu::title() const
 
 std::vector<std::string> Settings::Menu::getStats() const
 {
+    Ui::subHeader(Constant::Title::TIP);
+
     std::vector<std::string> vec;
-    vec.emplace_back(Constant::Title::TIP);
     vec.emplace_back(Ui::getTip());
     return vec;
 }
 
 std::vector<std::string> Settings::Menu::selector()
 {
-    menuIndex.clear(); // clear the previous saved index
-
-    for (size_t i{0}; i < Constant::Menu::SETTINGS.size(); i++)
-        menuIndex.push_back(i + 1);
-
+    menuIndexer(Constant::Menu::SETTINGS.size());
     return Constant::Menu::SETTINGS;
-}
-
-/**
- * The menuIndex stores the index of the menu options that is currently displayed in the screen
- * Menu::caller() calls the required function by using below logic
- * Any input less than 1 or greater than the menuIndex size, throws Invalid choice message
- * if the input is between the menuIndex size range, it calculates which function to call
- * Logic - the (input - 1) is passed as the index of menuIndex to get the index of Menu::settings
- * Since, the index of Menu::settings is stored in menuIndex and thus is passed in menu controller
- **/
-
-void Settings::Menu::caller() const
-{
-    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
-        controller();
-    else
-        Ui::println(std::string{"Invalid choice"});
 }
 
 void Settings::Menu::controller() const
@@ -201,11 +181,7 @@ Settings::Data &Settings::data()
 
 void Settings::start()
 {
-    do
-    {
-        Menu::player(Settings::Menu()); // display the startup menu
-
-    } while (1);
+    Menu::player(Menu());
 }
 
 bool Settings::isDefault()
