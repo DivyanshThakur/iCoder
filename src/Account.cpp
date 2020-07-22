@@ -9,6 +9,10 @@
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
+std::string Account::userId, Account::pass;
+Account::Data Account::userData;
+std::pair<std::string, std::string> Account::pairBuffer;
+
 /**************************************************************************************************************
  * 
  *                                       ISAVEABLE IMPLEMENTATIONS

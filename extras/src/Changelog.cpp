@@ -26,7 +26,7 @@ std::vector<std::string> Changelog::Menu::selector()
 
 void Changelog::Menu::controller() const
 {
-    switch (Constant::Menu::CHANGELOG.size() - menuIndex.at(ch - 1))
+    switch (Constant::Menu::CHANGELOG.size() - menuIndex.at(ch - 1) - 1)
     {
     case 1:
         Ui::header(Constant::Tag::V1_0);

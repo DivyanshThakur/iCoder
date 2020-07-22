@@ -1,13 +1,12 @@
 #ifndef ACCOUNT_HPP
 #define ACCOUNT_HPP
 
+#include <vector>
 #include <string>
 #include "FileHandler.hpp"
 
 class Account
 {
-    static std::string userId, pass;
-
     /**
  * Data has all the methods necessary for saving
  * and retreiving user data from the files
@@ -21,6 +20,7 @@ class Account
         virtual bool generate() const override;
     };
 
+    static std::string userId, pass;
     static Data userData;
     static std::pair<std::string, std::string> pairBuffer;
 

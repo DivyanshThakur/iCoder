@@ -65,8 +65,10 @@ public:
     virtual void what() const noexcept override;
 };
 
-class EscPressed
+class EscPressed : public cod::exception
 {
+public:
+    virtual void what() const noexcept override;
 };
 
 class Exit : public cod::exception
@@ -111,13 +113,13 @@ public:
     virtual void what() const noexcept override;
 };
 
-class OpenAnimeSetting : public cod::exception
-{
-    size_t pos;
+// class OpenAnimeSetting : public cod::exception
+// {
+//     size_t pos;
 
-public:
-    OpenAnimeSetting(size_t pos);
-    virtual void what() const noexcept override;
-};
+// public:
+//     OpenAnimeSetting(size_t pos);
+//     virtual void what() const noexcept override;
+// };
 
 #endif

@@ -6,6 +6,8 @@
 #include "../header/Security.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
+std::string CreateAccount::rePass;
+
 void CreateAccount::input()
 {
     cod::scan sc;

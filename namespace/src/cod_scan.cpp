@@ -3,7 +3,8 @@
 #include <windows.h>
 #include "../header/cod_scan.hpp"
 #include "../header/cod_limits.hpp"
-#include "../../header/Constants.hpp"
+#include "../../constant/Constants.hpp"
+#include "../../constant/enum.hpp"
 
 cod::scan::scan() : isLast{true}, isLimitExceed{false}, isString{false} {}
 
@@ -31,8 +32,12 @@ int cod::scan::check_char(bool isPassword)
 {
     int flag{0};
 
-    if (c == Ui::ESC)
-        return -1; // -1 means that user has pressed ESC, stop the scan and return to startup menu
+    // -1 means that user has pressed ESC, stop the scan and return to startup menu
+    if (c == Constant::ESC)
+    {
+        isLast = true;
+        throw EscPressed();
+    }
 
     else if (c == ' ')
     {
@@ -69,70 +74,41 @@ int cod::scan::check_shortcut()
 {
     int flag = check_char();
 
-    if (shortcutStats == DEFAULT) // shortcut checking
+    switch (::tolower(c))
     {
-        switch (::tolower(c))
-        {
-        case 'a':
-            flag = 10;
-            break;
-        case 'c':
-            flag = 11;
-            break;
-        case 'd':
-            flag = 12;
-            break;
-        case 'h':
-            flag = 14;
-            break;
-        case 'i':
-            flag = 15;
-            break;
-        case 'l':
-            flag = 16;
-            break;
-        case 'm':
-            flag = 17;
-            break;
-        case 'p':
-            flag = 18;
-            break;
-        case 'q':
-            flag = 19;
-            break;
-        case 's':
-            flag = 20;
-            break;
-        case 'u':
-            flag = 21;
-            break;
-        }
-    }
-    else if (shortcutStats == EASY)
-    {
-        // & 0x8000 is used for current pressed state
-        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x41) & 0x8000) // ctrl + a
-            flag = 10;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x43) & 0x8000) // ctrl + c
-            flag = 11;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x44) & 0x8000) // ctrl + d
-            flag = 12;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x48) & 0x8000) // ctrl + h
-            flag = 14;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x49) & 0x8000) // ctrl + i
-            flag = 15;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x4C) & 0x8000) // ctrl + l
-            flag = 16;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x4D) & 0x8000) // ctrl + m
-            flag = 17;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x50) & 0x8000) // ctrl + p
-            flag = 18;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x51) & 0x8000) // ctrl + q
-            flag = 19;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x53) & 0x8000) // ctrl + s
-            flag = 20;
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x55) & 0x8000) // ctrl + u
-            flag = 21;
+    case 'a':
+        flag = 10;
+        break;
+    case 'c':
+        flag = 11;
+        break;
+    case 'd':
+        flag = 12;
+        break;
+    case 'h':
+        flag = 14;
+        break;
+    case 'i':
+        flag = 15;
+        break;
+    case 'l':
+        flag = 16;
+        break;
+    case 'm':
+        flag = 17;
+        break;
+    case 'p':
+        flag = 18;
+        break;
+    case 'q':
+        flag = 19;
+        break;
+    case 's':
+        flag = 20;
+        break;
+    case 'u':
+        flag = 21;
+        break;
     }
 
     return flag;
@@ -153,8 +129,8 @@ void cod::scan::choice(int &choice)
         case 11: // c - code screen
             break;
         case 12: // d - disable hints
-            if (Global::showHint && opnScreen != CUR_SETTINGS)
-                throw OpenAnimeSetting(9);
+            // if (Global::showHint && opnScreen != CUR_SETTINGS)
+            //     throw OpenAnimeSetting(9);
             break;
         case 14: // help screen
             throw OpenHelp();
@@ -194,7 +170,7 @@ std::string cod::scan::username()
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(Ui::widthUsername));
+        isLimitExceed = (value.size() >= static_cast<unsigned int>(Constant::Ui::USERNAME_WIDTH));
 
         switch (check_char())
         {
@@ -205,11 +181,11 @@ std::string cod::scan::username()
             break;
 
         case 1:
-            emessage(std::string{"     Space Not Allowed!"});
+            Ui::popUp("     Space Not Allowed!");
             break;
 
         case 2:
-            emessage("     " + Ui::txtUsername + " exceeds " + std::to_string(Ui::widthUsername) + " characters!");
+            Ui::popUp("     Username exceeds " + std::to_string(Constant::Ui::USERNAME_WIDTH) + " characters!");
             break;
         }
     }
@@ -226,7 +202,7 @@ std::string cod::scan::password()
 
     while ((c = getch()) && !(c == '\r' && value.size()))
     {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(Ui::widthPassword));
+        isLimitExceed = (value.size() >= static_cast<unsigned int>(Constant::Ui::PASSWORD_WIDTH));
 
         switch (check_char(true))
         {
@@ -237,11 +213,11 @@ std::string cod::scan::password()
             break;
 
         case 1:
-            emessage(std::string{"     Space Not Allowed!"});
+            Ui::popUp(std::string{"     Space Not Allowed!"});
             break;
 
         case 2:
-            emessage("     " + Ui::txtPassword + " exceeds " + std::to_string(Ui::widthPassword) + " characters!");
+            Ui::popUp("     Password exceeds " + std::to_string(Constant::Ui::PASSWORD_WIDTH) + " characters!");
             break;
         }
     }

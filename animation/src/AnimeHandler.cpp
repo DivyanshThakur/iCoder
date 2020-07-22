@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "../header/AnimeHandler.hpp"
 #include "../header/SignOutAnime.hpp"
-#include "../../header/UIhandler.hpp"
+#include "../../header/Ui.hpp"
 
 void AnimeHandler::load()
 {

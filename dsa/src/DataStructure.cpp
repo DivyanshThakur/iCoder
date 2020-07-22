@@ -3,95 +3,52 @@
 #include "../header/Array.hpp"
 #include "../header/String.hpp"
 
-void data_structure()
+/**************************************************************************************************************
+ * 
+ *                                           IMENU IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+std::string DataStructure::Menu::title() const
 {
-    cod::scan sc;
-    int ch;
-
-    do
-    {
-        menu(Menu::dataStructure, std::string{" DATA STRUCTURE "}); // display the startup menu
-
-        try
-        {
-            sc.choice(ch);
-
-            ds_controller(ch); // start as per user choice
-        }
-        catch (const EscPressed &e)
-        {
-            return;
-        }
-        catch (const Exit &e)
-        {
-            e.what();
-        }
-        catch (const OpenSettings &e)
-        {
-            e.what();
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what();
-        }
-        catch (const OpenHelp &e)
-        {
-            e.what();
-        }
-        catch (const OpenUpdate &e)
-        {
-            e.what();
-        }
-        catch (const OpenChangelog &e)
-        {
-            e.what();
-        }
-        catch (const OpenAnimeSetting &e)
-        {
-            e.what();
-        }
-        catch (const OpenMoreScreen &e)
-        {
-            e.what();
-        }
-        catch (const ReturnHome &e)
-        {
-            // to return to data structure screen
-        }
-
-    } while (1); // always true
+    return std::string(Constant::Title::DATA_STRUCTURE);
 }
 
-void ds_controller(int ch)
+std::vector<std::string> DataStructure::Menu::getStats() const
 {
-    switch (ch)
+    Ui::subHeader(Constant::Title::TIP);
+
+    std::vector<std::string> vec;
+    vec.emplace_back(Ui::getTip());
+    return vec;
+}
+
+std::vector<std::string> DataStructure::Menu::selector()
+{
+    menuIndexer(Constant::Menu::DATA_STRUCTURE.size());
+    return Constant::Menu::DATA_STRUCTURE;
+}
+
+void DataStructure::Menu::controller() const
+{
+    switch (menuIndex.at(ch - 1))
     {
-    case 1: // arrays
-        Arrays();
+    case 1:
+        // ArrayHandler::start();
         break;
-
-    case 2: // strings
-        String();
-        break;
-
-    case 3: // matrices
-        print_message();
-        break;
-
-    case 4: // sparse matrix
-        print_message();
-        break;
-
-    case 5: // polynomial representation
-        print_message();
-        break;
-
-    case 6: // linked list
-        print_message();
-        break;
-
-    default:
-        print_message(std::string{"Invalid choice"}, true);
+    case 2:
+        StringHandler::start();
         break;
     }
+}
+
+/**************************************************************************************************************
+ * 
+ *                                          DATA STRUCTURE IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+void DataStructure::start()
+{
+    Menu::player(Menu());
 }

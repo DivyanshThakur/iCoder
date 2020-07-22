@@ -59,7 +59,8 @@ class Changelog
  * user configuration for better experience
  **/
 
-public: /**
+public: 
+/**
  * A start method in each class to start its execution
  **/
     static void start();

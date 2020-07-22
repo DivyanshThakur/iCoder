@@ -8,6 +8,9 @@
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
 
+std::pair<std::string, std::string> Settings::pairBuffer;
+Settings::Data Settings::userData;
+
 /**************************************************************************************************************
  * 
  *                                           IMENU IMPLEMENTATIONS
@@ -36,48 +39,48 @@ std::vector<std::string> Settings::Menu::selector()
 
 void Settings::Menu::controller() const
 {
-    switch (menuIndex.at(ch - 1))
-    {
-    case 1: // change the animation speed of the menu
-        change_text_anime_speed();
-        break;
+    // switch (menuIndex.at(ch - 1))
+    // {
+    // case 1: // change the animation speed of the menu
+    //     change_text_anime_speed();
+    //     break;
 
-    case 2: // change linear search type
-        change_lsearch_type();
-        break;
+    // case 2: // change linear search type
+    //     change_lsearch_type();
+    //     break;
 
-    case 3: // change shortcuts access type
-        change_shortcuts_type();
-        break;
+    // case 3: // change shortcuts access type
+    //     change_shortcuts_type();
+    //     break;
 
-    case 4: // change theme type
-        change_theme_type();
-        break;
+    // case 4: // change theme type
+    //     change_theme_type();
+    //     break;
 
-    case 5: // change animation style
-        change_anime_style();
-        break;
+    // case 5: // change animation style
+    //     change_anime_style();
+    //     break;
 
-    case 6: // change display style
-        change_display_style();
-        break;
+    // case 6: // change display style
+    //     change_display_style();
+    //     break;
 
-    case 7: // welcome message enable/disable
-        welcome_message();
-        break;
+    // case 7: // welcome message enable/disable
+    //     welcome_message();
+    //     break;
 
-    case 8: // quit message enable/disable
-        quit_message();
-        break;
+    // case 8: // quit message enable/disable
+    //     quit_message();
+    //     break;
 
-    case 9: // hint message enable/disable
-        hint_message();
-        break;
+    // case 9: // hint message enable/disable
+    //     hint_message();
+    //     break;
 
-    case 10: // reset the settings and delete users
-        reset();
-        break;
-    }
+    // case 10: // reset the settings and delete users
+    //     reset();
+    //     break;
+    // }
 }
 
 /**************************************************************************************************************
@@ -171,7 +174,7 @@ bool Settings::Data::generate() const
 
 void Settings::saveActiveUser()
 {
-    save({Constant::File::CURRENT_USER, Global::activeUser});
+    // save({Constant::File::CURRENT_USER, Global::activeUser});
 }
 
 Settings::Data &Settings::data()
@@ -184,50 +187,50 @@ void Settings::start()
     Menu::player(Menu());
 }
 
-bool Settings::isDefault()
-{
-    std::string usrActive;
-    int c, aso;
-    bool welcome, hint, quit;
+// bool Settings::isDefault()
+// {
+//     std::string usrActive;
+//     int c, aso;
+//     bool welcome, hint, quit;
 
-    if (data().generate())
-        return true;
+//     if (data().generate())
+//         return true;
 
-    auto vec = FileHandler::searchTag(data());
+//     auto vec = FileHandler::searchTag(data());
 
-    for (const auto &pair : vec)
-    {
-        std::stringstream ss(pair.second);
+//     for (const auto &pair : vec)
+//     {
+//         std::stringstream ss(pair.second);
 
-        if (pair.first == Constant::File::CURRENT_USER)
-            ss >> usrActive;
-        else if (pair.first == Constant::File::LSEARCH_STATUS)
-            ss >> c;
-        else if (pair.first == Constant::File::ANIME_SIGN_OUT_STATUS)
-            ss >> aso;
-        else if (pair.first == Constant::File::SHOW_WELCOME_MESSAGE)
-            ss >> welcome;
-        else if (pair.first == Constant::File::SHOW_QUIT_MESSAGE)
-            ss >> quit;
-        else if (pair.first == Constant::File::SHOW_HINT)
-            ss >> hint;
-    }
+//         if (pair.first == Constant::File::CURRENT_USER)
+//             ss >> usrActive;
+//         else if (pair.first == Constant::File::LSEARCH_STATUS)
+//             ss >> c;
+//         else if (pair.first == Constant::File::ANIME_SIGN_OUT_STATUS)
+//             ss >> aso;
+//         else if (pair.first == Constant::File::SHOW_WELCOME_MESSAGE)
+//             ss >> welcome;
+//         else if (pair.first == Constant::File::SHOW_QUIT_MESSAGE)
+//             ss >> quit;
+//         else if (pair.first == Constant::File::SHOW_HINT)
+//             ss >> hint;
+//     }
 
-    // It checks the default state of settings file by comparing the saved values with the default values
-    if (usrActive == Constant::NULL_STR && !c && !aso && welcome && quit && hint)
-        return true;
+//     // It checks the default state of settings file by comparing the saved values with the default values
+//     if (usrActive == Constant::NULL_STR && !c && !aso && welcome && quit && hint)
+//         return true;
 
-    return false;
-}
+//     return false;
+// }
 
-void Settings::save(const std::pair<std::string, std::string> &pair)
-{
-    pairBuffer = pair;
+// void Settings::save(const std::pair<std::string, std::string> &pair)
+// {
+//     pairBuffer = pair;
 
-    FileHandler::save(data()); // saves the changes to the file
-}
+//     FileHandler::save(data()); // saves the changes to the file
+// }
 
-// Common function to update the Status enum variables
+// // Common function to update the Status enum variables
 void Settings::updateStats(enum Status &stats, int c)
 {
     switch (c)
@@ -246,236 +249,236 @@ void Settings::updateStats(enum Status &stats, int c)
     }
 }
 
-void Settings::show_me_first(const std::string &message, int repeatFor)
-{
-    logo();
+// void Settings::show_me_first(const std::string &message, int repeatFor)
+// {
+//     logo();
 
-    update_screen(std::string{" SETTINGS "});
+//     update_screen(std::string{" SETTINGS "});
 
-    if (Global::showHint) // display hint in every screen
-        show_hint();
+//     if (Global::showHint) // display hint in every screen
+//         show_hint();
 
-    header(std::string{" SETTINGS "}, false);
+//     header(std::string{" SETTINGS "}, false);
 
-    while (repeatFor--)
-    {
-        std::cout << message;
-        Sleep(250);
+//     while (repeatFor--)
+//     {
+//         std::cout << message;
+//         Sleep(250);
 
-        if (repeatFor == 0)
-            break;
+//         if (repeatFor == 0)
+//             break;
 
-        size_t i{0};
-        while (i < message.size())
-        {
-            std::cout << "\b \b";
-            ++i;
-        }
+//         size_t i{0};
+//         while (i < message.size())
+//         {
+//             std::cout << "\b \b";
+//             ++i;
+//         }
 
-        std::cout << std::endl;
-    }
+//         std::cout << std::endl;
+//     }
 
-    Sleep(300);
-    settings();
-}
+//     Sleep(300);
+//     settings();
+// }
 
-std::string Settings::state_selector(bool isTrue)
-{
-    return (isTrue ? std::string{"Disable "} : std::string{"Enable "});
-}
+// std::string Settings::state_selector(bool isTrue)
+// {
+//     return (isTrue ? std::string{"Disable "} : std::string{"Enable "});
+// }
 
-void Settings::settings_controller(char ch)
-{
-}
+// void Settings::settings_controller(char ch)
+// {
+// }
 
-std::vector<std::string> Settings::settings_screen_selector()
-{
-    // select the correct menu to display as per need
+// std::vector<std::string> Settings::settings_screen_selector()
+// {
+//     // select the correct menu to display as per need
 
-    std::vector<std::string> menu_to_display;
+//     std::vector<std::string> menu_to_display;
 
-    for (size_t i{0}; i < Menu::settings.size(); ++i)
-    {
+//     for (size_t i{0}; i < Menu::settings.size(); ++i)
+//     {
 
-        std::string selector;
+//         std::string selector;
 
-        if (i == 6)
-            selector = state_selector(Global::showWelcome);
-        else if (i == 7)
-            selector = state_selector(Global::showQuit);
-        else if (i == 8)
-            selector = state_selector(Global::showHint);
+//         if (i == 6)
+//             selector = state_selector(Global::showWelcome);
+//         else if (i == 7)
+//             selector = state_selector(Global::showQuit);
+//         else if (i == 8)
+//             selector = state_selector(Global::showHint);
 
-        menu_to_display.push_back(selector + Menu::settings.at(i));
-    }
+//         menu_to_display.push_back(selector + Menu::settings.at(i));
+//     }
 
-    return menu_to_display;
-}
+//     return menu_to_display;
+// }
 
-void Settings::change_text_anime_speed()
-{
-    cod::scan sc;
-    int speed;
+// void Settings::change_text_anime_speed()
+// {
+//     cod::scan sc;
+//     int speed;
 
-    header(std::string{" CHANGE ANIMATION SPEED "});
+//     header(std::string{" CHANGE ANIMATION SPEED "});
 
-    show_status(std::string{"Current speed: "}, std::to_string(Global::sleepTime));
+//     show_status(std::string{"Current speed: "}, std::to_string(Global::sleepTime));
 
-    animater(std::string{"Enter the speed: "});
+//     animater(std::string{"Enter the speed: "});
 
-    sc >> speed;
+//     sc >> speed;
 
-    if (speed < 0)
-        throw NegativeValueException();
+//     if (speed < 0)
+//         throw NegativeValueException();
 
-    Global::sleepTime = speed;
+//     Global::sleepTime = speed;
 
-    this->save(std::pair<std::string, std::string>(Constant::File::ANIMATION_SPEED, std::to_string(speed)));
-}
+//     this->save(std::pair<std::string, std::string>(Constant::File::ANIMATION_SPEED, std::to_string(speed)));
+// }
 
-void Settings::change_lsearch_type()
-{
-    cod::scan sc;
-    int ch;
+// void Settings::change_lsearch_type()
+// {
+//     cod::scan sc;
+//     int ch;
 
-    do
-    {
-        menu(SmallMenu::lSearchType, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, SmallMenu::lSearchType), std::string{"Current Type: "});
+//     do
+//     {
+//         menu(SmallMenu::lSearchType, std::string{" CHANGE LINEAR SEARCH TYPE "}, true, stats_selector(lSearchStats, SmallMenu::lSearchType), std::string{"Current Type: "});
 
-        sc.choice(ch);
+//         sc.choice(ch);
 
-        switch (ch)
-        {
-        case 1:
-        case 2:
-        case 3:
-            FileHandler::update_stats(lSearchStats, ch - 1);
-            this->save(std::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
+//         switch (ch)
+//         {
+//         case 1:
+//         case 2:
+//         case 3:
+//             FileHandler::update_stats(lSearchStats, ch - 1);
+//             this->save(std::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
 
-            return;
+//             return;
 
-        default:
-            print_message(std::string{"Invalid choice"}, true);
-            break;
-        }
+//         default:
+//             print_message(std::string{"Invalid choice"}, true);
+//             break;
+//         }
 
-    } while (1);
-}
+//     } while (1);
+// }
 
-void Settings::change_shortcuts_type()
-{
-    cod::scan sc;
-    int ch;
+// void Settings::change_shortcuts_type()
+// {
+//     cod::scan sc;
+//     int ch;
 
-    do
-    {
-        menu(SmallMenu::shortcutsType, std::string{" CHANGE SHORTCUT ACCESS "}, true, stats_selector(shortcutStats, SmallMenu::shortcutsType), std::string{"Current Type: "});
+//     do
+//     {
+//         menu(SmallMenu::shortcutsType, std::string{" CHANGE SHORTCUT ACCESS "}, true, stats_selector(shortcutStats, SmallMenu::shortcutsType), std::string{"Current Type: "});
 
-        sc.choice(ch);
+//         sc.choice(ch);
 
-        switch (ch)
-        {
-        case 1:
-        case 2:
-        case 3:
-            FileHandler::update_stats(shortcutStats, ch - 1);
-            this->save(std::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
+//         switch (ch)
+//         {
+//         case 1:
+//         case 2:
+//         case 3:
+//             FileHandler::update_stats(shortcutStats, ch - 1);
+//             this->save(std::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
 
-            return;
+//             return;
 
-        default:
-            print_message(std::string{"Invalid choice"}, true);
-            break;
-        }
+//         default:
+//             print_message(std::string{"Invalid choice"}, true);
+//             break;
+//         }
 
-    } while (1);
-}
+//     } while (1);
+// }
 
-void Settings::change_theme_type()
-{
-    print_message();
-}
+// void Settings::change_theme_type()
+// {
+//     print_message();
+// }
 
-void Settings::change_anime_style()
-{
-    cod::scan sc;
-    int ch;
+// void Settings::change_anime_style()
+// {
+//     cod::scan sc;
+//     int ch;
 
-    do
-    {
-        menu(SmallMenu::animeSignOutStyle, std::string{" CHANGE ANIMATION STYLE "}, true, stats_selector(animeSignOutStats, SmallMenu::animeSignOutStyle), std::string{"Current Animation: "});
+//     do
+//     {
+//         menu(SmallMenu::animeSignOutStyle, std::string{" CHANGE ANIMATION STYLE "}, true, stats_selector(animeSignOutStats, SmallMenu::animeSignOutStyle), std::string{"Current Animation: "});
 
-        sc.choice(ch);
+//         sc.choice(ch);
 
-        switch (ch)
-        {
-        case 1:
-        case 2:
-        case 3:
-            FileHandler::updateStats(animeSignOutStats, ch - 1);
-            this->save(std::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
+//         switch (ch)
+//         {
+//         case 1:
+//         case 2:
+//         case 3:
+//             FileHandler::updateStats(animeSignOutStats, ch - 1);
+//             this->save(std::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
 
-            return;
+//             return;
 
-        default:
-            print_message(std::string{"Invalid choice"}, true);
-            break;
-        }
+//         default:
+//             print_message(std::string{"Invalid choice"}, true);
+//             break;
+//         }
 
-    } while (1);
-}
+//     } while (1);
+// }
 
-void Settings::change_display_style()
-{
-    print_message();
-}
+// void Settings::change_display_style()
+// {
+//     print_message();
+// }
 
-void Settings::welcome_message()
-{
-    Global::showWelcome = (!Global::showWelcome); // reverse the state
+// void Settings::welcome_message()
+// {
+//     Global::showWelcome = (!Global::showWelcome); // reverse the state
 
-    this->save(std::pair<std::string, std::string>(Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
-}
+//     this->save(std::pair<std::string, std::string>(Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)));
+// }
 
-void Settings::quit_message()
-{
-    Global::showQuit = (!Global::showQuit); // reverse the state
+// void Settings::quit_message()
+// {
+//     Global::showQuit = (!Global::showQuit); // reverse the state
 
-    this->save(std::pair<std::string, std::string>(Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
-}
+//     this->save(std::pair<std::string, std::string>(Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)));
+// }
 
-void Settings::hint_message()
-{
-    Global::showHint = (!Global::showHint); // reverse the state
+// void Settings::hint_message()
+// {
+//     Global::showHint = (!Global::showHint); // reverse the state
 
-    this->save(std::pair<std::string, std::string>(Constant::File::SHOW_HINT, std::to_string(Global::showHint)));
-}
+//     this->save(std::pair<std::string, std::string>(Constant::File::SHOW_HINT, std::to_string(Global::showHint)));
+// }
 
-void Settings::reset()
-{
-    if (this->isDefault())
-    {
-        print_message(std::string{"Already in default settings"}, true);
-        return;
-    }
+// void Settings::reset()
+// {
+//     if (this->isDefault())
+//     {
+//         print_message(std::string{"Already in default settings"}, true);
+//         return;
+//     }
 
-    bool toProceed = confirm_the_change(std::string{"This will reset all the settings\nand delete all the user details!"});
+//     bool toProceed = confirm_the_change(std::string{"This will reset all the settings\nand delete all the user details!"});
 
-    if (toProceed)
-    {
-        std::remove(Constant::Path::SETTINGS.c_str());
-        std::remove(Path::fUser.c_str());
+//     if (toProceed)
+//     {
+//         std::remove(Constant::Path::SETTINGS.c_str());
+//         std::remove(Path::fUser.c_str());
 
-        if (Global::activeUser != std::string{"NULL"})
-        {
-            header(std::string{" SETTINGS "});
+//         if (Global::activeUser != std::string{"NULL"})
+//         {
+//             header(std::string{" SETTINGS "});
 
-            std::cout << "To successfully reset the change\nClosing iCoder...";
-            press_key(NIL);
-            exit(0);
-        }
+//             std::cout << "To successfully reset the change\nClosing iCoder...";
+//             press_key(NIL);
+//             exit(0);
+//         }
 
-        print_message(std::string{"Successfully deleted!"}, true);
-        this->generate();
-    }
-}
+//         print_message(std::string{"Successfully deleted!"}, true);
+//         this->generate();
+//     }
+// }

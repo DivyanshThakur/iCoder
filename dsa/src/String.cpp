@@ -1,92 +1,51 @@
 #include <iostream>
 #include "../header/String.hpp"
-#include "../../namespace/header/cod_algorithm.hpp"
+#include "../../constant/Constants.hpp"
 
-// This function initilizes the StringHandler class and start it
-void String()
+/**************************************************************************************************************
+ * 
+ *                                           IMENU IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
+std::string StringHandler::Menu::title() const
 {
-    StringHandler sh;
-    sh.start();
+    return std::string(Constant::Title::STRING);
 }
 
-// It starts by displaying string menu screen
+std::vector<std::string> StringHandler::Menu::getStats() const
+{
+    Ui::subHeader(Constant::Title::STATS);
+
+    std::vector<std::string> vec;
+
+    vec.emplace_back("File Name: " + str.name());
+
+    return vec;
+}
+
+std::vector<std::string> StringHandler::Menu::selector()
+{
+    menuIndexer(Constant::Menu::STRING.size());
+    return Constant::Menu::STRING;
+}
+
+void StringHandler::Menu::controller() const
+{
+    switch (menuIndex.at(ch - 1))
+    {
+    }
+}
+
+/**************************************************************************************************************
+ * 
+ *                                        STRING HANDLER IMPLEMENTATIONS
+ * 
+ * ***********************************************************************************************************/
+
 void StringHandler::start()
 {
-    int ch;
-
-    try
-    {
-        update_string(); // input string from the user
-    }
-    catch (const EscPressed &e)
-    {
-        throw ReturnHome(); // return if Esc is pressed
-    }
-
-    do
-    {
-        // menu_screen_selector() print selective menu options based on the string status
-        menu(menu_screen_selector(), std::string{" STRING "}); // display string menu
-
-        try
-        {
-            try
-            {
-                sc.choice(ch); // scan user choice
-            }
-            catch (const EscPressed &e)
-            {
-                throw ReturnHome();
-            }
-
-            fn_caller(ch); // call appropriate function based on choice
-        }
-        catch (const EscPressed &e)
-        {
-            // do nothing
-        }
-        catch (const InvalidInputException &e)
-        {
-            e.what();
-        }
-        catch (const InvalidPositionException &e)
-        {
-            e.what();
-        }
-        catch (const Exit &e)
-        {
-            e.what();
-        }
-        catch (const OpenSettings &e)
-        {
-            e.what();
-        }
-        catch (const OpenAbout &e)
-        {
-            e.what();
-        }
-        catch (const OpenHelp &e)
-        {
-            e.what();
-        }
-        catch (const OpenUpdate &e)
-        {
-            e.what();
-        }
-        catch (const OpenChangelog &e)
-        {
-            e.what();
-        }
-        catch (const OpenMoreScreen &e)
-        {
-            e.what();
-        }
-        catch (const OpenAnimeSetting &e)
-        {
-            e.what();
-        }
-
-    } while (1); // true
+    Menu::player(Menu());
 }
 
 // This function accepts the pos as reference to assign values to it
@@ -128,7 +87,7 @@ void StringHandler::pressi_display(bool isStringUpdated)
     if (isStringUpdated)
         print_message(std::string{"String updated..."});
 
-    // calls the press_i() from UiHandler.hpp
+    // calls the press_i() from Ui.hpp
     if (press_i(std::string{"Press i to display string"}))
         this->display();
 }
@@ -172,7 +131,7 @@ std::vector<std::string> StringHandler::menu_screen_selector()
 
 // The fn_caller() calls the appropriate function based on the index stored in menuIndex
 // logic- In menu_screen_selector() when a menu option is selected to display its index
-// is stored in the menuIndex vector which tellls about its position in menu screen
+// is stored in the menuIndex vector which tells about its position in menu screen
 // The first func is called if ch = 1 and for values of ch <=0 or ch>size are invalid
 // eg. for ch = 4, it menuIndex returns the menu index at position ch-1,i.e. 4-1 = 3
 // At index 3, the appropriate func is called using string_controller().

@@ -2,9 +2,9 @@
 #include <iomanip>
 #include "../header/AccountHandler.hpp"
 #include "../iCoder.hpp"
-#include "../header/UIhandler.hpp"
+#include "../header/Ui.hpp"
 #include "../header/CreateAccount.hpp"
-#include "../animation/header/AnimeHandler.hpp"
+// #include "../animation/header/AnimeHandler.hpp"
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_exception.hpp"
 
@@ -17,7 +17,7 @@ void AccountHandler::login()
         Account::input();
         Account::check();
         Account::rememberMe();
-        AnimeHandler::load();
+        // AnimeHandler::load();
         Main::home();
     }
     catch (const cod::exception &e)
@@ -35,7 +35,7 @@ void AccountHandler::createAccount()
         CreateAccount::input();
         CreateAccount::upload();
         CreateAccount::rememberMe();
-        AnimeHandler::load();
+        // AnimeHandler::load();
         Main::home();
     }
     catch (const cod::exception &e)
@@ -55,12 +55,13 @@ void AccountHandler::showUsers()
     Ui::header(Constant::Title::USERS);
 
     auto userNames = FileHandler::searchTag(Account::data());
-    int index = 1;
 
-    for (const auto &pair : userNames)
+    for (size_t i{0}; i < userNames.size(); i++)
     {
-        std::cout << std::setw(Constant::Ui::PASSWORD_WIDTH) << index++
-                  << " " << static_cast<char>(175) << " " << pair.first << std::endl;
+        std::cout << std::setw(2) << (i + 1)
+                  << " " << static_cast<char>(175) << " " << userNames.at(i).first;
+        if (i < userNames.size() - 1)
+            std::cout << std::endl;
     }
 
     Ui::pressKey();

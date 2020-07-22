@@ -6,10 +6,9 @@
 #include <queue>
 #include <algorithm>
 #include "../header/FileHandler.hpp"
-#include "../header/UIhandler.hpp"
+#include "../header/Ui.hpp"
 #include "../header/Settings.hpp"
 #include "../constant/Constants.hpp"
-#include "../namespace/header/cod_algorithm.hpp"
 
 std::string FileHandler::toString(const ISaveable &iSaver)
 {

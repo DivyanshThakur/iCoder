@@ -1,19 +1,4 @@
 #include "../Constants.hpp"
-#include "../header/Core.hpp"
-
-/**********************************************************************************************************************
- * 
- *             THIS FILE INCLUDES ALL THE CONSTANTS INVOLVED IN THE WHOLE PROGRAM AND ALL THE HEADER FILES
- * 
- * *******************************************************************************************************************/
-
-// used for temporary conditions
-bool isquitConditionEnabled{false};
-
-//accounthandler.h
-// const std::string username{"Username: "};
-// const std::string password{"Password: "};
-// const std::string RePassword{"Re-enter Password: "};
 
 /*************************************************** GLOBAL CLASS ****************************************************/
 std::string Global::activeUser;

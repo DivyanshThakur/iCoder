@@ -23,9 +23,9 @@
 #include "header/Settings.hpp"
 #include "header/FileHandler.hpp"
 #include "header/AccountHandler.hpp"
-#include "dsa/header/DataStructure.hpp"
+// #include "dsa/header/DataStructure.hpp"
 #include "namespace/header/cod_scan.hpp"
-#include "animation/header/AnimeHandler.hpp"
+// #include "animation/header/AnimeHandler.hpp"
 #include "constant/Constants.hpp"
 
 int main()
@@ -99,7 +99,7 @@ void Main::Menu::controller() const
         break;
 
     case 4: // open more features screen
-        // More::start();
+        More::start();
         break;
 
     case 5:                          // show saved user details
@@ -177,7 +177,7 @@ void Main::signOut()
     Constant::Path::USER.clear();
     welcomeFlag = true;
 
-    AnimeHandler::sign_out();
+    // AnimeHandler::sign_out();
 }
 
 // It creates a path to the user's document folder for storing the user data

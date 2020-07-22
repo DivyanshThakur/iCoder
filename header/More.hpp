@@ -2,7 +2,6 @@
 #define MORE_HPP
 
 #include "IMenu.hpp"
-
 class More
 {
     /**

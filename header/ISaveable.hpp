@@ -1,7 +1,9 @@
 #ifndef ISAVEABLE_HPP
 #define ISAVEABLE_HPP
 
-#include <utility>
+#include <vector>
+#include <string>
+
 class ISaveable
 {
 public:

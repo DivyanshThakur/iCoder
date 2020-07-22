@@ -2,9 +2,7 @@
 #include <iomanip>
 #include <windows.h>
 #include "../header/Settings.hpp"
-#include "../header/UIhandler.hpp"
 #include "../constant/Constants.hpp"
-#include "../namespace/header/cod_algorithm.hpp"
 #include "../namespace/header/cod_exception.hpp"
 #include "../constant/enum.hpp"
 
@@ -25,24 +23,6 @@ void Ui::logo()
               << std::endl
               << std::endl;
 }
-
-// std::string stats_selector(const enum Status &stats, const std::vector<std::string> &statsData)
-// { // The status enum is passed and the specific stats is selected
-//     switch (stats)
-//     {
-//     case DEFAULT:
-//         return cod::toupper(statsData.at(0));
-
-//     case EASY:
-//         return cod::toupper(statsData.at(1));
-
-//     case ADV:
-//         return cod::toupper(statsData.at(2));
-
-//     default:
-//         return "";
-//     }
-// }
 
 std::string Ui::getTip()
 {
@@ -123,7 +103,7 @@ void Ui::subHeader(const std::string &heading)
     std::cout << std::setfill('-')
               << std::setw(3) << " "
               << heading << " "
-              << std::setw(Constant::Ui::MENU_WIDTH - (heading.size() + 2)) << ""
+              << std::setw(Constant::Ui::MENU_WIDTH - (heading.size() + 4)) << ""
               << std::setfill(' ')
               << std::endl;
 }
@@ -150,8 +130,7 @@ std::vector<std::string> Ui::getHint()
 
 void Ui::border()
 {
-    std::cout << std::endl
-              << std::setfill('-')
+    std::cout << std::setfill('-')
               << std::setw(Constant::Ui::MENU_WIDTH) << ""
               << std::setfill(' ')
               << std::endl;
@@ -210,16 +189,15 @@ void Ui::println(const std::string &message)
 
 void Ui::println(const std::vector<std::string> &vec)
 {
-    print(vec);
+    for (const auto &str : vec)
+        std::cout << str << std::endl;
     pressKey();
 }
 
 void Ui::pressKey(const std::string &message)
 {
     print(message);
-
-    if (getch() == Constant::ESC)
-        throw EscPressed();
+    getch();
 }
 
 bool Ui::isKeyPressed(const std::string &message, char key)

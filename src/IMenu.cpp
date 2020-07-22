@@ -1,8 +1,12 @@
 #include <iomanip>
 #include <numeric>
 #include "../header/IMenu.hpp"
-#include "../header/UIhandler.hpp"
+#include "../header/Ui.hpp"
 #include "../constant/Constants.hpp"
+#include "../constant/enum.hpp"
+
+cod::scan IMenu::scan;
+int IMenu::ch;
 
 void IMenu::menuIndexer(size_t end, size_t start, size_t val)
 {
@@ -27,19 +31,6 @@ void IMenu::caller() const
         Ui::println(std::string{"Invalid choice"});
 }
 
-void IMenu::check() const
-{
-    try
-    {
-        scan >> ch;
-        caller();
-    }
-    catch (const cod::exception &e)
-    {
-        e.what();
-    }
-}
-
 void IMenu::player(IMenu &&iMenu)
 {
     do
@@ -60,15 +51,25 @@ void IMenu::player(IMenu &&iMenu)
         for (size_t index{0}; index < menuToDisplay.size(); ++index)
         {
             // Print the index starting 1 till vector size
-            std::cout << std::setw(2) << std::right << index + 1 << ". " << menuToDisplay.at(index);
-
-            if (index < menuToDisplay.size() - 1) // New line is not printed at last menu option
-                std::cout << std::endl;
+            std::cout << std::setw(2) << std::right << index + 1 << ". " << menuToDisplay.at(index) << std::endl;
         }
 
         Ui::print(std::string{"Your Choice: "}); // ask user for input
 
-        iMenu.check();
+        try
+        {
+            scan >> ch;
+            iMenu.caller();
+        }
+        catch (const EscPressed &e)
+        {
+            if (opnScreen != CUR_MENU)
+                return;
+        }
+        catch (const cod::exception &e)
+        {
+            e.what();
+        }
 
     } while (1);
 }

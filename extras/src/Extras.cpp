@@ -2,15 +2,14 @@
 #include <conio.h>
 #include <iomanip>
 #include "../Extras.hpp"
-#include "../constant/Constants.hpp"
-#include "../namespace/header/cod_scan.hpp"
+#include "../../constant/Constants.hpp"
+#include "../../namespace/header/cod_scan.hpp"
 
 void Extras::about()
 {
-    Ui::logo();
+    Ui::header(Constant::Title::ABOUT);
 
     std::vector<std::string> aboutVec;
-    aboutVec.emplace_back(Constant::Title::ABOUT);
     aboutVec.emplace_back("Developer: " + Constant::iCoder::DEV);
     aboutVec.emplace_back("Version:   " + Constant::iCoder::VERSION);
     Ui::print(aboutVec);

@@ -1,8 +1,7 @@
 #include "../header/cod_array.hpp"
 #include "../header/cod_limits.hpp"
-#include "../header/cod_pair.hpp"
-#include "../../header/UIhandler.hpp"
-#include "../../header/ExHandler.hpp"
+#include "../../header/Ui.hpp"
+#include "../header/cod_exception.hpp"
 
 /************************************************************************************************************************
  * 
@@ -1180,7 +1179,7 @@ std::vector<double> cod::array<double>::find_missing(size_t start, size_t end) /
 
     if (!this->isSorted())
     {
-        wait_message(std::string{"Checking array..."});
+        Ui::waitMessage("Checking array...");
         this->sort();
     }
 

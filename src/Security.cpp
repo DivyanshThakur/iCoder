@@ -2,9 +2,13 @@
 #include <time.h>
 #include "../header/Security.hpp"
 
+std::string Encrypter::key;
+std::string Decrypter::value;
+
 std::string Encrypter::encrypt(const std::string &value)
 {
     srand(time(NULL));
+    key.clear();
 
     int rVal = rand() % noOfChars;
 

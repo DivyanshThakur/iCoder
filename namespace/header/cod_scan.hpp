@@ -4,7 +4,7 @@
 #include <iostream>
 #include <conio.h>
 #include "cod_exception.hpp"
-#include "../../header/UIhandler.hpp"
+#include "../../header/Ui.hpp"
 
 namespace cod
 {
@@ -26,12 +26,7 @@ namespace cod
             while ((sc.c = getch()) && !(sc.value.size() && (sc.c == '\r' || sc.c == ' ')))
             {
                 sc.isLimitExceed = (sc.value.size() > 0);
-
-                if (sc.check_char() == -1)
-                {
-                    sc.isLast = true;
-                    throw EscPressed();
-                }
+                sc.check_char();
             }
 
             sc.assign(data);
@@ -47,10 +42,6 @@ namespace cod
             {
                 switch (sc.check_char())
                 {
-                case -1:
-                    sc.isLast = true;
-                    throw EscPressed();
-
                 case 1:
                     if (sc.value.size())
                         goto after_space;
@@ -85,13 +76,10 @@ namespace cod
                         break;
 
                     if (count == 3)
-                        emessage(std::string{"     Press Enter to submit data"});
+                        Ui::popUp(std::string{"     Press Enter to submit data"});
                 }
-                if (sc.check_char() == -1)
-                {
-                    sc.isLast = true;
-                    throw EscPressed();
-                }
+
+                sc.check_char();
             }
 
             sc.assign(data);
@@ -112,11 +100,7 @@ namespace cod
                         break;
                 }
 
-                if (sc.check_char() == -1)
-                {
-                    sc.isLast = true;
-                    throw EscPressed();
-                }
+                sc.check_char();
             }
 
             sc.assign(data);

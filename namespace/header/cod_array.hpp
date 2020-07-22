@@ -2,8 +2,8 @@
 #define COD_ARRAY_HPP
 
 #include <iostream>
-#include "../header/cod_pair.hpp"
-#include "../../header/Constants.hpp"
+#include "../../constant/enum.hpp"
+#include "../../constant/Constants.hpp"
 
 namespace cod
 {

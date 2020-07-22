@@ -1,5 +1,5 @@
 #include "../header/cod_exception.hpp"
-#include "../../header/UIhandler.hpp"
+#include "../../header/Ui.hpp"
 #include "../../header/Settings.hpp"
 #include "../../extras/Extras.hpp"
 #include "../../header/More.hpp"
@@ -55,6 +55,10 @@ void InvalidPositionException::what() const noexcept
     Ui::println("Invalid position!");
 }
 
+void EscPressed::what() const noexcept
+{
+}
+
 void Exit::what() const noexcept
 {
     bool toProceed = true;
@@ -96,15 +100,15 @@ void OpenMoreScreen::what() const noexcept
     More::start();
 }
 
-OpenAnimeSetting::OpenAnimeSetting(size_t pos) : pos(pos)
-{
-}
+// OpenAnimeSetting::OpenAnimeSetting(size_t pos) : pos(pos)
+// {
+// }
 
-void OpenAnimeSetting::what() const noexcept
-{
-    std::string message{". Disable "};
-    message += Constant::Menu::SETTINGS.at(pos - 1);
+// void OpenAnimeSetting::what() const noexcept
+// {
+//     std::string message{". Disable "};
+//     message += Constant::Menu::SETTINGS.at(pos - 1);
 
-    Settings mySetting;
-    // mySetting.show_me_first(std::to_string(pos) + message, pos);
-}
+//     Settings mySetting;
+//     // mySetting.show_me_first(std::to_string(pos) + message, pos);
+// }

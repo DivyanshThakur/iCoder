@@ -8,8 +8,6 @@
 #include "../header/cod_limits.hpp"
 #include "../../constant/Constants.hpp"
 
-// #include "../header/cod_algorithm.hpp" // cod_string is included in cod_algorithm
-
 /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
 
 std::vector<std::pair<std::string, std::string>> cod::string::save() const

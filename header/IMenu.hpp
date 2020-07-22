@@ -11,7 +11,6 @@ protected:
     static int ch;
     virtual void menuIndexer(size_t end, size_t start = 0, size_t val = 1);
     virtual void caller() const;
-    virtual void check() const;
 
 public:
     virtual std::string title() const = 0;
