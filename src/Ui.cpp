@@ -4,7 +4,6 @@
 #include "../header/Settings.hpp"
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_exception.hpp"
-#include "../constant/enum.hpp"
 
 void Ui::logo()
 {
@@ -31,67 +30,6 @@ std::string Ui::getTip()
     return "Press 'h' for help :)";
 }
 
-void Ui::updateLastScreen()
-{
-    // The last screen is updated from current string
-    switch (opnScreen)
-    {
-    case CUR_ARRAY:
-        lstScreen = LAST_ARRAY;
-        break;
-
-    case CUR_DS:
-        lstScreen = LAST_DS;
-        break;
-
-    case CUR_GAMES:
-        lstScreen = LAST_GAMES;
-        break;
-
-    case CUR_MENU:
-        lstScreen = LAST_MENU;
-        break;
-
-    case CUR_MORE:
-        lstScreen = LAST_MORE;
-        break;
-
-    case CUR_SETTINGS:
-        lstScreen = LAST_SETTINGS;
-        break;
-
-    case CUR_STRING:
-        lstScreen = LAST_STRING;
-        break;
-
-    case CUR_UPDATES:
-        lstScreen = LAST_UPDATES;
-        break;
-    }
-}
-
-void Ui::updateScreen(const std::string &heading)
-{
-    updateLastScreen();
-
-    if (heading == Constant::Title::ARRAY)
-        opnScreen = CUR_ARRAY;
-    else if (heading == Constant::Title::DATA_STRUCTURE)
-        opnScreen = CUR_DS;
-    else if (heading == Constant::Title::GAMES)
-        opnScreen = CUR_GAMES;
-    else if (heading == Constant::Title::MAIN)
-        opnScreen = CUR_MENU;
-    else if (heading == Constant::Title::MORE)
-        opnScreen = CUR_MORE;
-    else if (heading == Constant::Title::SETTINGS || heading == Constant::Title::CHANGE_LINEAR_SEARCH_TYPE)
-        opnScreen = CUR_SETTINGS;
-    else if (heading == Constant::Title::STRING)
-        opnScreen = CUR_STRING;
-    else if (heading == Constant::Title::UPDATES)
-        opnScreen = CUR_UPDATES;
-}
-
 void Ui::header(const std::string &heading)
 {
     logo();
@@ -114,16 +52,16 @@ std::vector<std::string> Ui::getHint()
 
     std::vector<std::string> vec;
 
-    if (opnScreen != CUR_MENU)
-        vec.emplace_back(" ESC    Last Screen");
+    if (Global::openedScreen.back() != Constant::Title::MAIN)
+        vec.emplace_back("Esc  Last Screen");
 
-    vec.emplace_back(" h      Help Screen");
+    vec.emplace_back("h    Help Screen");
 
-    if (opnScreen != CUR_MORE)
-        vec.emplace_back(" m      More features");
+    if (Global::openedScreen.back() != Constant::Title::MORE)
+        vec.emplace_back("m    More features");
 
-    if (opnScreen != CUR_SETTINGS)
-        vec.emplace_back(" d      Disable this hint");
+    if (Global::openedScreen.back() != Constant::Title::SETTINGS)
+        vec.emplace_back("d    Disable this hint");
 
     return vec;
 }
@@ -177,7 +115,7 @@ void Ui::print(const std::string &message)
 void Ui::print(const std::vector<std::string> &vec)
 {
     for (const auto &str : vec)
-        std::cout << str << std::endl;
+        std::cout << " " << static_cast<char>(175) << " " << str << std::endl;
     std::cout << std::endl;
 }
 
@@ -190,7 +128,7 @@ void Ui::println(const std::string &message)
 void Ui::println(const std::vector<std::string> &vec)
 {
     for (const auto &str : vec)
-        std::cout << str << std::endl;
+        std::cout << " " << static_cast<char>(175) << " " << str << std::endl;
     pressKey();
 }
 

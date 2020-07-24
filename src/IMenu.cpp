@@ -33,10 +33,12 @@ void IMenu::caller() const
 
 void IMenu::player(IMenu &&iMenu)
 {
+    Global::openedScreen.push_back(iMenu.title());
+
     do
     {
         Ui::logo();
-        Ui::updateScreen(iMenu.title()); // It will update the current screen enum variable
+        // Ui::updateScreen(iMenu.title()); // It will update the current screen enum variable
 
         if (Global::showHint)
             Ui::print(Ui::getHint());
@@ -50,7 +52,6 @@ void IMenu::player(IMenu &&iMenu)
         // Here, the vecMenu passed from function contains the menu options in vector of string
         for (size_t index{0}; index < menuToDisplay.size(); ++index)
         {
-            // Print the index starting 1 till vector size
             std::cout << std::setw(2) << std::right << index + 1 << ". " << menuToDisplay.at(index) << std::endl;
         }
 
@@ -63,8 +64,8 @@ void IMenu::player(IMenu &&iMenu)
         }
         catch (const EscPressed &e)
         {
-            if (opnScreen != CUR_MENU)
-                return;
+            if (Global::openedScreen.back() != Constant::Title::MAIN)
+                throw EscPressed();
         }
         catch (const cod::exception &e)
         {
@@ -72,4 +73,9 @@ void IMenu::player(IMenu &&iMenu)
         }
 
     } while (1);
+}
+
+IMenu::~IMenu()
+{
+    Global::openedScreen.pop_back();
 }

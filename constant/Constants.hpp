@@ -8,6 +8,7 @@ class Global
 {
 public:
     static std::string activeUser;
+    static std::vector<std::string> openedScreen;
     static bool showWelcome;
     static bool showHint;
     static bool showQuit;

@@ -38,13 +38,13 @@ const std::vector<std::string> Constant::SubMenu::RANGE_STRING{"Full string", "S
 
 /************************************************ Constant::VERSiON Constant ************************************************/
 
-const std::vector<std::string> Constant::Version::UPCOMING{" >> Games", " >> oops"};
-const std::vector<std::string> Constant::Version::V1_0{" >> Basic array features added"};
-const std::vector<std::string> Constant::Version::V1_2{" >> Added code to save changes made by the user for future use"};
-const std::vector<std::string> Constant::Version::V1_4{" >> Complete array operations added", " >> Increased user experience"};
-const std::vector<std::string> Constant::Version::V1_6{" >> Added shortcuts for faster switching", " >> Added more features to settings", " >> User can now directly download the updates from GitHub"};
-const std::vector<std::string> Constant::Version::V1_8{" >> Added Strings with advanced operations", " >> Increased password security with encryption", " >> Ui changes & bug fixes", " >> Hints-added for new users", " >> New falling animation added", " >> More customization in settings"};
-const std::vector<std::string> Constant::Version::V2_0{" >> Complete backend transformation"};
+const std::vector<std::string> Constant::Version::UPCOMING{"Games", "oops"};
+const std::vector<std::string> Constant::Version::V1_0{"Basic array features added"};
+const std::vector<std::string> Constant::Version::V1_2{"Added code to save changes made by the user for future use"};
+const std::vector<std::string> Constant::Version::V1_4{"Complete array operations added", "Increased user experience"};
+const std::vector<std::string> Constant::Version::V1_6{"Added shortcuts for faster switching", "Added more features to settings", "User can now directly download the updates from GitHub"};
+const std::vector<std::string> Constant::Version::V1_8{"Added Strings with advanced operations", "Increased password security with encryption", "Ui changes & bug fixes", "Hints-added for new users", "New falling animation added", "More customization in settings"};
+const std::vector<std::string> Constant::Version::V2_0{"Complete backend transformation"};
 
 /*************************************** TITLE *****************************************/
 const std::string Constant::Title::ABOUT{"ABOUT"};

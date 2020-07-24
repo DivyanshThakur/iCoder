@@ -48,23 +48,22 @@ private:
 
     static void updateStats(enum Status &stats, int c);
 
-    // static std::string state_selector(bool isTrue);
-    // static void settings_controller(char ch);
-    // static std::vector<std::string> settings_screen_selector();
-    // static void change_text_anime_speed();
-    // static void change_lsearch_type();
-    // static void change_shortcuts_type();
-    // static void change_home_screen();
-    // static void change_theme_type();
-    // static void change_anime_style();
-    // static void change_display_style();
-    // static void welcome_message();
-    // static void quit_message();
-    // static void hint_message();
-    // static void reset();
+    static void settings_controller(char ch);
+    static std::vector<std::string> settings_screen_selector();
+    static void change_text_anime_speed();
+    static void change_lsearch_type();
+    static void change_shortcuts_type();
+    static void change_home_screen();
+    static void change_theme_type();
+    static void change_anime_style();
+    static void change_display_style();
+    static void welcome_message();
+    static void quit_message();
+    static void hint_message();
+    static void reset();
 
-    // static bool isDefault();
-    // static void save(const std::pair<std::string, std::string> &pair);
+    static bool isDefault();
+    static void save(const std::pair<std::string, std::string> &pair);
 
     // // move below code to anime class
     // static void show_me_first(const std::string &message, int repeatFor);

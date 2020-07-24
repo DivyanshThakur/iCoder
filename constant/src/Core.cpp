@@ -2,6 +2,7 @@
 
 /*************************************************** GLOBAL CLASS ****************************************************/
 std::string Global::activeUser;
+std::vector<std::string> Global::openedScreen;
 bool Global::showWelcome;
 bool Global::showHint;
 bool Global::showQuit;

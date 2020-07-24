@@ -19,7 +19,7 @@ public:
     virtual void controller() const = 0;
     static void player(IMenu &&iMenu);
 
-    virtual ~IMenu() = default;
+    virtual ~IMenu();
 };
 
 #endif

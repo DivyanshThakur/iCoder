@@ -9,8 +9,6 @@ class Ui
 public:
     static void logo();
     static std::string getTip();
-    static void updateLastScreen();
-    static void updateScreen(const std::string &heading);
     static void header(const std::string &heading);
     static void subHeader(const std::string &heading);
     static std::vector<std::string> getHint();

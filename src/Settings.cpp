@@ -39,48 +39,48 @@ std::vector<std::string> Settings::Menu::selector()
 
 void Settings::Menu::controller() const
 {
-    // switch (menuIndex.at(ch - 1))
-    // {
-    // case 1: // change the animation speed of the menu
-    //     change_text_anime_speed();
-    //     break;
+    switch (menuIndex.at(ch - 1))
+    {
+        // case 1: // change the animation speed of the menu
+        //     change_text_anime_speed();
+        //     break;
 
-    // case 2: // change linear search type
-    //     change_lsearch_type();
-    //     break;
+        // case 2: // change linear search type
+        //     change_lsearch_type();
+        //     break;
 
-    // case 3: // change shortcuts access type
-    //     change_shortcuts_type();
-    //     break;
+        // case 3: // change shortcuts access type
+        //     change_shortcuts_type();
+        //     break;
 
-    // case 4: // change theme type
-    //     change_theme_type();
-    //     break;
+        // case 4: // change theme type
+        //     change_theme_type();
+        //     break;
 
-    // case 5: // change animation style
-    //     change_anime_style();
-    //     break;
+        // case 5: // change animation style
+        //     change_anime_style();
+        //     break;
 
-    // case 6: // change display style
-    //     change_display_style();
-    //     break;
+        // case 6: // change display style
+        //     change_display_style();
+        //     break;
 
-    // case 7: // welcome message enable/disable
-    //     welcome_message();
-    //     break;
+        // case 7: // welcome message enable/disable
+        //     welcome_message();
+        //     break;
 
-    // case 8: // quit message enable/disable
-    //     quit_message();
-    //     break;
+        // case 8: // quit message enable/disable
+        //     quit_message();
+        //     break;
 
-    // case 9: // hint message enable/disable
-    //     hint_message();
-    //     break;
+        // case 9: // hint message enable/disable
+        //     hint_message();
+        //     break;
 
-    // case 10: // reset the settings and delete users
-    //     reset();
-    //     break;
-    // }
+        // case 10: // reset the settings and delete users
+        //     reset();
+        //     break;
+    }
 }
 
 /**************************************************************************************************************
@@ -174,7 +174,7 @@ bool Settings::Data::generate() const
 
 void Settings::saveActiveUser()
 {
-    // save({Constant::File::CURRENT_USER, Global::activeUser});
+    save({Constant::File::CURRENT_USER, Global::activeUser});
 }
 
 Settings::Data &Settings::data()
@@ -223,12 +223,12 @@ void Settings::start()
 //     return false;
 // }
 
-// void Settings::save(const std::pair<std::string, std::string> &pair)
-// {
-//     pairBuffer = pair;
+void Settings::save(const std::pair<std::string, std::string> &pair)
+{
+    pairBuffer = pair;
 
-//     FileHandler::save(data()); // saves the changes to the file
-// }
+    FileHandler::save(data()); // saves the changes to the file
+}
 
 // // Common function to update the Status enum variables
 void Settings::updateStats(enum Status &stats, int c)
@@ -280,15 +280,6 @@ void Settings::updateStats(enum Status &stats, int c)
 
 //     Sleep(300);
 //     settings();
-// }
-
-// std::string Settings::state_selector(bool isTrue)
-// {
-//     return (isTrue ? std::string{"Disable "} : std::string{"Enable "});
-// }
-
-// void Settings::settings_controller(char ch)
-// {
 // }
 
 // std::vector<std::string> Settings::settings_screen_selector()

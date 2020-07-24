@@ -62,7 +62,6 @@ std::vector<std::string> Main::Menu::getStats() const
 
 std::vector<std::string> Main::Menu::selector()
 {
-    // menuIndex.clear(); // clear the previous saved index
     size_t size = Constant::Menu::MAIN.size();
 
     if (Global::activeUser == Constant::NULL_STR) // if active user is null, run this code
