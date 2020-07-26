@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <windows.h>
-#include "../header/Settings.hpp"
+#include "../settings/header/Settings.hpp"
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_exception.hpp"
 

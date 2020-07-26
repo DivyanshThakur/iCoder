@@ -4,9 +4,9 @@
 #include <fstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
-#include "../header/FileHandler.hpp"
-#include "../constant/Constants.hpp"
-#include "../namespace/header/cod_scan.hpp"
+#include "../../header/FileHandler.hpp"
+#include "../../constant/Constants.hpp"
+#include "../../namespace/header/cod_scan.hpp"
 
 std::pair<std::string, std::string> Settings::pairBuffer;
 Settings::Data Settings::userData;

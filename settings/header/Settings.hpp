@@ -2,9 +2,9 @@
 #define SETTINGS_HPP
 
 #include <vector>
-#include "IMenu.hpp"
-#include "ISaveable.hpp"
-#include "../constant/enum.hpp"
+#include "../../header/IMenu.hpp"
+#include "../../header/ISaveable.hpp"
+#include "../../constant/enum.hpp"
 
 class Settings
 {
@@ -50,9 +50,9 @@ private:
 
     static void settings_controller(char ch);
     static std::vector<std::string> settings_screen_selector();
-    static void change_text_anime_speed();
+    // static void change_text_anime_speed();
     static void change_lsearch_type();
-    static void change_shortcuts_type();
+    // static void change_shortcuts_type();
     static void change_home_screen();
     static void change_theme_type();
     static void change_anime_style();

@@ -4,7 +4,8 @@ OBJ_DS = #obj\Array.o obj\DataStructure.o obj\String.o
 OBJ_EXTRA = obj\Changelog.o obj\Extras.o obj\Updates.o
 OBJ_GAMES= obj\Games.o obj\TicTacToe.o
 OBJ_COD = obj\cod_exception.o obj\cod_limits.o obj\cod_scan.o #obj\cod_array.o obj\cod_string.o
-OBJ = obj\Account.o obj\AccountHandler.o obj\CreateAccount.o obj\FileHandler.o obj\IMenu.o obj\ISaveable.o obj\More.o obj\Security.o obj\Settings.o obj\Ui.o obj\iCoder.o
+OBJ_SET = obj\Settings.o
+OBJ = obj\Account.o obj\AccountHandler.o obj\CreateAccount.o obj\FileHandler.o obj\IMenu.o obj\ISaveable.o obj\More.o obj\Security.o obj\Ui.o obj\iCoder.o
 OBJ_FILES = obj/*.o
 LIBS = -static
 CC = g++
@@ -13,7 +14,7 @@ C_FLAGS = -Wall -c
 
 ### Build the Project
 
-all: $(OBJ_ANIME) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_COD) $(OBJ)
+all: $(OBJ_ANIME) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_COD) $(OBJ_SET) $(OBJ)
 	$(CC) $(l_FLAG) $(OBJ_FILES) $(LIBS) -o iCoder
 
 ### Animation files are compiled from below
@@ -88,6 +89,13 @@ obj\cod_scan.o: namespace\src\cod_scan.cpp namespace\header\cod_scan.hpp
 obj\cod_string.o: namespace\src\cod_string.cpp namespace\header\cod_string.hpp
 	$(CC) $(C_FLAGS) namespace\src\cod_string.cpp -o obj\cod_string.o
 
+# Settings files are compiled from below
+
+
+obj\Settings.o: settings\src\Settings.cpp settings\header\Settings.hpp
+	$(CC) $(C_FLAGS) settings\src\Settings.cpp -o obj\Settings.o
+
+
 ### Common files are compiled from below
 
 obj\Account.o: src\Account.cpp header\Account.hpp
@@ -113,9 +121,6 @@ obj\More.o: src\More.cpp header\More.hpp
 
 obj\Security.o: src\Security.cpp header\Security.hpp
 	$(CC) $(C_FLAGS) src\Security.cpp -o obj\Security.o
-
-obj\Settings.o: src\Settings.cpp header\Settings.hpp
-	$(CC) $(C_FLAGS) src\Settings.cpp -o obj\Settings.o
 
 obj\Ui.o: src\Ui.cpp header\Ui.hpp
 	$(CC) $(C_FLAGS) src\Ui.cpp -o obj\Ui.o

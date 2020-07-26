@@ -221,6 +221,10 @@ std::string cod::scan::password()
             break;
         }
     }
+
+    if (c == '\r')
+        print();
+
     return value;
 }
 

@@ -1,6 +1,6 @@
 #include "../header/cod_exception.hpp"
 #include "../../header/Ui.hpp"
-#include "../../header/Settings.hpp"
+#include "../../settings/header/Settings.hpp"
 #include "../../extras/Extras.hpp"
 #include "../../header/More.hpp"
 #include "../../constant/Constants.hpp"
@@ -53,10 +53,6 @@ void ArrayEmptyException::what() const noexcept
 void InvalidPositionException::what() const noexcept
 {
     Ui::println("Invalid position!");
-}
-
-void EscPressed::what() const noexcept
-{
 }
 
 void Exit::what() const noexcept

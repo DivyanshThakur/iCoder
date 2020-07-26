@@ -38,7 +38,6 @@ void IMenu::player(IMenu &&iMenu)
     do
     {
         Ui::logo();
-        // Ui::updateScreen(iMenu.title()); // It will update the current screen enum variable
 
         if (Global::showHint)
             Ui::print(Ui::getHint());
@@ -65,7 +64,7 @@ void IMenu::player(IMenu &&iMenu)
         catch (const EscPressed &e)
         {
             if (Global::openedScreen.back() != Constant::Title::MAIN)
-                throw EscPressed();
+                return;
         }
         catch (const cod::exception &e)
         {

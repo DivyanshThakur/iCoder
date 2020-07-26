@@ -7,7 +7,7 @@
 #include <algorithm>
 #include "../header/FileHandler.hpp"
 #include "../header/Ui.hpp"
-#include "../header/Settings.hpp"
+#include "../settings/header/Settings.hpp"
 #include "../constant/Constants.hpp"
 
 std::string FileHandler::toString(const ISaveable &iSaver)

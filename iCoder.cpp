@@ -20,7 +20,7 @@
 #include "iCoder.hpp"
 #include "header/More.hpp"
 #include "extras/Extras.hpp"
-#include "header/Settings.hpp"
+#include "settings/header/Settings.hpp"
 #include "header/FileHandler.hpp"
 #include "header/AccountHandler.hpp"
 // #include "dsa/header/DataStructure.hpp"

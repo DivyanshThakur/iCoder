@@ -14,7 +14,7 @@ void CreateAccount::input()
 
     Account::input();
 
-    Ui::print("Confirm Password: ");
+    std::cout << "Confirm Password: ";
     rePass = sc.password();
 }
 

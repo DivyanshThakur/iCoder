@@ -11,6 +11,10 @@ namespace cod
     };
 }; // namespace cod
 
+class EscPressed
+{
+};
+
 class NegativeValueException : public cod::exception
 {
 public:
@@ -60,12 +64,6 @@ public:
 };
 
 class InvalidPositionException : public cod::exception
-{
-public:
-    virtual void what() const noexcept override;
-};
-
-class EscPressed : public cod::exception
 {
 public:
     virtual void what() const noexcept override;

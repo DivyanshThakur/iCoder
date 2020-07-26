@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <fstream>
 #include "../header/Account.hpp"
-#include "../header/Settings.hpp"
+#include "../settings/header/Settings.hpp"
 #include "../header/FileHandler.hpp"
 #include "../header/Security.hpp"
 #include "../constant/Constants.hpp"
@@ -72,10 +72,10 @@ void Account::input()
 {
     cod::scan sc;
 
-    Ui::print("Username: ");
+    std::cout << "Username: ";
     userId = sc.username(); // taking username from user
 
-    Ui::print("Password: ");
+    std::cout << "Password: ";
     pass = sc.password(); // scanning password
 
     pairBuffer = std::pair<std::string, std::string>(userId, Encrypter::encrypt(pass));
