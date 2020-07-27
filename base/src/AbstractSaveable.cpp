@@ -1,10 +1,10 @@
 #include <fstream>
 #include <utility>
-#include "../header/ISaveable.hpp"
-#include "../constant/Constants.hpp"
-#include "../header/FileHandler.hpp"
+#include "../header/AbstractSaveable.hpp"
+#include "../../constant/Constants.hpp"
+#include "../../header/FileHandler.hpp"
 
-bool ISaveable::generate() const
+bool AbstractSaveable::generate() const
 {
     std::ifstream inFile(Constant::Path::USER);
 

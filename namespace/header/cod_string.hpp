@@ -3,14 +3,14 @@
 
 #include <iostream>
 #include "cod_scan.hpp"
-#include "../../header/FileHandler.hpp" // including both ISaveable & FileHandler
+#include "../../header/FileHandler.hpp" // including both AbstractSaveable & FileHandler
 
 namespace cod
 {
-    class string : public ISaveable
+    class string : public AbstractSaveable
     {
     public:
-        /************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
+        /************************************ AbstractSaveable PURE VIRTUAL FUNCTION ****************************************/
 
         virtual std::vector<std::pair<std::string, std::string>> save() const override;
         virtual void load(const std::vector<std::pair<std::string, std::string>> &vec) override;

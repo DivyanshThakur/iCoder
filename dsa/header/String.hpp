@@ -2,16 +2,16 @@
 #define STRING_HPP
 
 #include "../../namespace/header/cod_string.hpp"
-#include "../../header/IMenu.hpp"
+#include "../../header/AbstractMenu.hpp"
 
 class StringHandler
 {
     /**
  * Menu has all the methods necessary for showing menu
  * and controlling the flow of program as per user choice
- * It inherit the IMenu abstract class
+ * It inherit the AbstractMenu abstract class
  **/
-    class Menu : public IMenu
+    class Menu : public AbstractMenu
     {
         virtual std::string title() const override;
         virtual std::vector<std::string> getStats() const override;

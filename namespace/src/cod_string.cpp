@@ -8,7 +8,7 @@
 #include "../header/cod_limits.hpp"
 #include "../../constant/Constants.hpp"
 
-/************************************ ISAVEABLE PURE VIRTUAL FUNCTION ****************************************/
+/************************************ AbstractSaveable PURE VIRTUAL FUNCTION ****************************************/
 
 std::vector<std::pair<std::string, std::string>> cod::string::save() const
 {

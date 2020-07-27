@@ -1,7 +1,7 @@
 #ifndef EXTRAS_HPP
 #define EXTRAS_HPP
 
-#include "../header/IMenu.hpp"
+#include "../base/header/AbstractMenu.hpp"
 
 class Extras
 {
@@ -15,9 +15,9 @@ class Update
     /**
  * Menu has all the methods necessary for showing menu
  * and controlling the flow of program as per user choice
- * It inherit the IMenu abstract class
+ * It inherit the AbstractMenu abstract class
  **/
-    class Menu : public IMenu
+    class Menu : public AbstractMenu
     {
         virtual std::string title() const override;
         virtual std::vector<std::string> getStats() const override;
@@ -43,9 +43,9 @@ class Changelog
     /**
  * Menu has all the methods necessary for showing menu
  * and controlling the flow of program as per user choice
- * It inherit the IMenu abstract class
+ * It inherit the AbstractMenu abstract class
  **/
-    class Menu : public IMenu
+    class Menu : public AbstractMenu
     {
         virtual std::string title() const override;
         virtual std::vector<std::string> getStats() const override;
@@ -59,8 +59,8 @@ class Changelog
  * user configuration for better experience
  **/
 
-public: 
-/**
+public:
+    /**
  * A start method in each class to start its execution
  **/
     static void start();

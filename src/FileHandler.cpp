@@ -10,7 +10,7 @@
 #include "../settings/header/Settings.hpp"
 #include "../constant/Constants.hpp"
 
-std::string FileHandler::toString(const ISaveable &iSaver)
+std::string FileHandler::toString(const AbstractSaveable &iSaver)
 {
     iSaver.generate();
 
@@ -99,7 +99,7 @@ void FileHandler::updateSavedNumbers(std::string &numbers, int dig)
     }
 }
 
-void FileHandler::saveDefName(std::ofstream &outFile, const ISaveable &iSaver, std::stringstream &ss)
+void FileHandler::saveDefName(std::ofstream &outFile, const AbstractSaveable &iSaver, std::stringstream &ss)
 {
     if (iSaver.getPath() != Constant::Path::USER)
         return;
@@ -122,7 +122,7 @@ void FileHandler::saveDefName(std::ofstream &outFile, const ISaveable &iSaver, s
     print(outFile, dataToSave);
 }
 
-void FileHandler::save(const ISaveable &iSaver)
+void FileHandler::save(const AbstractSaveable &iSaver)
 {
     std::stringstream ss{toString(iSaver)};
     std::ofstream outFile(iSaver.getPath());
@@ -156,7 +156,7 @@ void FileHandler::save(const ISaveable &iSaver)
         print(outFile, dataToSave);
 }
 
-void FileHandler::load(ISaveable &iSaver, const std::string &tag)
+void FileHandler::load(AbstractSaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{toString(iSaver)};
 
@@ -182,7 +182,7 @@ void FileHandler::load(ISaveable &iSaver, const std::string &tag)
     }
 }
 
-bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
+bool FileHandler::find(const AbstractSaveable &iSaver, const std::string &tag)
 {
     std::stringstream ss{toString(iSaver)};
 
@@ -203,7 +203,7 @@ bool FileHandler::find(const ISaveable &iSaver, const std::string &tag)
     return false;
 }
 
-bool FileHandler::empty(const ISaveable &iSaver)
+bool FileHandler::empty(const AbstractSaveable &iSaver)
 {
     std::stringstream ss{toString(iSaver)};
     std::string word;
@@ -214,7 +214,7 @@ bool FileHandler::empty(const ISaveable &iSaver)
     return true;
 }
 
-std::vector<std::pair<std::string, std::string>> FileHandler::searchTag(const ISaveable &iSaver)
+std::vector<std::pair<std::string, std::string>> FileHandler::searchTag(const AbstractSaveable &iSaver)
 {
     std::vector<std::pair<std::string, std::string>> tags;
     std::stringstream ss{toString(iSaver)};
@@ -233,7 +233,7 @@ std::vector<std::pair<std::string, std::string>> FileHandler::searchTag(const IS
 }
 
 // Generate default name of the file by checking available name from the user file
-std::string FileHandler::nameGenerator(const ISaveable &iSaver, const std::string &title)
+std::string FileHandler::nameGenerator(const AbstractSaveable &iSaver, const std::string &title)
 {
     iSaver.generate();
 

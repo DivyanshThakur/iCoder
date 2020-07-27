@@ -10,9 +10,9 @@ class Account
     /**
  * Data has all the methods necessary for saving
  * and retreiving user data from the files
- * It inherit the ISaveable abstract class.
+ * It inherit the AbstractSaveable abstract class.
  **/
-    class Data : public ISaveable
+    class Data : public AbstractSaveable
     {
         virtual std::vector<std::pair<std::string, std::string>> save() const override;
         virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;

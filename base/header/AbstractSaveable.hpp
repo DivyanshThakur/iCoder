@@ -1,10 +1,10 @@
-#ifndef ISAVEABLE_HPP
-#define ISAVEABLE_HPP
+#ifndef ABSTRACT_SAVEABLE
+#define ABSTRACT_SAVEABLE
 
 #include <vector>
 #include <string>
 
-class ISaveable
+class AbstractSaveable
 {
 public:
     virtual std::vector<std::pair<std::string, std::string>> save() const = 0;
@@ -12,7 +12,7 @@ public:
     virtual std::string getPath() const = 0;
     virtual bool generate() const;
 
-    virtual ~ISaveable() = default;
+    virtual ~AbstractSaveable() = default;
 };
 
 #endif

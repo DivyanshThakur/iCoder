@@ -1,9 +1,9 @@
-#ifndef IMENU_HPP
-#define IMENU_HPP
+#ifndef ABSTRACT_MENU_HPP
+#define ABSTRACT_MENU_HPP
 
-#include "../namespace/header/cod_scan.hpp"
+#include "../../namespace/header/cod_scan.hpp"
 
-class IMenu
+class AbstractMenu
 {
 protected:
     std::vector<int> menuIndex; // It stored the index of the string to display
@@ -17,9 +17,9 @@ public:
     virtual std::vector<std::string> getStats() const = 0;
     virtual std::vector<std::string> selector() = 0;
     virtual void controller() const = 0;
-    static void player(IMenu &&iMenu);
+    static void player(AbstractMenu &&AbstractMenu);
 
-    virtual ~IMenu();
+    virtual ~AbstractMenu();
 };
 
 #endif

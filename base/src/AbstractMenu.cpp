@@ -1,14 +1,14 @@
 #include <iomanip>
 #include <numeric>
-#include "../header/IMenu.hpp"
-#include "../header/Ui.hpp"
-#include "../constant/Constants.hpp"
-#include "../constant/enum.hpp"
+#include "../header/AbstractMenu.hpp"
+#include "../../header/Ui.hpp"
+#include "../../constant/Constants.hpp"
+#include "../../constant/enum.hpp"
 
-cod::scan IMenu::scan;
-int IMenu::ch;
+cod::scan AbstractMenu::scan;
+int AbstractMenu::ch;
 
-void IMenu::menuIndexer(size_t end, size_t start, size_t val)
+void AbstractMenu::menuIndexer(size_t end, size_t start, size_t val)
 {
     menuIndex.resize(end);
     std::iota(menuIndex.begin() + start, menuIndex.end(), val);
@@ -23,7 +23,7 @@ void IMenu::menuIndexer(size_t end, size_t start, size_t val)
  * Since, the index of Menu is stored in menuIndex and thus is passed in menu controller
  **/
 
-void IMenu::caller() const
+void AbstractMenu::caller() const
 {
     if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
         controller();
@@ -31,9 +31,9 @@ void IMenu::caller() const
         Ui::println(std::string{"Invalid choice"});
 }
 
-void IMenu::player(IMenu &&iMenu)
+void AbstractMenu::player(AbstractMenu &&AbstractMenu)
 {
-    Global::openedScreen.push_back(iMenu.title());
+    Global::openedScreen.push_back(AbstractMenu.title());
 
     do
     {
@@ -42,11 +42,11 @@ void IMenu::player(IMenu &&iMenu)
         if (Global::showHint)
             Ui::print(Ui::getHint());
 
-        Ui::print(iMenu.getStats());
+        Ui::print(AbstractMenu.getStats());
 
-        Ui::subHeader(iMenu.title()); // It prints the heading to console
+        Ui::subHeader(AbstractMenu.title()); // It prints the heading to console
 
-        auto menuToDisplay = iMenu.selector();
+        auto menuToDisplay = AbstractMenu.selector();
 
         // Here, the vecMenu passed from function contains the menu options in vector of string
         for (size_t index{0}; index < menuToDisplay.size(); ++index)
@@ -59,7 +59,7 @@ void IMenu::player(IMenu &&iMenu)
         try
         {
             scan >> ch;
-            iMenu.caller();
+            AbstractMenu.caller();
         }
         catch (const EscPressed &e)
         {
@@ -74,7 +74,7 @@ void IMenu::player(IMenu &&iMenu)
     } while (1);
 }
 
-IMenu::~IMenu()
+AbstractMenu::~AbstractMenu()
 {
     Global::openedScreen.pop_back();
 }

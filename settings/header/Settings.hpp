@@ -2,8 +2,8 @@
 #define SETTINGS_HPP
 
 #include <vector>
-#include "../../header/IMenu.hpp"
-#include "../../header/ISaveable.hpp"
+#include "../../base/header/AbstractMenu.hpp"
+#include "../../base/header/AbstractSaveable.hpp"
 #include "../../constant/enum.hpp"
 
 class Settings
@@ -12,9 +12,9 @@ private:
     /**
  * Menu has all the methods necessary for showing menu
  * and controlling the flow of program as per user choice
- * It inherit the IMenu abstract class.
+ * It inherit the AbstractMenu abstract class.
  **/
-    class Menu : public IMenu
+    class Menu : public AbstractMenu
     {
         virtual std::string title() const override;
         virtual std::vector<std::string> getStats() const override;
@@ -25,9 +25,9 @@ private:
     /**
  * Data has all the methods necessary for saving
  * and retreiving user data from the files
- * It inherit the ISaveable abstract class.
+ * It inherit the AbstractSaveable abstract class.
  **/
-    class Data : public ISaveable
+    class Data : public AbstractSaveable
     {
         virtual std::vector<std::pair<std::string, std::string>> save() const override;
         virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;

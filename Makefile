@@ -1,11 +1,12 @@
 OBJ_ANIME = #obj\AnimeHandler.o obj\LoadAnime.o obj\SignOutAnime.o
+OBJ_BASE = obj\AbstractMenu.o obj\AbstractSaveable.o obj\FileData.o
 OBJ_CONST = obj\Core.o obj\enum.o obj\File.o obj\Menu.o
 OBJ_DS = #obj\Array.o obj\DataStructure.o obj\String.o
 OBJ_EXTRA = obj\Changelog.o obj\Extras.o obj\Updates.o
-OBJ_GAMES= obj\Games.o obj\TicTacToe.o
+OBJ_GAMES = obj\Games.o obj\TicTacToe.o
 OBJ_COD = obj\cod_exception.o obj\cod_limits.o obj\cod_scan.o #obj\cod_array.o obj\cod_string.o
 OBJ_SET = obj\Settings.o
-OBJ = obj\Account.o obj\AccountHandler.o obj\CreateAccount.o obj\FileHandler.o obj\IMenu.o obj\ISaveable.o obj\More.o obj\Security.o obj\Ui.o obj\iCoder.o
+OBJ = obj\Account.o obj\AccountHandler.o obj\CreateAccount.o obj\FileHandler.o obj\More.o obj\Security.o obj\Ui.o obj\iCoder.o
 OBJ_RES = obj\icon.o
 OBJ_FILES = obj/*.o
 LIBS = -static
@@ -15,7 +16,7 @@ C_FLAGS = -Wall -c
 
 ### Build the Project
 
-all: $(OBJ_ANIME) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_COD) $(OBJ_SET) $(OBJ) $(OBJ_RES)
+all: $(OBJ_ANIME) $(OBJ_BASE) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_COD) $(OBJ_SET) $(OBJ) $(OBJ_RES)
 	$(CC) $(l_FLAG) $(OBJ_FILES) $(LIBS) -o iCoder
 
 ### Animation files are compiled from below
@@ -28,6 +29,17 @@ obj\LoadAnime.o: animation\src\LoadAnime.cpp animation\header\LoadAnime.hpp
 
 obj\SignOutAnime.o: animation\src\SignOutAnime.cpp animation\header\SignOutAnime.hpp
 	$(CC) $(C_FLAGS) animation\src\SignOutAnime.cpp -o obj\SignOutAnime.o
+
+# Base files are compiled below
+
+obj\AbstractMenu.o: base\src\AbstractMenu.cpp base\header\AbstractMenu.hpp
+	$(CC) $(C_FLAGS) base\src\AbstractMenu.cpp -o obj\AbstractMenu.o
+
+obj\AbstractSaveable.o: base\src\AbstractSaveable.cpp base\header\AbstractSaveable.hpp
+	$(CC) $(C_FLAGS) base\src\AbstractSaveable.cpp -o obj\AbstractSaveable.o
+
+obj\FileData.o: base\src\FileData.cpp base\header\FileData.hpp
+	$(CC) $(C_FLAGS) base\src\FileData.cpp -o obj\FileData.o
 
 ### Constant files are compiled below
 
@@ -111,12 +123,6 @@ obj\CreateAccount.o: src\CreateAccount.cpp header\CreateAccount.hpp
 obj\FileHandler.o: src\FileHandler.cpp header\FileHandler.hpp
 	$(CC) $(C_FLAGS) src\FileHandler.cpp -o obj\FileHandler.o
 
-obj\IMenu.o: src\IMenu.cpp header\IMenu.hpp
-	$(CC) $(C_FLAGS) src\IMenu.cpp -o obj\IMenu.o
-
-obj\ISaveable.o: src\ISaveable.cpp header\ISaveable.hpp
-	$(CC) $(C_FLAGS) src\ISaveable.cpp -o obj\ISaveable.o
-
 obj\More.o: src\More.cpp header\More.hpp
 	$(CC) $(C_FLAGS) src\More.cpp -o obj\More.o
 
@@ -131,8 +137,8 @@ obj\iCoder.o: iCoder.cpp iCoder.hpp
 
 ### Other
 
-obj\icon.o: resources.rc
-	windres resources.rc -O coff -o obj\icon.o
+obj\icon.o: resources\resources.rc
+	windres resources\resources.rc -O coff -o obj\icon.o
 
 clean:
 	rm -f obj/*.o iCoder
