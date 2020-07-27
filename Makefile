@@ -6,6 +6,7 @@ OBJ_GAMES= obj\Games.o obj\TicTacToe.o
 OBJ_COD = obj\cod_exception.o obj\cod_limits.o obj\cod_scan.o #obj\cod_array.o obj\cod_string.o
 OBJ_SET = obj\Settings.o
 OBJ = obj\Account.o obj\AccountHandler.o obj\CreateAccount.o obj\FileHandler.o obj\IMenu.o obj\ISaveable.o obj\More.o obj\Security.o obj\Ui.o obj\iCoder.o
+OBJ_RES = obj\icon.o
 OBJ_FILES = obj/*.o
 LIBS = -static
 CC = g++
@@ -14,7 +15,7 @@ C_FLAGS = -Wall -c
 
 ### Build the Project
 
-all: $(OBJ_ANIME) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_COD) $(OBJ_SET) $(OBJ)
+all: $(OBJ_ANIME) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_COD) $(OBJ_SET) $(OBJ) $(OBJ_RES)
 	$(CC) $(l_FLAG) $(OBJ_FILES) $(LIBS) -o iCoder
 
 ### Animation files are compiled from below
@@ -129,6 +130,9 @@ obj\iCoder.o: iCoder.cpp iCoder.hpp
 	$(CC) $(C_FLAGS) iCoder.cpp -o obj\iCoder.o
 
 ### Other
+
+obj\icon.o: resources.rc
+	windres resources.rc -O coff -o obj\icon.o
 
 clean:
 	rm -f obj/*.o iCoder

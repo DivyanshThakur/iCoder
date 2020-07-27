@@ -88,5 +88,8 @@
         "any": "cpp",
         "bit": "cpp",
         "variant": "cpp"
-    }
+    },
+    "cSpell.words": [
+        "ifndef"
+    ]
 }
