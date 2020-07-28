@@ -43,7 +43,7 @@ private:
  * user choices and provide the user with many customizations.
  **/
 
-    static std::pair<std::string, std::string> pairBuffer;
+    // static std::pair<std::string, std::string> pairBuffer;
     static Data userData;
 
     static void updateStats(enum Status &stats, int c);
@@ -63,7 +63,7 @@ private:
     static void reset();
 
     static bool isDefault();
-    static void save(const std::pair<std::string, std::string> &pair);
+    // static void save(const std::pair<std::string, std::string> &pair);
 
     // // move below code to anime class
     // static void show_me_first(const std::string &message, int repeatFor);
@@ -74,7 +74,7 @@ public:
  * A data method returns the Data object by value
  **/
     static void start();
-    static Data &data();
+    static Data &getData();
 
     static void saveActiveUser();
 };

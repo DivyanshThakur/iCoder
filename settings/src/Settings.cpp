@@ -8,7 +8,7 @@
 #include "../../constant/Constants.hpp"
 #include "../../namespace/header/cod_scan.hpp"
 
-std::pair<std::string, std::string> Settings::pairBuffer;
+// std::pair<std::string, std::string> Settings::pairBuffer;
 Settings::Data Settings::userData;
 
 /**************************************************************************************************************
@@ -92,7 +92,7 @@ void Settings::Menu::controller() const
 std::vector<std::pair<std::string, std::string>> Settings::Data::save() const
 {
     std::vector<std::pair<std::string, std::string>> vec;
-    vec.push_back(pairBuffer);
+    //     vec.push_back(pairBuffer);
     return vec;
 }
 
@@ -174,10 +174,10 @@ bool Settings::Data::generate() const
 
 void Settings::saveActiveUser()
 {
-    save({Constant::File::CURRENT_USER, Global::activeUser});
+    // save({Constant::File::CURRENT_USER, Global::activeUser});
 }
 
-Settings::Data &Settings::data()
+Settings::Data &Settings::getData()
 {
     return userData;
 }
@@ -223,12 +223,12 @@ void Settings::start()
 //     return false;
 // }
 
-void Settings::save(const std::pair<std::string, std::string> &pair)
-{
-    pairBuffer = pair;
+// void Settings::save(const std::pair<std::string, std::string> &pair)
+// {
+//     pairBuffer = pair;
 
-    FileHandler::save(data()); // saves the changes to the file
-}
+//     FileHandler::save(data()); // saves the changes to the file
+// }
 
 // // Common function to update the Status enum variables
 void Settings::updateStats(enum Status &stats, int c)

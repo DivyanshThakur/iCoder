@@ -10,7 +10,7 @@ const std::vector<std::string> Constant::Menu::DATA_TYPE{"Int", "Long", "Double"
 const std::vector<std::string> Constant::Menu::GAMES{"Tic Tac Toe"};
 const std::vector<std::string> Constant::Menu::MAIN{"Log In", "Create Account", "Try (Anonymous)", "More Features", "Users", "Help", "About", "ChangeLog", "Updates", "Settings"};
 const std::vector<std::string> Constant::Menu::MORE{"Games"};
-const std::vector<std::string> Constant::Menu::SETTINGS{"Text animation speed", "Linear search type", "Shortcut access", "Themes", "Animation style", "Display style", "welcome messages", "quit confirmation", "hints", "Reset"};
+const std::vector<std::string> Constant::Menu::SETTINGS{"Loading Animation", "Configure hints", "Reset"};
 const std::vector<std::string> Constant::Menu::STRING{"Update string", "Add string", "Insert sub-string", "Delete sub-string", "Change case", "Display string", "Reverse", "Compare", "Merge", "Anagram", "Palindrome", "Permutation", "Find unique", "Find duplicates"};
 const std::vector<std::string> Constant::Menu::UPDATES{"Stable", "Beta"};
 

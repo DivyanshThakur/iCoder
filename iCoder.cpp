@@ -149,7 +149,7 @@ void Main::load()
     adjustConsoleSize(); // Adjust the window size
     createPath();        // Initialize the paths
 
-    FileHandler::load(Settings::data()); // Restore the settings that was previously changed and saved
+    FileHandler::load(Settings::getData()); // Restore the settings that was previously changed and saved
 
     if (Global::activeUser != Constant::NULL_STR) // checking for current signed user
         home();                                   // if the user is saved in file it will automatically sign in the active user
