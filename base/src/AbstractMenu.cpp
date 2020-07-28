@@ -58,7 +58,7 @@ void AbstractMenu::player(AbstractMenu &&AbstractMenu)
 
         try
         {
-            scan >> ch;
+            scan.choice(ch);
             AbstractMenu.caller();
         }
         catch (const EscPressed &e)

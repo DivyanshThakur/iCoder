@@ -4,6 +4,7 @@
 #include <fstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
+#include "../header/Hints.hpp"
 #include "../../header/FileHandler.hpp"
 #include "../../constant/Constants.hpp"
 #include "../../namespace/header/cod_scan.hpp"
@@ -41,6 +42,9 @@ void Settings::Menu::controller() const
 {
     switch (menuIndex.at(ch - 1))
     {
+    case 2:
+        Hints::start();
+        break;
         // case 1: // change the animation speed of the menu
         //     change_text_anime_speed();
         //     break;
@@ -91,9 +95,7 @@ void Settings::Menu::controller() const
 
 std::vector<std::pair<std::string, std::string>> Settings::Data::save() const
 {
-    std::vector<std::pair<std::string, std::string>> vec;
-    //     vec.push_back(pairBuffer);
-    return vec;
+    return std::vector<std::pair<std::string, std::string>>();
 }
 
 void Settings::Data::load(const std::vector<std::pair<std::string, std::string>> &vecData)
@@ -112,12 +114,12 @@ void Settings::Data::load(const std::vector<std::pair<std::string, std::string>>
     else if (pair.first == Constant::File::LSEARCH_STATUS)
     {
         ss >> c;
-        updateStats(lSearchStats, c);
+        // updateStats(lSearchStats, c);
     }
     else if (pair.first == Constant::File::ANIME_SIGN_OUT_STATUS)
     {
         ss >> c;
-        updateStats(animeSignOutStats, c);
+        // updateStats(animeSignOutStats, c);
     }
     else if (pair.first == Constant::File::SHOW_WELCOME_MESSAGE)
         ss >> Global::showWelcome;
@@ -144,8 +146,8 @@ bool Settings::Data::generate() const
 
     // Assigns default values to unInitialized variables
     Global::activeUser = Constant::NULL_STR;
-    lSearchStats = DEFAULT;
-    animeSignOutStats = DEFAULT;
+    // lSearchStats = DEFAULT;
+    // animeSignOutStats = DEFAULT;
     Global::showWelcome = true;
     Global::showQuit = true;
     Global::showHint = true;
@@ -155,8 +157,8 @@ bool Settings::Data::generate() const
     std::ofstream outFile(Constant::Path::SETTINGS);
 
     FileHandler::print(outFile, {Constant::File::CURRENT_USER, Global::activeUser});
-    FileHandler::print(outFile, {Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)});
-    FileHandler::print(outFile, {Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)});
+    // FileHandler::print(outFile, {Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)});
+    // FileHandler::print(outFile, {Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)});
     FileHandler::print(outFile, {Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)});
     FileHandler::print(outFile, {Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)});
     FileHandler::print(outFile, {Constant::File::SHOW_HINT, std::to_string(Global::showHint)});
@@ -177,7 +179,7 @@ void Settings::saveActiveUser()
     // save({Constant::File::CURRENT_USER, Global::activeUser});
 }
 
-Settings::Data &Settings::getData()
+Settings::Data &Settings::data()
 {
     return userData;
 }
@@ -231,23 +233,23 @@ void Settings::start()
 // }
 
 // // Common function to update the Status enum variables
-void Settings::updateStats(enum Status &stats, int c)
-{
-    switch (c)
-    {
-    case 0:
-        stats = DEFAULT;
-        break;
+// void Settings::updateStats(enum Status &stats, int c)
+// {
+//     switch (c)
+//     {
+//     case 0:
+//         stats = DEFAULT;
+//         break;
 
-    case 1:
-        stats = EASY;
-        break;
+//     case 1:
+//         stats = EASY;
+//         break;
 
-    case 2:
-        stats = ADV;
-        break;
-    }
-}
+//     case 2:
+//         stats = ADV;
+//         break;
+//     }
+// }
 
 // void Settings::show_me_first(const std::string &message, int repeatFor)
 // {

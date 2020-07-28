@@ -100,7 +100,7 @@ namespace cod
                         break;
                 }
 
-                sc.check_shortcut();
+                sc.check_char();
             }
 
             sc.assign(data);
