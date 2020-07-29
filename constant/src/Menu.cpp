@@ -15,6 +15,7 @@ const std::vector<std::string> Constant::Menu::STRING{"Update string", "Add stri
 const std::vector<std::string> Constant::Menu::UPDATES{"Stable", "Beta"};
 
 /************************************************ Constant::SubMenu Constant ************************************************/
+const std::vector<std::string> Constant::SubMenu::Settings::HINTS{"Enable, Disable"};
 // info
 const std::vector<std::string> Constant::SubMenu::HELP_DATA{"Esc", "a", /* "c",*/ "d", "h", /* "i",*/ "l", "m", /* "p",*/ "q", "s", "u"};
 const std::vector<std::string> Constant::SubMenu::HELP_DESC{"Return to last screen", "About the software", /* "Show code",*/ "Disable hint/warning", "Help", /* "Analyse the code",*/ "Changelog", "More features", /* "Save",*/ "Quit", "Open settings", "Get Updates"};

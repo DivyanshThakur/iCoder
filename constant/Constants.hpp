@@ -9,7 +9,6 @@ class Global
 public:
     static std::string activeUser;
     static std::vector<std::string> openedScreen;
-    static bool showWelcome;
     static bool showHint;
     static bool showQuit;
 };
@@ -65,9 +64,13 @@ public:
     class SubMenu // Menu Constant
     {
     public:
-        // help
+        class Settings
+        {
+        public:
+            static const std::vector<std::string> HINTS;
+        };
 
-        static const std::vector<std::string> VERSION_DESC;
+        // help
         static const std::vector<std::string> HELP_DATA;
         static const std::vector<std::string> HELP_DESC;
 
@@ -143,11 +146,10 @@ public:
     class File // File Constant
     {
     public:
-        static const std::string CURRENT_USER;
+        static const std::string ACTIVE_USER;
         static const std::string LSEARCH_STATUS;
         static const std::string ANIME_SIGN_OUT_STATUS;
-        static const std::string SHOW_WELCOME_MESSAGE;
-        static const std::string SHOW_QUIT_MESSAGE;
+        static const std::string SHOW_QUIT;
         static const std::string SHOW_HINT;
     };
 

@@ -5,7 +5,7 @@ OBJ_DS = #obj\Array.o obj\DataStructure.o obj\String.o
 OBJ_EXTRA = obj\Changelog.o obj\Extras.o obj\Updates.o
 OBJ_GAMES = obj\Games.o obj\TicTacToe.o
 OBJ_COD = obj\cod_exception.o obj\cod_limits.o obj\cod_scan.o #obj\cod_array.o obj\cod_string.o
-OBJ_SET = obj\Settings.o
+OBJ_SET = obj\Settings.o obj\Hints.o
 OBJ = obj\Account.o obj\AccountHandler.o obj\CreateAccount.o obj\FileHandler.o obj\More.o obj\Security.o obj\Ui.o obj\iCoder.o
 OBJ_RES = obj\icon.o
 OBJ_FILES = obj/*.o
@@ -104,10 +104,11 @@ obj\cod_string.o: namespace\src\cod_string.cpp namespace\header\cod_string.hpp
 
 # Settings files are compiled from below
 
+obj\Hints.o: settings\src\Hints.cpp settings\header\Hints.hpp
+	$(CC) $(C_FLAGS) settings\src\Hints.cpp -o obj\Hints.o
 
 obj\Settings.o: settings\src\Settings.cpp settings\header\Settings.hpp
 	$(CC) $(C_FLAGS) settings\src\Settings.cpp -o obj\Settings.o
-
 
 ### Common files are compiled from below
 
@@ -141,4 +142,4 @@ obj\icon.o: resources\resources.rc
 	windres resources\resources.rc -O coff -o obj\icon.o
 
 clean:
-	rm -f obj/*.o iCoder
+	rm -f obj/*.o iCoder.exe

@@ -1,8 +1,6 @@
 #ifndef HINTS_HPP
 #define HINTS_HPP
 
-#include "Settings.hpp"
-
 class Hints : public Settings
 {
     /**
@@ -26,8 +24,6 @@ class Hints : public Settings
     class Data : public Settings::Data
     {
         virtual std::vector<std::pair<std::string, std::string>> save() const override;
-        virtual void load(const std::vector<std::pair<std::string, std::string>> &vecData) override;
-        virtual std::string getPath() const override;
     };
 
     /**

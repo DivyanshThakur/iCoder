@@ -149,7 +149,7 @@ void Main::load()
     adjustConsoleSize(); // Adjust the window size
     createPath();        // Initialize the paths
 
-    FileHandler::load(Settings::getData()); // Restore the settings that was previously changed and saved
+    FileHandler::load(Settings::data()); // Restore the settings that was previously changed and saved
 
     if (Global::activeUser != Constant::NULL_STR) // checking for current signed user
         home();                                   // if the user is saved in file it will automatically sign in the active user
@@ -157,7 +157,7 @@ void Main::load()
 
 void Main::home()
 {
-    if (welcomeFlag && Global::showWelcome)
+    if (welcomeFlag)
     {
         std::string userID = (Global::activeUser == Constant::NULL_STR) ? "User" : Global::activeUser;
         welcomeFlag = false;
@@ -172,7 +172,7 @@ void Main::home()
 void Main::signOut()
 {
     Global::activeUser = Constant::NULL_STR;
-    Settings::saveActiveUser();
+    FileHandler::save(Settings::data());
     Constant::Path::USER.clear();
     welcomeFlag = true;
 
@@ -212,7 +212,7 @@ bool Main::checkDirectory()
 
 void Main::adjustConsoleSize()
 {
-    // code to adjust the console size to fix for all the screens
+    //code to adjust the console size to fix for all the screens
     HWND console = GetConsoleWindow();
     RECT r;
     GetWindowRect(console, &r); //stores the console's current dimensions

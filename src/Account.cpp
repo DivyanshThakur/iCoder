@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <fstream>
 #include "../header/Account.hpp"
-#include "../settings/header/Settings.hpp"
 #include "../header/FileHandler.hpp"
+#include "../settings/header/Settings.hpp"
 #include "../header/Security.hpp"
 #include "../constant/Constants.hpp"
 #include "../namespace/header/cod_scan.hpp"
@@ -94,7 +94,7 @@ void Account::rememberMe()
     sc >> c;
 
     if (::tolower(c) == 'y')
-        Settings::saveActiveUser();
+        FileHandler::save(Settings::data());
 }
 
 void Account::check()

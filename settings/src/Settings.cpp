@@ -4,12 +4,11 @@
 #include <fstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
-#include "../header/Hints.hpp"
+// #include "../header/Hints.hpp"
 #include "../../header/FileHandler.hpp"
 #include "../../constant/Constants.hpp"
 #include "../../namespace/header/cod_scan.hpp"
 
-// std::pair<std::string, std::string> Settings::pairBuffer;
 Settings::Data Settings::userData;
 
 /**************************************************************************************************************
@@ -43,7 +42,7 @@ void Settings::Menu::controller() const
     switch (menuIndex.at(ch - 1))
     {
     case 2:
-        Hints::start();
+        // Hints::start();
         break;
         // case 1: // change the animation speed of the menu
         //     change_text_anime_speed();
@@ -95,7 +94,9 @@ void Settings::Menu::controller() const
 
 std::vector<std::pair<std::string, std::string>> Settings::Data::save() const
 {
-    return std::vector<std::pair<std::string, std::string>>();
+    std::vector<std::pair<std::string, std::string>> vec;
+    vec.emplace_back(Constant::File::ACTIVE_USER, Global::activeUser);
+    return vec;
 }
 
 void Settings::Data::load(const std::vector<std::pair<std::string, std::string>> &vecData)
@@ -109,7 +110,7 @@ void Settings::Data::load(const std::vector<std::pair<std::string, std::string>>
 
     std::stringstream ss(pair.second);
 
-    if (pair.first == Constant::File::CURRENT_USER)
+    if (pair.first == Constant::File::ACTIVE_USER)
         ss >> Global::activeUser;
     else if (pair.first == Constant::File::LSEARCH_STATUS)
     {
@@ -121,9 +122,8 @@ void Settings::Data::load(const std::vector<std::pair<std::string, std::string>>
         ss >> c;
         // updateStats(animeSignOutStats, c);
     }
-    else if (pair.first == Constant::File::SHOW_WELCOME_MESSAGE)
-        ss >> Global::showWelcome;
-    else if (pair.first == Constant::File::SHOW_QUIT_MESSAGE)
+
+    else if (pair.first == Constant::File::SHOW_QUIT)
         ss >> Global::showQuit;
     else if (pair.first == Constant::File::SHOW_HINT)
         ss >> Global::showHint;
@@ -148,7 +148,6 @@ bool Settings::Data::generate() const
     Global::activeUser = Constant::NULL_STR;
     // lSearchStats = DEFAULT;
     // animeSignOutStats = DEFAULT;
-    Global::showWelcome = true;
     Global::showQuit = true;
     Global::showHint = true;
 
@@ -156,11 +155,10 @@ bool Settings::Data::generate() const
 
     std::ofstream outFile(Constant::Path::SETTINGS);
 
-    FileHandler::print(outFile, {Constant::File::CURRENT_USER, Global::activeUser});
+    FileHandler::print(outFile, {Constant::File::ACTIVE_USER, Global::activeUser});
     // FileHandler::print(outFile, {Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)});
     // FileHandler::print(outFile, {Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)});
-    FileHandler::print(outFile, {Constant::File::SHOW_WELCOME_MESSAGE, std::to_string(Global::showWelcome)});
-    FileHandler::print(outFile, {Constant::File::SHOW_QUIT_MESSAGE, std::to_string(Global::showQuit)});
+    FileHandler::print(outFile, {Constant::File::SHOW_QUIT, std::to_string(Global::showQuit)});
     FileHandler::print(outFile, {Constant::File::SHOW_HINT, std::to_string(Global::showHint)});
 
     outFile.close();
@@ -173,11 +171,6 @@ bool Settings::Data::generate() const
  *                                         SETTINGS IMPLEMENTATIONS
  * 
  * ***********************************************************************************************************/
-
-void Settings::saveActiveUser()
-{
-    // save({Constant::File::CURRENT_USER, Global::activeUser});
-}
 
 Settings::Data &Settings::data()
 {
@@ -204,7 +197,7 @@ void Settings::start()
 //     {
 //         std::stringstream ss(pair.second);
 
-//         if (pair.first == Constant::File::CURRENT_USER)
+//         if (pair.first == Constant::File::ACTIVE_USER)
 //             ss >> usrActive;
 //         else if (pair.first == Constant::File::LSEARCH_STATUS)
 //             ss >> c;
@@ -224,14 +217,6 @@ void Settings::start()
 
 //     return false;
 // }
-
-// void Settings::save(const std::pair<std::string, std::string> &pair)
-// {
-//     pairBuffer = pair;
-
-//     FileHandler::save(data()); // saves the changes to the file
-// }
-
 // // Common function to update the Status enum variables
 // void Settings::updateStats(enum Status &stats, int c)
 // {
