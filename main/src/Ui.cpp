@@ -1,9 +1,9 @@
 #include <iostream>
 #include <iomanip>
 #include <windows.h>
-#include "../settings/header/Settings.hpp"
-#include "../constant/Constants.hpp"
-#include "../namespace/header/cod_exception.hpp"
+#include "../../settings/header/Settings.hpp"
+#include "../../constant/Constants.hpp"
+#include "../../exception/header/Exception.hpp"
 
 void Ui::logo()
 {

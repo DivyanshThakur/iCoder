@@ -1,9 +1,8 @@
 #include <iomanip>
 #include <numeric>
 #include "../header/AbstractMenu.hpp"
-#include "../../header/Ui.hpp"
 #include "../../constant/Constants.hpp"
-#include "../../constant/enum.hpp"
+#include "../../exception/header/Start.hpp"
 
 cod::scan AbstractMenu::scan;
 int AbstractMenu::ch;
@@ -66,7 +65,11 @@ void AbstractMenu::player(AbstractMenu &&AbstractMenu)
             if (Global::openedScreen.back() != Constant::Title::MAIN)
                 return;
         }
-        catch (const cod::exception &e)
+        catch (const Start &s)
+        {
+            s.start();
+        }
+        catch (const std::exception &e)
         {
             e.what();
         }

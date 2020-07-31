@@ -132,27 +132,27 @@ void ArrayHandler<T>::start()
         {
             e.what();
         }
-        catch (const OpenSettings &e)
+        catch (const StartSettings &e)
         {
             e.what();
         }
-        catch (const OpenAbout &e)
+        catch (const StartAbout &e)
         {
             e.what();
         }
-        catch (const OpenHelp &e)
+        catch (const StartHelp &e)
         {
             e.what();
         }
-        catch (const OpenUpdate &e)
+        catch (const StartUpdate &e)
         {
             e.what();
         }
-        catch (const OpenChangelog &e)
+        catch (const StartChangelog &e)
         {
             e.what();
         }
-        catch (const OpenMoreScreen &e)
+        catch (const StartMore &e)
         {
             e.what();
         }

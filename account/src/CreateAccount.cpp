@@ -3,8 +3,9 @@
 #include <conio.h>
 #include <iomanip>
 #include "../header/CreateAccount.hpp"
-#include "../header/Security.hpp"
-#include "../namespace/header/cod_scan.hpp"
+#include "../../main/header/Security.hpp"
+#include "../../exception/header/Exception.hpp"
+#include "../../namespace/header/cod_scan.hpp"
 
 std::string CreateAccount::rePass;
 
@@ -21,7 +22,7 @@ void CreateAccount::input()
 void CreateAccount::upload()
 {
     isValidUser();
-    FileHandler::save(Account::data());
+    File::save(Account::data());
 }
 
 void CreateAccount::isValidUser()
@@ -29,7 +30,7 @@ void CreateAccount::isValidUser()
     if (password() != rePass)
         throw PasswordNotMatchedException();
 
-    bool isUserExist = FileHandler::find(Account::data(), Account::username());
+    bool isUserExist = File::find(Account::data(), Account::username());
 
     if (isUserExist)
         throw UsernameAlreadyExistsException();

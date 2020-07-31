@@ -2,7 +2,7 @@
 #include <utility>
 #include "../header/AbstractSaveable.hpp"
 #include "../../constant/Constants.hpp"
-#include "../../header/FileHandler.hpp"
+#include "../../main/header/File.hpp"
 
 bool AbstractSaveable::generate() const
 {
@@ -22,7 +22,7 @@ bool AbstractSaveable::generate() const
     vec.push_back({Constant::Title::STRING, ""});
 
     // create file with default data
-    FileHandler::print(outFile, vec);
+    File::print(outFile, vec);
 
     outFile.close();
     return true;

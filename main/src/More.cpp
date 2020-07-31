@@ -1,7 +1,7 @@
 #include "../header/More.hpp"
-#include "../games/header/Games.hpp"
-#include "../namespace/header/cod_scan.hpp"
-#include "../constant/Constants.hpp"
+#include "../../games/header/Games.hpp"
+#include "../../namespace/header/cod_scan.hpp"
+#include "../../constant/Constants.hpp"
 
 /**************************************************************************************************************
  * 

@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include <conio.h>
-#include "cod_exception.hpp"
-#include "../../header/Ui.hpp"
+#include "../../main/header/Ui.hpp"
 
 namespace cod
 {

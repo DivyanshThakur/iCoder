@@ -17,16 +17,16 @@
 #include <iostream>
 #include <windows.h>
 #include <dir.h>
-#include "iCoder.hpp"
-#include "header/More.hpp"
-#include "extras/Extras.hpp"
-#include "settings/header/Settings.hpp"
-#include "header/FileHandler.hpp"
-#include "header/AccountHandler.hpp"
-// #include "dsa/header/DataStructure.hpp"
-#include "namespace/header/cod_scan.hpp"
+#include "../header/iCoder.hpp"
+#include "../header/More.hpp"
+#include "../../extras/Extras.hpp"
+#include "../../settings/header/Settings.hpp"
+#include "../header/File.hpp"
+#include "../../account/header/AccountHandler.hpp"
+#include "../../dsa/header/DataStructure.hpp"
+#include "../../namespace/header/cod_scan.hpp"
 // #include "animation/header/AnimeHandler.hpp"
-#include "constant/Constants.hpp"
+#include "../../constant/Constants.hpp"
 
 int main()
 {
@@ -149,7 +149,7 @@ void Main::load()
     adjustConsoleSize(); // Adjust the window size
     createPath();        // Initialize the paths
 
-    FileHandler::load(Settings::data()); // Restore the settings that was previously changed and saved
+    File::load(Settings::data()); // Restore the settings that was previously changed and saved
 
     if (Global::activeUser != Constant::NULL_STR) // checking for current signed user
         home();                                   // if the user is saved in file it will automatically sign in the active user
@@ -172,7 +172,7 @@ void Main::home()
 void Main::signOut()
 {
     Global::activeUser = Constant::NULL_STR;
-    FileHandler::save(Settings::data());
+    File::save(Settings::data());
     Constant::Path::USER.clear();
     welcomeFlag = true;
 

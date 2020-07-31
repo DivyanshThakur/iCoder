@@ -5,7 +5,7 @@
 #include <windows.h>
 #include "../header/Settings.hpp"
 // #include "../header/Hints.hpp"
-#include "../../header/FileHandler.hpp"
+#include "../../main/header/File.hpp"
 #include "../../constant/Constants.hpp"
 #include "../../namespace/header/cod_scan.hpp"
 
@@ -155,11 +155,11 @@ bool Settings::Data::generate() const
 
     std::ofstream outFile(Constant::Path::SETTINGS);
 
-    FileHandler::print(outFile, {Constant::File::ACTIVE_USER, Global::activeUser});
-    // FileHandler::print(outFile, {Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)});
-    // FileHandler::print(outFile, {Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)});
-    FileHandler::print(outFile, {Constant::File::SHOW_QUIT, std::to_string(Global::showQuit)});
-    FileHandler::print(outFile, {Constant::File::SHOW_HINT, std::to_string(Global::showHint)});
+    File::print(outFile, {Constant::File::ACTIVE_USER, Global::activeUser});
+    // File::print(outFile, {Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)});
+    // File::print(outFile, {Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)});
+    File::print(outFile, {Constant::File::SHOW_QUIT, std::to_string(Global::showQuit)});
+    File::print(outFile, {Constant::File::SHOW_HINT, std::to_string(Global::showHint)});
 
     outFile.close();
 
@@ -191,7 +191,7 @@ void Settings::start()
 //     if (data().generate())
 //         return true;
 
-//     auto vec = FileHandler::searchTag(data());
+//     auto vec = File::searchTag(data());
 
 //     for (const auto &pair : vec)
 //     {
@@ -330,7 +330,7 @@ void Settings::start()
 //         case 1:
 //         case 2:
 //         case 3:
-//             FileHandler::update_stats(lSearchStats, ch - 1);
+//             File::update_stats(lSearchStats, ch - 1);
 //             this->save(std::pair<std::string, std::string>(Constant::File::LSEARCH_STATUS, std::to_string(lSearchStats)));
 
 //             return;
@@ -359,7 +359,7 @@ void Settings::start()
 //         case 1:
 //         case 2:
 //         case 3:
-//             FileHandler::update_stats(shortcutStats, ch - 1);
+//             File::update_stats(shortcutStats, ch - 1);
 //             this->save(std::pair<std::string, std::string>(Constant::File::SHORTCUT_STATUS, std::to_string(shortcutStats)));
 
 //             return;
@@ -393,7 +393,7 @@ void Settings::start()
 //         case 1:
 //         case 2:
 //         case 3:
-//             FileHandler::updateStats(animeSignOutStats, ch - 1);
+//             File::updateStats(animeSignOutStats, ch - 1);
 //             this->save(std::pair<std::string, std::string>(Constant::File::ANIME_SIGN_OUT_STATUS, std::to_string(animeSignOutStats)));
 
 //             return;

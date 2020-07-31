@@ -2,7 +2,7 @@
 #include "../header/Settings.hpp"
 #include "../header/Hints.hpp"
 #include "../../constant./Constants.hpp"
-#include "../../header/FileHandler.hpp"
+#include "../../main/header/File.hpp"
 
 Hints::Data Hints::userData;
 
@@ -54,7 +54,7 @@ void Hints::Menu::controller() const
     if (isChanged)
     {
         Global::showHint = !Global::showHint;
-        FileHandler::save(data());
+        File::save(data());
     }
 }
 /**************************************************************************************************************

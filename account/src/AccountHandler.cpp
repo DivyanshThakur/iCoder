@@ -1,12 +1,11 @@
 #include <iostream>
 #include <iomanip>
 #include "../header/AccountHandler.hpp"
-#include "../iCoder.hpp"
-#include "../header/Ui.hpp"
+#include "../../main/header/iCoder.hpp"
+#include "../../main/header/Ui.hpp"
 #include "../header/CreateAccount.hpp"
 // #include "../animation/header/AnimeHandler.hpp"
-#include "../constant/Constants.hpp"
-#include "../namespace/header/cod_exception.hpp"
+#include "../../constant/Constants.hpp"
 
 void AccountHandler::login()
 {
@@ -20,7 +19,7 @@ void AccountHandler::login()
         // AnimeHandler::load();
         Main::home();
     }
-    catch (const cod::exception &e)
+    catch (const std::exception &e)
     {
         e.what();
     }
@@ -38,7 +37,7 @@ void AccountHandler::createAccount()
         // AnimeHandler::load();
         Main::home();
     }
-    catch (const cod::exception &e)
+    catch (const std::exception &e)
     {
         e.what();
     }
@@ -46,7 +45,7 @@ void AccountHandler::createAccount()
 
 void AccountHandler::showUsers()
 {
-    if (FileHandler::empty(Account::data()))
+    if (File::empty(Account::data()))
     {
         Ui::println("No user in database!");
         return;
@@ -54,7 +53,7 @@ void AccountHandler::showUsers()
 
     Ui::header(Constant::Title::USERS);
 
-    auto userNames = FileHandler::searchTag(Account::data());
+    auto userNames = File::searchTag(Account::data());
 
     for (size_t i{0}; i < userNames.size(); i++)
     {

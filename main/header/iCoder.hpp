@@ -1,7 +1,7 @@
 #ifndef ICODER_HPP
 #define ICODER_HPP
 
-#include "base/header/AbstractMenu.hpp"
+#include "../../base/header/AbstractMenu.hpp"
 
 class Main
 {

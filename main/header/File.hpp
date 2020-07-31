@@ -1,9 +1,9 @@
 #ifndef FILE_HANDLER_HPP
 #define FILE_HANDLER_HPP
 
-#include "../base/header/AbstractSaveable.hpp"
+#include "../../base/header/AbstractSaveable.hpp"
 
-class FileHandler
+class File
 {
     static std::string toString(const AbstractSaveable &iSaver);
     static std::vector<std::pair<std::string, std::string>> toVector(std::stringstream &ss);

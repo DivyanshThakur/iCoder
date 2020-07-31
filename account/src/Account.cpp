@@ -3,11 +3,12 @@
 #include <iomanip>
 #include <fstream>
 #include "../header/Account.hpp"
-#include "../header/FileHandler.hpp"
-#include "../settings/header/Settings.hpp"
-#include "../header/Security.hpp"
-#include "../constant/Constants.hpp"
-#include "../namespace/header/cod_scan.hpp"
+#include "../../main/header/File.hpp"
+#include "../../settings/header/Settings.hpp"
+#include "../../main/header/Security.hpp"
+#include "../../constant/Constants.hpp"
+#include "../../namespace/header/cod_scan.hpp"
+#include "../../exception/header/Exception.hpp"
 
 std::string Account::userId, Account::pass;
 Account::Data Account::userData;
@@ -94,12 +95,12 @@ void Account::rememberMe()
     sc >> c;
 
     if (::tolower(c) == 'y')
-        FileHandler::save(Settings::data());
+        File::save(Settings::data());
 }
 
 void Account::check()
 {
-    auto vec = FileHandler::searchTag(data());
+    auto vec = File::searchTag(data());
 
     for (const auto &pair : vec)
         if (pair.first == userId && Decrypter::decrypt(pair.second) == pass)

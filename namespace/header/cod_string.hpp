@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "cod_scan.hpp"
-#include "../../header/FileHandler.hpp" // including both AbstractSaveable & FileHandler
+#include "../../header/File.hpp" // including both AbstractSaveable & File
 
 namespace cod
 {

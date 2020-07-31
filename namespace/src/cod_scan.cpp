@@ -4,7 +4,7 @@
 #include "../header/cod_scan.hpp"
 #include "../header/cod_limits.hpp"
 #include "../../constant/Constants.hpp"
-#include "../../constant/enum.hpp"
+#include "../../exception/header/Exception.hpp"
 
 cod::scan::scan() : isLast{true}, isLimitExceed{false}, isString{false} {}
 
@@ -125,7 +125,7 @@ void cod::scan::choice(int &choice)
         case -1: // Esc - last screen
             throw EscPressed();
         case 10: // a - about screen
-            throw OpenAbout();
+            throw StartAbout();
         case 11: // c - code screen
             break;
         case 12: // d - disable hints
@@ -133,21 +133,21 @@ void cod::scan::choice(int &choice)
             //     throw OpenAnimeSetting(9);
             break;
         case 14: // help screen
-            throw OpenHelp();
+            throw StartHelp();
         case 15: // info screen
             break;
         case 16: // changelog screen
-            throw OpenChangelog();
+            throw StartChangelog();
         case 17: // home screen
-            throw OpenMoreScreen();
+            throw StartMore();
         case 18: // save changes
             break;
         case 19: // exit the software
             throw Exit();
         case 20: // settings screen
-            throw OpenSettings();
+            throw StartSettings();
         case 21: // updates screen
-            throw OpenUpdate();
+            throw StartUpdate();
         default: // do nothing
             break;
         }
