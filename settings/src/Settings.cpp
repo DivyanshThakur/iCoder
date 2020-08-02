@@ -4,7 +4,7 @@
 #include <fstream>
 #include <windows.h>
 #include "../header/Settings.hpp"
-// #include "../header/Hints.hpp"
+#include "../header/Hint.hpp"
 #include "../../main/header/File.hpp"
 #include "../../constant/Constants.hpp"
 #include "../../namespace/header/cod_scan.hpp"
@@ -42,7 +42,7 @@ void Settings::Menu::controller() const
     switch (menuIndex.at(ch - 1))
     {
     case 2:
-        // Hints::start();
+        Hint::start();
         break;
         // case 1: // change the animation speed of the menu
         //     change_text_anime_speed();

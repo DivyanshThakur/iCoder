@@ -8,7 +8,7 @@ OBJ_EXTRA = obj\Changelog.o obj\Extras.o obj\Updates.o
 OBJ_GAMES = obj\Games.o obj\TicTacToe.o
 OBJ_MAIN = obj\File.o obj\iCoder.o obj\More.o obj\Security.o obj\Ui.o
 OBJ_COD = obj\cod_limits.o obj\cod_scan.o #obj\cod_array.o obj\cod_string.o
-OBJ_SET = obj\Settings.o #obj\Hints.o
+OBJ_SET = obj\Settings.o obj\Hint.o
 OBJ_RES = obj\icon.o
 OBJ_FILES = obj/*.o
 LIBS = -static
@@ -136,8 +136,8 @@ obj\cod_string.o: namespace\src\cod_string.cpp namespace\header\cod_string.hpp
 
 # Settings files are compiled from below
 
-obj\Hints.o: settings\src\Hints.cpp settings\header\Hints.hpp
-	$(CC) $(C_FLAGS) settings\src\Hints.cpp -o obj\Hints.o
+obj\Hint.o: settings\src\Hint.cpp settings\header\Hint.hpp
+	$(CC) $(C_FLAGS) settings\src\Hint.cpp -o obj\Hint.o
 
 obj\Settings.o: settings\src\Settings.cpp settings\header\Settings.hpp
 	$(CC) $(C_FLAGS) settings\src\Settings.cpp -o obj\Settings.o

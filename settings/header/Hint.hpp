@@ -1,7 +1,9 @@
-#ifndef HINTS_HPP
-#define HINTS_HPP
+#ifndef HINT_HPP
+#define HINT_HPP
 
-class Hints : public Settings
+#include "Settings.hpp"
+
+class Hint : public Settings
 {
     /**
  * Menu has all the methods necessary for showing menu

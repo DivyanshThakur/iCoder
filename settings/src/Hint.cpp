@@ -1,10 +1,8 @@
-#include <iostream>
-#include "../header/Settings.hpp"
-#include "../header/Hints.hpp"
+#include "../header/Hint.hpp"
 #include "../../constant./Constants.hpp"
 #include "../../main/header/File.hpp"
 
-Hints::Data Hints::userData;
+Hint::Data Hint::userData;
 
 /**************************************************************************************************************
  * 
@@ -12,12 +10,12 @@ Hints::Data Hints::userData;
  * 
  * ***********************************************************************************************************/
 
-std::string Hints::Menu::title() const
+std::string Hint::Menu::title() const
 {
     return std::string(Constant::Title::HINT);
 }
 
-std::vector<std::string> Hints::Menu::getStats() const
+std::vector<std::string> Hint::Menu::getStats() const
 {
     Ui::subHeader(Constant::Title::STATS);
 
@@ -28,13 +26,13 @@ std::vector<std::string> Hints::Menu::getStats() const
     return vec;
 }
 
-std::vector<std::string> Hints::Menu::selector()
+std::vector<std::string> Hint::Menu::selector()
 {
     menuIndexer(Constant::SubMenu::Settings::HINTS.size());
     return Constant::SubMenu::Settings::HINTS;
 }
 
-void Hints::Menu::controller() const
+void Hint::Menu::controller() const
 {
     bool isChanged{false};
 
@@ -63,10 +61,10 @@ void Hints::Menu::controller() const
  * 
  * ***********************************************************************************************************/
 
-std::vector<std::pair<std::string, std::string>> Hints::Data::save() const
+std::vector<std::pair<std::string, std::string>> Hint::Data::save() const
 {
     std::vector<std::pair<std::string, std::string>> vec;
-    vec.emplace_back(Constant::File::SHOW_HINT, Global::showHint);
+    vec.emplace_back(Constant::File::SHOW_HINT, std::to_string(Global::showHint));
     return vec;
 }
 
@@ -76,12 +74,12 @@ std::vector<std::pair<std::string, std::string>> Hints::Data::save() const
  * 
  * ***********************************************************************************************************/
 
-Hints::Data &Hints::data()
+Hint::Data &Hint::data()
 {
     return userData;
 }
 
-void Hints::start()
+void Hint::start()
 {
     Menu::player(Menu());
 }
