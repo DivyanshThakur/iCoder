@@ -1,17 +1,17 @@
 /***********************************************************************************************************************
  *                                                   ICODER
- * 
+ *
  * DEVELOPER - DIVYANSH SINGH THAKUR
- * 
+ *
  * VERSION - 1.9.20.5.20-BETA
- * 
+ *
  * FIRST BETA - 27 DECEMBER, 2019
- * 
+ *
  * FIRST STABLE RELEASE - 19 FEBRUARY, 2020
- * 
+ *
  * DESCRIPTION :
  * A SMALL PROJECT WITH ALL FEATURES SUCH AS DATA STRUCTURE, ALGORITHM, GAMES AND MUCH MORE...
- * 
+ *
  * *********************************************************************************************************************/
 
 #include <iostream>
@@ -25,7 +25,7 @@
 #include "../../account/header/AccountHandler.hpp"
 #include "../../dsa/header/DataStructure.hpp"
 #include "../../namespace/header/cod_scan.hpp"
-// #include "animation/header/AnimeHandler.hpp"
+ // #include "animation/header/AnimeHandler.hpp"
 #include "../../constant/Constants.hpp"
 
 int main()
@@ -36,9 +36,9 @@ int main()
 }
 
 /**************************************************************************************************************
- * 
+ *
  *                                           AbstractMenu IMPLEMENTATIONS
- * 
+ *
  * ***********************************************************************************************************/
 
 std::string Main::Menu::title() const
@@ -74,7 +74,7 @@ std::vector<std::string> Main::Menu::selector()
     menuIndex.at(0) = 3;
     menuIndex.push_back(size);
 
-    std::vector<std::string> toDisplayMenu{"Data Structure"};
+    std::vector<std::string> toDisplayMenu{ "Data Structure" };
     toDisplayMenu.insert(toDisplayMenu.end(), Constant::Menu::MAIN.begin() + 3, Constant::Menu::MAIN.end());
     toDisplayMenu.emplace_back("Sign Out");
 
@@ -132,9 +132,9 @@ void Main::Menu::controller() const
 }
 
 /**************************************************************************************************************
- * 
+ *
  *                                           MAIN IMPLEMENTATIONS
- * 
+ *
  * ***********************************************************************************************************/
 bool Main::welcomeFlag = true;
 

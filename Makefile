@@ -21,6 +21,10 @@ C_FLAGS = -Wall -c
 all: $(OBJ_ACC) $(OBJ_ANIME) $(OBJ_BASE) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXCEPT) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_MAIN) $(OBJ_COD) $(OBJ_SET) $(OBJ_RES)
 	$(CC) $(l_FLAG) $(OBJ_FILES) $(LIBS) -o iCoder
 
+# ### sqlite3 lib files
+# sqlite\sqlite3.o: sqlite\sqlite3.c sqlite\sqlite3.h
+# 	gcc -c sqlite\sqlite3.c -o sqlite\sqlite3.o
+
 ### Account files are compiled from below
 
 obj\Account.o: account\src\Account.cpp account\header\Account.hpp

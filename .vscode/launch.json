@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++.exe build and debug active file",
+            "name": "gcc.exe build and debug active file",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -20,7 +20,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++.exe build active file"
+            "preLaunchTask": "gcc.exe build active file"
         }
     ]
 }
