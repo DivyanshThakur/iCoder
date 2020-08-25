@@ -22,24 +22,6 @@ public:
     virtual const char *what() const noexcept override;
 };
 
-class PasswordNotMatchedException : public std::exception
-{
-public:
-    virtual const char *what() const noexcept override;
-};
-
-class UsernameAlreadyExistsException : public std::exception
-{
-public:
-    virtual const char *what() const noexcept override;
-};
-
-class InvalidUser : public std::exception
-{
-public:
-    virtual const char *what() const noexcept override;
-};
-
 class ArrayFullException : public std::exception
 {
 public:

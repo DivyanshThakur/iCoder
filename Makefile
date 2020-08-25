@@ -1,13 +1,11 @@
-OBJ_ACC = obj\Account.o obj\AccountHandler.o obj\CreateAccount.o 
-OBJ_ANIME = #obj\AnimeHandler.o obj\LoadAnime.o obj\SignOutAnime.o
+OBJ_ANIME = #obj\AnimeHandler.o
 OBJ_BASE = obj\AbstractMenu.o obj\AbstractSaveable.o obj\FileData.o
 OBJ_CONST = obj\ConstCore.o obj\ConstFile.o obj\ConstMenu.o
 OBJ_DS = #obj\Array.o obj\DataStructure.o obj\String.o
 OBJ_EXCEPT = obj\Exception.o obj\Start.o
 OBJ_EXTRA = obj\Changelog.o obj\Extras.o obj\Updates.o
-OBJ_GAMES = obj\Games.o obj\TicTacToe.o
 OBJ_MAIN = obj\File.o obj\iCoder.o obj\More.o obj\Security.o obj\Ui.o
-OBJ_COD = obj\cod_limits.o obj\cod_scan.o #obj\cod_array.o obj\cod_string.o
+OBJ_COD = obj\cod_scan.o
 OBJ_SET = obj\Settings.o obj\Hint.o
 OBJ_RES = obj\icon.o
 OBJ_FILES = obj/*.o
@@ -18,34 +16,17 @@ C_FLAGS = -Wall -c
 
 ### Build the Project
 
-all: $(OBJ_ACC) $(OBJ_ANIME) $(OBJ_BASE) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXCEPT) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_MAIN) $(OBJ_COD) $(OBJ_SET) $(OBJ_RES)
+all: $(OBJ_ANIME) $(OBJ_BASE) $(OBJ_CONST) $(OBJ_DS) $(OBJ_EXCEPT) $(OBJ_EXTRA) $(OBJ_GAMES) $(OBJ_MAIN) $(OBJ_COD) $(OBJ_SET) $(OBJ_RES)
 	$(CC) $(l_FLAG) $(OBJ_FILES) $(LIBS) -o iCoder
 
 # ### sqlite3 lib files
 # sqlite\sqlite3.o: sqlite\sqlite3.c sqlite\sqlite3.h
 # 	gcc -c sqlite\sqlite3.c -o sqlite\sqlite3.o
 
-### Account files are compiled from below
-
-obj\Account.o: account\src\Account.cpp account\header\Account.hpp
-	$(CC) $(C_FLAGS) account\src\Account.cpp -o obj\Account.o
-
-obj\AccountHandler.o: account\src\AccountHandler.cpp account\header\AccountHandler.hpp
-	$(CC) $(C_FLAGS) account\src\AccountHandler.cpp -o obj\AccountHandler.o
-
-obj\CreateAccount.o: account\src\CreateAccount.cpp account\header\CreateAccount.hpp
-	$(CC) $(C_FLAGS) account\src\CreateAccount.cpp -o obj\CreateAccount.o
-
 ### Animation files are compiled from below
 
 obj\AnimeHandler.o: animation\src\AnimeHandler.cpp animation\header\AnimeHandler.hpp
 	$(CC) $(C_FLAGS) animation\src\AnimeHandler.cpp -o obj\AnimeHandler.o
-	
-obj\LoadAnime.o: animation\src\LoadAnime.cpp animation\header\LoadAnime.hpp
-	$(CC) $(C_FLAGS) animation\src\LoadAnime.cpp -o obj\LoadAnime.o
-
-obj\SignOutAnime.o: animation\src\SignOutAnime.cpp animation\header\SignOutAnime.hpp
-	$(CC) $(C_FLAGS) animation\src\SignOutAnime.cpp -o obj\SignOutAnime.o
 
 # Base files are compiled below
 

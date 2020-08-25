@@ -1,10 +1,11 @@
-#ifndef DATA_STRUCTURE_HPP
-#define DATA_STRUCTURE_HPP
+#ifndef ICODER_HPP
+#define ICODER_HPP
 
-#include "../../base/AbstractMenu.hpp"
+#include "../base/AbstractMenu.hpp"
 
-class DataStructure
+class iCoder
 {
+private:
     /**
  * Menu has all the methods necessary for showing menu
  * and controlling the flow of program as per user choice
@@ -12,17 +13,24 @@ class DataStructure
  **/
     class Menu : public AbstractMenu
     {
-        virtual std::string title() const override;
+        virtual const std::string &title() const override;
         virtual std::vector<std::string> getStats() const override;
         virtual std::vector<std::string> selector() override;
         virtual void controller() const override;
     };
 
     /**
- * DataStructure class static fields and methods are declared here
+ * iCoder class static fields and methods are declared here
  * These adjust the behaviour of the program based on
  * user configuration for better experience
  **/
+
+    // static void home();
+    static void load();
+    // static void signOut();
+    static void createPath();
+    static bool checkDirectory();
+    static void adjustConsoleSize();
 
 public:
     /**

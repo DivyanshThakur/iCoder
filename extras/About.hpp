@@ -1,9 +1,9 @@
-#ifndef DATA_STRUCTURE_HPP
-#define DATA_STRUCTURE_HPP
+#ifndef ABOUT_HPP
+#define ABOUT_HPP
 
-#include "../../base/AbstractMenu.hpp"
+#include "../base/AbstractMenu.hpp"
 
-class DataStructure
+class About
 {
     /**
  * Menu has all the methods necessary for showing menu
@@ -19,7 +19,7 @@ class DataStructure
     };
 
     /**
- * DataStructure class static fields and methods are declared here
+ * About class static fields and methods are declared here
  * These adjust the behaviour of the program based on
  * user configuration for better experience
  **/

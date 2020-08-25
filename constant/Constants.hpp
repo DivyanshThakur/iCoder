@@ -7,16 +7,16 @@
 class Global
 {
 public:
-    static std::string activeUser;
+    // static std::string activeUser;
     static std::vector<std::string> openedScreen;
     static bool showHint;
-    static bool showQuit;
+    // static bool showQuit;
 };
 class Constant
 {
 public:
-    static const std::string NULL_STR;
-    static const int sleepTime = 25;
+    // static const std::string NULL_STR;
+    // static const int sleepTime = 25;
     static constexpr int ESC = 27;
 
     class iCoder
@@ -51,12 +51,12 @@ public:
     {
     public:
         static const std::vector<std::string> ARRAY;
-        static const std::vector<std::string> CHANGELOG;
+        // static const std::vector<std::string> CHANGELOG;
         static const std::vector<std::string> DATA_STRUCTURE;
         static const std::vector<std::string> DATA_TYPE;
-        static const std::vector<std::string> GAMES;
+        // static const std::vector<std::string> GAMES;
         static const std::vector<std::string> MAIN;
-        static const std::vector<std::string> MORE;
+        // static const std::vector<std::string> MORE;
         static const std::vector<std::string> SETTINGS;
         static const std::vector<std::string> STRING;
         static const std::vector<std::string> UPDATES;
@@ -75,8 +75,8 @@ public:
         static const std::vector<std::string> HELP_DESC;
 
         // settings
-        static const std::vector<std::string> LSEARCH_TYPE;
-        static const std::vector<std::string> ANIME_SO_STYLE;
+        // static const std::vector<std::string> LSEARCH_TYPE;
+        // static const std::vector<std::string> ANIME_SO_STYLE;
 
         // array
         static const std::vector<std::string> AVERAGE;
@@ -92,42 +92,30 @@ public:
         static const std::vector<std::string> RANGE_STRING;
     };
 
-    class Version
-    {
-    public:
-        static const std::vector<std::string> UPCOMING;
-        static const std::vector<std::string> V1_0;
-        static const std::vector<std::string> V1_2;
-        static const std::vector<std::string> V1_4;
-        static const std::vector<std::string> V1_6;
-        static const std::vector<std::string> V1_8;
-        static const std::vector<std::string> V2_0;
-    };
-
     class Title
     {
     public:
         static const std::string ABOUT;
         static const std::string ARRAY;
-        static const std::string CHANGE_LINEAR_SEARCH_TYPE;
-        static const std::string CHANGELOG;
-        static const std::string CREATE_ACCOUNT;
+        // static const std::string CHANGE_LINEAR_SEARCH_TYPE;
+        // static const std::string CHANGELOG;
+        // static const std::string CREATE_ACCOUNT;
         static const std::string DATA_STRUCTURE;
-        static const std::string GAMES;
+        // static const std::string GAMES;
         static const std::string HELP;
         static const std::string HINT;
         static const std::string LINKS;
-        static const std::string LOGIN;
+        // static const std::string LOGIN;
         static const std::string MAIN;
-        static const std::string MORE;
+        // static const std::string MORE;
         static const std::string SETTINGS;
         static const std::string STATS;
         static const std::string STRING;
-        static const std::string TIC_TAC_TOE;
+        // static const std::string TIC_TAC_TOE;
         static const std::string TIP;
-        static const std::string UPCOMING;
+        // static const std::string UPCOMING;
         static const std::string UPDATES;
-        static const std::string USERS;
+        // static const std::string USERS;
     };
 
     class Ui // Ui Constant
@@ -146,10 +134,10 @@ public:
     class File // File Constant
     {
     public:
-        static const std::string ACTIVE_USER;
-        static const std::string LSEARCH_STATUS;
-        static const std::string ANIME_SIGN_OUT_STATUS;
-        static const std::string SHOW_QUIT;
+        // static const std::string ACTIVE_USER;
+        // static const std::string LSEARCH_STATUS;
+        // static const std::string ANIME_SIGN_OUT_STATUS;
+        // static const std::string SHOW_QUIT;
         static const std::string SHOW_HINT;
     };
 
@@ -162,17 +150,6 @@ public:
         static const std::string SUB_DATA1;
         static const std::string SUB_DATA2;
         static const std::string SUB_DATA3;
-    };
-
-    class Tag
-    {
-    public:
-        static const std::string V1_0;
-        static const std::string V1_2;
-        static const std::string V1_4;
-        static const std::string V1_6;
-        static const std::string V1_8;
-        static const std::string V2_0;
     };
 };
 
