@@ -1,4 +1,4 @@
-#include "../Constants.hpp"
+#include "Constants.hpp"
 
 // const std::string Constant::NULL_STR{"NULL"};
 
@@ -50,7 +50,7 @@ const std::string Constant::Title::HINT{"HINT"};
 const std::string Constant::Title::LINKS{"LINKS"};
 // const std::string Constant::Title::LOGIN{"LOGIN"};
 const std::string Constant::Title::MAIN{"MAIN"};
-// const std::string Constant::Title::MORE{"MORE"};
+const std::string Constant::Title::CP{"CP"};
 const std::string Constant::Title::SETTINGS{"SETTINGS"};
 const std::string Constant::Title::STATS{"STATS"};
 const std::string Constant::Title::STRING{"STRING"};

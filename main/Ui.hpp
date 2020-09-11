@@ -6,16 +6,18 @@
 
 class Ui
 {
+    static void pause();
+
 public:
     static void logo();
     static std::string getTip();
     static void header(const std::string &heading);
     static void subHeader(const std::string &heading);
-    static std::vector<std::string> getHint();
+    static void hint();
     static void border();
     static void popUp(const std::string &message);
     static void animater(const std::string &anime);
-    static void getchForced();
+    // static void getchForced();
     static void print(const std::string &message);
     static void print(const std::vector<std::string> &vec);
     static void println(const std::string &message);

@@ -3,9 +3,8 @@ OBJ_BASE = obj\AbstractMenu.o obj\AbstractSaveable.o obj\FileData.o
 OBJ_CONST = obj\ConstCore.o obj\ConstFile.o obj\ConstMenu.o
 OBJ_DS = #obj\Array.o obj\DataStructure.o obj\String.o
 OBJ_EXCEPT = obj\Exception.o obj\Start.o
-OBJ_EXTRA = obj\Changelog.o obj\Extras.o obj\Updates.o
+OBJ_EXTRA = obj\Updates.o
 OBJ_MAIN = obj\File.o obj\iCoder.o obj\More.o obj\Security.o obj\Ui.o
-OBJ_COD = obj\cod_scan.o
 OBJ_SET = obj\Settings.o obj\Hint.o
 OBJ_RES = obj\icon.o
 OBJ_FILES = obj/*.o
@@ -80,14 +79,6 @@ obj\Extras.o: extras\src\Extras.cpp extras\Extras.hpp
 obj\Updates.o: extras\src\Updates.cpp extras\Extras.hpp
 	$(CC) $(C_FLAGS) extras\src\Updates.cpp -o obj\Updates.o
 
-### Game files are compiled from below
-
-obj\Games.o: games\src\Games.cpp games\header\Games.hpp
-	$(CC) $(C_FLAGS) games\src\Games.cpp -o obj\Games.o
-
-obj\TicTacToe.o: games\src\TicTacToe.cpp games\header\TicTacToe.hpp
-	$(CC) $(C_FLAGS) games\src\TicTacToe.cpp -o obj\TicTacToe.o
-
 ### Main files are compiled from below
 
 obj\File.o: main\src\File.cpp main\header\File.hpp
@@ -104,20 +95,6 @@ obj\Security.o: main\src\Security.cpp main\header\Security.hpp
 
 obj\Ui.o: main\src\Ui.cpp main\header\Ui.hpp
 	$(CC) $(C_FLAGS) main\src\Ui.cpp -o obj\Ui.o
-
-### Namespace files are compiled from below
-
-obj\cod_array.o: namespace\src\cod_array.cpp namespace\header\cod_array.hpp
-	$(CC) $(C_FLAGS) namespace\src\cod_array.cpp -o obj\cod_array.o
-
-obj\cod_limits.o: namespace\src\cod_limits.cpp namespace\header\cod_limits.hpp
-	$(CC) $(C_FLAGS) namespace\src\cod_limits.cpp -o obj\cod_limits.o
-
-obj\cod_scan.o: namespace\src\cod_scan.cpp namespace\header\cod_scan.hpp
-	$(CC) $(C_FLAGS) namespace\src\cod_scan.cpp -o obj\cod_scan.o
-
-obj\cod_string.o: namespace\src\cod_string.cpp namespace\header\cod_string.hpp
-	$(CC) $(C_FLAGS) namespace\src\cod_string.cpp -o obj\cod_string.o
 
 # Settings files are compiled from below
 

@@ -1,17 +1,19 @@
+#include <iostream>
 #include <iomanip>
 #include <numeric>
-#include "../header/AbstractMenu.hpp"
-#include "../../constant/Constants.hpp"
-#include "../../exception/header/Start.hpp"
+#include "AbstractMenu.hpp"
+#include "../scanner/Scanner.hpp"
+#include "../constant/Constants.hpp"
+#include "../main/Ui.hpp"
+#include "../exception/Start.hpp"
 
-cod::scan AbstractMenu::scan;
 int AbstractMenu::ch;
 
-void AbstractMenu::menuIndexer(size_t end, size_t start, size_t val)
-{
-    menuIndex.resize(end);
-    std::iota(menuIndex.begin() + start, menuIndex.end(), val);
-}
+// void AbstractMenu::menuIndexer(size_t end, size_t start, size_t val)
+// {
+//     menuIndex.resize(end);
+//     std::iota(menuIndex.begin() + start, menuIndex.end(), val);
+// }
 
 /**
  * The menuIndex stores the index of the menu options that is currently displayed in the screen
@@ -24,7 +26,7 @@ void AbstractMenu::menuIndexer(size_t end, size_t start, size_t val)
 
 void AbstractMenu::caller() const
 {
-    if (ch > 0 && ch <= static_cast<int>(menuIndex.size()))
+    if (ch > 0 && ch <= static_cast<int>(title().size()))
         controller();
     else
         Ui::println(std::string{"Invalid choice"});
@@ -41,23 +43,23 @@ void AbstractMenu::player(AbstractMenu &&AbstractMenu)
         if (Global::showHint)
             Ui::print(Ui::getHint());
 
-        Ui::print(AbstractMenu.getStats());
+        AbstractMenu.printStats();
 
         Ui::subHeader(AbstractMenu.title()); // It prints the heading to console
 
-        auto menuToDisplay = AbstractMenu.selector();
+        auto menuList = AbstractMenu.list();
 
         // Here, the vecMenu passed from function contains the menu options in vector of string
-        for (size_t index{0}; index < menuToDisplay.size(); ++index)
+        for (size_t index{0}; index < menuList.size(); ++index)
         {
-            std::cout << std::setw(2) << std::right << index + 1 << ". " << menuToDisplay.at(index) << std::endl;
+            std::cout << std::setw(2) << std::right << index + 1 << ". " << menuList.at(index) << std::endl;
         }
 
         Ui::print(std::string{"Your Choice: "}); // ask user for input
 
         try
         {
-            scan.choice(ch);
+            Scanner::choice(ch);
             AbstractMenu.caller();
         }
         catch (const EscPressed &e)

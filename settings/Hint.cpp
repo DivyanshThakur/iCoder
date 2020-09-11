@@ -1,6 +1,6 @@
-#include "../header/Hint.hpp"
-#include "../../constant./Constants.hpp"
-#include "../../main/header/File.hpp"
+#include "Hint.hpp"
+#include "../constant/Constants.hpp"
+#include "../main/File.hpp"
 
 Hint::Data Hint::userData;
 

@@ -14,8 +14,8 @@ private:
     class Menu : public AbstractMenu
     {
         virtual const std::string &title() const override;
-        virtual std::vector<std::string> getStats() const override;
-        virtual std::vector<std::string> selector() override;
+        virtual const std::string &list() const override;
+        virtual void printStats() const override;
         virtual void controller() const override;
     };
 
@@ -25,9 +25,7 @@ private:
  * user configuration for better experience
  **/
 
-    // static void home();
     static void load();
-    // static void signOut();
     static void createPath();
     static bool checkDirectory();
     static void adjustConsoleSize();

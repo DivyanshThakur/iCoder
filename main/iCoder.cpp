@@ -17,14 +17,15 @@
 #include <iostream>
 #include <windows.h>
 #include <dir.h>
-#include "../header/iCoder.hpp"
-#include "../header/More.hpp"
-#include "../../extras/Extras.hpp"
-#include "../../settings/header/Settings.hpp"
-#include "../header/File.hpp"
-#include "../../dsa/header/DataStructure.hpp"
-#include "../../namespace/header/cod_scan.hpp"
-#include "../../constant/Constants.hpp"
+#include "iCoder.hpp"
+#include "CP.hpp"
+#include "File.hpp"
+#include "../extras/About.hpp"
+#include "../extras/Help.hpp"
+#include "../extras/Update.hpp"
+#include "../settings/Settings.hpp"
+#include "../dsa/DataStructure.hpp"
+#include "../constant/Constants.hpp"
 
 int main()
 {
@@ -41,7 +42,12 @@ int main()
 
 const std::string &iCoder::Menu::title() const
 {
-    return std::string(Constant::Title::MAIN);
+    return Constant::Title::MAIN;
+}
+
+const std::string &iCoder::Menu::list() const
+{
+    return Constant::Menu::MAIN;
 }
 
 std::vector<std::string> iCoder::Menu::getStats() const
@@ -58,30 +64,9 @@ std::vector<std::string> iCoder::Menu::getStats() const
     return vec;
 }
 
-std::vector<std::string> iCoder::Menu::selector()
-{
-    size_t size = Constant::Menu::MAIN.size();
-
-    if (Global::activeUser == Constant::NULL_STR) // if active user is null, run this code
-    {
-        menuIndexer(size);
-        return Constant::Menu::MAIN;
-    }
-
-    menuIndexer(size, 1, 4);
-    menuIndex.at(0) = 3;
-    menuIndex.push_back(size);
-
-    std::vector<std::string> toDisplayMenu{"Data Structure"};
-    toDisplayMenu.insert(toDisplayMenu.end(), Constant::Menu::MAIN.begin() + 3, Constant::Menu::MAIN.end());
-    toDisplayMenu.emplace_back("Sign Out");
-
-    return toDisplayMenu;
-}
-
 void iCoder::Menu::controller() const
 {
-    switch (title().size())
+    switch (ch)
     {
     case 1:
         DataStructure::start();

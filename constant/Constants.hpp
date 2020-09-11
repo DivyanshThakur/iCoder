@@ -107,7 +107,7 @@ public:
         static const std::string LINKS;
         // static const std::string LOGIN;
         static const std::string MAIN;
-        // static const std::string MORE;
+        static const std::string CP;
         static const std::string SETTINGS;
         static const std::string STATS;
         static const std::string STRING;

@@ -121,12 +121,12 @@ namespace cod
     public:
         scan(); // type of string - username, pass, char
 
-        void choice(int &choice);
+        // void choice(int &choice);
 
         void is_string(bool isStr);
 
-        std::string username();
-        std::string password();
+        // std::string username();
+        // std::string password();
 
         void reset(); // reset the values of scan class
     };                // namespace cod

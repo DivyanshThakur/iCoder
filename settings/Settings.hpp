@@ -1,8 +1,8 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
 
-#include "../../base/header/AbstractMenu.hpp"
-#include "../../base/header/AbstractSaveable.hpp"
+#include "../base/AbstractMenu.hpp"
+#include "../base/AbstractSaveable.hpp"
 
 class Settings
 {

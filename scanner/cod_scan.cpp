@@ -164,69 +164,69 @@ void cod::scan::is_string(bool isStr)
     this->isString = isStr;
 }
 
-std::string cod::scan::username()
-{
-    reset();
+// std::string cod::scan::username()
+// {
+//     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size()))
-    {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(Constant::Ui::USERNAME_WIDTH));
+//     while ((c = getch()) && !(c == '\r' && value.size()))
+//     {
+//         isLimitExceed = (value.size() >= static_cast<unsigned int>(Constant::Ui::USERNAME_WIDTH));
 
-        switch (check_char())
-        {
-        case -1:
-            throw EscPressed();
+//         switch (check_char())
+//         {
+//         case -1:
+//             throw EscPressed();
 
-        case 0:
-            break;
+//         case 0:
+//             break;
 
-        case 1:
-            Ui::popUp("     Space Not Allowed!");
-            break;
+//         case 1:
+//             Ui::popUp("     Space Not Allowed!");
+//             break;
 
-        case 2:
-            Ui::popUp("     Username exceeds " + std::to_string(Constant::Ui::USERNAME_WIDTH) + " characters!");
-            break;
-        }
-    }
+//         case 2:
+//             Ui::popUp("     Username exceeds " + std::to_string(Constant::Ui::USERNAME_WIDTH) + " characters!");
+//             break;
+//         }
+//     }
 
-    if (c == '\r')
-        print();
+//     if (c == '\r')
+//         print();
 
-    return value;
-}
+//     return value;
+// }
 
-std::string cod::scan::password()
-{
-    reset();
+// std::string cod::scan::password()
+// {
+//     reset();
 
-    while ((c = getch()) && !(c == '\r' && value.size()))
-    {
-        isLimitExceed = (value.size() >= static_cast<unsigned int>(Constant::Ui::PASSWORD_WIDTH));
+//     while ((c = getch()) && !(c == '\r' && value.size()))
+//     {
+//         isLimitExceed = (value.size() >= static_cast<unsigned int>(Constant::Ui::PASSWORD_WIDTH));
 
-        switch (check_char(true))
-        {
-        case -1:
-            throw EscPressed();
+//         switch (check_char(true))
+//         {
+//         case -1:
+//             throw EscPressed();
 
-        case 0:
-            break;
+//         case 0:
+//             break;
 
-        case 1:
-            Ui::popUp(std::string{"     Space Not Allowed!"});
-            break;
+//         case 1:
+//             Ui::popUp(std::string{"     Space Not Allowed!"});
+//             break;
 
-        case 2:
-            Ui::popUp("     Password exceeds " + std::to_string(Constant::Ui::PASSWORD_WIDTH) + " characters!");
-            break;
-        }
-    }
+//         case 2:
+//             Ui::popUp("     Password exceeds " + std::to_string(Constant::Ui::PASSWORD_WIDTH) + " characters!");
+//             break;
+//         }
+//     }
 
-    if (c == '\r')
-        print();
+//     if (c == '\r')
+//         print();
 
-    return value;
-}
+//     return value;
+// }
 
 void cod::scan::reset()
 {
